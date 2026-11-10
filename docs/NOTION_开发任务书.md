@@ -146,7 +146,12 @@ pnpm --dir web build
 ```
 
 注意：
-- 根 module 的 `internal/app` 包测试**很慢**（数百秒级）。如果看到 `panic: test timed out` 且耗时正好约 600 秒，那是 go test 默认超时，不是代码缺陷。用 `-timeout 1800s` 重跑。
+- 根 module 的 `internal/app` 包测试**很慢**（数百秒级）。如果看到 `panic: test timed out` 且耗时正好约 600 秒，那是 go test 默认超时，不是代码缺陷。改用：
+
+```bash
+go test ./internal/app -timeout 1800s
+```
+
 - 涉及 UI 必须打开页面验证，检查窄屏、宽屏、长文本、空数据、明暗两种主题。
 - 涉及模型要记录**实际模型调用结果**。未配置模型不能算通过。
 - 测试用独立数据目录与端口，不复用真实数据。
