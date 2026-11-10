@@ -102,6 +102,7 @@ acceptance-*.log
 # Excluded on purpose: docs/交付资料/云端 (a full source copy), 五世界作者资料
 # and 候选剧本 (author raw material), handoff/云端接续 archives and every zip.
 !docs/history/
+!docs/历史开发/
 !docs/western-world/
 !docs/tests/
 !docs/branding/
@@ -114,6 +115,7 @@ docs/交付资料/*
 !docs/*.json
 !docs/history/*.md
 !docs/history/*.json
+!docs/历史开发/*.md
 !docs/history/previews/*.png
 !docs/western-world/*.md
 !docs/western-world/*.json
