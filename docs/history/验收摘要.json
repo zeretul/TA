@@ -1,0 +1,88 @@
+{
+  "version": "0.7.0",
+  "stage": "independent_history_candidate",
+  "baseline": "6bc311bdcf4d6c6edf600633c3eb4e68e13fbd4d",
+  "native_platform": "Windows",
+  "real_model": "deepseek-v4.1-flash",
+  "four_quarters_and_cold_read": true,
+  "memory_current_balance_and_privacy": true,
+  "english_response_and_restore": true,
+  "report_remaining_refugees_semantics": true,
+  "discussion_to_edict_live": true,
+  "native_browser_layout_combinations": 8,
+  "frontend_full_passed": 1369,
+  "frontend_final_targeted_passed": 13,
+  "i18n_keys": 5240,
+  "final_history_top_level_passed": {
+    "ta/internal/app": 15,
+    "ta/internal/api": 3,
+    "ta/internal/history": 18
+  },
+  "root_full_suite_initial": {
+    "packages": {
+      "skip": 28,
+      "pass": 90,
+      "fail": 2
+    },
+    "top_level_tests": {
+      "pass": 4018,
+      "skip": 33,
+      "fail": 3
+    },
+    "test_records": {
+      "pass": 6813,
+      "skip": 39,
+      "fail": 3
+    },
+    "initial_failures": [
+      {
+        "Package": "ta/internal/app",
+        "Test": "TestQualityCultivationPublicSerializationAndColdBranch"
+      },
+      {
+        "Package": "ta/internal/app",
+        "Test": "TestQualityAdventurePublicSerializationAndPrivacy"
+      },
+      {
+        "Package": "ta/internal/app",
+        "Test": null
+      },
+      {
+        "Package": "ta/tools/exploration-check/author-routes",
+        "Test": "TestManifestedSyntheticAuthorRoutesConvertWithoutInventingEdges"
+      },
+      {
+        "Package": "ta/tools/exploration-check/author-routes",
+        "Test": null
+      }
+    ]
+  },
+  "root_full_suite_failures_resolved": "All three exact-byte fixture failures were checkout CRLF conversion; original Git bytes restored, assertions unchanged, failed tests passed on rerun.",
+  "full_module_static_checks": [
+    "root",
+    "agent"
+  ],
+  "original_installs_unchanged": {
+    "protected_variants": 4,
+    "runtime_checks": [
+      {
+        "edition": "development",
+        "version": "0.7.0",
+        "sha256": "4ed5f82630cfb21d4249e225a3ff2422aebd21c1fcb1434fec4b119022000c2f"
+      },
+      {
+        "edition": "formal",
+        "version": "0.7.0",
+        "sha256": "4ed5f82630cfb21d4249e225a3ff2422aebd21c1fcb1434fec4b119022000c2f"
+      },
+      {
+        "edition": "share",
+        "version": "0.7.0",
+        "sha256": "fb959b01c561d703dd00b2198dd186613c0d638ab2b11400f114c918866f95b9"
+      }
+    ],
+    "original_configs_unchanged": 3
+  },
+  "final_runtime_identity": "game/edition.json and game/SHA256SUMS.txt",
+  "evidence_archive": "E:/游戏/游戏开发/TA-开发版/资料归档/验收记录/0.7.0_历史推演首轮验收.zip"
+}

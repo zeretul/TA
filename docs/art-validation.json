@@ -1,0 +1,29 @@
+{
+  "verified_at_utc": "2026-11-03T15:47:32.348932+00:00",
+  "manifest_sha256": "5305860366c98414cc8e5f46e9c9be2c41ea2d741672fb470c39da10a6ffd306",
+  "entries": 482,
+  "test_result": "passed",
+  "test_log": "/workspace/shared/ta_0617_audit/astra_independent_1500/followup-domain-app-art.jsonl",
+  "logs": [
+    "/workspace/shared/ta_0617_audit/astra_independent_1500/followup-domain-app-art.jsonl",
+    "/workspace/shared/ta_0617_audit/astra_independent_1500/art-runtime-followup.json",
+    "/workspace/shared/ta_0617_audit/astra_independent_1500/followup-public-window.jsonl"
+  ],
+  "scope_description": "独立审计：607个PNG完整解码/hash、app静态图冻结/持有/冷重开及HTTP GET/HEAD定向、Go运行时目录审计；另通过真实App混合尺度战斗投影探针，2842份源码锚点无漂移",
+  "counts": {
+    "definition": {
+      "missing": 18,
+      "reviewed": 349
+    },
+    "npc": {
+      "legacy_embedded": 101,
+      "missing": 1,
+      "reviewed": 125
+    },
+    "other_item": {
+      "missing": 158,
+      "reviewed": 8
+    }
+  },
+  "pending_core": 19
+}

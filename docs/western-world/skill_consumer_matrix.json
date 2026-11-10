@@ -1,0 +1,1275 @@
+{
+  "scope": "Static authored coverage, not proof each route was earned or used naturally.",
+  "all_64_have_formal_consumers": true,
+  "entries": [
+    {
+      "id": "sg-blade",
+      "kind": "attack",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "sword",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-shield",
+      "kind": "guard",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round",
+        "choice:sg-q08.c1"
+      ],
+      "cost": 6,
+      "materials": {},
+      "required_tool": "sg-buckler",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-riposte",
+      "kind": "attack",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 8,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "sword",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-halt",
+      "kind": "control",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 10,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-brace",
+      "kind": "guard",
+      "qualification_rank": 6,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 12,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-spear",
+      "kind": "attack",
+      "qualification_rank": 8,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 14,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "spear",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-banner",
+      "kind": "guard",
+      "qualification_rank": 12,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 16,
+      "materials": {},
+      "required_tool": "sg-buckler",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-oath-edge",
+      "kind": "attack",
+      "qualification_rank": 18,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-07"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 22,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "sword",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-spark",
+      "kind": "attack",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 7,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": "staff",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-ward",
+      "kind": "guard",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 8,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-frost",
+      "kind": "control",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 11,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-static",
+      "kind": "attack",
+      "qualification_rank": 5,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 12,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": "staff",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-seal",
+      "kind": "control",
+      "qualification_rank": 8,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 16,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-mirror",
+      "kind": "guard",
+      "qualification_rank": 12,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 18,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-starfire",
+      "kind": "attack",
+      "qualification_rank": 16,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 21,
+      "materials": {
+        "sg-crystal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": "staff",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-beacon",
+      "kind": "attack",
+      "qualification_rank": 22,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 28,
+      "materials": {
+        "sg-charcoal": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": "staff",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-trail",
+      "kind": "social",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "choice:sg-q11.c1"
+      ],
+      "cost": 3,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-bow",
+      "kind": "attack",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 6,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "bow",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-quietstep",
+      "kind": "pilot",
+      "qualification_rank": 2,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 7,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-bindshot",
+      "kind": "control",
+      "qualification_rank": 4,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 10,
+      "materials": {
+        "sg-arrow": 1
+      },
+      "required_tool": null,
+      "required_weapon": "bow",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-herbwise",
+      "kind": "engineering",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "choice:sg-q12.c1",
+        "choice:sg-q13.c1",
+        "choice:sg-q16.c2",
+        "recipe:sg-recipe-salve",
+        "recipe:sg-recipe-ration"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": "sg-herb-kit",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-screen",
+      "kind": "guard",
+      "qualification_rank": 6,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 10,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-longshot",
+      "kind": "attack",
+      "qualification_rank": 10,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 16,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "bow",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-pathkeeper",
+      "kind": "attack",
+      "qualification_rank": 18,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-13",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 22,
+      "materials": {
+        "sg-arrow": 2
+      },
+      "required_tool": null,
+      "required_weapon": "bow",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-listen",
+      "kind": "social",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "choice:sg-q14.c3"
+      ],
+      "cost": 3,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-knife",
+      "kind": "attack",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "blade",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-lockwork",
+      "kind": "engineering",
+      "qualification_rank": 2,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "choice:sg-crypt-inquiry.stage2.c3"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": "sg-lockpicks",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-smoketurn",
+      "kind": "pilot",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 8,
+      "materials": {
+        "sg-smoke": 1
+      },
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-nerve",
+      "kind": "control",
+      "qualification_rank": 5,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 9,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-venom",
+      "kind": "poison",
+      "qualification_rank": 7,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 10,
+      "materials": {
+        "sg-venom-paste": 1
+      },
+      "required_tool": null,
+      "required_weapon": "blade",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-feint",
+      "kind": "attack",
+      "qualification_rank": 11,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 14,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": "blade",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-unseenroad",
+      "kind": "pilot",
+      "qualification_rank": 17,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-34"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 18,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-firstaid",
+      "kind": "heal",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round",
+        "choice:sg-q09.c2"
+      ],
+      "cost": 5,
+      "materials": {
+        "sg-cloth": 1
+      },
+      "required_tool": "sg-herb-kit",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-prayer",
+      "kind": "guard",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 7,
+      "materials": {
+        "sg-salt": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-purge",
+      "kind": "antidote",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 9,
+      "materials": {
+        "sg-salt": 1,
+        "sg-herbs": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-mend",
+      "kind": "heal",
+      "qualification_rank": 5,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 12,
+      "materials": {
+        "sg-cloth": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-resolve",
+      "kind": "guard",
+      "qualification_rank": 7,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 11,
+      "materials": {
+        "sg-salt": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-censure",
+      "kind": "attack",
+      "qualification_rank": 10,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 15,
+      "materials": {
+        "sg-salt": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-sanctuary",
+      "kind": "guard",
+      "qualification_rank": 15,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 18,
+      "materials": {
+        "sg-salt": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-restoration",
+      "kind": "heal",
+      "qualification_rank": 21,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-48"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 24,
+      "materials": {
+        "sg-cloth": 1
+      },
+      "required_tool": "sg-prayer-cord",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-greenhand",
+      "kind": "energy",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 2,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-thorn",
+      "kind": "attack",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 7,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": "staff",
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-rootbind",
+      "kind": "control",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 11,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-bark",
+      "kind": "guard",
+      "qualification_rank": 5,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 11,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-sap",
+      "kind": "heal",
+      "qualification_rank": 7,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 12,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-spores",
+      "kind": "poison",
+      "qualification_rank": 10,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 14,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-oldroot",
+      "kind": "guard",
+      "qualification_rank": 16,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 19,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-wildreturn",
+      "kind": "heal",
+      "qualification_rank": 22,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-14"
+      ],
+      "formal_consumers": [
+        "battle_round"
+      ],
+      "cost": 25,
+      "materials": {
+        "sg-seed": 1
+      },
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "A specific combat technique still requires its actual action, equipment and materials."
+    },
+    {
+      "id": "sg-forge",
+      "kind": "engineering",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "choice:sg-q01.c1",
+        "choice:sg-q05.c1",
+        "choice:sg-q12.c2",
+        "choice:sg-q15.c2",
+        "choice:sg-q16.c1",
+        "choice:sg-q17.c1",
+        "choice:sg-q21.c2",
+        "choice:sg-q22.c1",
+        "choice:sg-q29.c2",
+        "choice:sg-guild-deephearth.c1",
+        "choice:sg-crypt-inquiry.stage2.c1",
+        "choice:sg-watergate-inquiry.stage2.c1",
+        "recipe:sg-recipe-blade",
+        "recipe:sg-recipe-spear",
+        "recipe:sg-recipe-dagger",
+        "recipe:sg-recipe-mail",
+        "recipe:sg-recipe-arrows",
+        "work:sg-market-23"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": "sg-forge-tools",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-leatherwork",
+      "kind": "engineering",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "recipe:sg-recipe-leather",
+        "recipe:sg-recipe-root-mail"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": "sg-forge-tools",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-alchemy",
+      "kind": "engineering",
+      "qualification_rank": 2,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "recipe:sg-recipe-tonic",
+        "recipe:sg-recipe-draught",
+        "recipe:sg-recipe-greater-tonic",
+        "recipe:sg-recipe-rescue",
+        "recipe:sg-recipe-fire"
+      ],
+      "cost": 5,
+      "materials": {},
+      "required_tool": "sg-herb-kit",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-runes",
+      "kind": "engineering",
+      "qualification_rank": 4,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "recipe:sg-recipe-rune-coat",
+        "recipe:sg-recipe-staff"
+      ],
+      "cost": 6,
+      "materials": {},
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-fieldrepair",
+      "kind": "engineering",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "choice:sg-q18.c2"
+      ],
+      "cost": 5,
+      "materials": {},
+      "required_tool": "sg-forge-tools",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-glasswork",
+      "kind": "engineering",
+      "qualification_rank": 7,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "recipe:sg-recipe-glass-lance"
+      ],
+      "cost": 7,
+      "materials": {},
+      "required_tool": "sg-forge-tools",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-masterforge",
+      "kind": "engineering",
+      "qualification_rank": 12,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "recipe:sg-recipe-rune-sabre",
+        "recipe:sg-recipe-forgeplate"
+      ],
+      "cost": 9,
+      "materials": {},
+      "required_tool": "sg-forge-tools",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-beaconwork",
+      "kind": "engineering",
+      "qualification_rank": 18,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-19",
+        "sg-market-23",
+        "sg-market-37"
+      ],
+      "formal_consumers": [
+        "choice:sg-q24.c1",
+        "recipe:sg-recipe-beacon-edge"
+      ],
+      "cost": 12,
+      "materials": {},
+      "required_tool": "sg-focus",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-parley",
+      "kind": "social",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q01.c2",
+        "choice:sg-q02.c2",
+        "choice:sg-q04.c2",
+        "choice:sg-q05.c2",
+        "choice:sg-q06.c2",
+        "choice:sg-q07.c2",
+        "choice:sg-q08.c2",
+        "choice:sg-q10.c2",
+        "choice:sg-q14.c2",
+        "choice:sg-q17.c2",
+        "choice:sg-q19.c2",
+        "choice:sg-q21.c1",
+        "choice:sg-q25.c1",
+        "choice:sg-q26.c1",
+        "choice:sg-q27.c2",
+        "choice:sg-q28.c2",
+        "choice:sg-q29.c1",
+        "choice:sg-q30.c2",
+        "choice:sg-q31.c1",
+        "choice:sg-guild-lostlands.c1",
+        "choice:sg-crypt-inquiry.stage1.c2",
+        "choice:sg-crypt-inquiry.stage2.c2",
+        "choice:sg-crypt-inquiry.stage3.c1",
+        "choice:sg-crypt-inquiry.stage3.c2",
+        "choice:sg-watergate-inquiry.stage1.c2",
+        "choice:sg-watergate-inquiry.stage3.c2"
+      ],
+      "cost": 3,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-ledger",
+      "kind": "social",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q02.c1",
+        "choice:sg-q03.c1",
+        "choice:sg-q07.c1",
+        "choice:sg-q14.c1",
+        "choice:sg-q18.c1",
+        "choice:sg-q25.c2",
+        "choice:sg-q26.c2",
+        "choice:sg-q28.c1",
+        "choice:sg-guild-nine-towers.c1",
+        "choice:sg-guild-ashriver-league.c1"
+      ],
+      "cost": 3,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-survey",
+      "kind": "social",
+      "qualification_rank": 2,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q04.c1",
+        "choice:sg-q10.c1",
+        "choice:sg-q13.c2",
+        "choice:sg-q15.c1",
+        "choice:sg-q19.c1",
+        "choice:sg-q27.c1",
+        "choice:sg-q30.c1",
+        "choice:sg-guild-white-thorn.c1",
+        "choice:sg-watergate-inquiry.stage1.c1"
+      ],
+      "cost": 4,
+      "materials": {},
+      "required_tool": "sg-survey-kit",
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-lore",
+      "kind": "social",
+      "qualification_rank": 1,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q06.c1",
+        "choice:sg-q11.c2",
+        "choice:sg-q20.c1",
+        "choice:sg-q23.c2",
+        "choice:sg-q24.c2",
+        "choice:sg-crypt-inquiry.stage1.c1",
+        "choice:sg-watergate-inquiry.stage2.c2"
+      ],
+      "cost": 5,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-song",
+      "kind": "social",
+      "qualification_rank": 3,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q31.c2"
+      ],
+      "cost": 5,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-witness",
+      "kind": "social",
+      "qualification_rank": 7,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q03.c2",
+        "choice:sg-q09.c1",
+        "choice:sg-q20.c2",
+        "choice:sg-q23.c1",
+        "choice:sg-watergate-inquiry.stage3.c1"
+      ],
+      "cost": 6,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-mediation",
+      "kind": "social",
+      "qualification_rank": 12,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q22.c2"
+      ],
+      "cost": 8,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    },
+    {
+      "id": "sg-legacy",
+      "kind": "social",
+      "qualification_rank": 18,
+      "mastery_and_sources": "Learned by existing real book/source+training rules; no class lock",
+      "manual_vendors": [
+        "sg-market-01",
+        "sg-market-25"
+      ],
+      "formal_consumers": [
+        "choice:sg-q23.c3"
+      ],
+      "cost": 10,
+      "materials": {},
+      "required_tool": null,
+      "required_weapon": null,
+      "note": "Noncombat Power is not damage or a task bonus; tasks use actual rank/mastery and charge cost when use_skill_id is authored."
+    }
+  ]
+}

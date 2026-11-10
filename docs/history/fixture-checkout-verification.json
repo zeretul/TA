@@ -1,0 +1,56 @@
+{
+  "cause": "Windows core.autocrlf converted exact-byte fixtures from LF to CRLF in a fresh worktree.",
+  "changed_assertions": false,
+  "changed_manifest_hashes": false,
+  "fixtures": [
+    {
+      "path": "internal/app/testdata/cultivation-entry-details-zh-CN.json",
+      "sha256": "76284d31c5b86c3069c7cc5ab096d4b0ee6e77ec4f257174e258a3d70430ead8",
+      "worktree_equals_head": true,
+      "main_equals_head": true,
+      "attribute": "-text"
+    },
+    {
+      "path": "internal/app/testdata/cultivation-entry-details-en-US.json",
+      "sha256": "39cb0d9d7dc9d7750b787adcbccab3320b2e2811f6d1b9df3321fa33d1bd4b03",
+      "worktree_equals_head": true,
+      "main_equals_head": true,
+      "attribute": "-text"
+    },
+    {
+      "path": "internal/app/testdata/adventure-window-zh-CN.json",
+      "sha256": "717eced372495ccd2222dc973b037fe89855434fd5bc00ab0574c15506f2edac",
+      "worktree_equals_head": true,
+      "main_equals_head": true,
+      "attribute": "-text"
+    },
+    {
+      "path": "internal/app/testdata/adventure-window-en-US.json",
+      "sha256": "fcc5d39d2389f3cd2e77545b69ac3fdd3771f9274eab63c58227209a7db3e36d",
+      "worktree_equals_head": true,
+      "main_equals_head": true,
+      "attribute": "-text"
+    },
+    {
+      "path": "tools/exploration-check/author-routes/testdata/设计稿/synthetic-author.json",
+      "sha256": "638bdda96133aed4abf7831c1f58347762d31115d4b187f051f6e1be1a5e1a08",
+      "worktree_equals_head": true,
+      "main_equals_head": true,
+      "attribute": "-text"
+    }
+  ],
+  "attributes_verified_in": [
+    "current_worktree",
+    "main_development"
+  ],
+  "existing_eight_release_variant_rules_preserved": true,
+  "targeted_tests": {
+    "platform": "Windows native",
+    "result": "passed",
+    "names": [
+      "TestQualityCultivationPublicSerializationAndColdBranch",
+      "TestQualityAdventurePublicSerializationAndPrivacy",
+      "TestManifestedSyntheticAuthorRoutesConvertWithoutInventingEdges"
+    ]
+  }
+}

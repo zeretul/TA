@@ -94,3 +94,33 @@ acceptance-*.log
 !docs/试玩反馈待办.md
 !docs/三世界机制与底座适配分析_20261108.md
 !docs/DOT_0.7.0_云端开发接手.md
+
+# Design and delivery documents the receiving developer needs. The upstream
+# docs/* rule ignores everything under docs; these TA-owned documents describe
+# current gameplay design, world-pack rules, the management base and the history
+# module. Parent directories are re-included first so their files can be listed.
+# Excluded on purpose: docs/交付资料/云端 (a full source copy), 五世界作者资料
+# and 候选剧本 (author raw material), handoff/云端接续 archives and every zip.
+!docs/history/
+!docs/western-world/
+!docs/tests/
+!docs/branding/
+!docs/交付资料/
+docs/交付资料/*
+!docs/交付资料/设计稿/
+!docs/交付资料/tables/
+
+!docs/*.md
+!docs/*.json
+!docs/history/*.md
+!docs/history/*.json
+!docs/history/previews/*.png
+!docs/western-world/*.md
+!docs/western-world/*.json
+!docs/western-world/*.tsv
+!docs/western-world/*.png
+!docs/交付资料/设计稿/*.md
+!docs/交付资料/tables/*.md
+!docs/交付资料/tables/*.xlsx
+!docs/tests/*.md
+!docs/branding/*.md

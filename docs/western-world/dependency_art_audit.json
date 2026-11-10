@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "issues": [],
+  "checks": [
+    "skill prerequisite acyclicity and maximum rank",
+    "recipe reusable tool references",
+    "ordered quest stage dependencies and real opponent prerequisites",
+    "reward-only source reachability",
+    "48-location strongly connected route graph",
+    "exact-world image source, unique originals, PNG dimensions and binary hashes"
+  ],
+  "art": {
+    "npc_portraits": {
+      "present": 60,
+      "total": 60,
+      "missing": []
+    },
+    "definitions": {
+      "present": 207,
+      "total": 214,
+      "missing": [
+        "sg-lantern",
+        "sg-lockpicks",
+        "sg-recipe-arrows",
+        "sg-recipe-blade",
+        "sg-recipe-dagger",
+        "sg-recipe-spear",
+        "sg-survey-kit"
+      ]
+    },
+    "runtime_variants": 327,
+    "existing_three_worlds_included": false
+  },
+  "scope": "Static dependency and provenance checks only. No AI, browser or combat simulation claimed."
+}

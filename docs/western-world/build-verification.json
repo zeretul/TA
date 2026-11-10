@@ -1,0 +1,21 @@
+{
+  "version": "0.6.18-dev.20261103",
+  "frontend": {
+    "embedded": {
+      "files": 168,
+      "exact_all_file_hash_match": true
+    },
+    "windows": {
+      "files": 168,
+      "exact_all_file_hash_match": true
+    },
+    "linux": {
+      "files": 168,
+      "exact_all_file_hash_match": true
+    }
+  },
+  "skills_exact_match": true,
+  "windows_native_execution": false,
+  "ripgrep_windows_provenance": "Unchanged three files verified against the original input MANIFEST.json; no new download",
+  "ripgrep_linux_provenance": "Previously verified cached Linux release runtime, copied for same-source QA"
+}

@@ -1,0 +1,4001 @@
+{
+  "checked_at_utc": "2026-11-03T15:38:59.056319+00:00",
+  "results": [
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p07",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p08",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p18",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p19",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p20",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p21",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p22",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p23",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p24",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p25",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p26",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p27",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p28",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p29",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p30",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p31",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p32",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p33",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p34",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p35",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p36",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p37",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p38",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p39",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p40",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p41",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p42",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p43",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p44",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p45",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p46",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p47",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p48",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p50",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p51",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p52",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p53",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p54",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p55",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p56",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p57",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p58",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p59",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "production",
+      "world": "lanchuan-qunxia",
+      "kind": "npc",
+      "id": "lanchuan-p60",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p07",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p08",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p18",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p19",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p20",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p21",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p22",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p23",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p24",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p25",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p26",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p27",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p28",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p29",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p30",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p31",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p32",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p33",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p34",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p35",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p36",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p37",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p38",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p39",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p40",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p41",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p42",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p43",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p44",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p45",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p46",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p47",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p48",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p49",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p50",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p51",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p52",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p53",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p54",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p55",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p56",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p57",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p58",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p59",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_batch",
+      "world": "xinghai-689",
+      "kind": "npc",
+      "id": "xinghai-p60",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "armor.middle.rare",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "condensed_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "core_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "core_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "core_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.core_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.core_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.core_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.foundation_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.foundation_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.foundation_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.integration_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.integration_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.integration_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.mahayana_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.mahayana_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.mahayana_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.nascent_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.nascent_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.nascent_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.spirit_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.spirit_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.spirit_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.void_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.void_mirror",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "equipment.void_robe",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "fire_bolt",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "flame_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "formation.attack.middle",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "foundation_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "foundation_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "foundation_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "heavy_thunder",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "implement.lower.common",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "implement.middle.rare",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "implement.top.unique",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "implement.upper.rare.effect",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "integration_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "integration_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "integration_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "mahayana_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "mahayana_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "mahayana_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "manual.spirit.integration",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "manual.spirit.mahayana",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "manual.spirit.void",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "material.spirit.ancient_rubbing",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "material.spirit.boundary_anchor",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "material.spirit.boundary_jade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "material.spirit.formation_record",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "material.spirit.rift_sample",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "meridian_secret_blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.basic_breathing",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.body_cycle",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.clear_mind",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.cold_spring",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.core_continuation",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.core_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.core_wind_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.economical_breath",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.flowing_wind",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.integration_return",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.integration_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.mahayana_insight",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.mahayana_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.mahayana_wind_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.nascent_continuation",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.nascent_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.nascent_wind_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.origin_guard",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.spirit_beast_breathing",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.spirit_continuation",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.spirit_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.spirit_wind_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.void_still_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.void_unification",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.void_wind_path",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "method.warm_origin",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "nascent_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "nascent_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "nascent_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "npc_g11_duandao_ke",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "shield",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "species_lingshoushan_qingfeng_que",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "spirit_lu_shiheng",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "spirit_ning_shutong",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "spirit_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "spirit_qiao_yan",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "npc",
+      "id": "spirit_ruan_qingluo",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "spirit_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "spirit_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "strike",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "talisman.ward.lower",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "void_pierce",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "void_ward",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "item_batch",
+      "world": "fanren-jie",
+      "kind": "definition",
+      "id": "void_wave",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i08",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i18",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i19",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i20",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i21",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i22",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i23",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i24",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i41",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i42",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i44",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i45",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i46",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i47",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i48",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i49",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i51",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i52",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i50",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i53",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i55",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i56",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i57",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i54",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i59",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-leg-brace",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-prybar",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-body-bag",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-i58",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-cliff-gloves",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-route-map",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-frigate",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-drone",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-med-injector",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-light-mark",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-radio",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-signal-processor",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-signal-fragments",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-weapon-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-armor-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s18",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s19",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s20",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s07",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s22",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s23",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s24",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s25",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s21",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s26",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s27",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s28",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s29",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s30",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s32",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s33",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s34",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s35",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s36",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-s31",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-strike-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-foundation-recovery-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-advanced-balance-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-space-breach",
+      "status": "imported",
+      "original_sha256": "4e2f6298a02caa0246eb881760bbf2646c72397f79a89e764b053209a091e827",
+      "source_sha256": "f674542f72200e6bbae8a5353dc27b121bf80cc00bbceaeb2b537014a4cc2628",
+      "variants": {
+        "illustration": {
+          "sha256": "312b7aa347d0e1f0305b72416e2a3302a0ef65d83b7a9801b4f87a8ccad389de",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-space-slip",
+      "status": "imported",
+      "original_sha256": "b1fd5abe870b6168a4136b078e9ebd212ef7ee7b024c977ea6c771265ff0f465",
+      "source_sha256": "288c2a3da23aa805be5e09355aded514b15905fd5515ad1f218313e070f27800",
+      "variants": {
+        "illustration": {
+          "sha256": "a0deb3c8d864145bfaba692c5e7970b4dbb40b0c27a709c868ed6660a13a8ce7",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "stars_items",
+      "world": "xinghai-689",
+      "kind": "definition",
+      "id": "xinghai-space-dominion",
+      "status": "imported",
+      "original_sha256": "f887460f61b5c335366dfe1faba7216b1bba815849633818e6831d5f8f071225",
+      "source_sha256": "ad7802391dd8a1c652cee52ae6d8b13ddb2a09810712531cbd205545948c83c6",
+      "variants": {
+        "illustration": {
+          "sha256": "a3726274835846c2c0d55fd8b37b817335e585cb24cae8bb0a5a3bdcf418a9bb",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i07",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i08",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i27",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i28",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i29",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i30",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i31",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i32",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i33",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i34",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i36",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i37",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i38",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i39",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i40",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i41",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i42",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i43",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i44",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i45",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i46",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i47",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i48",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i49",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i50",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i51",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i52",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i53",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i54",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i55",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i56",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i57",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i58",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i59",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-i60",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-letter",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-rusty-blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-acupuncture-needles",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-weapon-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-armor-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s01",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s02",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s03",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s04",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s05",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s06",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s07",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s08",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s09",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s10",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s11",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s12",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s13",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s14",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s15",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s16",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s17",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s18",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s19",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s20",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s21",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s22",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s23",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s24",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s25",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s26",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s27",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s28",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s29",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s30",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s31",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s32",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s33",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s34",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-s35",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-basic-breath",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-basic-blade",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-basic-fist",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-wudang-close-strike",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-1",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-2",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-3",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-4",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-5",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-6",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-strike-7",
+      "status": "already_integrated",
+      "review_state": "reviewed"
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-1",
+      "status": "imported",
+      "original_sha256": "31f30c46e1b57d87d11bf0c5b0a622a3e5f343f7701326fce7b6fc91ca3ad842",
+      "source_sha256": "910790141da56402bfb727efdaf8c73d9fec732b65ea020d9c2b98e3d78bff4c",
+      "variants": {
+        "illustration": {
+          "sha256": "31559c629fb851fee92a25fbfb4f7f21b12b06e6568ebe17a342187cddd9f547",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-2",
+      "status": "imported",
+      "original_sha256": "9bc9d7ac8761412aa0c7ccfd6f9408c36a9a9e751d9e21169ae988bb722dd3ed",
+      "source_sha256": "288277a32bff646ad75f6d93a3f91567a0d228e3bddaa1b8309e08a0f2eccddb",
+      "variants": {
+        "illustration": {
+          "sha256": "f80f90c95799242b0146911d6798131319fca9edd01a8383eead148e68dedae8",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-3",
+      "status": "imported",
+      "original_sha256": "13d263a0588de5235b20f1233e393f0e4b395650f77f79e48d5271f57e4b2ca2",
+      "source_sha256": "3e71ae036c1dfa40424ba576006a7b3e6909409164e05e304970a2e1c645de3a",
+      "variants": {
+        "illustration": {
+          "sha256": "272f4318d024b6a51a562a7a9c6a620c3719687049848281914314f23c5a5dd0",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-4",
+      "status": "imported",
+      "original_sha256": "2bba46775950332acbc9151d08cef2c4af69f3b43429177de6373c02c57accb9",
+      "source_sha256": "2d48ea14c9a19672e44255ce744a3d5c3824a6307e925c018bff5af69d22f521",
+      "variants": {
+        "illustration": {
+          "sha256": "394c19b0f7f60c84ffee8dd6adb8383acbd4f32fe78d3ee69949787cfef06406",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-5",
+      "status": "imported",
+      "original_sha256": "431543b93b05bb289607366a12aaaa030a8c26550881788625e99e620380bfe1",
+      "source_sha256": "cd9548bb0bbd372b7311d7c2041f435dcf8cb7b3a71fae2870be8741e2e31c23",
+      "variants": {
+        "illustration": {
+          "sha256": "9b7b04aecbafb8ffa14ea8f9f1137a3b094bcdaa5324f62feb91b814470340e7",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-6",
+      "status": "imported",
+      "original_sha256": "0286d5fbc21ce64a60b16d8e9558bf26ec4ee4799f4f970e3c5a731dfffc6504",
+      "source_sha256": "ab0d466796343a6e0c4f89813e66635fe1bd47f9bff4c5d47548ec650ac712af",
+      "variants": {
+        "illustration": {
+          "sha256": "d112aeec0a76e6fe42ca67189a3de42b2e0510c1b62bb5d903129e205927c238",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-foundation-recovery-7",
+      "status": "imported",
+      "original_sha256": "a876efc2028918fe05cfbd814cd64039b0cbf0894c9b776ba86f81b0dbdf5e2a",
+      "source_sha256": "d0d919fb4a5b8a3b8000801cde6f5c80d327e08fd485512ef405563faf162f8d",
+      "variants": {
+        "illustration": {
+          "sha256": "fac5de33a7d6c98cfd0608fe6bfcbc0bbeffdcaa14aded083e5079cc74ad160d",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-1",
+      "status": "imported",
+      "original_sha256": "08e47585235030cdb0202e7caf1d172fbea21970bb067a99b6479fb36da85672",
+      "source_sha256": "a28af079c2067f42102a701f15e7b940ad3fc3a69ddae60f84719334fa5dbb1a",
+      "variants": {
+        "illustration": {
+          "sha256": "0f8d8426540edc06f83318848ae62b82963c7d2bb96d457bbf771d2a8a494983",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-2",
+      "status": "imported",
+      "original_sha256": "1897a31e79b04056be218ec8c3840c196b214bc7d281b8cf8a6c0cb2dc8afc21",
+      "source_sha256": "4a9b9b0b6f1f7adcca332671251505bcfd59b634c928900ca2ef44be6126b445",
+      "variants": {
+        "illustration": {
+          "sha256": "7f50d8880f1a0510daa6eb7e3e1ac6d63b126702a7fa62bc23b2ec26424cb8b1",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-3",
+      "status": "imported",
+      "original_sha256": "5e3ab9e9cb2c0aaed5c808d26ca8de20618c6012018ad17fd6b16fe7356f8d2f",
+      "source_sha256": "344721412ad94406af54e032ad8174a9c1268bcff808b550a21778684782dfa4",
+      "variants": {
+        "illustration": {
+          "sha256": "278ff3a356d358a227bb2291f6516599e3d96200fb67b9d3de4a1de32981e34c",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-4",
+      "status": "imported",
+      "original_sha256": "2a996b5e6856e817ef522e79efa76557907440982dd5176d6015db9d31361a1d",
+      "source_sha256": "5f9602383539f6c70a8bb25f4035d4613ea9a26724df73d7099fcfe21d9f0068",
+      "variants": {
+        "illustration": {
+          "sha256": "aa30f2e5aa74b69f95ea1436b05195c6f760d6cdb5894cd43d23ddfa4e391bf9",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-5",
+      "status": "imported",
+      "original_sha256": "8ffa1604d5e09a6841670a2a55efd598f5fd29f4b7be137dff11760cc2cf0a0a",
+      "source_sha256": "2b88b489df5aaeda45833f105c554c74e5128934ce3cb31df2b411ff7a09c728",
+      "variants": {
+        "illustration": {
+          "sha256": "2abe050653eef344afdbae8661930bff682fda346a02f9817aa1729de8920562",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-6",
+      "status": "imported",
+      "original_sha256": "12c6461a9d067c3b81e4b867314629f4cec0d3d27ddcc3dfcfd6e25f267ac0b9",
+      "source_sha256": "0d0bbe0dd7cdca923a9c6c9c299d1cb887708cbccc6e9cc657fd2951bdc1647c",
+      "variants": {
+        "illustration": {
+          "sha256": "6487a9d86e9c9599a398cfbdc29248974dc852262af142f44b152c26df00bb56",
+          "width": 768,
+          "height": 768
+        }
+      }
+    },
+    {
+      "batch": "wuxia_items",
+      "world": "lanchuan-qunxia",
+      "kind": "definition",
+      "id": "lanchuan-advanced-balance-7",
+      "status": "imported",
+      "original_sha256": "0e209d58811894ed990b5c54386d4299540ae46ee942639921149985f6a59c0c",
+      "source_sha256": "5b868131f93027f1a414bd2e43178e9e50d7aaab7b481dcfa61fff1f9a64241b",
+      "variants": {
+        "illustration": {
+          "sha256": "a5da94d3474a7e29628160063e54368ea42ef90beba85cc97132a29ea92180fa",
+          "width": 768,
+          "height": 768
+        }
+      }
+    }
+  ],
+  "counts": {
+    "already_integrated": 465,
+    "imported": 17
+  }
+}

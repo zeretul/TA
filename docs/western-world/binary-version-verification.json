@@ -1,0 +1,32 @@
+{
+  "linux": {
+    "TA": {
+      "actual_version_output": "0.6.18-dev.20261103"
+    },
+    "TA-updater": {
+      "actual_version_output": "0.6.18-dev.20261103"
+    }
+  },
+  "windows": {
+    "TA": {
+      "file_name": "TA.exe",
+      "machine": "windows-amd64 PE32+",
+      "symbol": "ta/internal/buildinfo.Version",
+      "variable_va": "0x16fde9d00",
+      "string_va": "0x16dce3a80",
+      "string_length": 19,
+      "version": "0.6.18-dev.20261103",
+      "method": "Read the Go string header and pointed-to bytes from mapped PE sections; no Windows execution"
+    },
+    "TA-updater": {
+      "file_name": "TA-updater.exe",
+      "machine": "windows-amd64 PE32+",
+      "symbol": "ta/internal/buildinfo.Version",
+      "variable_va": "0x140476600",
+      "string_va": "0x1402870d0",
+      "string_length": 19,
+      "version": "0.6.18-dev.20261103",
+      "method": "Read the Go string header and pointed-to bytes from mapped PE sections; no Windows execution"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "protected_private_files_unchanged": 218,
+  "source_code_files": 5579,
+  "source_manifest_sha256": "8c47d69effe9519d4b161b9b1a08c1b75d95656266062299bcffb4f254e3f252",
+  "development_exe_sha256": "458b792b1cf5e5f314f63558235fbbee96e6c61c89dcded0b9b47b4fe9786c6d",
+  "formal_exe_sha256": "458b792b1cf5e5f314f63558235fbbee96e6c61c89dcded0b9b47b4fe9786c6d",
+  "no_existing_installation_overwritten": true,
+  "known_private_credentials_in_delivery": false
+}

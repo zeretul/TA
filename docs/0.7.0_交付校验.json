@@ -1,0 +1,48 @@
+{
+  "version": "0.7.0",
+  "verification": {
+    "packages": [
+      {
+        "edition": "development",
+        "version": "0.7.0",
+        "files": 789,
+        "root_files": 0,
+        "exe_sha256": "fd42010bfa5c25e246bb9fcb6298574fae657125270d557f06dcfd9ed0428bd6"
+      },
+      {
+        "edition": "formal",
+        "version": "0.7.0",
+        "files": 789,
+        "root_files": 5,
+        "exe_sha256": "fd42010bfa5c25e246bb9fcb6298574fae657125270d557f06dcfd9ed0428bd6"
+      },
+      {
+        "edition": "share",
+        "version": "0.7.0",
+        "files": 788,
+        "root_files": 6,
+        "exe_sha256": "0e118de753ae371969e1ae60b93512c73aff223b26f61c0d4b77fb29959f02a1"
+      }
+    ],
+    "local_share_differences": [
+      "SHA256SUMS.txt",
+      "TA.exe",
+      "config.toml",
+      "edition.json"
+    ],
+    "private_files_unchanged": 208,
+    "other_agent_prompt_and_helpers": "unchanged",
+    "local_intimacy_flow": "only approved age read changed"
+  },
+  "source_snapshot": {
+    "archive": "E:\\游戏\\游戏开发\\TA-开发版\\备份\\0.7.0_源码与双版本基线.zip",
+    "sha256": "4a6ce09571396092d1a8fe0fdcd1e001109f7034514f28334c54b204a1097691",
+    "bytes": 762710436,
+    "source_files": 5274,
+    "handoff_files": 18,
+    "verified": true
+  },
+  "evidence_sha256": "b35756acbbee8554c0b89d184f64d5b4029afd020099b5d12e265e37df90d1ff",
+  "evidence_bytes": 15663,
+  "other_agent_prompt_sha256": "0d2604e4a2a28891b0d16ca98eb0003929a8e62ea62c1e94b1ba88a38c49dc1f"
+}

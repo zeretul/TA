@@ -1,0 +1,32 @@
+[
+  {
+    "source": "seed.py",
+    "sha256": "1077db8794b010c3bcbbae31f0e2d9b8c5f82587291cbaada99f9b2f800a8411",
+    "bytes": 144177
+  },
+  {
+    "source": "finance_rules.py",
+    "sha256": "1ba5484f4a2d603876996024d597e761868c6e4bda4ecd67f1dea33e0f4b90ee",
+    "bytes": 7629
+  },
+  {
+    "source": "knowledge.py",
+    "sha256": "4d0dcdb2ef7a7aa062733ca0d250402741aa118de297588b81590658a45a9dbf",
+    "bytes": 14278
+  },
+  {
+    "source": "simulation.py",
+    "sha256": "1888de7858464268798381a26a7f61258c01091e9626debbef7431ef7377808e",
+    "bytes": 53897
+  },
+  {
+    "source": "npc_memory.py",
+    "sha256": "03a0de61affe22909ea0a2af8a5dae71c92a3478ddca7583cef93ddc5036221e",
+    "bytes": 6149
+  },
+  {
+    "source": "court.py",
+    "sha256": "5f2008a75019fac444c36894976defae4f740746b2b7e4114eefc839a7e66bb8",
+    "bytes": 102583
+  }
+]
