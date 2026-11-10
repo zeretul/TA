@@ -110,6 +110,7 @@ acceptance-*.log
 docs/交付资料/*
 !docs/交付资料/设计稿/
 !docs/交付资料/tables/
+!docs/交付资料/云端接续_20261109/
 
 !docs/*.md
 !docs/*.json
@@ -124,5 +125,6 @@ docs/交付资料/*
 !docs/交付资料/设计稿/*.md
 !docs/交付资料/tables/*.md
 !docs/交付资料/tables/*.xlsx
+!docs/交付资料/云端接续_20261109/*.md
 !docs/tests/*.md
 !docs/branding/*.md
