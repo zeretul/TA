@@ -1,0 +1,76 @@
+package chat
+
+import (
+	"strings"
+
+	agent "ta/agent"
+
+	agentrun "ta/internal/agents/run"
+	producttools "ta/internal/agents/tools"
+	workspacechange "ta/internal/workspace/change"
+)
+
+// ProjectToolResult derives product display data and change notifications from
+// a confirmed tool receipt. Runtime adapters own execution and persistence;
+// this projection only enriches display data, never model context.
+func ProjectToolResult(
+	projectID string,
+	toolName, payload string,
+	data map[string]any,
+	emit func(agentrun.Event),
+) []error {
+	var warnings []error
+	if itemIDs, deletedIDs := parseWriteLoreItemsToolResult(toolName, payload); len(itemIDs) > 0 || len(deletedIDs) > 0 {
+		data["item_ids"] = itemIDs
+		data["deleted_ids"] = deletedIDs
+	}
+	if illustration, err := producttools.ParseChapterIllustrationResult(toolName, payload); err != nil {
+		warnings = append(warnings, err)
+	} else if illustration != nil {
+		data["illustration"] = illustration
+		data["target"] = illustration.MetaPath
+	} else if image, err := producttools.ParseInteractiveImageResult(toolName, payload); err != nil {
+		warnings = append(warnings, err)
+	} else if image != nil {
+		data["interactive_image"] = image
+		data["target"] = image.MetaPath
+		// The generate_image tool has a general image descriptor, while this
+		// particular result is interactive media. Preserve the call renderer and
+		// refine only the result renderer so reconnect/replay never invents a
+		// second call card.
+		presentation := agent.UniformToolPresentation(agent.ToolPresentationImage)
+		if projected := eventDataToolPresentation(data); projected != nil {
+			presentation = *projected
+		}
+		presentation.Result = agent.ToolPresentationInteractiveMedia
+		data["tool_presentation"] = presentation
+	} else if target := producttools.ParseGeneratedImageTarget(toolName, payload); target != "" {
+		data["target"] = target
+	}
+	if receipt, ok := workspacechange.ParseToolReceipt(toolName, payload); ok {
+		data["workspace_change"] = receipt
+		if emit != nil {
+			emit(agentrun.Event{Type: "workspace_change", Data: map[string]any{
+				"id": receipt.ChangeSetID, "project_id": projectID,
+				"change_group_id": receipt.ChangeGroupID, "review_thread_id": receipt.ReviewThreadID,
+				"change_set_id": receipt.ChangeSetID, "path": receipt.Path,
+				"affected_paths": []string{receipt.Path}, "base_revision": receipt.BaseRevision,
+				"revision": receipt.Revision, "review_status": receipt.ReviewStatus,
+				"apply_state": receipt.ApplyState, "workspace_change": receipt,
+			}})
+		}
+	}
+	return warnings
+}
+
+func isWorkspaceArtifactRead(toolName, target string) bool {
+	if strings.TrimSpace(toolName) != "read" {
+		return false
+	}
+	path := strings.ToLower(strings.ReplaceAll(strings.TrimSpace(target), "\\", "/"))
+	return strings.HasPrefix(path, ".ta-game/artifacts/") || strings.HasPrefix(path, ".denova/artifacts/") ||
+		strings.HasPrefix(path, ".nova/artifacts/") ||
+		strings.Contains(path, "/.ta-game/artifacts/") || strings.Contains(path, "/.denova/artifacts/") ||
+		strings.Contains(path, "/.nova/artifacts/") ||
+		strings.Contains(path, ".jsonl.artifacts/") || strings.Contains(path, "/artifacts/game/")
+}

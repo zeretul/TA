@@ -1,0 +1,33 @@
+{
+  "version": 6,
+  "id": "dm-gritty-survival",
+  "name": "硬核生存型 DM：资源与后果",
+  "description": "强调危险、稀缺和长期状态；失败会明确消耗资源或恶化处境。",
+  "trpg_system": {
+    "rule_templates": [
+      {
+        "id": "dm-gritty-survival",
+        "label": "硬核生存型 DM：资源与后果",
+        "dice": "1d20",
+        "modifier": 1,
+        "failure_policy": "hard_failure",
+        "difficulty_guidance": "默认 normal。装备、防护、休息和补给充足时降一档；疲劳、伤病、恶劣天气、黑暗、饥饿、追兵或缺工具时升一档。",
+        "state_effect_guidance": "失败应落到资源和状态：体力、生命、补给、伤势、感染、疲劳、寒冷、士气或装备耐久。连续失败会累积后果。",
+        "trigger": "当故事强调危险、稀缺、伤病、疲劳、补给和长期后果时使用。检定用于让风险真实落地，失败可以明显恶化处境。",
+        "must_check_examples": [
+          "玩家在饥饿和受伤状态下继续赶路。",
+          "玩家冒雨攀爬湿滑峭壁。",
+          "玩家在缺少工具时处理感染伤口。"
+        ],
+        "skip_check_examples": [
+          "角色在安全营地完成常规休整。",
+          "资源充足且行动没有压力。",
+          "失败不会消耗资源或改变处境。"
+        ],
+        "success_hint": "成功时渡过当前危险，但仍保留环境压力。",
+        "failure_hint": "失败时明确扣减资源或施加状态，不要只给轻描淡写的叙事惩罚。"
+      }
+    ]
+  },
+  "custom": false
+}

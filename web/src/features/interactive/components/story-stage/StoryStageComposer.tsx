@@ -1,0 +1,378 @@
+import { useRef, useState, type CSSProperties, type Dispatch, type ReactNode, type RefObject, type SetStateAction } from 'react'
+import type { TFunction } from 'i18next'
+import { Archive, ChevronDown, ChevronUp, Compass, Lightbulb, List, Paperclip, Pencil, RefreshCw, Sparkles, X } from 'lucide-react'
+import { AgentComposerControls } from '@/components/Chat/AgentComposerControls'
+import { AgentComposerShell } from '@/components/Chat/AgentComposerShell'
+import { AgentQueuedCommandList } from '@/components/Chat/AgentQueuedCommandList'
+import { FileReferencePicker, type FileReferencePickerHandle } from '@/components/Chat/FileReferencePicker'
+import { InputCommandMenu, type IndexedInputCommandOption } from '@/components/Chat/InputCommandMenu'
+import { ModelProfileSwitcher } from '@/components/Chat/ModelProfileSwitcher'
+import { ComposerMenuItem } from '@/components/Chat/ComposerMenuRow'
+import { ComposerTokenInput, type ComposerTokenInputHandle, type ComposerTokenSpec, type ComposerTrigger } from '@/components/Chat/composer-token-input'
+import { Button } from '@/components/ui/button'
+import { AgentApprovalModeMenu } from '@/features/agent-approval/AgentApprovalModeMenu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import type { AgentRuntimeQueuedCommand } from '@/lib/api'
+import type { TerminalOutcome } from '../../types'
+import { EditInteractiveReplyDialog } from '../EditInteractiveReplyDialog'
+import { StoryBranchEndedPanel } from './StoryBranchEndedPanel'
+import { StoryAssistantPanel } from './StoryAssistantPanel'
+import type { UseStoryAssistantResult } from './use-story-assistant'
+import type { StoryStageCommandItem } from './story-stage-commands'
+import { isNativeComposingKeyboardEvent } from './utils'
+import type { ConversationConfigController } from '@/features/conversation-config/types'
+import { supportsRuntimeOperation } from '@/features/conversation-config/types'
+import { ComposerAttachmentTray, useComposerAttachments } from '@/components/Chat/ComposerAttachments'
+import type { InputAreaSendOptions } from '@/components/Chat/InputArea'
+import type { StagedAction } from './staged-actions'
+
+type StateSetter<T> = Dispatch<SetStateAction<T>>
+
+interface StoryStageComposerProps {
+  taskControls?: ReactNode
+  layout: {
+    projectId: string
+    creatingStory: boolean
+    isMobile: boolean
+    inputTextStyle: CSSProperties
+    workspace?: string
+    inputFloatRef: RefObject<HTMLDivElement | null>
+    inputRef: RefObject<ComposerTokenInputHandle | null>
+    t: TFunction
+    attachmentDraftKey: string
+  }
+  editor: {
+    input: string
+    editingTurn: { id: string; content: string } | null
+    styleScenes: string[]
+    styleSceneQuery: string | null
+    styleSceneSuggestions: string[]
+    showSkillCommands: boolean
+    activeSkillCommandIndex: number
+    skillCommands: Array<{ name: string }>
+    filteredSkillCommands: StoryStageCommandItem[]
+    filteredBuiltInCommandItems: Array<{ command: StoryStageCommandItem; index: number }>
+    filteredSkillCommandItems: Array<{ command: StoryStageCommandItem; index: number }>
+    setStyleSceneQuery: StateSetter<string | null>
+    setShowSkillCommands: StateSetter<boolean>
+    setSkillCommandQuery: StateSetter<string | null>
+    setActiveSkillCommandIndex: StateSetter<number>
+  }
+  story: {
+    storyId: string
+    branchTerminal: boolean
+    /** The ending notice and the ways on, when this branch has ended. */
+    branchEnding: {
+      outcome: TerminalOutcome
+      canFork: boolean
+      hasEarlier: boolean
+      onReviewStory: () => void
+      onForkBeforeEnding: () => void
+      onStartNewStory: () => void
+    } | null
+    hotChoices: string[]
+    hotChoicesExpanded: boolean
+    showHotChoices: boolean
+    canUseHotChoices: boolean
+    setHotChoicesExpanded: StateSetter<boolean>
+    /** True once the player has opened the inline assistant panel. */
+    assistantOpen: boolean
+    assistantExpanded: boolean
+    toggleAssistant: () => void
+    closeAssistant: () => void
+    assistant: UseStoryAssistantResult
+    /** Re-reads the branch plan after an adoption conflicted with a newer one. */
+    reloadPlan?: () => void
+  }
+  runtime: {
+    streaming: boolean
+    approvalReady: boolean
+    conversationConfig: ConversationConfigController
+    abortPending: boolean
+    recoveryPaused: boolean
+    recoveryAbortAvailable: boolean
+    pendingInterruptionId: string
+    operationId: string
+    connection: string
+    commandSubmitting: boolean
+    queue: AgentRuntimeQueuedCommand[]
+    queueActionPendingCommandID: string
+  }
+  /**
+   * Arrangements made in a window and waiting for the player's own send. They
+   * are the player's words, not the story's: the box above the composer shows
+   * them, lets them be rewritten or dropped, and the send joins them with
+   * whatever the player typed into one request.
+   */
+  staged: {
+    actions: StagedAction[]
+    onEdit: (id: string) => void
+    onRemove: (id: string) => void
+  }
+  dialogs: {
+    replyEditTarget: {
+      turnId: string
+      branchId: string
+      initialContent: string
+      expectedNarrative: string
+    } | null
+    closeReplyEditor: () => void
+    saveReply: (narrative: string) => Promise<void>
+  }
+  actions: {
+    cancelEditing: () => void
+    selectHotChoice: (choice: string) => void
+    selectStyleScene: (scene: string) => void
+    selectSkillCommand: (name: string) => void
+    handleInputChange: (value: string) => void
+    handleInputTriggerChange: (trigger: ComposerTrigger | null) => void
+    handleTokenRemove: (token: ComposerTokenSpec) => void
+    toggleHotChoices: () => void
+    send: (options?: InputAreaSendOptions) => Promise<boolean>
+    steerQueuedCommand: (item: AgentRuntimeQueuedCommand) => Promise<boolean>
+    deleteQueuedCommand: (item: AgentRuntimeQueuedCommand) => Promise<boolean>
+    stop: () => Promise<void>
+  }
+}
+
+export function StoryStageComposer({ layout, editor, story, staged, runtime, dialogs, actions, taskControls }: StoryStageComposerProps) {
+  const [actionsOpen, setActionsOpen] = useState(false)
+  const { creatingStory, isMobile, inputTextStyle, workspace, inputFloatRef, inputRef, t } = layout
+  const { input, editingTurn, styleScenes, styleSceneQuery, styleSceneSuggestions, showSkillCommands, activeSkillCommandIndex, skillCommands, filteredSkillCommands, filteredBuiltInCommandItems, filteredSkillCommandItems, setStyleSceneQuery, setShowSkillCommands, setSkillCommandQuery, setActiveSkillCommandIndex } = editor
+  const { storyId, branchTerminal, branchEnding, hotChoices, hotChoicesExpanded, showHotChoices, canUseHotChoices, setHotChoicesExpanded, assistantOpen, assistantExpanded, toggleAssistant, closeAssistant, assistant, reloadPlan } = story
+  const { streaming, approvalReady, conversationConfig, abortPending, recoveryPaused, recoveryAbortAvailable, pendingInterruptionId, operationId, connection, commandSubmitting, queue, queueActionPendingCommandID } = runtime
+  const { replyEditTarget, closeReplyEditor, saveReply } = dialogs
+  const { cancelEditing, selectHotChoice, selectStyleScene, selectSkillCommand, handleInputChange, handleInputTriggerChange, handleTokenRemove, toggleHotChoices, send, steerQueuedCommand, deleteQueuedCommand, stop } = actions
+  const activeControlsDisabled = streaming && (!operationId || connection !== 'connected')
+  const sendBlocked = streaming && !supportsRuntimeOperation(conversationConfig.snapshot, 'queue')
+  const resumeAvailable = Boolean(pendingInterruptionId) && !editingTurn
+  const attachments = useComposerAttachments(
+    !branchTerminal && approvalReady,
+    `game:${layout.attachmentDraftKey}`,
+  )
+  const hasSendableContent = Boolean(input.trim() || attachments.files.length || staged?.actions.length)
+  const stylePickerRef = useRef<FileReferencePickerHandle>(null)
+  const builtInCommandOptions: IndexedInputCommandOption[] = filteredBuiltInCommandItems.map(({ command, index }) => ({
+    index,
+    command: {
+      cmd: `/${command.name}`,
+      description: command.description || command.name,
+      hint: command.hint,
+      icon: Archive,
+      source: 'builtin',
+    },
+  }))
+  const skillCommandOptions: IndexedInputCommandOption[] = filteredSkillCommandItems.map(({ command, index }) => ({
+    index,
+    command: {
+      cmd: `/${command.name}`,
+      description: command.description || command.name,
+      hint: command.hint,
+      icon: Sparkles,
+      source: 'skill',
+    },
+  }))
+
+  if (creatingStory) return null
+  const submit = async () => {
+    const files = attachments.files
+    attachments.clear()
+    const accepted = await send(files.length ? { attachments: files } : undefined)
+    if (!accepted) attachments.addFiles(files)
+    return accepted
+  }
+  return (
+    <div ref={inputFloatRef} className="nova-story-input-float pointer-events-none absolute inset-x-0 bottom-0 z-20 p-3">
+      <div className="pointer-events-auto mx-auto max-w-5xl">
+        {taskControls ? <div className="mb-2">{taskControls}</div> : null}
+        {branchEnding ? (
+          <StoryBranchEndedPanel
+            outcome={branchEnding.outcome}
+            canFork={branchEnding.canFork}
+            hasEarlier={branchEnding.hasEarlier}
+            onReviewStory={branchEnding.onReviewStory}
+            onForkBeforeEnding={branchEnding.onForkBeforeEnding}
+            onStartNewStory={branchEnding.onStartNewStory}
+            t={t}
+          />
+        ) : null}
+        {editingTurn && !streaming ? (
+          <div className="mb-3 flex min-w-0 items-center gap-2 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-3 py-2 text-xs text-[var(--nova-text-muted)]">
+            <Pencil className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-faint)]" />
+            <span className="min-w-0 flex-1 truncate">{t('storyStage.editingNotice')}</span>
+            <Button type="button" variant="ghost" size="icon-xs" className="h-7 w-7 shrink-0 text-[var(--nova-text-faint)] hover:text-[var(--nova-text)]" onClick={cancelEditing} aria-label={t('storyStage.cancelEdit')}>
+              <X className="h-3.5 w-3.5" />
+            </Button>
+          </div>
+        ) : null}
+        {showHotChoices ? (
+          <div className="mb-2 overflow-hidden rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface-2)]">
+            <div className="flex min-h-8 items-center gap-1.5 px-2 py-1 text-[11px] text-[var(--nova-text-muted)]">
+              <button type="button" className="nova-nav-item flex min-w-0 flex-1 items-center gap-1.5 rounded-[var(--nova-radius)] px-1.5 py-1 text-left hover:bg-[var(--nova-hover)]" onMouseDown={(event) => event.preventDefault()} onClick={() => setHotChoicesExpanded((value) => !value)} aria-expanded={hotChoicesExpanded}>
+                <Compass className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-faint)]" />
+                <span className="shrink-0 font-medium text-[var(--nova-text-muted)]">{t('storyStage.hotChoices.title')}</span>
+                <span className="min-w-0 flex-1 truncate text-[var(--nova-text-faint)]">{t('storyStage.hotChoices.count', { count: hotChoices.length })}</span>
+                {hotChoicesExpanded ? <ChevronUp className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-faint)]" /> : <ChevronDown className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-faint)]" />}
+              </button>
+            </div>
+            {hotChoicesExpanded ? (
+              <div className="border-t border-[var(--nova-border)] px-2 py-2">
+                <div data-testid="story-stage-hot-choices-list" className="flex max-h-48 flex-wrap content-start gap-1.5 overflow-y-auto overscroll-contain pr-1">
+                  {hotChoices.map((choice, index) => (
+                    <button key={`${index}-${choice}`} type="button" className="min-w-0 max-w-full flex-none rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-2.5 py-1.5 text-left text-xs leading-5 text-[var(--nova-text-muted)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text)]" onMouseDown={(event) => event.preventDefault()} onClick={() => selectHotChoice(choice)}>
+                      <span className="block max-w-full break-words">{choice}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+        {staged.actions.length ? (
+          <div data-nova-staged-actions className="mb-2 overflow-hidden rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface-2)]">
+            <div className="flex min-h-8 items-center gap-1.5 px-2 py-1 text-[11px] text-[var(--nova-text-muted)]">
+              <Sparkles className="h-3.5 w-3.5 shrink-0 text-[var(--nova-text-faint)]" />
+              <span className="shrink-0 font-medium text-[var(--nova-text-muted)]">{t('storyStage.staged.title')}</span>
+              <span className="min-w-0 flex-1 truncate text-[var(--nova-text-faint)]">{t('storyStage.staged.hint')}</span>
+            </div>
+            <div className="max-h-40 overflow-y-auto overscroll-contain border-t border-[var(--nova-border)] px-2 py-2">
+              <ul className="flex flex-col gap-1">
+                {staged.actions.map((action) => (
+                  <li key={action.id} data-nova-staged-action className="flex min-w-0 items-start gap-1.5 rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-2 py-1.5">
+                    <span className="min-w-0 flex-1 whitespace-pre-wrap break-words text-xs leading-5 text-[var(--nova-text-muted)]">{action.message}</span>
+                    <Button type="button" variant="ghost" size="icon-xs" className="h-6 w-6 shrink-0 text-[var(--nova-text-faint)] hover:text-[var(--nova-text)]" disabled={streaming} onMouseDown={(event) => event.preventDefault()} onClick={() => staged.onEdit(action.id)} aria-label={t('storyStage.staged.edit')}>
+                      <Pencil className="h-3 w-3" />
+                    </Button>
+                    <Button type="button" variant="ghost" size="icon-xs" className="h-6 w-6 shrink-0 text-[var(--nova-text-faint)] hover:text-[var(--nova-text)]" disabled={streaming} onMouseDown={(event) => event.preventDefault()} onClick={() => staged.onRemove(action.id)} aria-label={t('storyStage.staged.remove')}>
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : null}
+        {assistantOpen && !branchTerminal ? (
+          <StoryAssistantPanel
+            assistant={assistant}
+            expanded={assistantExpanded}
+            onToggle={toggleAssistant}
+            onClose={closeAssistant}
+            input={input}
+            onUseWording={(wording) => {
+              setHotChoicesExpanded(false)
+              handleInputChange(wording)
+              window.requestAnimationFrame(() => {
+                inputRef.current?.focus()
+                inputRef.current?.setSelectionRange(wording.length, wording.length)
+              })
+            }}
+            onReloadPlan={reloadPlan}
+            t={t}
+          />
+        ) : null}
+        <AgentQueuedCommandList
+          items={queue}
+          pendingCommandID={queueActionPendingCommandID}
+          disabled={activeControlsDisabled || abortPending || commandSubmitting}
+          onSteer={steerQueuedCommand}
+          onDelete={deleteQueuedCommand}
+        />
+        <div className="relative min-w-0" {...attachments.dropProps}>
+          <FileReferencePicker ref={stylePickerRef} open={styleSceneQuery !== null && styleSceneSuggestions.length > 0} query={styleSceneQuery || ''} items={styleSceneSuggestions} onSelect={(item) => selectStyleScene(item.value)} trigger="#" placeholder={t('chat.styleReference.placeholder')} emptyText={t('chat.styleReference.empty')} heading={t('chat.styleReference.heading')} />
+          <InputCommandMenu
+            open={showSkillCommands && filteredSkillCommands.length > 0}
+            skillsOnly={false}
+            builtinCommands={builtInCommandOptions}
+            skillCommands={skillCommandOptions}
+            activeIndex={activeSkillCommandIndex}
+            onActiveIndexChange={setActiveSkillCommandIndex}
+            onSelect={(command) => selectSkillCommand(command.cmd.replace(/^\//, ''))}
+          />
+          <AgentComposerShell
+            className="nova-story-stage-composer"
+            references={attachments.items.length ? <ComposerAttachmentTray items={attachments.items} onRemove={attachments.remove} /> : undefined}
+            input={<ComposerTokenInput
+              ref={inputRef}
+              value={input}
+              onChange={handleInputChange}
+              onTriggerChange={handleInputTriggerChange}
+              onTokenRemove={handleTokenRemove}
+              onEditorKeyDown={(event) => {
+                const canPickSkill = showSkillCommands && filteredSkillCommands.length > 0
+                if (canPickSkill && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+                  event.preventDefault()
+                  setActiveSkillCommandIndex((current) => (current + (event.key === 'ArrowDown' ? 1 : -1) + filteredSkillCommands.length) % filteredSkillCommands.length)
+                  return true
+                }
+                if ((event.key === 'ArrowDown' || event.key === 'ArrowUp') && stylePickerRef.current?.moveActive(event.key === 'ArrowDown' ? 1 : -1)) {
+                  event.preventDefault()
+                  return true
+                }
+                if (event.key === 'Escape') {
+                  setStyleSceneQuery(null); setShowSkillCommands(false); setSkillCommandQuery(null); setActiveSkillCommandIndex(0)
+                  return true
+                }
+                if (event.key === 'Tab' && !event.shiftKey) {
+                  if (canPickSkill) {
+                    event.preventDefault(); selectSkillCommand(filteredSkillCommands[activeSkillCommandIndex]?.name || filteredSkillCommands[0].name)
+                    return true
+                  }
+                  if (stylePickerRef.current?.selectActive()) {
+                    event.preventDefault()
+                    return true
+                  }
+                }
+                if (event.key === 'Enter' && !event.shiftKey && (!isMobile || event.metaKey || event.ctrlKey)) {
+                  if (isNativeComposingKeyboardEvent(event)) return false
+                  event.preventDefault()
+                  if (canPickSkill) selectSkillCommand(filteredSkillCommands[activeSkillCommandIndex]?.name || filteredSkillCommands[0].name)
+                  else if (!stylePickerRef.current?.selectActive()) void submit()
+                  return true
+                }
+                return false
+              }}
+              knownSkills={skillCommands.map((skill) => skill.name)}
+              knownStyleScenes={Array.from(new Set([...styleSceneSuggestions, ...styleScenes]))}
+              externalTokens={styleScenes.map((scene) => ({ kind: 'style', value: scene, label: scene }))}
+              rows={1}
+              minRows={1}
+              maxRows={isMobile ? 5 : 10}
+              className="nova-agent-composer-textarea nova-agent-token-input min-h-[42px] resize-none border-0 bg-transparent px-1 py-[9px] text-sm leading-6 text-[var(--nova-text)] shadow-none placeholder:text-[var(--nova-text-faint)] focus-visible:border-transparent focus-visible:ring-0"
+              style={inputTextStyle}
+              disabled={branchTerminal || !approvalReady}
+              inputMode="text"
+              enterKeyHint={isMobile ? 'enter' : 'send'}
+              autoCapitalize="sentences"
+              placeholder={branchTerminal ? t('storyStage.inputPlaceholderTerminal') : !isMobile && skillCommands.length > 0 ? t('storyStage.inputPlaceholderWithSkills') : t('storyStage.inputPlaceholder')}
+            />}
+            toolbarStart={<>
+              <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
+                <DropdownMenuTrigger asChild><Button type="button" variant="outline" size="icon-sm" className="nova-agent-composer-icon h-8 w-8 shrink-0 rounded-[10px] border border-[var(--nova-border)] bg-[var(--nova-surface)] text-[var(--nova-text-muted)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text)] disabled:opacity-45" disabled={branchTerminal} aria-label={t('chat.input.actions')}><List className="h-3.5 w-3.5" /></Button></DropdownMenuTrigger>
+                <DropdownMenuContent align="start" side="top" className="w-80 max-w-[calc(100vw-1rem)] border-[var(--nova-border)] bg-[var(--nova-surface-2)] p-2 text-[var(--nova-text)]">
+                  <DropdownMenuGroup>
+                    <ComposerMenuItem
+                      icon={Paperclip}
+                      label={t('chat.attachment.add')}
+                      disabled={branchTerminal}
+                      onSelect={attachments.openPicker}
+                    />
+                  </DropdownMenuGroup>
+                  <AgentApprovalModeMenu runActive={streaming} presentation="submenu" conversationConfig={conversationConfig} />
+                </DropdownMenuContent>
+              </DropdownMenu>
+              {attachments.input}
+            </>}
+            toolbarEnd={<>
+              <ModelProfileSwitcher agentKey="interactive_story" workspace={workspace} conversationConfig={conversationConfig} disabled={branchTerminal || !approvalReady} runActive={streaming || Boolean(pendingInterruptionId)} />
+              <Button type="button" variant="outline" className={`nova-agent-composer-pill h-8 shrink-0 rounded-[10px] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-2.5 text-[11px] text-[var(--nova-text-muted)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text)] ${assistantExpanded ? 'text-[var(--nova-text)]' : ''}`} disabled={!storyId || branchTerminal || streaming || Boolean(editingTurn)} onMouseDown={(event) => event.preventDefault()} onClick={toggleAssistant} aria-label={t('storyStage.assistant.button')} aria-expanded={assistantOpen && assistantExpanded}><Lightbulb className="h-3.5 w-3.5" />{t('storyStage.assistant.button')}</Button>
+              <Button type="button" variant="outline" className={`nova-agent-composer-pill h-8 shrink-0 rounded-[10px] border-[var(--nova-border)] bg-[var(--nova-surface)] px-2.5 text-[11px] text-[var(--nova-text-muted)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text)] ${hotChoicesExpanded ? 'text-[var(--nova-text)]' : ''}`} disabled={!canUseHotChoices} onMouseDown={(event) => event.preventDefault()} onClick={toggleHotChoices} aria-label={hotChoicesExpanded ? t('storyStage.hotChoices.collapse') : t('storyStage.hotChoices.get')}><Compass className="h-3.5 w-3.5" />{t('storyStage.hotChoices.button')}</Button>
+            </>}
+            submitControl={<AgentComposerControls generationActive={streaming} hasSendableContent={hasSendableContent} resumeAvailable={resumeAvailable} onStop={() => { void stop() }} onSend={() => { void submit() }} sendDisabled={sendBlocked || !approvalReady || !storyId || (!hasSendableContent && !resumeAvailable)} disabled={branchTerminal} abortPending={abortPending} actionPending={commandSubmitting} activeControlsDisabled={activeControlsDisabled} stopDisabled={streaming && !recoveryAbortAvailable && (recoveryPaused || !operationId || connection !== 'connected')} sendLabel={editingTurn ? t('storyStage.sendRegenerate') : undefined} sendIcon={editingTurn ? <RefreshCw data-icon="inline-start" /> : undefined} />}
+          />
+        </div>
+        {replyEditTarget ? <EditInteractiveReplyDialog key={replyEditTarget.turnId} turnId={replyEditTarget.turnId} initialContent={replyEditTarget.initialContent} onClose={closeReplyEditor} onSave={saveReply} /> : null}
+      </div>
+    </div>
+  )
+}

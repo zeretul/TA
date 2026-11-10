@@ -1,0 +1,433 @@
+package interactive
+
+import (
+	interactivestate "ta/internal/interactive/state"
+	"encoding/json"
+	"reflect"
+	"strings"
+	"testing"
+)
+
+func TestPrepareTurnSubmissionRetainsAcceptedModuleAcrossRetry(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{{Op: interactivestate.Replace, Path: "/protagonist/当前处境", Value: "废弃哨站"}}
+	invalidChoices := []string{"检查楼梯"}
+
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState:   system,
+		CurrentState: state,
+		ChoiceCount:  5,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &invalidChoices})
+	if receipt.Ready || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted || receipt.ModuleStatus.Choices != TurnSubmissionModuleRejected {
+		t.Fatalf("unexpected partial receipt: %#v", receipt)
+	}
+	if got := prepared.TurnResult(); len(got.StateUpdates) != 1 || len(got.Choices) != 0 {
+		t.Fatalf("only state_updates should be retained: %#v", got)
+	}
+
+	choices := testTurnChoices()
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState:   system,
+		CurrentState: state,
+		ChoiceCount:  5,
+	}, prepared, TurnSubmissionInput{Choices: &choices})
+	if !receipt.Ready || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted || receipt.ModuleStatus.Choices != TurnSubmissionModuleAccepted {
+		t.Fatalf("retry should complete the draft: %#v", receipt)
+	}
+	if got := prepared.TurnResult(); len(got.StateUpdates) != 1 || len(got.Choices) != 5 {
+		t.Fatalf("accepted state module was not retained: %#v", got)
+	}
+}
+
+func TestPrepareTurnSubmissionIgnoresResubmittedAcceptedModule(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{{Op: interactivestate.Replace, Path: "/protagonist/当前处境", Value: "废弃哨站"}}
+	invalidChoices := []string{"只有一个"}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &invalidChoices})
+	if receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted {
+		t.Fatalf("state_updates should be accepted first: %#v", receipt)
+	}
+
+	choices := testTurnChoices()
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+	}, prepared, TurnSubmissionInput{
+		Choices: &choices,
+		Diagnostics: []TurnSubmissionDiagnostic{{
+			Module: TurnSubmissionModuleStateChanges, Code: TurnSubmissionDiagnosticInvalidModule,
+		}},
+	})
+	if !receipt.Ready || len(receipt.Diagnostics) != 0 || !prepared.Ready() {
+		t.Fatalf("an already accepted module must not be revalidated: receipt=%#v", receipt)
+	}
+}
+
+func TestPrepareTurnSubmissionRejectsStateModuleAtomically(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{
+		{Op: interactivestate.Replace, Path: "/protagonist/当前处境", Value: "废弃哨站"},
+		{Op: interactivestate.Replace, Path: "/protagonist/生命值", Value: "很多"},
+	}
+	choices := testTurnChoices()
+
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &choices})
+	if receipt.Ready || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleRejected || receipt.ModuleStatus.Choices != TurnSubmissionModuleAccepted {
+		t.Fatalf("unexpected atomic rejection: %#v", receipt)
+	}
+	if got := prepared.TurnResult(); len(got.StateUpdates) != 0 || len(got.Choices) != 5 {
+		t.Fatalf("invalid state module must not be partially staged: %#v", got)
+	}
+	if len(receipt.Diagnostics) != 1 || receipt.Diagnostics[0].Index == nil || *receipt.Diagnostics[0].Index != 1 {
+		t.Fatalf("diagnostic should identify the failing operation: %#v", receipt.Diagnostics)
+	}
+}
+
+func TestPrepareTurnSubmissionRequiresCompleteOpeningInitialState(t *testing.T) {
+	oxygenMin := float64(0)
+	oxygenMax := float64(100)
+	system := StoryDirectorActorStateSystem{
+		Templates: []ActorStateTemplate{
+			{ID: DefaultActorID, Fields: []ActorStateField{
+				{Name: "身份", Type: "string"},
+				{Name: "氧气", Type: "number", Default: 45, Min: &oxygenMin, Max: &oxygenMax},
+			}},
+			{ID: ActorStateStoryContextTemplateID, Fields: []ActorStateField{
+				{Name: storyContextCurrentLocationField, Type: "string"},
+				{Name: storyContextCurrentEventField, Type: "string"},
+			}},
+		},
+		InitialActors: []ActorStateInitialActor{
+			{ID: DefaultActorID, Name: "主角", TemplateID: DefaultActorID},
+			{ID: DefaultStoryContextActorID, Name: "故事状态", TemplateID: ActorStateStoryContextTemplateID},
+		},
+	}
+	state, err := BuildActorStateInitialSnapshot(system, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	incomplete := []interactivestate.Update{
+		{Op: interactivestate.Replace, Path: "/story/当前详细地点", Value: "维护舱"},
+		{Op: interactivestate.Replace, Path: "/story/当前事件", Value: "站体持续泄漏"},
+	}
+	choices := testTurnChoices()
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, RequireCompleteInitialState: true,
+	}, nil, TurnSubmissionInput{StateUpdates: &incomplete, Choices: &choices})
+	if receipt.Ready || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleRejected || receipt.ModuleStatus.Choices != TurnSubmissionModuleAccepted {
+		t.Fatalf("an incomplete opening state must reject only state_changes: %#v", receipt)
+	}
+	if len(receipt.Diagnostics) != 1 || receipt.Diagnostics[0].Code != TurnSubmissionDiagnosticInitialStateIncomplete || !strings.Contains(receipt.Diagnostics[0].Message, "protagonist/身份") {
+		t.Fatalf("opening diagnostic must identify the missing field: %#v", receipt.Diagnostics)
+	}
+
+	complete := append([]interactivestate.Update{{Op: interactivestate.Replace, Path: "/protagonist/身份", Value: "潜水工程师"}}, incomplete...)
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, RequireCompleteInitialState: true,
+	}, prepared, TurnSubmissionInput{StateUpdates: &complete})
+	if !receipt.Ready || !prepared.Ready() || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted || len(prepared.TurnResult().Choices) != 5 {
+		t.Fatalf("initializing every missing field should complete the retained choices: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+}
+
+func TestUnifiedTurnSubmissionDecodesStructuredStateChangesAndIsolatesFailures(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	complete := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[{"op":"replace","actor_id":"protagonist","field_id":"当前处境","value":"废弃哨站"}],"choices":["左路","右路","检查地图","询问同伴","原地观察"]}`)
+	if complete.StateUpdates == nil || len(*complete.StateUpdates) != 1 || (*complete.StateUpdates)[0].Path != "/protagonist/当前处境" || complete.Choices == nil {
+		t.Fatalf("unified submission should compile structured IDs to the internal canonical update: %#v", complete)
+	}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{ActorState: system, CurrentState: state, ChoiceCount: 5}, nil, complete)
+	if !receipt.Ready || !prepared.Ready() {
+		t.Fatalf("complete unified submission should settle both modules: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+	receiptJSON, err := json.Marshal(receipt)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(receiptJSON), `"state_changes":"accepted"`) || strings.Contains(string(receiptJSON), "actor_state_patches") {
+		t.Fatalf("model-facing receipt should use the unified state_changes vocabulary: %s", receiptJSON)
+	}
+
+	serialized := DecodeInteractiveTurnSubmissionInput(`{"state_changes":"[{\"op\":\"replace\",\"actor_id\":\"protagonist\",\"field_id\":\"当前处境\",\"value\":\"废弃哨站\"}]"}`)
+	if serialized.StateUpdates == nil || len(*serialized.StateUpdates) != 1 || (*serialized.StateUpdates)[0].Path != "/protagonist/当前处境" || len(serialized.Diagnostics) != 0 {
+		t.Fatalf("one-layer string-encoded array should be decoded without losing the intended state fact: %#v", serialized)
+	}
+
+	malformed := DecodeInteractiveTurnSubmissionInput(`{"state_changes":"not-an-array","choices":["左路","右路","检查地图","询问同伴","原地观察"]}`)
+	if malformed.StateUpdates != nil || len(malformed.Diagnostics) != 1 || malformed.Diagnostics[0].Module != TurnSubmissionModuleStateChanges {
+		t.Fatalf("malformed state_changes must be isolated while valid choices remain available: %#v", malformed)
+	}
+	if malformed.Choices == nil || len(*malformed.Choices) != 5 {
+		t.Fatalf("valid choices from the same tool call must survive a malformed state module: %#v", malformed)
+	}
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{ActorState: system, CurrentState: state, ChoiceCount: 5}, nil, malformed)
+	if receipt.Ready || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleRejected || receipt.ModuleStatus.Choices != TurnSubmissionModuleAccepted || len(prepared.TurnResult().Choices) != 5 {
+		t.Fatalf("valid choices must be retained across a state-only retry: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+	retry := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[{"op":"replace","actor_id":"protagonist","field_id":"当前处境","value":"废弃哨站"}]}`)
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{ActorState: system, CurrentState: state, ChoiceCount: 5}, prepared, retry)
+	if !receipt.Ready || len(prepared.TurnResult().StateUpdates) != 1 || len(prepared.TurnResult().Choices) != 5 {
+		t.Fatalf("retrying only state_changes should complete the retained choices: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+}
+
+func TestUnifiedTurnSubmissionSupportsObjectSubpathsAndExplicitActorCreation(t *testing.T) {
+	system := StoryDirectorActorStateSystem{
+		Templates: []ActorStateTemplate{
+			{ID: "protagonist", Fields: []ActorStateField{{Name: "关系", Type: "object"}}},
+			{ID: "important_character", Fields: []ActorStateField{{Name: "状态", Type: "string"}}},
+		},
+	}
+	state := map[string]any{"actors": map[string]any{
+		"protagonist": map[string]any{
+			"id": "protagonist", "template_id": "protagonist",
+			"state": map[string]any{"关系": map[string]any{}},
+		},
+	}}
+	input := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[{"op":"replace","actor_id":"protagonist","field_id":"关系","subpath":["盟友/敌人","信任~值"],"value":3},{"op":"create","actor_id":"守门人","template_id":"important_character","name":"守门人","initial_state":{"状态":"警惕"}}],"choices":["前进","观察","交谈","等待","后退"]}`)
+	if input.StateUpdates == nil || len(*input.StateUpdates) != 2 {
+		t.Fatalf("structured state changes were not decoded: %#v", input)
+	}
+	if got := (*input.StateUpdates)[0].Path; got != "/protagonist/关系/盟友~1敌人/信任~0值" {
+		t.Fatalf("backend should escape subpath segments internally, got %q", got)
+	}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{ActorState: system, CurrentState: state, ChoiceCount: 5}, nil, input)
+	if !receipt.Ready || !prepared.Ready() || len(prepared.TurnResult().StateUpdates) != 2 {
+		t.Fatalf("object update and explicit create should compile atomically: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+}
+
+func TestUnifiedTurnSubmissionDecodesActorArchiveAndRestore(t *testing.T) {
+	input := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[{"op":"archive","actor_id":"狼王","reason":"本回合已确认死亡"},{"op":"restore","actor_id":"失踪斥候","reason":"确认幸存并重新登场"}]}`)
+	if input.StateUpdates == nil || len(*input.StateUpdates) != 2 || len(input.Diagnostics) != 0 {
+		t.Fatalf("actor lifecycle changes should decode as one valid state module: %#v", input)
+	}
+	archive := (*input.StateUpdates)[0]
+	if archive.Op != interactivestate.Archive || archive.Path != "/狼王" {
+		t.Fatalf("unexpected archive update: %#v", archive)
+	}
+	archiveValue, ok := archive.Value.(map[string]any)
+	if !ok || archiveValue["reason"] != "本回合已确认死亡" {
+		t.Fatalf("archive reason should survive structured decoding: %#v", archive.Value)
+	}
+	restore := (*input.StateUpdates)[1]
+	if restore.Op != interactivestate.Restore || restore.Path != "/失踪斥候" {
+		t.Fatalf("unexpected restore update: %#v", restore)
+	}
+
+	invalid := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[{"op":"archive","actor_id":"狼王"}]}`)
+	if invalid.StateUpdates != nil || len(invalid.Diagnostics) != 1 || invalid.Diagnostics[0].Path != "/state_changes/0" {
+		t.Fatalf("archive without a reason should be rejected at the lifecycle operation: %#v", invalid)
+	}
+}
+
+func TestPlanningSubmissionRequiresOpeningPlanAndPreservesExistingPlanByOmission(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{}
+	choicesInput := DecodeInteractiveTurnSubmissionInput(`{"choices":["左路","右路","检查地图","询问同伴","原地观察"],"plan_update":{"mode":"replace_document","markdown":"先核实地图，再让同伴决定下一站。"}}`)
+	if choicesInput.Choices == nil || choicesInput.PlanUpdate == nil {
+		t.Fatalf("branch plan was not decoded: %#v", choicesInput)
+	}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates})
+	if receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted || receipt.ModuleStatus.PlanUpdate != TurnSubmissionModuleMissing {
+		t.Fatalf("opening plan should remain independently missing: %#v", receipt)
+	}
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled,
+	}, prepared, choicesInput)
+	result := prepared.TurnResult()
+	if !receipt.Ready || result.PlanUpdate == nil || *result.PlanUpdate != "先核实地图，再让同伴决定下一站。" {
+		t.Fatalf("branch plan did not survive module staging: receipt=%#v result=%#v", receipt, result)
+	}
+
+	routine := DecodeInteractiveTurnSubmissionInput(`{"choices":["左路","右路","检查地图","询问同伴","原地观察"]}`)
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled, CurrentPlan: &BranchPlan{Markdown: "已有计划"},
+	}, nil, TurnSubmissionInput{StateUpdates: &updates})
+	prepared, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled, CurrentPlan: &BranchPlan{Markdown: "已有计划"},
+	}, prepared, routine)
+	if !receipt.Ready || prepared.TurnResult().PlanUpdate != nil {
+		t.Fatalf("an existing plan should be preserved by omission: %#v", prepared.TurnResult())
+	}
+}
+
+func TestPlanningSubmissionIgnoresPlanUpdateWhenPlanningIsDisabled(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	input := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[],"choices":["左路","右路","检查地图","询问同伴","原地观察"],"plan_update":{"mode":"replace_document","markdown":"这段内容不应进入关闭规划的故事。"}}`)
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeDisabled,
+	}, nil, input)
+	if !receipt.Ready || receipt.ModuleStatus.PlanUpdate != TurnSubmissionModuleAccepted {
+		t.Fatalf("disabled planning should ignore plan_update without blocking the turn: %#v", receipt)
+	}
+	if prepared.TurnResult().PlanUpdate != nil {
+		t.Fatalf("disabled planning must not retain plan_update: %#v", prepared.TurnResult())
+	}
+}
+
+func TestPlanningSubmissionRejectsMalformedReplacementIndependently(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	input := DecodeInteractiveTurnSubmissionInput(`{"state_changes":[],"choices":["左路","右路","检查地图","询问同伴","原地观察"],"plan_update":"旧格式不再接受。"}`)
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled,
+	}, nil, input)
+	if prepared == nil || receipt.ModuleStatus.StateChanges != TurnSubmissionModuleAccepted || receipt.ModuleStatus.Choices != TurnSubmissionModuleAccepted || receipt.ModuleStatus.PlanUpdate != TurnSubmissionModuleRejected {
+		t.Fatalf("only malformed plan_update should be retried: %#v", receipt)
+	}
+	if len(receipt.RetryModules) != 1 || receipt.RetryModules[0] != TurnSubmissionModulePlanUpdate {
+		t.Fatalf("unexpected retry modules: %#v", receipt.RetryModules)
+	}
+}
+
+func TestPlanningSubmissionAcceptsStructuredDocumentReplacement(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	input := DecodeInteractiveTurnSubmissionInput(`{
+		"state_changes":[],
+		"choices":["左路","右路","检查地图","询问同伴","原地观察"],
+		"plan_update":{"mode":"replace_document","markdown":"# 分支规划\n\n## 长期方向\n\n找到失踪者。\n\n## 近期节奏\n\n先核实地图。"}
+	}`)
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, PlanningMode: StoryPlanningModeEnabled,
+	}, nil, input)
+	result := prepared.TurnResult()
+	if !receipt.Ready || result.PlanUpdate == nil || !strings.Contains(*result.PlanUpdate, "## 长期方向") {
+		t.Fatalf("structured full replacement should initialize the plan: receipt=%#v result=%#v", receipt, result)
+	}
+	if receipt.PlanUpdateDetail == nil || receipt.PlanUpdateDetail.Mode != TurnPlanUpdateModeReplaceDocument {
+		t.Fatalf("full replacement receipt should identify its mode: %#v", receipt.PlanUpdateDetail)
+	}
+}
+
+func TestPlanningSubmissionRetainsValidSectionEditsAcrossTargetedRetry(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	currentPlan := &BranchPlan{Markdown: "# 分支规划\n\n## 长期方向\n\n旧长期目标。\n\n## 近期节奏\n\n旧近期安排。"}
+	input := DecodeInteractiveTurnSubmissionInput(`{
+		"state_changes":[],
+		"choices":["左路","右路","检查地图","询问同伴","原地观察"],
+		"plan_update":{"mode":"replace_sections","sections":[
+			{"heading":"长期方向","markdown":"新长期目标。\n\n### 成功条件\n\n失踪者安全归来。"},
+			{"heading":"近期节奏","markdown":"## 非法新增模块\n\n错误内容"}
+		]}
+	}`)
+	validation := TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+		PlanningMode: StoryPlanningModeEnabled, CurrentPlan: currentPlan,
+	}
+	prepared, receipt := PrepareTurnSubmission(validation, nil, input)
+	if receipt.Ready || receipt.ModuleStatus.PlanUpdate != TurnSubmissionModuleRejected {
+		t.Fatalf("one invalid section should reject only the plan module: %#v", receipt)
+	}
+	if receipt.PlanUpdateDetail == nil || !receipt.PlanUpdateDetail.RetainedDraft || !reflect.DeepEqual(receipt.PlanUpdateDetail.AcceptedSections, []string{"长期方向"}) || !reflect.DeepEqual(receipt.PlanUpdateDetail.RetrySections, []string{"近期节奏"}) {
+		t.Fatalf("receipt should expose retained and retryable sections: %#v", receipt.PlanUpdateDetail)
+	}
+	draft := prepared.TurnResult().PlanUpdate
+	if draft == nil || !strings.Contains(*draft, "新长期目标") || !strings.Contains(*draft, "旧近期安排") {
+		t.Fatalf("valid sibling edit should survive in the run-local draft: %#v", draft)
+	}
+
+	prepared, omitted := PrepareTurnSubmission(validation, prepared, TurnSubmissionInput{})
+	if omitted.ModuleStatus.PlanUpdate != TurnSubmissionModuleMissing || prepared.Ready() {
+		t.Fatalf("omission must not commit a partially repaired plan: %#v", omitted)
+	}
+
+	retry := DecodeInteractiveTurnSubmissionInput(`{"plan_update":{"mode":"replace_sections","sections":[{"heading":"近期节奏","markdown":"下一回合核实地图，并让同伴表态。"}]}}`)
+	prepared, receipt = PrepareTurnSubmission(validation, prepared, retry)
+	result := prepared.TurnResult()
+	if !receipt.Ready || result.PlanUpdate == nil || !strings.Contains(*result.PlanUpdate, "新长期目标") || !strings.Contains(*result.PlanUpdate, "下一回合核实地图") {
+		t.Fatalf("targeted retry should compose one complete final plan: receipt=%#v result=%#v", receipt, result)
+	}
+	if strings.Contains(*result.PlanUpdate, "旧长期目标") || strings.Contains(*result.PlanUpdate, "旧近期安排") {
+		t.Fatalf("final plan should contain both accepted replacements: %s", *result.PlanUpdate)
+	}
+}
+
+func TestPlanningSubmissionPartiallyAcceptsDecodableSectionItems(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	currentPlan := &BranchPlan{Markdown: "## 长期方向\n\n旧目标。\n\n## 近期节奏\n\n旧安排。"}
+	input := DecodeInteractiveTurnSubmissionInput(`{
+		"state_changes":[],
+		"choices":["左路","右路","检查地图","询问同伴","原地观察"],
+		"plan_update":{"mode":"replace_sections","sections":[
+			{"heading":42,"markdown":"错误"},
+			{"heading":"近期节奏","markdown":"有效的新安排。"}
+		]}
+	}`)
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+		PlanningMode: StoryPlanningModeEnabled, CurrentPlan: currentPlan,
+	}, nil, input)
+	if receipt.ModuleStatus.PlanUpdate != TurnSubmissionModuleRejected || receipt.PlanUpdateDetail == nil || !receipt.PlanUpdateDetail.RetainedDraft {
+		t.Fatalf("malformed section item should not discard a valid sibling: %#v", receipt)
+	}
+	if len(receipt.Diagnostics) != 1 || receipt.Diagnostics[0].Index == nil || *receipt.Diagnostics[0].Index != 0 {
+		t.Fatalf("malformed section diagnostic should retain its source index: %#v", receipt.Diagnostics)
+	}
+	plan := prepared.TurnResult().PlanUpdate
+	if plan == nil || !strings.Contains(*plan, "有效的新安排") || !strings.Contains(*plan, "旧目标") {
+		t.Fatalf("decodable sibling should be retained: %#v", plan)
+	}
+}
+
+func TestPrepareTurnSubmissionUsesConfiguredChoiceCountAndUnicodeDistinctness(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{}
+	choices := []string{"左路", "右路", "检查地图", "询问同伴", "原地观察", "返回营地", "独自探路"}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 7,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &choices})
+	if !receipt.Ready || !prepared.Ready() || len(prepared.TurnResult().Choices) != 7 {
+		t.Fatalf("configured choices should be accepted: receipt=%#v result=%#v", receipt, prepared.TurnResult())
+	}
+
+	duplicate := []string{"Ａ", "a", "B", "C", "D"}
+	_, receipt = PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &duplicate})
+	if receipt.ModuleStatus.Choices != TurnSubmissionModuleRejected || len(receipt.Diagnostics) != 1 || receipt.Diagnostics[0].Code != TurnSubmissionDiagnosticDuplicateChoice {
+		t.Fatalf("NFKC/case duplicate should identify the choices module: %#v", receipt)
+	}
+}
+
+func TestPrepareTurnSubmissionAcceptsEmptyChoicesOnlyForDeclaredTerminal(t *testing.T) {
+	system, state := turnSubmissionTestState()
+	updates := []interactivestate.Update{}
+	choices := []string{}
+	_, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &choices})
+	if receipt.ModuleStatus.Choices != TurnSubmissionModuleRejected || len(receipt.Diagnostics) != 1 || receipt.Diagnostics[0].Code != TurnSubmissionDiagnosticChoiceCountMismatch {
+		t.Fatalf("non-terminal empty choices should be rejected: %#v", receipt)
+	}
+
+	resolution := &RuleResolution{TerminalCandidate: &TerminalCandidate{Type: "completed", Reason: "故事已结束"}}
+	prepared, receipt := PrepareTurnSubmission(TurnSubmissionContext{
+		ActorState: system, CurrentState: state, ChoiceCount: 5, RuleResolution: resolution,
+	}, nil, TurnSubmissionInput{StateUpdates: &updates, Choices: &choices})
+	if !receipt.Ready || !prepared.Ready() || len(prepared.TurnResult().Choices) != 0 {
+		t.Fatalf("declared terminal empty choices should be accepted: %#v", receipt)
+	}
+}
+
+func turnSubmissionTestState() (StoryDirectorActorStateSystem, map[string]any) {
+	system := StoryDirectorActorStateSystem{Templates: []ActorStateTemplate{{
+		ID: "protagonist",
+		Fields: []ActorStateField{
+			{Name: "当前处境", Type: "string"},
+			{Name: "生命值", Type: "number"},
+		},
+	}}}
+	state := map[string]any{"actors": map[string]any{
+		"protagonist": map[string]any{
+			"id":          "protagonist",
+			"template_id": "protagonist",
+			"state":       map[string]any{"当前处境": "林地", "生命值": float64(10)},
+		},
+	}}
+	return system, state
+}

@@ -1,0 +1,148 @@
+// Package agentchat owns project-scoped Agent conversations. Unlike foreground
+// Writing, every operation is bound to an explicit stable Project and Session
+// and never changes the currently open Book.
+package agentchat
+
+import (
+	"context"
+	"time"
+
+	"ta/config"
+	agents "ta/internal/agents"
+	chatagent "ta/internal/agents/chat"
+	"ta/internal/agents/configresource"
+	agentexecution "ta/internal/agents/execution"
+	agentrun "ta/internal/agents/run"
+	agentruntime "ta/internal/agents/runtime"
+	"ta/internal/agents/session"
+	agenttool "ta/internal/agents/tool"
+	conversationapp "ta/internal/app/conversation"
+	apptask "ta/internal/app/task"
+	"ta/internal/book"
+	projectdomain "ta/internal/project"
+)
+
+const RuntimeMode = "agent_chat"
+
+// Host supplies the small amount of process-wide policy that cannot be owned
+// by one Project runtime. Project identity and session state stay in Service.
+type Host interface {
+	BaseRuntime() (config.Config, *agentexecution.Runtime)
+	AgentEngines() *agentruntime.Engines
+	ProjectVersionService(string) (*book.VersionService, error)
+	CurrentWorkspace() string
+	OnVerifiedMutations(context.Context, string, *book.VersionService, config.Config, []agenttool.Mutation, agenttool.Verification)
+	ProjectAgentHostCapabilities(context.Context, projectdomain.Type, *config.Config, string) (agents.AgentHostCapabilities, error)
+	// ScopedSettingsWriter supplies the persistence a purpose-scoped assistant
+	// writes through. It is nil when the host owns no story or world records, in
+	// which case a scoped conversation has no writable configuration at all.
+	ScopedSettingsWriter() configresource.ScopedSettingsWriter
+}
+
+// Binding is the explicit Project conversation identity carried by every
+// AgentChat operation. Workspace is derived from ProjectID and never accepted
+// as caller authority.
+type Binding struct {
+	ProjectID string `json:"project_id"`
+	SessionID string `json:"session_id"`
+	Workspace string `json:"-"`
+
+	agentKind string
+	stateRoot string
+}
+
+// ProjectRuntime is a read-only dependency snapshot for other application
+// services that execute against a registered Project, such as Automation.
+type ProjectRuntime struct {
+	Conversation conversationapp.Runtime
+	SessionStore *session.Store
+}
+
+type ActiveView struct {
+	Task                  *apptask.Snapshot
+	Runtime               agentrun.RuntimeStatus
+	RuntimeProjectionOK   bool
+	StreamAttached        bool
+	PendingAsks           []*session.AskInteraction
+	PendingInterruptionID string
+}
+
+type Session struct {
+	ID            string    `json:"id"`
+	CustomAgentID string    `json:"custom_agent_id,omitempty"`
+	Title         string    `json:"title"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
+	MessageCount  int       `json:"message_count"`
+	// Active is retained by the transport contract. AgentChat has no singleton
+	// active session; Running is the exact scoped execution state.
+	Active  bool `json:"active"`
+	Running bool `json:"running"`
+}
+
+type Project struct {
+	ID       string               `json:"id"`
+	Type     projectdomain.Type   `json:"type"`
+	Path     string               `json:"path"`
+	Name     string               `json:"name"`
+	Status   projectdomain.Status `json:"status"`
+	Current  bool                 `json:"current"`
+	Total    int                  `json:"total"`
+	Sessions []Session            `json:"sessions"`
+	Error    string               `json:"error,omitempty"`
+}
+
+type HistoryItem struct {
+	ProjectID   string  `json:"project_id"`
+	ProjectName string  `json:"project_name"`
+	Session     Session `json:"session"`
+}
+
+type HistoryPage struct {
+	Items   []HistoryItem `json:"items"`
+	Total   int           `json:"total"`
+	Offset  int           `json:"offset"`
+	HasMore bool          `json:"has_more"`
+}
+
+type HistoryQuery struct {
+	ProjectID string
+	Search    string
+	Offset    int
+	Limit     int
+}
+
+type ChatRequest = chatagent.ChatRequest
+
+const TurnOriginAutomation = "automation"
+
+// TurnPolicy narrows one project-Agent turn without creating another Agent
+// kind. DisabledCapabilities is an invocation ceiling: it can remove project
+// capabilities but can never enable a capability disabled by project settings.
+type TurnPolicy struct {
+	Origin               string
+	OriginID             string
+	TraceID              string
+	SessionTitle         string
+	ModelProfileID       string
+	DisabledCapabilities []string
+	// Purpose is the product surface that opened this conversation. The server
+	// turns it into a world binding and a configuration-resource subset; the
+	// transport value alone grants nothing.
+	Purpose Purpose
+	// StoryID is the story the surface was opened to edit. It selects which
+	// world the conversation may touch and never switches the story in play.
+	StoryID string
+}
+
+// TurnRequest is the complete admission input shared by interactive AgentChat
+// and background project automation. Task is optional; callers that already
+// own a reconnectable display task may supply it. Admission never waits for
+// another execution while holding the common AgentChat admission lock.
+type TurnRequest struct {
+	Binding Binding
+	ChatRequest
+	Task   *apptask.Task
+	Policy TurnPolicy
+	Emit   func(agentrun.Event)
+}

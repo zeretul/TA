@@ -1,0 +1,146 @@
+.nova-review-container {
+  container-name: review-workspace;
+  container-type: inline-size;
+}
+
+.nova-code-diff-view {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  --diffs-font-family: var(--nova-source-editor-font-family);
+  --diffs-font-size: var(--nova-source-editor-font-size);
+  --diffs-line-height: calc(var(--nova-source-editor-font-size) + 6px);
+  --diffs-gap-block: 0px;
+  --diffs-light-bg: var(--nova-bg);
+  --diffs-dark-bg: var(--nova-bg);
+  --diffs-light: var(--nova-text);
+  --diffs-dark: var(--nova-text);
+  --diffs-bg-context-override: var(--nova-bg);
+  --diffs-bg-context-gutter-override: var(--nova-surface-2);
+  --diffs-bg-separator-override: var(--nova-surface-2);
+  --diffs-fg-number-override: var(--nova-text-faint);
+  --diffs-addition-color: var(--nova-success);
+  --diffs-deletion-color: var(--nova-danger);
+  --diffs-modified-color: var(--nova-accent-blue);
+}
+
+.nova-code-diff-header {
+  width: 100%;
+  border-top: 2px solid var(--nova-border);
+  border-bottom: 1px solid var(--nova-border);
+  background: var(--nova-surface-2);
+  color: var(--nova-text-muted);
+}
+
+.nova-code-diff-file-icon[data-diff-file-kind='added'] {
+  color: var(--nova-success);
+}
+
+.nova-code-diff-file-icon[data-diff-file-kind='modified'] {
+  color: var(--nova-accent-blue);
+}
+
+.nova-code-diff-file-icon[data-diff-file-kind='deleted'] {
+  color: var(--nova-danger);
+}
+
+.nova-code-diff-header-actions {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.nova-code-diff-header:hover .nova-code-diff-header-actions,
+.nova-code-diff-header:focus-within .nova-code-diff-header-actions {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .nova-code-diff-header-actions {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+.nova-review-file-navigator {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  border-left: 1px solid var(--nova-border);
+  background: var(--nova-surface);
+}
+
+.nova-pierre-tree {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-top: 0.375rem;
+  --trees-padding-inline-override: 0.375rem;
+  --trees-bg-override: var(--nova-surface);
+  --trees-bg-muted-override: var(--nova-hover);
+  --trees-fg-override: var(--nova-text-muted);
+  --trees-fg-muted-override: var(--nova-text-faint);
+  --trees-selected-bg-override: var(--nova-active);
+  --trees-selected-fg-override: var(--nova-text);
+  --trees-selected-focused-border-color-override: transparent;
+  --trees-border-color-override: var(--nova-border);
+  --trees-input-bg-override: var(--nova-bg);
+  --trees-focus-ring-color-override: var(--nova-accent-blue);
+}
+
+.nova-review-inline-editor,
+.nova-review-inline-editor:focus,
+.nova-review-inline-editor:focus-visible {
+  appearance: none;
+  border-color: transparent !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+@container review-workspace (max-width: 540px) {
+  .nova-review-layout {
+    flex-direction: column;
+  }
+
+  .nova-review-file-navigator-motion {
+    order: -1;
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr;
+    transition:
+      grid-template-rows var(--nova-panel-motion-duration) var(--nova-ease),
+      visibility 0s linear 0s;
+  }
+
+  .nova-review-file-navigator-motion[data-state='closed'] {
+    width: 100%;
+    grid-template-rows: 0fr;
+    transition:
+      grid-template-rows var(--nova-panel-motion-duration) var(--nova-ease),
+      visibility 0s linear var(--nova-panel-motion-duration);
+  }
+
+  .nova-review-file-navigator-motion > [data-nova-panel-motion-content] {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .nova-review-file-navigator-motion > [data-nova-panel-motion-content][data-state='closed'] {
+    transform: translateY(-4px);
+  }
+
+  .nova-review-file-navigator {
+    order: -1;
+    width: 100%;
+    height: min(30vh, 14rem);
+    border-left: 0;
+    border-bottom: 1px solid var(--nova-border);
+  }
+}

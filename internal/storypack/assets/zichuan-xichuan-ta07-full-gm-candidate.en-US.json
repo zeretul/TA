@@ -1,0 +1,55 @@
+{
+  "name": "Zichuan · The Roads of Xichuan",
+  "description": "Xichuan’s roads run through market towns and military posts. East of Walen, grain wagons often share the road with troops on rotation. Border guides know the wells and fords and hear about changing grain prices before the towns do.",
+  "title": "Zichuan · The Roads of Xichuan",
+  "creation": {
+    "origins": {
+      "zc-origin-traveler": {
+        "name": "Xichuan traveler",
+        "description": "Odd jobs paid your way to Walen. Your bag holds only a few days of food, and someone outside the post is watering the horses."
+      },
+      "zc-origin-soldier": {
+        "name": "New soldier at the post",
+        "description": "You enlisted recently and were issued sturdy clothes. The last watch is back, with boots drying outside the door."
+      },
+      "zc-origin-artisan": {
+        "name": "Repair apprentice",
+        "description": "You mend everyday gear for a living. The shop’s oldest hammer belongs to your master, and this morning he left it for you."
+      },
+      "zc-origin-veteran-guide": {
+        "name": "Veteran border guide",
+        "description": "Years on the border taught you which fords close in high water and left you with savings. Someone brings an old map and asks if the northernmost line is still passable."
+      },
+      "zc-origin-trade-hand": {
+        "name": "Experienced caravan leader",
+        "description": "You make your living on the trade roads and know how a wagonload is divided when food runs short. You can fund another journey. At the post, a clerk rubs out the toll and begins writing a new one."
+      },
+      "custom": {
+        "name": "Custom background",
+        "description": "Write where you came from, who you are, and what brought you here."
+      }
+    }
+  },
+  "templates": {
+    "zc-origin-traveler": {
+      "name": "Xichuan traveler",
+      "description": "Odd jobs paid your way to Walen. Your bag holds only a few days of food, and someone outside the post is watering the horses."
+    },
+    "zc-origin-soldier": {
+      "name": "New soldier at the post",
+      "description": "You enlisted recently and were issued sturdy clothes. The last watch is back, with boots drying outside the door."
+    },
+    "zc-origin-artisan": {
+      "name": "Repair apprentice",
+      "description": "You mend everyday gear for a living. The shop’s oldest hammer belongs to your master, and this morning he left it for you."
+    },
+    "zc-origin-veteran-guide": {
+      "name": "Veteran border guide",
+      "description": "Years on the border taught you which fords close in high water and left you with savings. Someone brings an old map and asks if the northernmost line is still passable."
+    },
+    "zc-origin-trade-hand": {
+      "name": "Experienced caravan leader",
+      "description": "You make your living on the trade roads and know how a wagonload is divided when food runs short. You can fund another journey. At the post, a clerk rubs out the toll and begins writing a new one."
+    }
+  }
+}

@@ -1,0 +1,770 @@
+package agents
+
+import (
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"time"
+
+	agent "ta/agent"
+	"ta/agent/providers"
+	agenttoolresult "ta/agent/toolresult"
+	publictools "ta/agent/tools"
+
+	"ta/config"
+	"ta/internal/agents/agentprofile"
+	agentchat "ta/internal/agents/chat"
+	agentcompaction "ta/internal/agents/context/compaction"
+	agentdelegation "ta/internal/agents/delegation"
+	agentinteractive "ta/internal/agents/interactive"
+	agentlifecycle "ta/internal/agents/lifecycle"
+	"ta/internal/agents/modelio"
+	"ta/internal/agents/prompts"
+	agentrun "ta/internal/agents/run"
+	"ta/internal/agents/toolresult"
+	agenttoolruntime "ta/internal/agents/toolruntime"
+	producttools "ta/internal/agents/tools"
+	"ta/internal/book"
+)
+
+// ToolDefinition keeps application packages on Text Adventure's Agent boundary rather
+// than importing the provider runtime directly.
+type ToolDefinition = agent.ToolDefinition
+type Definition = agent.Definition
+
+// AgentHostCapabilities are runtime surfaces supplied by the caller. Tool
+// settings authorize a capability; they cannot manufacture an interactive UI.
+type AgentHostCapabilities struct {
+	Interactive bool
+	// RootTools are host-owned session tools. They are intentionally excluded
+	// from every sub-Agent assembly.
+	RootTools []agent.ToolDefinition
+	// ReadAdapters extend the single read tool with application-owned URI
+	// resources without exposing extra model-visible state-management tools.
+	ReadAdapters []producttools.ReadAdapterBinding
+	// ToolScope narrows the product tools to one application purpose: which
+	// world the lore tools may read and write, and which configuration
+	// resources the registry serves. Nil keeps the full editor surface. It is
+	// carried here because this is the only structure both the Native and the
+	// external builders receive; narrowing applied to resolved tool settings
+	// alone would be ignored by external engines.
+	ToolScope *producttools.IDEContext
+}
+
+// productTools returns the catalog factory for this host's Agent kind, narrowed
+// to the host's tool scope when the caller supplied one.
+func (host AgentHostCapabilities) productTools(ctx context.Context, cfg *config.Config, kind string) producttools.Factory {
+	catalog := agenttoolruntime.NewCatalogWithContext(ctx, cfg)
+	if host.ToolScope == nil {
+		if kind == config.AgentKindGeneral {
+			return catalog.Configuration()
+		}
+		return catalog.IDE()
+	}
+	if kind == config.AgentKindGeneral {
+		return catalog.ScopedConfiguration(*host.ToolScope)
+	}
+	return catalog.ScopedIDE(*host.ToolScope)
+}
+
+// ScopedAgentToolCapabilities are the capabilities a purpose-scoped product
+// assistant keeps. Every other capability is removed from the resolved set, so
+// a scoped assistant has no shell, host filesystem write, delegation or web
+// tool regardless of which builder assembled it.
+//
+// AgentToolSkills is here for its read half only. The capability authorizes
+// both the skill tool and the skill:// read route, and a scoped assistant needs
+// the route: every resource it may write advertises a reference document that
+// holds the write shape. The builder assembles the catalog prompt and the skill
+// tool only for an unscoped host, so keeping the capability adds the route
+// without widening the model-visible Skill surface.
+var ScopedAgentToolCapabilities = []string{
+	config.AgentToolFilesystemRead,
+	config.AgentToolAsk,
+	config.AgentToolTodo,
+	config.AgentToolSkills,
+	config.AgentToolLoreRead,
+	config.AgentToolLoreWrite,
+	config.AgentToolConfigRead,
+	config.AgentToolConfigApply,
+	config.AgentToolImageGeneration,
+}
+
+// narrowSettings removes every capability outside ScopedAgentToolCapabilities.
+// Narrowing resolved settings is what makes the external engine path obey the
+// purpose too: it builds its settings from role defaults, not from project
+// configuration, so a tool-scope-only restriction would leave shell and host
+// writes enabled there. It returns nil for an unscoped host, which keeps the
+// ordinary resolve path.
+func (host AgentHostCapabilities) narrowSettings(settings config.ResolvedAgentToolSettings) config.ResolvedAgentToolSettings {
+	if host.ToolScope == nil || settings == nil {
+		return nil
+	}
+	allowed := make(map[string]struct{}, len(ScopedAgentToolCapabilities))
+	for _, capability := range ScopedAgentToolCapabilities {
+		allowed[capability] = struct{}{}
+	}
+	for capability := range settings {
+		if _, ok := allowed[capability]; !ok {
+			settings[capability] = false
+		}
+	}
+	return settings
+}
+
+// resolveToolSettings is the Native path's tool settings: project configuration
+// narrowed by the host's purpose.
+func (host AgentHostCapabilities) resolveToolSettings(cfg *config.Config, kind string) config.ResolvedAgentToolSettings {
+	return host.narrowSettings(config.ResolveAgentTools(cfg, kind))
+}
+
+// BuildDefinitionWithCompositionForHost returns the complete public Agent
+// composition for a Writing Agent Project Session.
+func BuildDefinitionWithCompositionForHost(ctx context.Context, cfg *config.Config, state *book.State, teller prompts.IDEStoryTeller, host AgentHostCapabilities) (agent.Definition, prompts.SystemPromptComposition, error) {
+	composition, err := prompts.ComposeInstruction(cfg, state, teller)
+	if err != nil {
+		return agent.Definition{}, prompts.SystemPromptComposition{}, err
+	}
+	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
+		Kind:              config.AgentKindIDE,
+		Name:              "DenovaAgent",
+		Description:       "AI novel-writing assistant",
+		Composition:       composition,
+		ProjectState:      state,
+		EnableSkills:      true,
+		InteractiveHost:   host.Interactive,
+		ExtraTools:        host.RootTools,
+		ExtraToolsFactory: host.productTools(ctx, cfg, config.AgentKindIDE),
+		ReadAdapters:      host.ReadAdapters,
+		NarrowedSettings:  host.resolveToolSettings(cfg, config.AgentKindIDE),
+		ReferenceRouteOnly: host.ToolScope != nil,
+	})
+	return assembly.Definition, assembly.Composition, err
+}
+
+// BuildGeneralDefinitionWithCompositionForHost returns the complete public
+// Agent composition for a general Project Session.
+func BuildGeneralDefinitionWithCompositionForHost(ctx context.Context, cfg *config.Config, state *book.State, host AgentHostCapabilities) (agent.Definition, prompts.SystemPromptComposition, error) {
+	composition, err := prompts.ComposeGeneralInstruction(cfg)
+	if err != nil {
+		return agent.Definition{}, prompts.SystemPromptComposition{}, err
+	}
+	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
+		Kind:              config.AgentKindGeneral,
+		Name:              "DenovaGeneralAgent",
+		Description:       "General-purpose project Agent",
+		Composition:       composition,
+		ProjectState:      state,
+		EnableSkills:      true,
+		InteractiveHost:   host.Interactive,
+		ExtraTools:        host.RootTools,
+		ExtraToolsFactory: host.productTools(ctx, cfg, config.AgentKindGeneral),
+		ReadAdapters:      host.ReadAdapters,
+		NarrowedSettings:  host.resolveToolSettings(cfg, config.AgentKindGeneral),
+		ReferenceRouteOnly: host.ToolScope != nil,
+	})
+	return assembly.Definition, assembly.Composition, err
+}
+
+func BuildInteractiveStoryDefinitionWithCompositionForHost(
+	ctx context.Context,
+	cfg *config.Config,
+	state *book.State,
+	teller prompts.InteractiveStorySystemInstructionInput,
+	host AgentHostCapabilities,
+	toolContexts ...agentinteractive.InteractiveStoryToolContext,
+) (agent.Definition, prompts.SystemPromptComposition, error) {
+	handlers := []agent.Middleware{agenttoolruntime.NewInteractiveStoryMiddleware()}
+	if len(toolContexts) > 0 && toolContexts[0].TurnResultReady != nil {
+		handlers = append(handlers, agentinteractive.NewTurnProtocolMiddleware(toolContexts[0]))
+	}
+	composition, err := prompts.ComposeInteractiveStoryInstruction(cfg, state, teller)
+	if err != nil {
+		return agent.Definition{}, prompts.SystemPromptComposition{}, err
+	}
+	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
+		Kind:              config.AgentKindInteractiveStory,
+		Name:              "DenovaInteractiveStoryAgent",
+		Description:       "AI interactive-story narrator",
+		Composition:       composition,
+		ProjectState:      state,
+		EnableSkills:      true,
+		InteractiveHost:   host.Interactive,
+		ExtraTools:        host.RootTools,
+		ReadAdapters:      host.ReadAdapters,
+		ExtraMiddlewares:  handlers,
+		ExtraToolsFactory: agenttoolruntime.NewCatalog(cfg).InteractiveStory(agenttoolruntime.ProjectInteractiveContext(toolContexts...)),
+	})
+	return assembly.Definition, assembly.Composition, err
+}
+
+func BuildImageDefinitionWithComposition(ctx context.Context, cfg *config.Config, state *book.State, systemPrompt string) (agent.Definition, prompts.SystemPromptComposition, error) {
+	composition, err := prompts.ComposeImageInstruction(cfg, state, systemPrompt)
+	if err != nil {
+		return agent.Definition{}, prompts.SystemPromptComposition{}, err
+	}
+	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, agentBuildSpec{
+		Kind:              config.AgentKindImage,
+		Name:              "DenovaImageAgent",
+		Description:       "AI image-generation assistant",
+		Composition:       composition,
+		ProjectState:      state,
+		EnableSkills:      true,
+		DisableWriteTodos: true,
+		ExtraToolsFactory: agenttoolruntime.NewCatalog(cfg).Image(),
+	})
+	return assembly.Definition, assembly.Composition, err
+}
+
+type agentBuildSpec struct {
+	Kind                string
+	Name                string
+	Description         string
+	Composition         prompts.SystemPromptComposition
+	ProjectState        *book.State
+	EnableSkills        bool
+	InteractiveHost     bool
+	DisableWriteTodos   bool
+	ExtraMiddlewares    []agent.Middleware
+	ExtraTools          []agent.ToolDefinition
+	ReadAdapters        []producttools.ReadAdapterBinding
+	ReadAdaptersFactory producttools.ReadAdapterFactory
+	ExtraToolsFactory   func(config.ResolvedAgentToolSettings) ([]agent.ToolDefinition, error)
+	// NarrowedSettings, when set, replaces the resolved tool settings for this
+	// assembly. It is how a purpose-scoped host removes capabilities that the
+	// project configuration would otherwise grant.
+	NarrowedSettings config.ResolvedAgentToolSettings
+	// ReferenceRouteOnly assembles the skill:// read route without the Skill
+	// catalog prompt or the skill tool, which is the half of the Skills surface
+	// a purpose-scoped host keeps.
+	ReferenceRouteOnly bool
+}
+
+type agentDefinitionAssembly struct {
+	Definition  agent.Definition
+	Composition prompts.SystemPromptComposition
+}
+
+func buildAgentDefinition(ctx context.Context, cfg *config.Config, spec agentBuildSpec) (agent.Definition, error) {
+	assembly, err := buildAgentDefinitionWithComposition(ctx, cfg, spec)
+	return assembly.Definition, err
+}
+
+// buildAgentDefinitionWithComposition is Text Adventure's public Agent composition
+// root. Root and delegated children are Definitions; execution always enters
+// through a durable Agent Session/Run owned by the execution adapter. The
+// returned composition is the exact post-capability prompt consumed by the
+// model and shared with runtime inspection and logging.
+func buildAgentDefinitionWithComposition(ctx context.Context, cfg *config.Config, spec agentBuildSpec) (agentDefinitionAssembly, error) {
+	composition, err := resolveAgentSystemPrompt(cfg, spec)
+	if err != nil {
+		return agentDefinitionAssembly{}, err
+	}
+	projectContext, err := agentlifecycle.NewProjectInstructionsContextSource(cfg, spec.Kind, spec.ProjectState)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("create project instructions context for Agent %s: %w", spec.Kind, err)
+	}
+	definitionContext, err := agent.CombineContextSources(
+		projectContext,
+		agentprofile.ContextSource(cfg, spec.Kind),
+	)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("compose ContextSource for Agent %s: %w", spec.Kind, err)
+	}
+	childSpec := spec
+	childSpec.Composition = composition
+	modelCfg, err := modelio.ConfigForAgent(cfg, spec.Kind)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("resolve model configuration: %w", err)
+	}
+	toolSettings := spec.NarrowedSettings
+	if toolSettings == nil {
+		toolSettings = config.ResolveAgentTools(cfg, spec.Kind)
+	}
+	chatModel, err := modelio.NewChatModel(ctx, modelCfg)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("create model: %w", err)
+	}
+	modelIdentity, err := providers.ModelIdentity(modelCfg)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("resolve model capability identity: %w", err)
+	}
+
+	assembly, err := buildChatModelAgentAssembly(ctx, cfg, chatModelAgentAssemblySpec{
+		Kind:                spec.Kind,
+		SystemPrompt:        composition,
+		ModelCfg:            modelCfg,
+		ToolSettings:        toolSettings,
+		EnableSkills:        spec.EnableSkills,
+		ExtraMiddlewares:    spec.ExtraMiddlewares,
+		ExtraTools:          spec.ExtraTools,
+		ReadAdapters:        spec.ReadAdapters,
+		ReadAdaptersFactory: spec.ReadAdaptersFactory,
+		ExtraToolsFactory:   spec.ExtraToolsFactory,
+		ReferenceRouteOnly:  spec.ReferenceRouteOnly,
+		// Agent.Definition.Compaction is the only root checkpoint authority.
+		// The older model middleware writes product-session checkpoints and must
+		// never be assembled into a public Agent Definition.
+		ContextWindowTokens:   config.ResolveAgentModel(cfg, spec.Kind).ContextWindowTokens,
+		ProviderInputMaxBytes: config.ResolveAgentContext(cfg, spec.Kind).MaxProviderInputBytes,
+	})
+	if err != nil {
+		return agentDefinitionAssembly{}, err
+	}
+	var subAgentConfigs []config.SubAgentConfig
+	if cfg != nil {
+		subAgentConfigs = cfg.SubAgents
+	}
+	var taskAgents []agentdelegation.Child
+	if toolSettings.Allows(config.AgentToolDelegation) {
+		configuredSubAgents, err := buildConfiguredSubAgents(
+			ctx, cfg, childSpec, toolSettings, projectContext,
+			agentprofile.FilterSubAgents(cfg, spec.Kind, subAgentConfigs),
+		)
+		if err != nil {
+			return agentDefinitionAssembly{}, err
+		}
+		taskAgents = append(taskAgents, configuredSubAgents...)
+		if agentprofile.IncludeGeneralSubAgent(cfg, spec.Kind, config.GeneralSubAgentEnabled(cfg, spec.Kind)) {
+			generalAssembly, err := buildChatModelAgentAssembly(ctx, cfg, chatModelAgentAssemblySpec{
+				Kind:                  producttools.GeneralSubAgentName,
+				SystemPrompt:          composition,
+				ToolPolicyKind:        spec.Kind,
+				ModelCfg:              modelCfg,
+				ToolSettings:          toolSettings,
+				EnableSkills:          spec.EnableSkills,
+				ExtraToolsFactory:     spec.ExtraToolsFactory,
+				ContextWindowTokens:   config.ResolveAgentModel(cfg, spec.Kind).ContextWindowTokens,
+				ProviderInputMaxBytes: config.ResolveAgentContext(cfg, spec.Kind).MaxProviderInputBytes,
+			})
+			if err != nil {
+				return agentDefinitionAssembly{}, fmt.Errorf("assemble general-purpose child Agent tools: %w", err)
+			}
+			general, err := buildChildDefinition(cfg, childDefinitionSpec{
+				ParentKind:  spec.Kind,
+				Name:        producttools.GeneralSubAgentName,
+				Description: "Use for an independently scoped research, code-investigation, or multi-step execution task that returns findings to the parent Agent.",
+				Composition: generalAssembly.SystemPrompt,
+				Context:     projectContext,
+				Model:       chatModel, ModelIdentity: modelIdentity,
+				ModelContextWindow: config.ResolveAgentModel(cfg, spec.Kind).ContextWindowTokens,
+				Tools:              generalAssembly.Tools, Middlewares: generalAssembly.Middlewares,
+			})
+			if err != nil {
+				return agentDefinitionAssembly{}, fmt.Errorf("create general-purpose child Agent: %w", err)
+			}
+			taskAgents = append([]agentdelegation.Child{general}, taskAgents...)
+		}
+	}
+
+	tools := append([]agent.ToolDefinition(nil), assembly.Tools...)
+	var builtinToolsets []agent.CapabilityIdentity
+	if !spec.DisableWriteTodos && toolSettings.Allows(config.AgentToolTodo) {
+		todoToolset := publictools.Todo()
+		prepared, err := todoToolset.PrepareTools(ctx, agent.ToolRequest{})
+		if err != nil {
+			return agentDefinitionAssembly{}, fmt.Errorf("prepare todo tool: %w", err)
+		}
+		tools = append(tools, prepared...)
+		builtinToolsets = append(builtinToolsets, todoToolset.Identity())
+	}
+	if spec.InteractiveHost && toolSettings.Allows(config.AgentToolAsk) && (spec.Kind == config.AgentKindGeneral || spec.Kind == config.AgentKindIDE) {
+		askToolset := publictools.Ask()
+		prepared, err := askToolset.PrepareTools(ctx, agent.ToolRequest{})
+		if err != nil {
+			return agentDefinitionAssembly{}, fmt.Errorf("prepare ask tool: %w", err)
+		}
+		tools = append(tools, prepared...)
+		builtinToolsets = append(builtinToolsets, askToolset.Identity())
+	}
+	tools, err = agentprofile.ApplyToolGuidance(ctx, cfg, spec.Kind, tools)
+	if err != nil {
+		return agentDefinitionAssembly{}, err
+	}
+	manifest := config.ResolveAgentToolManifestForGOOS(toolSettings, spec.Kind, "", toolresult.LimitBytes(cfg))
+	if err := producttools.ValidateAgainstManifest(ctx, tools, manifest); err != nil {
+		return agentDefinitionAssembly{}, err
+	}
+
+	middlewares := identifyTaMiddlewares(spec.Kind, cfg, assembly.Middlewares)
+	compaction, err := agentcompaction.NewAgentManager(cfg, spec.Kind)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("create Agent Compaction manager kind=%s: %w", spec.Kind, err)
+	}
+	permissionMode := config.AgentApprovalAsk
+	var permissionRules []config.AgentApprovalRule
+	if cfg != nil {
+		permissionMode = config.NormalizeAgentApprovalMode(cfg.AgentApprovalMode)
+		permissionRules = config.NormalizeAgentApprovalRules(cfg.AgentApprovalRules)
+	}
+	permission, err := agentlifecycle.NewPermissionPolicy(agentlifecycle.PermissionConfig{
+		Mode: permissionMode, AgentKind: spec.Kind,
+		ProjectID: configProjectID(cfg), Workspace: configWorkspace(cfg),
+		Rules: permissionRules,
+	})
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("create Agent Permission policy kind=%s: %w", spec.Kind, err)
+	}
+	var goalManager agent.GoalManager
+	switch spec.Kind {
+	case config.AgentKindGeneral, config.AgentKindIDE:
+		goalManager = agentlifecycle.NewGoalManager()
+	}
+	rootTools, err := agent.StaticToolsIdentified(taCapabilityIdentity("denova.tools", struct {
+		Kind      string
+		ProjectID string
+		Workspace string
+		Settings  config.ResolvedAgentToolSettings
+		Builtins  []agent.CapabilityIdentity
+	}{spec.Kind, configProjectID(cfg), configWorkspace(cfg), toolSettings, builtinToolsets}), tools...)
+	if err != nil {
+		return agentDefinitionAssembly{}, fmt.Errorf("construct root Agent Toolset kind=%s: %w", spec.Kind, err)
+	}
+	var definitionTools agent.Toolset = rootTools
+	if len(taskAgents) > 0 {
+		validationIdentity, validateManifest, validationErr := producttools.ManifestValidator(manifest)
+		if validationErr != nil {
+			return agentDefinitionAssembly{}, fmt.Errorf("identify Agent tool manifest kind=%s: %w", spec.Kind, validationErr)
+		}
+		catalog, err := agentdelegation.NewCatalog(rootTools, agentdelegation.Config{
+			Capability:         config.AgentToolDelegation,
+			MaxResultBytes:     toolresult.LimitBytes(cfg),
+			Parallelism:        configSubAgentParallelism(cfg),
+			ValidationIdentity: validationIdentity,
+			Validate:           validateManifest,
+		}, taskAgents...)
+		if err != nil {
+			return agentDefinitionAssembly{}, fmt.Errorf("create durable task Toolset: %w", err)
+		}
+		definitionTools = catalog
+	}
+	return agentDefinitionAssembly{Definition: agent.Definition{
+		Key:           "denova." + spec.Kind,
+		Name:          spec.Name,
+		Description:   spec.Description,
+		Model:         chatModel,
+		ModelIdentity: modelIdentity,
+		Instructions:  assembly.SystemPrompt.Instruction(),
+		Context:       definitionContext,
+		Tools:         definitionTools,
+		Middlewares:   middlewares,
+		ResultProcessor: agenttoolresult.Standard(agenttoolresult.Policy{
+			MaxBytes:            toolresult.LimitBytes(cfg),
+			ContextWindowTokens: config.ResolveAgentModel(cfg, spec.Kind).ContextWindowTokens,
+		}),
+		Compaction: compaction,
+		Elision:    agentcompaction.NewElisionPolicyForModel(cfg, spec.Kind, config.ResolveAgentModel(cfg, spec.Kind).ContextWindowTokens),
+		Goal:       goalManager,
+		Permission: permission,
+		Execution:  agentExecutionPolicy(cfg),
+	}, Composition: assembly.SystemPrompt}, nil
+}
+
+func identifyTaMiddlewares(kind string, cfg *config.Config, middlewares []agent.Middleware) []agent.Middleware {
+	identified := make([]agent.Middleware, len(middlewares))
+	for index, middleware := range middlewares {
+		if _, ok := middleware.(agent.IdentifiedMiddleware); ok {
+			identified[index] = middleware
+			continue
+		}
+		identified[index] = agent.IdentifyMiddleware(middleware, taCapabilityIdentity("denova.middleware", struct {
+			Kind      string
+			Index     int
+			Type      string
+			ProjectID string
+		}{kind, index, fmt.Sprintf("%T", middleware), configProjectID(cfg)}))
+	}
+	return identified
+}
+
+func taCapabilityIdentity(kind string, configuration any) agent.CapabilityIdentity {
+	encoded, _ := json.Marshal(configuration)
+	digest := sha256.Sum256(encoded)
+	return agent.CapabilityIdentity{Kind: kind, Version: 1, ConfigHash: hex.EncodeToString(digest[:])}
+}
+
+func configProjectID(cfg *config.Config) string {
+	if cfg == nil {
+		return ""
+	}
+	return cfg.ProjectID
+}
+
+func configWorkspace(cfg *config.Config) string {
+	if cfg == nil {
+		return ""
+	}
+	return cfg.Workspace
+}
+
+func resolveAgentSystemPrompt(_ *config.Config, spec agentBuildSpec) (prompts.SystemPromptComposition, error) {
+	composition := spec.Composition
+	if err := composition.ValidateForAgent(spec.Kind); err != nil {
+		return prompts.SystemPromptComposition{}, err
+	}
+	return composition, nil
+}
+
+type chatModelAgentAssemblySpec struct {
+	Kind                  string
+	SystemPrompt          prompts.SystemPromptComposition
+	ToolPolicyKind        string
+	ModelCfg              providers.ModelConfig
+	ToolSettings          config.ResolvedAgentToolSettings
+	EnableSkills          bool
+	ExtraMiddlewares      []agent.Middleware
+	ExtraTools            []agent.ToolDefinition
+	ReadAdapters          []producttools.ReadAdapterBinding
+	ReadAdaptersFactory   producttools.ReadAdapterFactory
+	ExtraToolsFactory     func(config.ResolvedAgentToolSettings) ([]agent.ToolDefinition, error)
+	ReferenceRouteOnly    bool
+	ContextWindowTokens   int
+	ProviderInputMaxBytes int
+}
+
+type chatModelAgentAssembly struct {
+	SystemPrompt prompts.SystemPromptComposition
+	Tools        []agent.ToolDefinition
+	Middlewares  []agent.Middleware
+}
+
+func buildChatModelAgentAssembly(ctx context.Context, cfg *config.Config, spec chatModelAgentAssemblySpec) (chatModelAgentAssembly, error) {
+	workspace := ""
+	if cfg != nil {
+		workspace = cfg.Workspace
+	}
+	assembly, err := buildAgentTools(ctx, cfg, agentToolsSpec{
+		Kind: spec.Kind, SystemPrompt: spec.SystemPrompt, Settings: spec.ToolSettings,
+		EnableSkills: spec.EnableSkills, ExtraTools: spec.ExtraTools,
+		ReadAdapters: spec.ReadAdapters, ReadAdaptersFactory: spec.ReadAdaptersFactory,
+		ExtraToolsFactory: spec.ExtraToolsFactory, ReferenceRouteOnly: spec.ReferenceRouteOnly,
+	})
+	if err != nil {
+		return chatModelAgentAssembly{}, err
+	}
+	systemPrompt := assembly.SystemPrompt
+	middlewares := append([]agent.Middleware(nil), spec.ExtraMiddlewares...)
+	middlewares = append(middlewares,
+		agenttoolruntime.NewOrchestratorMiddleware(agenttoolruntime.OrchestratorConfig{
+			AgentKind: spec.Kind, PolicyKind: firstNonEmpty(spec.ToolPolicyKind, spec.Kind),
+			ToolSettings: spec.ToolSettings, EnforceToolSettings: true,
+			Workspace: workspace, ToolResultMaxBytes: toolresult.LimitBytes(cfg),
+		}),
+		agentrun.NewModelInputLoggingMiddleware(
+			spec.Kind, spec.ModelCfg, spec.ContextWindowTokens, spec.ProviderInputMaxBytes, systemPrompt,
+		),
+	)
+	// Context maintenance must observe the final model call after every
+	// mode-specific option and tool decision has been applied.
+	middlewares = append(middlewares, agentchat.NewModelContextMiddlewares(
+		toolresult.ResolveContextPolicy(cfg, firstNonEmpty(spec.ToolPolicyKind, spec.Kind)),
+	)...)
+	// Keep profile defaults visible to lifecycle inspection, Cleanup, and
+	// Compaction while preserving explicit options on bounded side forks.
+	if maxOutputTokens := spec.ModelCfg.MaxOutputTokens; maxOutputTokens != nil && *maxOutputTokens > 0 {
+		middlewares = append(middlewares, agentchat.NewDefaultMaxTokensMiddleware(*maxOutputTokens))
+	}
+	return chatModelAgentAssembly{SystemPrompt: systemPrompt, Tools: assembly.Tools, Middlewares: middlewares}, nil
+}
+
+func buildConfiguredSubAgents(
+	ctx context.Context,
+	cfg *config.Config,
+	parent agentBuildSpec,
+	parentTools config.ResolvedAgentToolSettings,
+	projectContext agent.ContextSource,
+	subConfigs []config.SubAgentConfig,
+) ([]agentdelegation.Child, error) {
+	if cfg == nil || !config.IsSubAgentParentKind(parent.Kind) {
+		return nil, nil
+	}
+	subConfigs = config.SanitizeSubAgents(subConfigs)
+	if len(subConfigs) == 0 {
+		return nil, nil
+	}
+	subAgents := make([]agentdelegation.Child, 0, len(subConfigs))
+	for _, sub := range subConfigs {
+		if !config.SubAgentAllowedForParent(sub, parent.Kind) {
+			continue
+		}
+		subAgent, err := buildConfiguredSubAgent(ctx, cfg, parent, parentTools, projectContext, sub)
+		if err != nil {
+			return nil, err
+		}
+		subAgents = append(subAgents, subAgent)
+	}
+	return subAgents, nil
+}
+
+func buildConfiguredSubAgent(
+	ctx context.Context,
+	cfg *config.Config,
+	parent agentBuildSpec,
+	parentTools config.ResolvedAgentToolSettings,
+	projectContext agent.ContextSource,
+	sub config.SubAgentConfig,
+) (agentdelegation.Child, error) {
+	composition, err := composeSubAgentInstruction(cfg, parent, sub)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("assemble sub Agent system prompt id=%s: %w", sub.ID, err)
+	}
+	resolvedModel := config.ResolveSubAgentModel(cfg, parent.Kind, sub)
+	modelCfg, err := modelio.ConfigFromResolved(resolvedModel)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("resolve sub Agent model configuration id=%s: %w", sub.ID, err)
+	}
+	subChatModel, err := modelio.NewChatModel(ctx, modelCfg)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("创建子 Agent 模型失败 id=%s: %w", sub.ID, err)
+	}
+	toolSettings := config.ResolveSubAgentTools(parentTools, sub.Tools)
+	assembly, err := buildChatModelAgentAssembly(ctx, cfg, chatModelAgentAssemblySpec{
+		Kind:                  sub.ID,
+		SystemPrompt:          composition,
+		ToolPolicyKind:        parent.Kind,
+		ModelCfg:              modelCfg,
+		ToolSettings:          toolSettings,
+		EnableSkills:          parent.EnableSkills,
+		ExtraToolsFactory:     parent.ExtraToolsFactory,
+		ContextWindowTokens:   resolvedModel.ContextWindowTokens,
+		ProviderInputMaxBytes: config.ResolveAgentContext(cfg, parent.Kind).MaxProviderInputBytes,
+	})
+	if err != nil {
+		return agentdelegation.Child{}, err
+	}
+	modelIdentity, err := providers.ModelIdentity(modelCfg)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("resolve sub Agent model identity id=%s: %w", sub.ID, err)
+	}
+	return buildChildDefinition(cfg, childDefinitionSpec{
+		ParentKind: parent.Kind, Name: sub.ID, Description: sub.Description,
+		Composition: assembly.SystemPrompt, Model: subChatModel, ModelIdentity: modelIdentity,
+		Context:            projectContext,
+		ModelContextWindow: resolvedModel.ContextWindowTokens,
+		Tools:              assembly.Tools, Middlewares: assembly.Middlewares,
+	})
+}
+
+type childDefinitionSpec struct {
+	ParentKind         string
+	Name               string
+	Description        string
+	Composition        prompts.SystemPromptComposition
+	Context            agent.ContextSource
+	Model              agent.BaseChatModel
+	ModelIdentity      agent.CapabilityIdentity
+	ModelContextWindow int
+	Tools              []agent.ToolDefinition
+	Middlewares        []agent.Middleware
+}
+
+func buildChildDefinition(cfg *config.Config, spec childDefinitionSpec) (agentdelegation.Child, error) {
+	compaction, err := agentcompaction.NewAgentManagerForModel(cfg, spec.ParentKind, spec.ModelContextWindow)
+	if err != nil {
+		return agentdelegation.Child{}, err
+	}
+	permissionMode := config.AgentApprovalAsk
+	var permissionRules []config.AgentApprovalRule
+	if cfg != nil {
+		permissionMode = config.NormalizeAgentApprovalMode(cfg.AgentApprovalMode)
+		permissionRules = config.NormalizeAgentApprovalRules(cfg.AgentApprovalRules)
+	}
+	permission, err := agentlifecycle.NewPermissionPolicy(agentlifecycle.PermissionConfig{
+		Mode: permissionMode, ProjectID: configProjectID(cfg), Workspace: configWorkspace(cfg),
+		NonInteractive: true, Rules: permissionRules,
+	})
+	if err != nil {
+		return agentdelegation.Child{}, err
+	}
+	tools, err := agent.StaticToolsIdentified(taCapabilityIdentity("denova.child.tools", struct {
+		Parent string
+		Name   string
+	}{spec.ParentKind, spec.Name}), spec.Tools...)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("construct delegated Agent Toolset %q: %w", spec.Name, err)
+	}
+	definition := agent.Definition{
+		Key:  "denova." + spec.ParentKind + ".child." + spec.Name,
+		Name: spec.Name, Description: spec.Description,
+		Model: spec.Model, ModelIdentity: spec.ModelIdentity,
+		Instructions: spec.Composition.Instruction(), Context: spec.Context, Tools: tools,
+		Middlewares: identifyTaMiddlewares(spec.ParentKind+".child."+spec.Name, cfg, spec.Middlewares),
+		ResultProcessor: agenttoolresult.Standard(agenttoolresult.Policy{
+			MaxBytes:            toolresult.LimitBytes(cfg),
+			ContextWindowTokens: spec.ModelContextWindow,
+		}),
+		// Goals are a root product workflow. Delegated Agents keep isolated
+		// task transcripts and must not create or continue a parent Goal.
+		Compaction: compaction, Permission: permission,
+		Elision:   agentcompaction.NewElisionPolicyForModel(cfg, spec.ParentKind, spec.ModelContextWindow),
+		Execution: agentExecutionPolicy(cfg),
+	}
+	behavior, err := agent.DefinitionBehaviorIdentity(definition)
+	if err != nil {
+		return agentdelegation.Child{}, fmt.Errorf("fingerprint delegated Agent %q: %w", spec.Name, err)
+	}
+	identity := agent.CapabilityIdentity{Kind: "denova.child", Version: 1, ConfigHash: behavior}
+	return agentdelegation.Child{
+		Name: spec.Name, Description: spec.Description, Definition: definition, Identity: identity,
+	}, nil
+}
+
+func buildSubAgentInstruction(parent agentBuildSpec, sub config.SubAgentConfig) string {
+	composition, err := composeSubAgentInstruction(&config.Config{}, parent, sub)
+	if err != nil {
+		return ""
+	}
+	return composition.Instruction()
+}
+
+func composeSubAgentInstruction(cfg *config.Config, parent agentBuildSpec, sub config.SubAgentConfig) (prompts.SystemPromptComposition, error) {
+	parentComposition, err := resolveAgentSystemPrompt(cfg, parent)
+	if err != nil {
+		return prompts.SystemPromptComposition{}, err
+	}
+	return prompts.ComposeSubAgentInstruction(cfg, parentComposition, sub)
+}
+
+func configMaxIteration(cfg *config.Config) int {
+	if cfg == nil || cfg.MaxIteration <= 0 {
+		return 0
+	}
+	return cfg.MaxIteration
+}
+
+func configIdleTimeout(cfg *config.Config) time.Duration {
+	if cfg == nil || cfg.AgentIdleTimeoutSeconds <= 0 {
+		return 0
+	}
+	return time.Duration(cfg.AgentIdleTimeoutSeconds) * time.Second
+}
+
+func agentExecutionPolicy(cfg *config.Config) agent.ExecutionPolicy {
+	policy := modelio.ModelExecutionPolicy(cfg)
+	policy.MaxIterations = configMaxIteration(cfg)
+	policy.ToolParallelism = configToolParallelism(cfg)
+	policy.IdleTimeout = configIdleTimeout(cfg)
+	policy.MaxAutomaticCompactionFailures = config.DefaultContextCompactionMaxConsecutiveFailures
+	return policy
+}
+func configToolParallelism(cfg *config.Config) int {
+	if cfg == nil || cfg.AgentToolParallelism <= 0 {
+		return config.DefaultAgentToolParallelism
+	}
+	if cfg.AgentToolParallelism > config.MaxAgentToolParallelism {
+		return config.MaxAgentToolParallelism
+	}
+	return cfg.AgentToolParallelism
+}
+
+func configSubAgentParallelism(cfg *config.Config) int {
+	if cfg == nil || cfg.AgentSubAgentParallelism <= 0 {
+		return config.DefaultAgentSubAgentParallelism
+	}
+	if cfg.AgentSubAgentParallelism > config.MaxAgentSubAgentParallelism {
+		return config.MaxAgentSubAgentParallelism
+	}
+	return cfg.AgentSubAgentParallelism
+}

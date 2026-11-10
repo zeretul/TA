@@ -1,0 +1,67 @@
+const intimacyWindow = {
+  'intimacyWindow.title': 'Dual Cultivation',
+  'intimacyWindow.open': 'Open the dual-cultivation window',
+  'intimacyWindow.close': 'Close the dual-cultivation window',
+  'intimacyWindow.closeHint': 'Closing only puts the window away. It never ends or interrupts what is running.',
+  'intimacyWindow.back': 'Back to the activities',
+  'intimacyWindow.loading': 'Loading…',
+  'intimacyWindow.loadFailed': 'Could not load the dual-cultivation window',
+  'intimacyWindow.retry': 'Retry',
+  'intimacyWindow.noHistory': 'Nothing has been said yet.',
+
+  'intimacyWindow.phase.selecting': 'Choosing companions',
+  'intimacyWindow.phase.inviting': 'Inviting',
+  'intimacyWindow.phase.ready': 'Waiting for confirmation',
+  'intimacyWindow.phase.active': 'In progress',
+  'intimacyWindow.phase.ended': 'Ended',
+
+  'intimacyWindow.roster.count': 'You + {{count}} characters, {{total}} in all',
+  'intimacyWindow.roster.title': 'Actually taking part',
+  'intimacyWindow.roster.pending': 'Has not answered',
+  'intimacyWindow.roster.accepted': 'Agreed',
+  'intimacyWindow.roster.declined': 'Declined',
+  'intimacyWindow.roster.conditional': 'Conditional',
+  'intimacyWindow.roster.condition': 'Condition: {{condition}}',
+  'intimacyWindow.roster.awaiting': "Someone is still considering. Give them time to answer.",
+
+  'intimacyWindow.invite.title': 'Invite a companion',
+  'intimacyWindow.invite.oneOnOne': 'Invite to dual cultivation',
+  'intimacyWindow.invite.empty': 'Nobody can be invited right now.',
+  'intimacyWindow.invite.emptyHint': 'They must be present, and their own material must state an adult age.',
+  'intimacyWindow.invite.asking': '{{name}} is answering…',
+  'intimacyWindow.invite.failed': 'The invitation got no answer. You can try again.',
+
+  'intimacyWindow.start': 'Start with those who agreed',
+  'intimacyWindow.starting': 'Starting…',
+  'intimacyWindow.startFailed': 'It could not start. You can retry.',
+  'intimacyWindow.adjust': 'Adjust invitations',
+  'intimacyWindow.end': 'End this activity',
+  'intimacyWindow.ending': 'Ending…',
+  'intimacyWindow.ended': "This time together has come to a close.",
+  'intimacyWindow.returnStory': 'Return to the story',
+  'intimacyWindow.returnStoryMessage': 'I return to {{name}} and carry on from what just happened.',
+
+  'intimacyWindow.sending': 'They are answering…',
+  'intimacyWindow.send': 'Send',
+  'intimacyWindow.inputPlaceholder': 'Say something to {{names}}…',
+  'intimacyWindow.replyFailed': 'No answer came back. You can retry.',
+
+  'intimacyWindow.invitations.hint': 'These people have not agreed to join, so they cannot see the running conversation.',
+  'intimacyWindow.invitations.answer': 'Answer the invitation',
+
+  'intimacyWindow.model.title': 'Model used here',
+  'intimacyWindow.model.line': '{{model}} | {{provider}}',
+  'intimacyWindow.model.thinking': 'Thinking: {{level}}',
+  'intimacyWindow.model.unconfigured': 'No dedicated model has been chosen for this window yet.',
+  'intimacyWindow.model.unconfiguredHint': "Choose one in game settings under Narrative and model, and this conversation can continue.",
+  'intimacyWindow.model.none': 'Not specified',
+  'intimacyWindow.thinking.off': 'Off',
+  'intimacyWindow.thinking.minimal': 'Minimal',
+  'intimacyWindow.thinking.low': 'Low',
+  'intimacyWindow.thinking.medium': 'Medium',
+  'intimacyWindow.thinking.high': 'High',
+  'intimacyWindow.thinking.other': 'Other',
+
+} as const
+
+export default intimacyWindow

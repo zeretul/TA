@@ -1,0 +1,55 @@
+{
+  "name": "Lord of the Mysteries · Beneath the Crimson Moon",
+  "description": "Coal smoke settles on the telegraph office in Tingen as church bells carry down the brick streets. Steam trains lead to Backlund, where the papers arrive before dawn. Under the crimson moon, people put strange encounters into diaries and still go to work the next morning.",
+  "title": "Lord of the Mysteries · Beneath the Crimson Moon",
+  "creation": {
+    "origins": {
+      "lotm-start-clerk": {
+        "name": "Tingen job seeker",
+        "description": "You bring handwritten references to Tingen. The soles of your shoes are wearing thin, and the office on the corner is finally open."
+      },
+      "lotm-start-reporter": {
+        "name": "Backlund freelance reporter",
+        "description": "You sell pieces to small papers to pay the rent. Yesterday’s source is late, and the tea has gone cold."
+      },
+      "lotm-start-mechanic": {
+        "name": "Tingen repair apprentice",
+        "description": "You clean clocks and mend leaky household pipes. The master is out today, and the receipt on the counter has no address."
+      },
+      "lotm-start-archive-researcher": {
+        "name": "Hoy archive researcher",
+        "description": "Years of paid work have given you savings and a thorough knowledge of Hoy University’s records. A local gazetteer arrives on your desk with an old loan slip tucked inside."
+      },
+      "lotm-start-estate-agent": {
+        "name": "Backlund estate agent",
+        "description": "You have settled several estates, earning savings and regular clients. This morning’s ledger lists an empty house whose rent still comes in every month."
+      },
+      "custom": {
+        "name": "Custom background",
+        "description": "Write where you came from, who you are, and what brought you here."
+      }
+    }
+  },
+  "templates": {
+    "lotm-start-clerk": {
+      "name": "Tingen job seeker",
+      "description": "You bring handwritten references to Tingen. The soles of your shoes are wearing thin, and the office on the corner is finally open."
+    },
+    "lotm-start-reporter": {
+      "name": "Backlund freelance reporter",
+      "description": "You sell pieces to small papers to pay the rent. Yesterday’s source is late, and the tea has gone cold."
+    },
+    "lotm-start-mechanic": {
+      "name": "Tingen repair apprentice",
+      "description": "You clean clocks and mend leaky household pipes. The master is out today, and the receipt on the counter has no address."
+    },
+    "lotm-start-archive-researcher": {
+      "name": "Hoy archive researcher",
+      "description": "Years of paid work have given you savings and a thorough knowledge of Hoy University’s records. A local gazetteer arrives on your desk with an old loan slip tucked inside."
+    },
+    "lotm-start-estate-agent": {
+      "name": "Backlund estate agent",
+      "description": "You have settled several estates, earning savings and regular clients. This morning’s ledger lists an empty house whose rent still comes in every month."
+    }
+  }
+}

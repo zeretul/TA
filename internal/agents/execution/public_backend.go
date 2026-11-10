@@ -1,0 +1,623 @@
+package execution
+
+import (
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"strings"
+	"sync"
+
+	agentchat "ta/internal/agents/chat"
+	agentconversation "ta/internal/agents/conversation"
+	agentdelegation "ta/internal/agents/delegation"
+	agentlifecycle "ta/internal/agents/lifecycle"
+	agentrun "ta/internal/agents/run"
+	agenttool "ta/internal/agents/tool"
+	agenttoolruntime "ta/internal/agents/toolruntime"
+
+	agent "ta/agent"
+	agentsession "ta/agent/session"
+)
+
+type publicBackend struct {
+	lifecycle           context.Context
+	cancel              context.CancelFunc
+	agent               *agent.Agent
+	profiles            *profileRegistry
+	effects             agenttoolruntime.ToolMutationApplier
+	permissionRuleStore PermissionRuleStore
+	childDefinitions    ChildDefinitionResolver
+
+	// Input routing and durable admission share one boundary. Execution and
+	// event projection never hold this lock.
+	inputMu       sync.Mutex
+	mu            sync.RWMutex
+	registrations map[string]*publicCycleRegistration
+	cycles        map[string]map[int]*publicCycleRegistration
+	runs          map[string]*publicRunHandle
+	successors    map[string]*publicRunHandle
+}
+
+type publicCycleRegistration struct {
+	mu               sync.RWMutex
+	cycle            *Cycle
+	request          agentchat.ChatRequest
+	options          agentrun.Options
+	commandKind      CommandKind
+	emit             func(agentrun.Event)
+	projector        *agentchat.PublicEventProjector
+	mutations        map[string]agenttool.Mutation
+	mutationOrder    []string
+	verificationDone bool
+	projectorBound   bool
+	trace            *publicAgentRunTrace
+	pendingRunStart  *pendingPublicRunStart
+}
+
+type pendingPublicRunStart struct {
+	runID   string
+	started agent.RunStarted
+}
+
+type publicRunHandle struct {
+	session                *agent.Session
+	run                    *agent.Run
+	registration           *publicCycleRegistration
+	trace                  *publicAgentRunTrace
+	done                   chan struct{}
+	completedRegistrations []publicCycleRegistrationAt
+}
+
+// NewAgentRuntime constructs the Text Adventure host on the public Agent -> Session ->
+// Run lifecycle.
+func NewAgentRuntime(ctx context.Context, dataDir string, options ...Option) (*Runtime, error) {
+	root := strings.TrimSpace(dataDir)
+	if root == "" {
+		return nil, errors.New("Agent runtime data directory is required")
+	}
+	resolved := runtimeOptions{}
+	for index, apply := range options {
+		if apply == nil {
+			return nil, fmt.Errorf("Agent runtime option %d is nil", index)
+		}
+		if err := apply(&resolved); err != nil {
+			return nil, err
+		}
+	}
+	profiles, err := newProfileRegistry(resolved.profiles)
+	if err != nil {
+		return nil, err
+	}
+	if resolved.toolMutationApplier == nil {
+		return nil, errors.New("Agent runtime requires a Tool mutation applier")
+	}
+	if resolved.sessionStore == nil {
+		resolved.sessionStore = agentsession.Memory()
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	lifecycle, cancel := context.WithCancel(ctx)
+	backend := &publicBackend{
+		lifecycle: lifecycle, cancel: cancel, profiles: profiles,
+		effects: resolved.toolMutationApplier, permissionRuleStore: resolved.permissionRuleStore,
+		childDefinitions: resolved.childDefinitions,
+		registrations:    make(map[string]*publicCycleRegistration),
+		cycles:           make(map[string]map[int]*publicCycleRegistration), runs: make(map[string]*publicRunHandle),
+		successors: make(map[string]*publicRunHandle),
+	}
+	source, err := agentlifecycle.NewSource(backend)
+	if err != nil {
+		cancel()
+		return nil, err
+	}
+	owner, err := agentlifecycle.New(lifecycle, source, agentlifecycle.Config{
+		Store: resolved.sessionStore, CacheKeyGenerator: taProviderCacheKey,
+	})
+	if err != nil {
+		cancel()
+		return nil, err
+	}
+	backend.agent = owner
+	return &Runtime{public: backend}, nil
+}
+
+// NewEphemeralRuntime constructs the same public lifecycle over an in-memory
+// Session store. It is intended for focused tests and local compositions that
+// do not require transcript persistence.
+func NewEphemeralRuntime() *Runtime {
+	lifecycle, cancel := context.WithCancel(context.Background())
+	backend := &publicBackend{
+		lifecycle: lifecycle, cancel: cancel,
+		profiles:      &profileRegistry{profiles: make(map[ProfileID]Profile)},
+		effects:       func(context.Context, agenttoolruntime.CommittedToolMutation) error { return nil },
+		registrations: make(map[string]*publicCycleRegistration),
+		cycles:        make(map[string]map[int]*publicCycleRegistration),
+		runs:          make(map[string]*publicRunHandle),
+		successors:    make(map[string]*publicRunHandle),
+	}
+	source, err := agentlifecycle.NewSource(backend)
+	if err != nil {
+		cancel()
+		panic(err)
+	}
+	owner, err := agent.New(
+		lifecycle, source,
+		agent.WithSessionStore(agentsession.Memory()),
+		agent.WithRunIDGenerator(agentlifecycle.DefaultRunIDGenerator),
+		agent.WithCacheKeyGenerator(taProviderCacheKey),
+	)
+	if err != nil {
+		cancel()
+		panic(err)
+	}
+	backend.agent = owner
+	return &Runtime{public: backend}
+}
+
+func taProviderCacheKey(key agent.SessionKey) (string, error) {
+	providerKey := key
+	if strings.HasPrefix(key.Namespace, "task.") {
+		parent, err := agentdelegation.ParentSession(key)
+		if err != nil {
+			return "", err
+		}
+		providerKey = parent
+	}
+	root, err := agentrun.SessionKeyForAgentSession(providerKey)
+	if err != nil {
+		return "", err
+	}
+	if providerKey.Namespace == key.Namespace && providerKey.ID == key.ID {
+		return root, nil
+	}
+	encoded, _ := json.Marshal(key)
+	digest := sha256.Sum256(encoded)
+	return root + "-task-" + hex.EncodeToString(digest[:16]), nil
+}
+
+func (backend *publicBackend) close(ctx context.Context) error {
+	if backend == nil {
+		return nil
+	}
+	backend.cancel()
+	if backend.agent == nil {
+		return nil
+	}
+	return backend.agent.Close(ctx)
+}
+
+func (backend *publicBackend) resolveDefinition(
+	ctx context.Context,
+	request agentlifecycle.DefinitionRequest,
+) (agent.Definition, error) {
+	if strings.HasPrefix(request.Agent.Session.Key.Namespace, "task.") {
+		return backend.resolveTaskDefinition(ctx, request.Agent)
+	}
+	if request.Agent.Reason == agent.TurnReasonStructural {
+		return resolveStructuralDefinition(ctx, request.Agent)
+	}
+	if request.Agent.Reason == agent.TurnReasonGoalMutation {
+		// Goal mutations are Session capability operations, not product turns.
+		// They deliberately carry no opaque turn HostData and need only the
+		// stable Text Adventure Goal adapter to apply their durable CAS transition.
+		return agent.Definition{Goal: agentlifecycle.NewGoalManager()}, nil
+	}
+	data, err := agentlifecycle.DecodeTurnHostDataFromPrepare(request.Agent)
+	if err != nil {
+		return agent.Definition{}, err
+	}
+	// Run.CommandID identifies the operation's initial admission. Every later
+	// cycle carries its own caller command in host data and must bind that exact
+	// Text Adventure request (references, Skills, Plan mode, and delivery metadata).
+	commandID := strings.TrimSpace(data.Caller.CommandID)
+	if commandID == "" {
+		commandID = strings.TrimSpace(request.Agent.Run.CommandID)
+	}
+	inspection := agent.IsInspection(ctx)
+	var registration *publicCycleRegistration
+	if inspection {
+		registration, err = inspectionRegistrationFromContext(ctx, request.Agent.Session.Key, data)
+		if err != nil {
+			return agent.Definition{}, err
+		}
+	} else {
+		registration = backend.registration(request.Agent.Session.Key, commandID)
+	}
+	var cycle Cycle
+	if registration != nil {
+		registration.mu.RLock()
+		prepared := registration.cycle
+		registration.mu.RUnlock()
+		if prepared != nil {
+			cycle = *prepared
+		}
+	}
+	if cycle.Conversation == nil {
+		routedOptions := agentrun.Options{}
+		var routedEmit func(agentrun.Event)
+		if registration != nil {
+			registration.mu.RLock()
+			routedOptions = registration.options
+			routedEmit = registration.emit
+			registration.mu.RUnlock()
+		}
+		cycle, err = backend.restoreCycle(ctx, request.Binding, request.Agent, data, commandID, routedOptions, routedEmit)
+		if err != nil {
+			return agent.Definition{}, err
+		}
+		if registration == nil {
+			registration = &publicCycleRegistration{
+				request: data.ChatRequest(), options: cycle.Options,
+				commandKind: commandKindFromPublicTurn(data.Kind),
+			}
+			if !inspection {
+				backend.rememberRegistration(request.Agent.Session.Key, commandID, registration)
+			}
+		}
+		registration.mu.Lock()
+		registration.cycle = &cycle
+		if registration.commandKind == "" {
+			registration.commandKind = commandKindFromPublicTurn(data.Kind)
+		}
+		registration.mu.Unlock()
+	}
+	if cycle.Definition.Model == nil {
+		return agent.Definition{}, errors.New("Text Adventure public Agent cycle has no Definition")
+	}
+	if !inspection {
+		backend.bindSharedRunTrace(request.Agent.Run.ID, registration)
+	}
+	definition, err := backend.bindDefinition(ctx, request.Agent, cycle, registration)
+	if err != nil {
+		return agent.Definition{}, err
+	}
+	if !inspection {
+		backend.mu.Lock()
+		if backend.cycles[request.Agent.Run.ID] == nil {
+			backend.cycles[request.Agent.Run.ID] = make(map[int]*publicCycleRegistration)
+		}
+		backend.cycles[request.Agent.Run.ID][request.Agent.Run.Cycle] = registration
+		backend.mu.Unlock()
+	}
+	return definition, nil
+}
+
+func (backend *publicBackend) ResolveDefinition(
+	ctx context.Context,
+	request agentlifecycle.DefinitionRequest,
+) (agent.Definition, error) {
+	return backend.resolveDefinition(ctx, request)
+}
+
+func (backend *publicBackend) ResolveCanonicalInput(
+	ctx context.Context,
+	request agentlifecycle.DefinitionRequest,
+) (agent.CanonicalAdapter, error) {
+	if strings.HasPrefix(request.Agent.Session.Key.Namespace, "task.") {
+		// A child Session owns its prompt as ordinary public Agent transcript.
+		// It must never append that prompt through the parent product canonical
+		// adapter; the immutable parent route is used only to rebuild Definition.
+		return nil, nil
+	}
+	data, err := agentlifecycle.DecodeTurnHostDataFromPrepare(request.Agent)
+	if err != nil {
+		return nil, err
+	}
+	commandID := strings.TrimSpace(data.Caller.CommandID)
+	if commandID == "" {
+		commandID = strings.TrimSpace(request.Agent.Run.CommandID)
+	}
+	registration := backend.registration(request.Agent.Session.Key, commandID)
+	if registration != nil {
+		registration.mu.RLock()
+		prepared := registration.cycle
+		registration.mu.RUnlock()
+		if prepared != nil && prepared.Conversation != nil {
+			cycle := *prepared
+			// Keep the server-resolved trusted request captured at admission.
+			// HostData intentionally carries only caller-controlled identity and
+			// cannot reconstruct review bodies/references or other canonical data.
+			if caller := agentchat.CallerView(cycle.Request); caller.CommandID != commandID || caller.Message != request.Agent.Input.Text {
+				return nil, errors.New("registered canonical input changed after acceptance")
+			}
+			return backend.preparedCycleCanonicalInput(ctx, request.Agent, cycle, registration)
+		}
+	}
+	profileID, err := request.Binding.ProfileID()
+	if err != nil {
+		return nil, err
+	}
+	profile, err := backend.profiles.profile(profileID)
+	if err != nil {
+		return nil, err
+	}
+	inputProfile, ok := profile.(CanonicalInputProfile)
+	if !ok {
+		return nil, fmt.Errorf("%w: profile %q has no provider-free canonical input boundary", ErrProfileInvalid, profile.ID())
+	}
+	routedOptions := agentrun.Options{}
+	if registration != nil {
+		registration.mu.RLock()
+		routedOptions = registration.options
+		registration.mu.RUnlock()
+	}
+	options := mergePublicCycleRoute(publicOptions(request.Binding, data), routedOptions)
+	chatRequest := data.ChatRequest()
+	chatRequest.CommandID = commandID
+	kind := commandKindFromPublicTurn(data.Kind)
+	if kind == "" {
+		return nil, fmt.Errorf("resolve Text Adventure Agent canonical input: invalid turn kind %q", data.Kind)
+	}
+	if request.Agent.Input.Text != agentchat.CallerView(chatRequest).Message {
+		return nil, errors.New("Text Adventure Agent canonical input does not match its durable caller payload")
+	}
+	adapter, err := inputProfile.CanonicalInput(ctx, CanonicalInputRequest{
+		Session: request.Agent.Session.Key, Identity: taCanonicalIdentity(request.Agent.Session.Key),
+		Binding: request.Binding, Kind: kind, CommandID: agentrun.CommandID(commandID),
+		RunID: agentrun.OperationID(request.Agent.Run.ID), Cycle: request.Agent.Run.Cycle,
+		Request: chatRequest, Options: options, Input: request.Agent.Input,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if adapter == nil {
+		return nil, fmt.Errorf("%w: profile %q returned no canonical input adapter", ErrProfileInvalid, profile.ID())
+	}
+	return adapter, nil
+}
+
+// preparedCycleCanonicalInput supports the already-composed Start path without
+// consulting a Profile. It constructs only the product committer and never
+// assembles Context, Tools, or a model request.
+func (backend *publicBackend) preparedCycleCanonicalInput(
+	ctx context.Context,
+	request agent.PrepareRequest,
+	cycle Cycle,
+	registration *publicCycleRegistration,
+) (agent.CanonicalAdapter, error) {
+	options := cycle.Options.Normalize(cycle.Options.Workspace)
+	var err error
+	var committer agentlifecycle.ConversationCommitter
+	switch conversation := cycle.Conversation.(type) {
+	case *agentconversation.SessionConversation:
+		registration.mu.RLock()
+		projector := registration.projector
+		registration.mu.RUnlock()
+		committer, err = agentlifecycle.NewSessionConversationCommitter(agentlifecycle.SessionCommitterConfig{
+			Conversation: conversation,
+			Session:      conversation.CanonicalSession(),
+			Options:      options,
+			Request:      cycle.Request,
+			InputEffect:  projectInputCommitEffect(options.InputCommitEffect, projector, options),
+		})
+	case agentlifecycle.ConversationCommitterProvider:
+		committer, err = conversation.NewAgentConversationCommitter(options)
+	default:
+		err = fmt.Errorf("Text Adventure conversation %T has no public canonical committer", cycle.Conversation)
+	}
+	if err != nil {
+		return nil, err
+	}
+	boundary, err := agentlifecycle.NewConversationBoundary(agentlifecycle.ConversationBoundaryConfig{
+		Conversation: cycle.Conversation,
+		BookService:  cycle.BookService,
+		Request:      cycle.Request,
+		Options:      options,
+		Committer:    committer,
+		ContextIdentity: publicCapabilityIdentity(
+			"denova.admission_context", request.Session.Key,
+		),
+		CanonicalIdentity: taCanonicalIdentity(request.Session.Key),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return boundary.CanonicalAdapter(), nil
+}
+
+func (backend *publicBackend) bindSharedRunTrace(runID string, registration *publicCycleRegistration) {
+	if backend == nil || registration == nil || strings.TrimSpace(runID) == "" {
+		return
+	}
+	backend.mu.RLock()
+	handle := backend.runs[runID]
+	backend.mu.RUnlock()
+	if handle == nil || handle.trace == nil {
+		return
+	}
+	registration.mu.Lock()
+	if registration.trace == nil {
+		registration.trace = handle.trace
+	}
+	registration.mu.Unlock()
+}
+
+func (backend *publicBackend) restoreCycle(
+	ctx context.Context,
+	binding agentrun.RuntimeBinding,
+	request agent.PrepareRequest,
+	data agentlifecycle.TurnHostData,
+	commandID string,
+	routedOptions agentrun.Options,
+	emit func(agentrun.Event),
+) (Cycle, error) {
+	profileID, err := binding.ProfileID()
+	if err != nil {
+		return Cycle{}, err
+	}
+	profile, err := backend.profiles.profile(profileID)
+	if err != nil {
+		return Cycle{}, err
+	}
+	queued, ok := profile.(QueuedCycleProfile)
+	if !ok {
+		return Cycle{}, fmt.Errorf("%w: profile %q cannot restore a public Agent cycle", ErrCyclePreparationUnavailable, profile.ID())
+	}
+	options := mergePublicCycleRoute(publicOptions(binding, data), routedOptions)
+	chatRequest := data.ChatRequest()
+	chatRequest.CommandID = commandID
+	kind := commandKindFromPublicTurn(data.Kind)
+	if kind == "" {
+		return Cycle{}, fmt.Errorf("restore Text Adventure Agent cycle: invalid turn kind %q", data.Kind)
+	}
+	return queued.PrepareCycle(ctx, CycleRestoreRequest{
+		Binding: binding, Kind: kind, CommandID: agentrun.CommandID(commandID),
+		OperationID: agentrun.OperationID(request.Run.ID), Request: chatRequest,
+		Options: options, Deferred: request.Reason != agent.TurnReasonStart, Emit: emit,
+	})
+}
+
+// mergePublicCycleRoute restores process-local display and callback routing
+// without allowing it to replace durable product identity. Profiles still own
+// the final Definition and may rebuild these values from current application
+// state; this seed keeps recovery and queued cycles attached to the accepted
+// task before profile preparation begins.
+func mergePublicCycleRoute(durable, routed agentrun.Options) agentrun.Options {
+	if routed.TaskID != "" {
+		durable.TaskID = routed.TaskID
+	}
+	if routed.RootAgentName != "" {
+		durable.RootAgentName = routed.RootAgentName
+	}
+	if routed.StateRoot != "" {
+		durable.StateRoot = routed.StateRoot
+	}
+	if routed.IdleTimeout != 0 {
+		durable.IdleTimeout = routed.IdleTimeout
+	}
+	if routed.ToolResultMaxBytes > 0 {
+		durable.ToolResultMaxBytes = routed.ToolResultMaxBytes
+	}
+	if routed.Controls != nil {
+		durable.Controls = routed.Controls
+	}
+	if routed.OnMutationsVerified != nil {
+		durable.OnMutationsVerified = routed.OnMutationsVerified
+	}
+	if routed.InputCommitEffect != nil {
+		durable.InputCommitEffect = routed.InputCommitEffect
+	}
+	return durable.Normalize(durable.Workspace)
+}
+
+func commandKindFromPublicTurn(kind agentlifecycle.TurnKind) CommandKind {
+	switch kind {
+	case agentlifecycle.TurnStart:
+		return CommandStartTurn
+	case agentlifecycle.TurnSteer:
+		return CommandSteer
+	case agentlifecycle.TurnFollowUp:
+		return CommandFollowUp
+	case agentlifecycle.TurnNext:
+		return CommandNextTurn
+	default:
+		return ""
+	}
+}
+
+func publicTurnKind(kind CommandKind) (agentlifecycle.TurnKind, error) {
+	switch kind {
+	case CommandStartTurn:
+		return agentlifecycle.TurnStart, nil
+	case CommandSteer:
+		return agentlifecycle.TurnSteer, nil
+	case CommandFollowUp:
+		return agentlifecycle.TurnFollowUp, nil
+	case CommandNextTurn:
+		return agentlifecycle.TurnNext, nil
+	default:
+		return "", fmt.Errorf("command %q does not carry a Text Adventure Agent turn", kind)
+	}
+}
+
+func publicOptions(binding agentrun.RuntimeBinding, data agentlifecycle.TurnHostData) agentrun.Options {
+	return agentrun.Options{
+		AgentKind: binding.AgentKind, ProjectID: binding.ProjectID,
+		AutomationTaskID: data.AutomationID,
+		SessionID:        binding.SessionID, ReviewThreadID: data.ReviewThreadID,
+		StoryID: binding.StoryID, BranchID: binding.BranchID, TurnID: data.TurnID,
+		MaintenanceTask: data.MaintenanceTask, Workspace: binding.Workspace,
+		Mode: data.Mode, WriteMode: data.WriteMode, WriteScope: data.WriteScope,
+		RestoreData: data.RestoreData,
+	}.Normalize(binding.Workspace)
+}
+
+func projectInputCommitEffect(
+	effect agentrun.InputCommitEffect,
+	projector *agentchat.PublicEventProjector,
+	options agentrun.Options,
+) agentrun.InputCommitEffect {
+	if effect == nil {
+		return nil
+	}
+	return agentrun.InputCommitEffectFuncs{
+		ApplyFunc: func(ctx context.Context, request agentrun.InputCommitEffectRequest) error {
+			if err := effect.Apply(ctx, request); err != nil {
+				return err
+			}
+			if projector != nil {
+				projector.EmitProduct(agentrun.Event{Type: "workspace_change", Data: map[string]interface{}{
+					"project_id":       options.ProjectID,
+					"review_thread_id": options.ReviewThreadID, "action": "review_feedback_consumed",
+				}})
+			}
+			return nil
+		},
+	}
+}
+
+func firstPublicCycleValue(values ...string) string {
+	for _, value := range values {
+		if value = strings.TrimSpace(value); value != "" {
+			return value
+		}
+	}
+	return ""
+}
+
+func publicCapabilityIdentity(kind string, value any) agent.CapabilityIdentity {
+	encoded, _ := json.Marshal(value)
+	digest := sha256.Sum256(encoded)
+	return agent.CapabilityIdentity{Kind: kind, Version: 1, ConfigHash: hex.EncodeToString(digest[:])}
+}
+
+func taCanonicalIdentity(key agent.SessionKey) agent.CapabilityIdentity {
+	return publicCapabilityIdentity("denova.canonical", key)
+}
+
+func publicResultOutcome(result agent.Result, err error, content, thinking string) agentrun.Outcome {
+	status := agentrun.OutcomeFailed
+	switch result.Status {
+	case agent.ResultCompleted:
+		status = agentrun.OutcomeCompleted
+	case agent.ResultAborted:
+		status = agentrun.OutcomeAborted
+	case agent.ResultSuspended:
+		status = agentrun.OutcomeSuspended
+	case agent.ResultIncomplete, agent.ResultBlocked:
+		status = agentrun.OutcomeFailed
+	}
+	return agentrun.NewOutcome(status, err, result.Reason, content, thinking)
+}
+
+func mapPublicReceipt(run *agent.Run) agentrun.CommandReceipt {
+	if run == nil {
+		return agentrun.CommandReceipt{}
+	}
+	receipt := run.Receipt()
+	return agentrun.CommandReceipt{
+		CommandID: agentrun.CommandID(receipt.CommandID), OperationID: agentrun.OperationID(receipt.RunID),
+		Cursor: agentrun.Cursor(receipt.Cursor),
+	}
+}
+
+func mapPublicCommandReceipt(receipt agent.CommandReceipt) agentrun.CommandReceipt {
+	return agentrun.CommandReceipt{
+		CommandID: agentrun.CommandID(receipt.CommandID), OperationID: agentrun.OperationID(receipt.RunID),
+		Cursor: agentrun.Cursor(receipt.Cursor),
+	}
+}

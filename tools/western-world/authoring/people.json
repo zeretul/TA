@@ -1,0 +1,2752 @@
+[
+  {
+    "id": "sg-p01",
+    "name": "玛蕾·灰榆",
+    "en_name": "Marelle Greyelm",
+    "age": 46,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 1,
+    "faction": "ashriver-league",
+    "rank": 12,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p49",
+        "text": "信任哈伦的手艺，却总要求他把预算拆开说明，两人争的是修桥先后而非桥该不该修。",
+        "en_text": "Trusts Harren’s workmanship but asks for itemized estimates; their dispute concerns repair order, not whether repairs matter."
+      },
+      {
+        "target": "sg-p03",
+        "text": "让特温核查重复粮票，也担心他把自己的缓税旧账混进当前案件。",
+        "en_text": "Assigned Tewin the duplicate-receipt inquiry and fears her unrelated deferral being swept into it."
+      },
+      {
+        "target": "sg-p02",
+        "text": "在芙岚店里谈过难民免桥费，欠她一顿从未吃完的冷汤。",
+        "en_text": "Discussed refugee exemptions at Furran’s inn and owes her for a bowl left cold."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "镇长兼染布坊股东",
+    "en_role": "Mayor and part-owner of a dyehouse",
+    "appearance": "袖口常染靛青，木杖磨得发亮。",
+    "en_appearance": "Indigo stains her cuffs; her walking stick is polished by use.",
+    "voice": "先复述对方的问题，再把算盘推过去。",
+    "en_voice": "Repeats a question before sliding over her abacus.",
+    "goal": "让冬季免桥费与桥工薪水同时有着落。",
+    "en_goal": "Fund winter toll exemptions without cutting bridge wages.",
+    "public": "每周主持公开议事；赞成公开账目，却容忍熟商队赊费。",
+    "en_public": "Chairs public meetings; supports open accounts but lets familiar caravans defer tolls.",
+    "private": "她曾替姐姐的染坊缓征一季税，尚未补办回避记录；须查到旧议事簿并给她解释机会，才会承认。",
+    "en_private": "Deferred her sister’s dyehouse tax without recording her conflict; admits it if shown the old minutes and allowed to explain.",
+    "access": "午后在议事厅接见镇民与外来人，争议要排队陈述。",
+    "en_access": "Receives locals and strangers at the hall in the afternoon; complaints take their turn."
+  },
+  {
+    "id": "sg-p02",
+    "name": "芙岚·铜匙",
+    "en_name": "Furran Copperkey",
+    "age": 58,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 2,
+    "faction": "",
+    "rank": 8,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p01",
+        "text": "肯借玛蕾桌子开会，但要求镇长别把客人的住宿身份写进公开会议名单。",
+        "en_text": "Lends Marelle meeting tables but insists guests’ lodging details stay off public attendance lists."
+      },
+      {
+        "target": "sg-p50",
+        "text": "教塔莎算厨房损耗，愿留她做主管，也知道不能以收留之恩阻止她开店。",
+        "en_text": "Teaches Tasha kitchen costs and would keep her as manager, without using past hospitality to stop her opening a business."
+      },
+      {
+        "target": "sg-p49",
+        "text": "给哈伦的夜班工留热汤，已经提醒他不能再让学徒以赊饭抵欠薪。",
+        "en_text": "Keeps soup for Harren’s night crew and warns against substituting meal credit for unpaid wages."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "三盏灯掌柜",
+    "en_role": "Keeper of the Three Lamps",
+    "appearance": "红褐辫子夹着账签，一条腿装有皮护具。",
+    "en_appearance": "Ledger slips pin her auburn braid; a leather brace supports one leg.",
+    "voice": "骂人像报菜名，安慰时反而很轻。",
+    "en_voice": "Scolds like reading a menu, but comforts softly.",
+    "goal": "还清面粉债，保住不按族属分桌的客栈。",
+    "en_goal": "Clear her flour debt and keep the inn’s mixed tables.",
+    "public": "能安排床位、洗衣和带薪厨房活；爱留客，却不容客人窥探房间。",
+    "en_public": "Offers beds, laundry and paid kitchen work; hospitable but fierce about room privacy.",
+    "private": "她给一位旧仇之子留了无偿床位，怕老战友发现；只在当事人同意且信任建立后说明。",
+    "en_private": "Houses the son of an old enemy without charge; explains only with his consent and earned trust.",
+    "access": "开门时可在柜台交谈，忙饭点请等到收碗后。",
+    "en_access": "Available at the counter when open; wait until dishes are cleared during meals."
+  },
+  {
+    "id": "sg-p03",
+    "name": "特温·折笔",
+    "en_name": "Tewin Bentquill",
+    "age": 33,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 3,
+    "faction": "ashriver-league",
+    "rank": 7,
+    "skills": [
+      "social",
+      "shadow"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p01",
+        "text": "尊重玛蕾肯公开接质询，仍坚持她的亲属不能免于票据复核。",
+        "en_text": "Respects Marelle’s public questioning but insists her relatives’ receipts also be checked."
+      },
+      {
+        "target": "sg-p60",
+        "text": "发现赫莎一张运票编号重复，请她保留原件而不是先认定她骗税。",
+        "en_text": "Found a duplicate number on Hesha’s freight slip and requested the original without presuming fraud."
+      },
+      {
+        "target": "sg-p51",
+        "text": "曾与索缇对过一次粮车重量，双方各保有对方签字的副页。",
+        "en_text": "Once reconciled wagon weights with Soti; each retains a countersigned copy."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "税关核票员",
+    "en_role": "Toll receipt examiner",
+    "appearance": "短外套装满票夹，左耳戴铅笔环。",
+    "en_appearance": "Receipt clips fill his coat; a pencil loop hangs from his left ear.",
+    "voice": "数字说得飞快，人名总再问一次。",
+    "en_voice": "Rattles off figures but asks twice for names.",
+    "goal": "找清重复粮票是誊错还是骗税。",
+    "en_goal": "Establish whether duplicate grain receipts mean error or fraud.",
+    "public": "按班领取薪水，擅长比对纸张；极怕误伤小贩，却对大户说话发硬。",
+    "en_public": "A salaried clerk skilled with paper; fears hurting small traders and speaks sharply to wealthy ones.",
+    "private": "一张问题票有他的签字，他确实漏验过印模，但不知道货物后来去哪；核到原票后才愿详述。",
+    "en_private": "Signed one disputed receipt after missing a seal check; does not know where its cargo went and explains only when the original is found.",
+    "access": "白日关台办理事务，私人询问需等交班。",
+    "en_access": "At the toll desk by day; personal questions wait for shift change."
+  },
+  {
+    "id": "sg-p04",
+    "name": "欧沙·苇桨",
+    "en_name": "Osha Reedpaddle",
+    "age": 39,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 4,
+    "faction": "ashriver-league",
+    "rank": 9,
+    "skills": [
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p49",
+        "text": "给哈伦运木收友情价，但不肯为抢工期冒洪水风险。",
+        "en_text": "Offers Harren friendly timber rates but will not risk floodwater to meet his deadline."
+      },
+      {
+        "target": "sg-p15",
+        "text": "请乌蒙解释浑水会不会伤鱼，不愿仅凭矿城名声就停掉全部木运。",
+        "en_text": "Asks Umon about fish risk rather than stopping all timber work on Copperback’s reputation."
+      }
+    ],
+    "race": "兽裔（水獭形）",
+    "en_race": "beastkin (otter-featured)",
+    "role": "渡船主与河道领航员",
+    "en_role": "Ferry owner and river pilot",
+    "appearance": "湿毛在颈侧卷起，手腕绕三圈测深绳。",
+    "en_appearance": "Damp neck fur curls above three coils of sounding line.",
+    "voice": "爱用水势比喻，但报价毫不含糊。",
+    "en_voice": "Uses river metaphors, but quotes prices plainly.",
+    "goal": "在不堵鱼汛的前提下多运一趟木料。",
+    "en_goal": "Carry another timber load without blocking the fish run.",
+    "public": "卖渡运和领航服务；愿救落水者，却讨厌被当成随叫随到的免费船。",
+    "en_public": "Sells passage and pilotage; rescues swimmers but resents being treated as a free boat.",
+    "private": "曾把一捆无标木料拖上岸保住船底，留有切断的绳头；须共同核查打捞地点才交出。",
+    "en_private": "Cut loose unmarked timber to save her hull and kept the rope end; shares it after a joint inspection of the recovery site.",
+    "access": "渡船靠岸时可谈，航行中听从安全安排。",
+    "en_access": "Speak while the ferry is moored; follow safety directions aboard."
+  },
+  {
+    "id": "sg-p05",
+    "name": "艾汀·石麦",
+    "en_name": "Aytin Stonegrain",
+    "age": 51,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 5,
+    "faction": "greygrain",
+    "rank": 10,
+    "skills": [
+      "martial",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p46",
+        "text": "盼格兰先修自家支渠，又承认主闸不修所有田都缺水。",
+        "en_text": "Wants Grelan to fix his branch first, while recognizing every field needs the headgate."
+      },
+      {
+        "target": "sg-p43",
+        "text": "怕洁珊的歉收表让自己借不到种粮，仍愿在有人解释用途后核实数字。",
+        "en_text": "Fears Jeshan’s loss report will block seed credit, but will verify figures when their purpose is clear."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "退伍佃农",
+    "en_role": "Veteran tenant farmer",
+    "appearance": "左手缺两指，种袋上缝着褪色军布。",
+    "en_appearance": "Two fingers are missing; faded uniform cloth patches his seed bag.",
+    "voice": "先抱怨天气，随后给出很实际的办法。",
+    "en_voice": "Complains about weather before offering practical solutions.",
+    "goal": "修好共用渠，同时不丢掉最后一块租田。",
+    "en_goal": "Repair the shared ditch without losing his last rented field.",
+    "public": "靠种麦与修篱笆过活；主张分担劳动，又不愿别人看见伤手撑不住锹。",
+    "en_public": "Farms and mends fences; demands shared labor but hides how his injured hand struggles with a spade.",
+    "private": "租约口头承诺和纸契不同，他把纸契藏在粮罐下；只有允许他自己取出才可核实。",
+    "en_private": "His written lease differs from the oral promise; he keeps it under a grain jar and must choose to show it.",
+    "access": "晴日田边可见，付工钱或换工皆可商量。",
+    "en_access": "Found in the fields in fair weather; paid or exchanged labor can be discussed."
+  },
+  {
+    "id": "sg-p06",
+    "name": "瑟梨·白砾",
+    "en_name": "Serri Whitegravel",
+    "age": 26,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 6,
+    "faction": "saltroad",
+    "rank": 6,
+    "skills": [
+      "wild",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p60",
+        "text": "愿替赫莎送急信，但坚持夜班另配同行，宁可少赚也不假装不怕。",
+        "en_text": "Carries Hesha’s urgent letters but insists on company at night rather than pretending fearlessness."
+      },
+      {
+        "target": "sg-p10",
+        "text": "请卡鲁留意失联信使的马，不允许他因替班人害怕就当作嫌疑。",
+        "en_text": "Asks Karru to watch for the missing courier’s horse without treating fear as guilt."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "驿站替班信使",
+    "en_role": "Relief post courier",
+    "appearance": "靴帮补了四种皮，额前有被头盔压平的卷发。",
+    "en_appearance": "Four kinds of leather patch her boots; helmet-flattened curls frame her brow.",
+    "voice": "背路线极流畅，问到夜路就慢下来。",
+    "en_voice": "Recites routes fluently, then slows at questions about night travel.",
+    "goal": "找回失联前辈，并争取两人同行的夜班。",
+    "en_goal": "Find the missing senior courier and secure paired night shifts.",
+    "public": "收取明码信资；很想独当一面，又不肯拿害怕当作必须证明的羞耻。",
+    "en_public": "Charges posted rates; wants independence but refuses to treat fear as shame.",
+    "private": "她曾在夜路听见求救却先撤回驿站，之后带人折返；查看值班簿并不等于知道求救者是谁。",
+    "en_private": "Retreated from a cry at night, then returned with help; the shift book does not identify who cried out.",
+    "access": "白天分拣信件时接待，不能拆看他人信封。",
+    "en_access": "Available during daytime sorting; other people’s envelopes remain private."
+  },
+  {
+    "id": "sg-p07",
+    "name": "蕾萨·白刺",
+    "en_name": "Ressa Whitethorn",
+    "age": 54,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 7,
+    "faction": "white-thorn",
+    "rank": 28,
+    "skills": [
+      "martial",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p08",
+        "text": "依赖布洛教活人回家，却烦恼他的停训建议会让护送缺人。",
+        "en_text": "Relies on Brullo to bring trainees home alive, yet his training pauses leave escorts understaffed."
+      },
+      {
+        "target": "sg-p51",
+        "text": "把难堪的粮数交索缇核，要求先区分账误与真实亏空。",
+        "en_text": "Gives Soti embarrassing grain figures and asks that clerical errors be separated from actual shortages."
+      },
+      {
+        "target": "sg-p11",
+        "text": "与梅荻争过冬草，愿谈分区轮牧，不接受把全部军马都赶走。",
+        "en_text": "Disputed winter grass with Medi; accepts rotational zones but not removing every military horse."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "白棘团长",
+    "en_role": "Commander of the White Thorn",
+    "appearance": "短灰发，胸甲的旧裂口用异色铁补过。",
+    "en_appearance": "Cropped gray hair; mismatched iron repairs an old breastplate crack.",
+    "voice": "命令简短，谈粮食时逐项问清。",
+    "en_voice": "Gives brief orders and asks detailed questions about provisions.",
+    "goal": "守住停战道路，不让军户替骑士挨饿。",
+    "en_goal": "Hold the truce roads without starving military households.",
+    "public": "以护送收入维持驻军；愿受公开质询，但不轻易承认部署失误。",
+    "en_public": "Funds troops through escorts; accepts public questions but struggles to admit tactical errors.",
+    "private": "她已准备削减自己的卫队口粮，却尚未找到替代补给；获得军需谈判资格后可见草案，不代表计划已经执行。",
+    "en_private": "Drafted cuts to her own guard’s rations without securing replacements; authorized supply negotiators may see the unimplemented draft.",
+    "access": "每日晚钟后设接见时段，紧急路情可经卫兵通报。",
+    "en_access": "Holds audiences after evening bell; guards relay urgent road reports."
+  },
+  {
+    "id": "sg-p08",
+    "name": "布洛·止刃",
+    "en_name": "Brullo Stillblade",
+    "age": 67,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 8,
+    "faction": "white-thorn",
+    "rank": 23,
+    "skills": [
+      "martial",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p07",
+        "text": "承认蕾萨的补给压力，仍拒绝让未学会停手的人仅凭名额出勤。",
+        "en_text": "Recognizes Ressa’s supply pressure but refuses to deploy trainees who cannot stop on command."
+      },
+      {
+        "target": "sg-p52",
+        "text": "看见艾梵的勇气，也盯着他是否真正听停手口令；不以身高判断潜力。",
+        "en_text": "Sees Ayvan’s courage and tests his stopping discipline, not his height."
+      },
+      {
+        "target": "sg-p23",
+        "text": "把需要修的练甲交奥芙处理，愿以教学抵部分工钱但从不自行决定抵扣。",
+        "en_text": "Sends practice armor to Ovv and offers lessons in barter, never assumes the exchange."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "演武教头兼甲具修理师",
+    "en_role": "Arms instructor and armor repairer",
+    "appearance": "胡须扎成平结，练剑刃口包软皮。",
+    "en_appearance": "A flat knot binds his beard; soft leather wraps his practice blade.",
+    "voice": "从不高喊勇敢，只问谁还站得稳。",
+    "en_voice": "Never shouts for courage; asks who can still stand steadily.",
+    "goal": "让学员学会撤退、停手与照看伤员。",
+    "en_goal": "Teach retreat, restraint and care for the wounded.",
+    "public": "收少量学费，也接受修器换课；讨厌炫技，自己却爱赢棋。",
+    "en_public": "Takes modest fees or repairs in exchange for lessons; dislikes showing off but hates losing at board games.",
+    "private": "早年一次追击命令害死同伴，他保存了当时的停战旗；建立师徒信任后才讲，遗物不自动证明全部责任。",
+    "en_private": "An old pursuit order of his killed comrades; he keeps the truce flag and speaks after trust, though it cannot prove every detail.",
+    "access": "晨练和公开课可旁听，实操先约定护具与停手信号。",
+    "en_access": "Visitors may watch morning drills; practical lessons require protection and a stop signal."
+  },
+  {
+    "id": "sg-p09",
+    "name": "伊芮·无铃",
+    "en_name": "Irei Bellless",
+    "age": 72,
+    "gender": "非二元",
+    "en_gender": "nonbinary",
+    "location": 9,
+    "faction": "springhospice",
+    "rank": 15,
+    "skills": [
+      "faith",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p12",
+        "text": "与乔文合作核名，反对为了等全部证据而让遗体长期无人照料。",
+        "en_text": "Works with Joven on names but rejects leaving bodies uncared for while all evidence is sought."
+      },
+      {
+        "target": "sg-p51",
+        "text": "请索缇先给无名死者留编号，再逐项补身份，双方仍争取证时限。",
+        "en_text": "Asks Soti to number the unnamed first and add identities later; they still dispute inquiry time."
+      }
+    ],
+    "race": "精灵",
+    "en_race": "elf",
+    "role": "葬仪师与姓名抄录者",
+    "en_role": "Funeral keeper and name recorder",
+    "appearance": "颈上只有空铃架，指甲染着防腐草汁。",
+    "en_appearance": "An empty bell frame hangs at their neck; preserving herbs stain their nails.",
+    "voice": "称呼逝者前会留一段沉默。",
+    "en_voice": "Leaves a silence before speaking a dead person’s name.",
+    "goal": "安葬无名者，同时不抹去日后辨认的机会。",
+    "en_goal": "Bury the unnamed while preserving chances of later identification.",
+    "public": "主持不同信仰的葬礼，以抄书补收入；宽待哀伤，不宽待草率的身份断言。",
+    "en_public": "Conducts funerals across faiths and copies books for income; patient with grief, impatient with careless identifications.",
+    "private": "曾把一具遗体误记成另一人，已留更正封页；家属允许或正式核名时方能阅看。",
+    "en_private": "Once misidentified a body and kept a sealed correction; access needs family consent or a legitimate identification inquiry.",
+    "access": "礼拜堂无仪式时接待，葬礼中不接受打断。",
+    "en_access": "Receives visitors between ceremonies, not during funerals."
+  },
+  {
+    "id": "sg-p10",
+    "name": "卡鲁·红砂",
+    "en_name": "Karru Redsand",
+    "age": 35,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 10,
+    "faction": "white-thorn",
+    "rank": 14,
+    "skills": [
+      "martial",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p06",
+        "text": "相信瑟梨熟悉驿马习性，邀请她在安全地点核对鞍具，而不是带她盲闯隘口。",
+        "en_text": "Values Serri’s knowledge of post horses and offers safe tack identification rather than a blind pass search."
+      },
+      {
+        "target": "sg-p52",
+        "text": "带艾梵做过一趟短途巡路，要求他报告路况而非编英雄故事。",
+        "en_text": "Took Ayvan on a short patrol and asked for road conditions, not heroic tales."
+      },
+      {
+        "target": "sg-p47",
+        "text": "愿帮温娅查马蹄痕，承认笔迹不是自己的专长。",
+        "en_text": "Offers Wenya help with hoofprints and admits handwriting is not his expertise."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "隘口巡骑",
+    "en_role": "Pass patrol rider",
+    "appearance": "暗铜鳞磨出浅斑，马鞍挂着兽医剪。",
+    "en_appearance": "Pale wear marks his copper scales; veterinary shears hang from his saddle.",
+    "voice": "与马说话温柔，对人先问手续。",
+    "en_voice": "Gentle with horses, procedural with people.",
+    "goal": "找回失马，阻止误扣合法车队。",
+    "en_goal": "Recover stolen horses without impounding lawful caravans.",
+    "public": "靠军饷养两匹退役马；反对族群偏见，却容易先疑虑衣着破旧者。",
+    "en_public": "Uses his pay to keep two retired horses; opposes ethnic prejudice yet distrusts shabby travelers too quickly.",
+    "private": "他认出一枚失马烙号曾被合法转卖，未查清前不愿公开指人；查到售据才可共同判断。",
+    "en_private": "Recognizes one brand from a lawful sale and will not name suspects before tracing its receipt.",
+    "access": "路检时可交涉，搜查争议可要求在场证人。",
+    "en_access": "Available at the checkpoint; disputed searches may have witnesses."
+  },
+  {
+    "id": "sg-p11",
+    "name": "梅荻·长草",
+    "en_name": "Medi Longgrass",
+    "age": 43,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 11,
+    "faction": "lostlands",
+    "rank": 12,
+    "skills": [
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p07",
+        "text": "记得蕾萨曾派人救病羊，仍认为那不能抵消军队今年占草场的影响。",
+        "en_text": "Remembers Ressa’s help with sick goats but will not let it erase this year’s military grazing impact."
+      },
+      {
+        "target": "sg-p59",
+        "text": "请艾弥教自己辨认需要送诊的牲畜接触后不适，不把人医当万能兽医。",
+        "en_text": "Asks Aimi about human illness after animal contact, without treating her as an all-purpose veterinarian."
+      },
+      {
+        "target": "sg-p47",
+        "text": "肯帮温娅分清羊蹄与马蹄，也要求她听牧人对巡路规则的意见。",
+        "en_text": "Helps Wenya distinguish goat and horse tracks and wants her to hear herders on patrol rules."
+      }
+    ],
+    "race": "兽裔（山羊形）",
+    "en_race": "beastkin (goat-featured)",
+    "role": "牧群领路人与奶酪匠",
+    "en_role": "Herd guide and cheesemaker",
+    "appearance": "折角包着铜箍，披肩有奶酪盐粒。",
+    "en_appearance": "A copper hoop braces a broken horn; cheese salt dusts her shawl.",
+    "voice": "耐心讲三遍，第四遍会直接牵羊离开。",
+    "en_voice": "Explains patiently three times, then takes her goats away.",
+    "goal": "给病羊留越冬草地，又不让堡中役畜饿死。",
+    "en_goal": "Keep winter grazing for sick goats without starving the keep’s draft animals.",
+    "public": "靠奶酪和引牧挣钱；支持共享草场，也会为自家先留一小片。",
+    "en_public": "Sells cheese and guiding; favors shared pasture but reserves a patch for her own herd.",
+    "private": "她的羊病与污染可能有关，但尚无诊断；只向能保密的照料者展示记录，不把猜测当事实。",
+    "en_private": "Suspects polluted water in the herd’s illness without a diagnosis; shares notes with trusted carers, not accusations.",
+    "access": "早晚挤奶后可谈，入群须先让牧犬熟悉气味。",
+    "en_access": "Talk after morning or evening milking; let the dogs learn a visitor’s scent first."
+  },
+  {
+    "id": "sg-p12",
+    "name": "乔文·残旗",
+    "en_name": "Joven Ragbanner",
+    "age": 62,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 12,
+    "faction": "courtwards",
+    "rank": 11,
+    "skills": [
+      "shadow",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p09",
+        "text": "信任伊芮认真安葬，也要求墓位与更正记录始终能够对应。",
+        "en_text": "Trusts Irei’s funeral care and insists grave locations remain linked to corrected records."
+      },
+      {
+        "target": "sg-p32",
+        "text": "希望塞维娅辨纸墨，也提醒她墓主家属的话不该仅因无字据就被忽略。",
+        "en_text": "Wants Sevia’s paper expertise and reminds her not to dismiss families without written proof."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "墓道看守与拓碑工",
+    "en_role": "Crypt keeper and inscription rubbings maker",
+    "appearance": "右肩低垂，腰带插着软刷与蜡纸。",
+    "en_appearance": "One shoulder droops; brushes and wax paper line his belt.",
+    "voice": "语气平常，提起军官头衔就带刺。",
+    "en_voice": "Speaks plainly, with an edge for officers’ titles.",
+    "goal": "保住葬名册，使家属能查而不被买走。",
+    "en_goal": "Keep burial registers accessible to families rather than buyers.",
+    "public": "收清扫和拓片工钱；尊重墓主，却不认为贵族墓比无名坑更重要。",
+    "en_public": "Charges for cleaning and rubbings; respects graves without privileging noble tombs.",
+    "private": "他发现名册夹有军需账，但只读过外页；先证明查阅理由、安排保全后才展示，不能替内页作证。",
+    "en_private": "Found supply accounts inside a burial register but read only the outer leaf; requires a reason and preservation plan before showing it.",
+    "access": "日间在入口接待，深处须备灯并避开不稳石阶。",
+    "en_access": "At the entrance by day; deeper visits need lamps and stable footing."
+  },
+  {
+    "id": "sg-p13",
+    "name": "诺缇·草响",
+    "en_name": "Noti Grasswhisper",
+    "age": 31,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 13,
+    "faction": "rootkeepers",
+    "rank": 10,
+    "skills": [
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p17",
+        "text": "与维斯听过不同方向的声响，不肯让他把自己不曾走过的路线说成亲眼所见。",
+        "en_text": "Heard sounds from another direction than Viss and will not let him claim her untraveled route as his observation."
+      },
+      {
+        "target": "sg-p28",
+        "text": "给伊佐供野生种子，要求保留采集地的使用约定，不愿稀有草被一棚买断。",
+        "en_text": "Supplies Izo wild seed under collection agreements rather than an exclusive claim to rare plants."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "采药人兼林路向导",
+    "en_role": "Herb gatherer and woodland guide",
+    "appearance": "宽帽挂着辨草木片，膝上有新泥。",
+    "en_appearance": "Her broad hat carries plant markers; fresh mud marks her knees.",
+    "voice": "描述气味极准，却记不住贵人头衔。",
+    "en_voice": "Precise about scents, forgetful about titles.",
+    "goal": "弄清林口钟声而不耽误药草生意。",
+    "en_goal": "Explain the bell sound without neglecting herb sales.",
+    "public": "可带路和教辨认常见草；好奇心强，见危险却会及时返程。",
+    "en_public": "Guides and teaches common herbs; curious but willing to turn back.",
+    "private": "她听见的声响来自一条私采小径，担心暴露后失去采集权；达成不公开路线的约定才肯带看。",
+    "en_private": "Heard the sound from an unofficial gathering path; shows it only after agreement not to publicize the route.",
+    "access": "晴天早晨林口篮摊可见，入林另约时长与报酬。",
+    "en_access": "Sells baskets at the verge on clear mornings; forest trips need agreed time and pay."
+  },
+  {
+    "id": "sg-p14",
+    "name": "萨蕾温·根结",
+    "en_name": "Sarewyn Rootknot",
+    "age": 148,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 14,
+    "faction": "rootkeepers",
+    "rank": 21,
+    "skills": [
+      "wild",
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p49",
+        "text": "邀请哈伦看病根桥，愿试石撑，但要求先听当地渡桥人的意见。",
+        "en_text": "Invites Harren to inspect the root bridge and consider stone supports after hearing local users."
+      },
+      {
+        "target": "sg-p18",
+        "text": "与欧瑞娅争过祖牌是否能暂移，认同先做完整记录再谈工程。",
+        "en_text": "Disputed temporary plaque removal with Oreya and agrees to record them before planning work."
+      }
+    ],
+    "race": "精灵",
+    "en_race": "elf",
+    "role": "根桥议者与木桥匠",
+    "en_role": "Rootbridge speaker and bridge carpenter",
+    "appearance": "银发裹在工作巾里，掌心有新锯伤。",
+    "en_appearance": "Silver hair stays under a work scarf; a fresh saw cut crosses her palm.",
+    "voice": "先问桥给谁走，再问桥该怎么修。",
+    "en_voice": "Asks who uses a bridge before asking how to mend it.",
+    "goal": "让病根恢复承重，给外来石匠公平试作的机会。",
+    "en_goal": "Restore the failing root span and give outside masons a fair trial.",
+    "public": "靠修木构生活；守护旧俗，却坚持旧俗必须容得下活人过河。",
+    "en_public": "Repairs timber buildings; values custom but insists living people must still cross.",
+    "private": "她早已私下试过石支墩，怕议者觉得程序被绕过；查看施工痕迹后可质问，不能凭年龄猜到。",
+    "en_private": "Secretly tested a stone support and fears accusations of bypassing the council; the work marks can prompt questions.",
+    "access": "每日巡桥时可同行，议事需等公开场合。",
+    "en_access": "Visitors can accompany her bridge inspection; council business waits for a public meeting."
+  },
+  {
+    "id": "sg-p15",
+    "name": "乌蒙·泉砂",
+    "en_name": "Umon Springsilt",
+    "age": 88,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 15,
+    "faction": "rootkeepers",
+    "rank": 18,
+    "skills": [
+      "wild",
+      "arcane"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p04",
+        "text": "需要欧沙带去上游采样；会付航费，也不要求她替尚未证实的结论作证。",
+        "en_text": "Needs Osha for upstream sampling, pays passage and does not demand testimony to unproven conclusions."
+      },
+      {
+        "target": "sg-p19",
+        "text": "请多茵提供洗矿排水图，尚未据此认定所有浑水来自矿城。",
+        "en_text": "Requests Doyin’s drainage plans without presuming all turbidity comes from the mines."
+      },
+      {
+        "target": "sg-p22",
+        "text": "赞成杜埃小规模试采，要求把失败和好结果一起记录。",
+        "en_text": "Supports Due’s small trials and requires failures recorded with successes."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "泉水守护者与样本记录员",
+    "en_role": "Spring steward and sample keeper",
+    "appearance": "短须沾着白泥，每只水瓶都有布签。",
+    "en_appearance": "White clay marks his short beard; cloth tags label every bottle.",
+    "voice": "不接激烈指控，只追问取样时辰。",
+    "en_voice": "Answers accusations by asking when samples were drawn.",
+    "goal": "查出泉水混浊的源头，让补救针对真实原因。",
+    "en_goal": "Trace the spring’s turbidity so remedies address its real cause.",
+    "public": "替聚落维护水路并教授自然感知；坚守证据，有时让受害者觉得冷淡。",
+    "en_public": "Maintains channels and teaches natural awareness; his insistence on evidence can feel cold to sufferers.",
+    "private": "首批样本有一瓶标签掉落，他拒绝把它当确证；共同整理样本时会说明，不能因此说其他样本全假。",
+    "en_private": "One early bottle lost its label; he excludes it and explains during a joint review without discrediting all samples.",
+    "access": "午后在泉旁整理瓶具，取水须避免踩坏采样点。",
+    "en_access": "Sorts bottles beside the spring in the afternoon; avoid disturbing sampling points."
+  },
+  {
+    "id": "sg-p16",
+    "name": "贝珂·杂袋",
+    "en_name": "Beko Oddpouch",
+    "age": 29,
+    "gender": "非二元",
+    "en_gender": "nonbinary",
+    "location": 16,
+    "faction": "saltroad",
+    "rank": 8,
+    "skills": [
+      "craft",
+      "social",
+      "shadow"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p34",
+        "text": "向缪特买过锁具出处鉴别，知道他收费高却没有把每件失物都当赃物。",
+        "en_text": "Bought lock provenance checks from Myut, who charged well without calling every lost object stolen."
+      },
+      {
+        "target": "sg-p33",
+        "text": "给乔露修过花车，约好用三场婚礼的鲜花抵工而非无限欠人情。",
+        "en_text": "Repaired Jolu’s flower cart for flowers at three weddings, not an unlimited favor."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "旧货修补商",
+    "en_role": "Secondhand repair merchant",
+    "appearance": "马甲口袋大小不一，指头绕着彩线。",
+    "en_appearance": "Uneven pockets cover their vest; colored thread winds around their fingers.",
+    "voice": "每件旧物都有一段故事，但会承认故事未必真。",
+    "en_voice": "Offers a story for every object and admits it may be wrong.",
+    "goal": "辨明摊上失物来源，保住买卖信誉。",
+    "en_goal": "Trace suspicious goods and preserve their trading reputation.",
+    "public": "收旧物、补锅补袋；相信再利用，却舍不得退还一笔已付出的收购钱。",
+    "en_public": "Buys used goods and repairs pots and bags; values reuse but hates losing purchase money.",
+    "private": "可疑货的卖家是欠他们钱的熟人；只有出示相符失物描述、允许当面核对后才透露交易细节。",
+    "en_private": "The seller of suspicious goods is a debtor they know; matching descriptions and a fair verification process precede disclosure.",
+    "access": "集日摊位可见，非集日可托邻摊约修补。",
+    "en_access": "At the fair on market days; neighboring stalls can arrange repairs otherwise."
+  },
+  {
+    "id": "sg-p17",
+    "name": "维斯·泥靴",
+    "en_name": "Viss Mudboot",
+    "age": 37,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 17,
+    "faction": "blackwax",
+    "rank": 13,
+    "skills": [
+      "wild",
+      "shadow",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p13",
+        "text": "认为诺缇懂干地草却未必懂泥底，愿陪她复查但要求系绳。",
+        "en_text": "Trusts Noti’s herbs more than her mud judgment; will help recheck if she uses a rope."
+      },
+      {
+        "target": "sg-p41",
+        "text": "请赫里教新的绳结，羡慕他能按潮位定时收工。",
+        "en_text": "Asks Herri for new knots and envies his tide-defined stopping times."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "沼泽打捞工",
+    "en_role": "Marsh salvage worker",
+    "appearance": "衣袖卷得很高，背着锈铜和软木浮片。",
+    "en_appearance": "High-rolled sleeves expose a load of rusted copper and cork floats.",
+    "voice": "嘴上说不信怪事，下水前总轻碰旧钟。",
+    "en_voice": "Claims disbelief in omens, yet touches the bell before entering water.",
+    "goal": "挣到修屋钱，不让捞铜的人陷进淤泥。",
+    "en_goal": "Earn roof money and keep copper salvagers out of lethal mud.",
+    "public": "出售合法废料和沼路经验；敢冒险，但拒带无绳的新手下水。",
+    "en_public": "Sells lawful scrap and marsh expertise; takes risks but refuses unroped beginners.",
+    "private": "他拆过一块钟托，发现木桩因此松动，正在凑钱补回；只有看到损痕或取得信任才承认。",
+    "en_private": "Removed a bell brace and loosened a piling; saving to replace it, he admits it when shown the damage or after trust.",
+    "access": "在干岸分拣废料时可见，深入沼地需约潮水与装备。",
+    "en_access": "Found sorting scrap on firm ground; deeper trips require water-level and equipment planning."
+  },
+  {
+    "id": "sg-p18",
+    "name": "欧瑞娅·叶铭",
+    "en_name": "Oreya Leafscript",
+    "age": 124,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 18,
+    "faction": "rootkeepers",
+    "rank": 17,
+    "skills": [
+      "faith",
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p14",
+        "text": "知道萨蕾温不是轻视旧史，仍坚持桥修完后必须有明确归还位置。",
+        "en_text": "Knows Sarewyn values history and insists repaired bridges have defined places for returned plaques."
+      },
+      {
+        "target": "sg-p57",
+        "text": "愿替瑟缇拓祖牌，却希望她也读完牌上邻族的名字。",
+        "en_text": "Offers Seti plaque copies and asks her to read the neighboring people’s names too."
+      }
+    ],
+    "race": "精灵",
+    "en_race": "elf",
+    "role": "树庭记忆牌保管者",
+    "en_role": "Keeper of the grove’s memory plaques",
+    "appearance": "斗篷绣着不同村落的针法，耳后别骨笔。",
+    "en_appearance": "Her cloak bears stitches from several villages; a bone stylus rests behind her ear.",
+    "voice": "背旧名很快，谈自己的旧名很慢。",
+    "en_voice": "Recites old names quickly and her own former name slowly.",
+    "goal": "保存混居史，也让失土家庭有可以带走的纪念。",
+    "en_goal": "Preserve shared settlement history while giving displaced families portable memorials.",
+    "public": "靠刻牌与照料树庭生活；反对抢走祖牌，却愿教人做拓本。",
+    "en_public": "Earns through carving and tending the grove; opposes taking ancestral plaques but teaches copying.",
+    "private": "她自己的家族也曾驱逐邻户，牌背留有记载；需获准翻检背铭，不能只凭正面颂辞认定清白。",
+    "en_private": "Her family once expelled neighbors, recorded on a plaque’s reverse; the reverse must be inspected with permission rather than assuming innocence from its praise.",
+    "access": "清理落叶时可请教，移动牌位需另征同意。",
+    "en_access": "Available while clearing leaves; moving a plaque requires separate consent."
+  },
+  {
+    "id": "sg-p19",
+    "name": "多茵·炉脊",
+    "en_name": "Doyin Hearthridge",
+    "age": 93,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 19,
+    "faction": "deephearth",
+    "rank": 19,
+    "skills": [
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p15",
+        "text": "愿和乌蒙同步采样，但要求不同时间的瓶子不能直接当成同一批水。",
+        "en_text": "Will coordinate sampling with Umon but insists bottles from different times not be treated as one water batch."
+      },
+      {
+        "target": "sg-p54",
+        "text": "和博岑排过病房净水优先次序，双方都反对先修门面工程。",
+        "en_text": "Agrees with Bozen that ward water precedes decorative projects."
+      },
+      {
+        "target": "sg-p35",
+        "text": "对阿莎的实地记录有兴趣，愿给有限意见而不装作看过宫底。",
+        "en_text": "Values Asha’s field notes and offers bounded advice without pretending to have seen the palace floor."
+      },
+      {
+        "target": "sg-p46",
+        "text": "认可格兰把结构问题与传说分开，准备先核高差而非研究骨名。",
+        "en_text": "Values Grelan’s separation of engineering and legend; starts with levels, not bone names."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "矿城配水师",
+    "en_role": "Mining town water engineer",
+    "appearance": "铜尺比首饰多，双眼常因熬夜发红。",
+    "en_appearance": "Wears more measuring tools than jewelry; sleeplessness reddens her eyes.",
+    "voice": "一说管径就忘了客套。",
+    "en_voice": "Forgets pleasantries when discussing pipe diameters.",
+    "goal": "先把净水送到工人病房，再改主街喷泉。",
+    "en_goal": "Supply clean water to the workers’ ward before rebuilding the main fountain.",
+    "public": "靠工程费和维护薪水生活；厌恶排场，却渴望一座刻自己名字的水塔。",
+    "en_public": "Lives on engineering fees and maintenance pay; despises pomp but wants her name on a water tower.",
+    "private": "一段私宅供水旁路是她早年设计，现可转给病房；查到图纸才会解释产权阻碍。",
+    "en_private": "Designed a private water bypass that could now serve the ward; the plans reveal both the option and its ownership obstacle.",
+    "access": "早班在配水台接待，带上用水位置比带荐信有效。",
+    "en_access": "At the water desk early; a service address helps more than a recommendation."
+  },
+  {
+    "id": "sg-p20",
+    "name": "赫德兰·铜衡",
+    "en_name": "Hedran Copperbalance",
+    "age": 116,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 20,
+    "faction": "deephearth",
+    "rank": 24,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p53",
+        "text": "扶持涅拉参与议事，也担心她用个人担保掩盖家族共有账的问题。",
+        "en_text": "Supports Nera’s council role but fears personal pledges masking shared financial trouble."
+      },
+      {
+        "target": "sg-p54",
+        "text": "认为博岑是难谈却必须认真对待的代表，不接受用请吃饭替代工资协商。",
+        "en_text": "Finds Bozen difficult but essential; a meal cannot substitute for wage talks."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "炉家代理人与契约调停者",
+    "en_role": "House agent and contract mediator",
+    "appearance": "戒指悬在颈链上，工作时不戴手套。",
+    "en_appearance": "Carries signet rings on a neck chain and works barehanded.",
+    "voice": "先讲祖契，最后却常问实际要多少。",
+    "en_voice": "Begins with ancestral covenants and ends by asking the real price.",
+    "goal": "用共同分担通风费阻止诸家拆伙。",
+    "en_goal": "Keep the houses together through shared ventilation costs.",
+    "public": "收调停佣金；珍惜契约，也清楚旧契从未问过工人的意见。",
+    "en_public": "Takes mediation fees; values contracts while knowing old ones excluded workers.",
+    "private": "他所属家族的储金比公开账薄少，继续扩井会危及欠薪支付；经正式财务授权才可核阅底账。",
+    "en_private": "His house has less reserve cash than public books imply; expansion threatens wages, discoverable only through authorized accounts.",
+    "access": "议厅开放日受理陈情，私账不随接见开放。",
+    "en_access": "Receives petitions on open days; an audience does not open private accounts."
+  },
+  {
+    "id": "sg-p21",
+    "name": "凯莎·风轮",
+    "en_name": "Kaisha Fanwheel",
+    "age": 42,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 21,
+    "faction": "deephearth",
+    "rank": 15,
+    "skills": [
+      "craft",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p54",
+        "text": "依赖博岑报告支架状况，也害怕他公开质疑会让自己丢掉奖金。",
+        "en_text": "Relies on Bozen’s support reports and fears his public criticism costing her bonus."
+      },
+      {
+        "target": "sg-p53",
+        "text": "催涅拉交付风轮备件，要求看到到货日期而不是继承庆典上的承诺。",
+        "en_text": "Presses Nera for fan delivery dates rather than ceremonial promises."
+      }
+    ],
+    "race": "兽裔（獾形）",
+    "en_race": "beastkin (badger-featured)",
+    "role": "通风井当班工头",
+    "en_role": "Ventilation shift forewoman",
+    "appearance": "面罩内侧补软布，毛发积着黑矿尘。",
+    "en_appearance": "Soft cloth lines her mask; dark ore dust clings to her fur.",
+    "voice": "平时干脆，听到头痛报告便反复确认。",
+    "en_voice": "Usually brisk, she asks repeated questions about reported headaches.",
+    "goal": "修复风轮又保住工人停产期间的收入。",
+    "en_goal": "Repair the fan and protect workers’ pay during shutdown.",
+    "public": "按产量领奖金，因此迟疑停工；却会亲自下去接落后者。",
+    "en_public": "Receives production bonuses and hesitates to halt work, yet retrieves stragglers herself.",
+    "private": "她已经登记过两次头晕，只把程度写轻了；工人自愿提供记录并交叉核验后才能坐实。",
+    "en_private": "Understated two dizziness reports; voluntary worker records and cross-checks can establish this.",
+    "access": "交班时在井口，井下问话须先满足安全条件。",
+    "en_access": "At the shaft mouth during shift change; underground interviews require safe conditions."
+  },
+  {
+    "id": "sg-p22",
+    "name": "杜埃·盐纹",
+    "en_name": "Due Saltvein",
+    "age": 64,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 22,
+    "faction": "deephearth",
+    "rank": 16,
+    "skills": [
+      "craft",
+      "arcane"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p48",
+        "text": "向贝琳供药盐，要求她说明纯度需求，好避免浪费地下资源。",
+        "en_text": "Supplies Belin with medicinal salt and asks for purity requirements to avoid waste."
+      },
+      {
+        "target": "sg-p15",
+        "text": "请乌蒙帮追地下水流向，担心被误当作矿城的免责专家。",
+        "en_text": "Asks Umon to trace underground flow without becoming an excuse for the mines."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "盐晶切割师",
+    "en_role": "Saltglass cutter",
+    "appearance": "淡灰鳞隙积着晶粉，工具柄包旧帆布。",
+    "en_appearance": "Crystal dust fills pale scale seams; old sailcloth wraps his tools.",
+    "voice": "下刀前不说话，收工后能聊很久。",
+    "en_voice": "Silent before a cut, talkative after work.",
+    "goal": "找到低扰动采法，让药用盐不耗尽地下河。",
+    "en_goal": "Develop gentler extraction that supplies medicine without draining the underground river.",
+    "public": "按合格晶块计酬；愿少采一些，却怕学徒学会后压低他的工价。",
+    "en_public": "Paid per sound crystal; accepts lower yields but fears apprentices undercutting his rates.",
+    "private": "他保留一块会裂的试样，尚不确定原因；获准参观试切后才能知道失败，不可当成成熟技术。",
+    "en_private": "Keeps a failing test sample without knowing why it splits; a permitted test visit reveals a failure, not a proven technique.",
+    "access": "洞外切台预约试工，洞内禁止随意敲击。",
+    "en_access": "Trial work can be booked at the outer bench; no casual striking inside the cave."
+  },
+  {
+    "id": "sg-p23",
+    "name": "奥芙·冷锤",
+    "en_name": "Ovv Coldhammer",
+    "age": 79,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 23,
+    "faction": "deephearth",
+    "rank": 22,
+    "skills": [
+      "craft",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p08",
+        "text": "认可布洛会保护学员，仍要求他别把训练日改动变成工坊无偿加班。",
+        "en_text": "Values Brullo’s care for students but will not let altered drill schedules create unpaid overtime."
+      },
+      {
+        "target": "sg-p24",
+        "text": "给提路修测绘工具，允许分期，条件是不要把未测路段画成已通。",
+        "en_text": "Repairs Tiru’s tools on installments provided unmeasured routes are not presented as open."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "铁匠铺主",
+    "en_role": "Smithy owner",
+    "appearance": "右眉被火烧去一截，围裙写着粉笔工期。",
+    "en_appearance": "A burn interrupts one eyebrow; chalk deadlines cover her apron.",
+    "voice": "报价直说，夸奖绕着说。",
+    "en_voice": "Direct about prices and indirect about praise.",
+    "goal": "在军单与农具之间排出不误春耕的工期。",
+    "en_goal": "Schedule military orders without delaying spring farm tools.",
+    "public": "接受按工序学艺和维修；反对欠薪，自己却常忘记给自己放假。",
+    "en_public": "Teaches by actual stages and takes repairs; opposes unpaid labor but seldom lets herself rest.",
+    "private": "一批旧军单拖欠的并非军队，而是私人中间商；出示订单往来后才可分清债务。",
+    "en_private": "A private intermediary, not the army, owes an old military order; correspondence is needed to establish the debtor.",
+    "access": "炉火稳定时可在外柜谈，锻造时不能闯工作区。",
+    "en_access": "Talk at the outer counter between heats; do not enter active forging space."
+  },
+  {
+    "id": "sg-p24",
+    "name": "提路·轨灯",
+    "en_name": "Tiru Raillamp",
+    "age": 28,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 24,
+    "faction": "deephearth",
+    "rank": 11,
+    "skills": [
+      "craft",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p23",
+        "text": "欠奥芙工具钱，想用复轨后的运费优惠抵债，但知道必须先取得她同意。",
+        "en_text": "Owes Ovv for tools and hopes future hauling discounts can repay her, only by agreement."
+      },
+      {
+        "target": "sg-p53",
+        "text": "盼涅拉支持旧轨复通，又怕她只准矿车使用。",
+        "en_text": "Hopes Nera funds reopening and fears ore-only access."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "旧轨测绘工",
+    "en_role": "Abandoned rail surveyor",
+    "appearance": "腰带吊着彩色定位钉，灯罩补了三处。",
+    "en_appearance": "Colored survey pins hang from his belt; his lamp has three patches.",
+    "voice": "报距离一丝不苟，讲梦想一下放大十倍。",
+    "en_voice": "Exact with distances, extravagant with dreams.",
+    "goal": "重开旧轨运送日用品，而非只给矿石让路。",
+    "en_goal": "Reopen the railway for daily goods as well as ore.",
+    "public": "靠测绘拿工钱；愿教识图，急于出名时会低估谈地权的时间。",
+    "en_public": "Paid for surveying and willing to teach; ambition makes him underestimate land negotiations.",
+    "private": "他从未测完坍塌后的最后一段，却在草图画了虚线推测；看原图才知其未证实。",
+    "en_private": "Never surveyed the last collapsed stretch and drew a conjectural dotted route; only the original marks it as uncertain.",
+    "access": "轨口工作棚可约，深入隧道须先检查支撑。",
+    "en_access": "Appointments at the railhead shed; supports must be checked before entering."
+  },
+  {
+    "id": "sg-p25",
+    "name": "缇瑟·鱼鳞",
+    "en_name": "Tisse Fishscale",
+    "age": 47,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 25,
+    "faction": "",
+    "rank": 13,
+    "skills": [
+      "wild",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p55",
+        "text": "愿让梅洛上自家船测水，要求先用渔户听得懂的话解释封湖。",
+        "en_text": "Lets Melo survey from her boat if closures are explained plainly to fishers."
+      },
+      {
+        "target": "sg-p29",
+        "text": "靠娜维运鱼箱，主张鲜鱼优先卸，却接受不能擅挪别人的封箱。",
+        "en_text": "Uses Navi for fish crates and requests quick unloading without moving others’ sealed cargo."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "渔行议价人",
+    "en_role": "Fishers’ bargaining representative",
+    "appearance": "袖上缝鱼骨纹，手背有旧网绳痕。",
+    "en_appearance": "Fishbone stitches mark her sleeves; old net burns cross her hands.",
+    "voice": "不反对难词，但要人解释两次。",
+    "en_voice": "Does not reject technical words, but asks for two explanations.",
+    "goal": "让封湖范围和补偿按实测数据说明白。",
+    "en_goal": "Get survey-based closure boundaries and clear compensation.",
+    "public": "卖鱼并代邻船议价；尊重知识，又忍不住把学者的小错说得很响。",
+    "en_public": "Sells fish and bargains for neighboring boats; respects learning but broadcasts scholars’ minor errors.",
+    "private": "她自家船越过过一次临时禁线，带回的样本可能有价值；保障公平处理后才愿交船记。",
+    "en_private": "Her own boat crossed a temporary boundary once and brought back a useful sample; she offers its log after fair treatment is assured.",
+    "access": "清晨鱼市可谈交易，午后码头可谈湖事。",
+    "en_access": "Trade at the morning fish market; discuss lake affairs at the quay in the afternoon."
+  },
+  {
+    "id": "sg-p26",
+    "name": "艾洛温·铜环",
+    "en_name": "Elowen Copperring",
+    "age": 137,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 26,
+    "faction": "nine-towers",
+    "rank": 24,
+    "skills": [
+      "arcane",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p56",
+        "text": "与瓦瑟共同校图多年，怕对方把自己的错误当作进一步封存的理由。",
+        "en_text": "Has collated charts with Vasser for years and fears his error becoming grounds for wider restrictions."
+      },
+      {
+        "target": "sg-p38",
+        "text": "知道塔芙需要可信航图，愿提供复核记录但暂不能解释古灯全部原理。",
+        "en_text": "Knows Tavv needs reliable charts; offers review records, not a complete beacon explanation."
+      }
+    ],
+    "race": "精灵",
+    "en_race": "elf",
+    "role": "第六塔观星学者",
+    "en_role": "Sixth Tower astronomer",
+    "appearance": "镜片厚薄不一，袖口烫有小星图。",
+    "en_appearance": "Mismatched lenses and a tiny star chart pressed into his cuff.",
+    "voice": "公开讲课从容，遇到反证就清嗓子。",
+    "en_voice": "Poised in lectures, throat-clearing when contradicted.",
+    "goal": "修正航用星图，同时让学徒不因老师的错误失去资助。",
+    "en_goal": "Correct navigation charts without costing apprentices their funding.",
+    "public": "靠教学与航图订阅生活；倡导检验，面对自己旧著却很防御。",
+    "en_public": "Lives on teaching and chart subscriptions; praises testing but defends his old book.",
+    "private": "误差由他早年抄错一位数字扩大；需比对亲笔稿和观测记录后才足以认定，初见不会自白。",
+    "en_private": "An early copied digit of his amplified the error; manuscript and observation comparison are required, not an instant confession.",
+    "access": "每旬公开观测可报名，其余时间经楼下值班人约见。",
+    "en_access": "Public observations accept bookings each ten-day; otherwise arrange through the duty keeper."
+  },
+  {
+    "id": "sg-p27",
+    "name": "佩弥·烛页",
+    "en_name": "Pemi Candleleaf",
+    "age": 36,
+    "gender": "非二元",
+    "en_gender": "nonbinary",
+    "location": 27,
+    "faction": "nine-towers",
+    "rank": 12,
+    "skills": [
+      "social",
+      "arcane"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p55",
+        "text": "支持梅洛开放教材，提醒她无钱买纸的人也需要口授与共用本。",
+        "en_text": "Supports Melo’s open texts and asks for oral lessons and shared copies for people without paper money."
+      },
+      {
+        "target": "sg-p50",
+        "text": "教塔莎记账，不把她将来离开客栈当作忘恩。",
+        "en_text": "Teaches Tasha bookkeeping without treating a future departure from the inn as ingratitude."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "成人识字教师与抄写员",
+    "en_role": "Adult literacy teacher and copyist",
+    "appearance": "旧长袍挽到手肘，指侧布满纸割小痕。",
+    "en_appearance": "Sleeves rolled to the elbows reveal paper cuts along the fingers.",
+    "voice": "不会替学生抢答，急时也保持等候。",
+    "en_voice": "Never answers for a learner, even when pressed for time.",
+    "goal": "拒绝排他捐款，同时找到下一季纸张。",
+    "en_goal": "Reject exclusionary funding and still secure next season’s paper.",
+    "public": "用抄写收入补贴夜课；信任学生，却把自己的饥饿藏得很好。",
+    "en_public": "Copying work supports evening classes; trusting of learners, secretive about going hungry.",
+    "private": "已卖掉一册私人藏书垫薪，担心同事因此过意不去；看到售书账或建立友谊后才说明。",
+    "en_private": "Sold a cherished book to cover wages; reveals this after a sales record or friendship, fearing colleagues’ guilt.",
+    "access": "白日抄写室和课后可见，上课时可安静旁听。",
+    "en_access": "Available in the copying room or after lessons; visitors may quietly observe class."
+  },
+  {
+    "id": "sg-p28",
+    "name": "伊佐·玻种",
+    "en_name": "Izo Glassseed",
+    "age": 55,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 28,
+    "faction": "nine-towers",
+    "rank": 18,
+    "skills": [
+      "wild",
+      "craft",
+      "arcane"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p13",
+        "text": "需要诺缇补充野生株系，答应标明来源而非据为自己的培育成果。",
+        "en_text": "Needs Noti’s wild stock and credits its origin rather than claiming to have bred it."
+      },
+      {
+        "target": "sg-p45",
+        "text": "想在苏苓果园试药，承认她有权限制面积并保留不处理的树。",
+        "en_text": "Wants trials in Sulin’s orchard and recognizes her right to limit plots and retain untreated trees."
+      },
+      {
+        "target": "sg-p59",
+        "text": "与艾弥争过一株药草该剪多少，愿先算可用剂量与保种损失。",
+        "en_text": "Disputed pruning with Aimi and will compare usable doses with seed-stock loss."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "温室保种人",
+    "en_role": "Glasshouse seed keeper",
+    "appearance": "玻璃珠串记录花期，掌心有细小烫疤。",
+    "en_appearance": "Glass beads record flowering cycles; tiny burns mark his palms.",
+    "voice": "说到根会蹲下，让听者也看一眼。",
+    "en_voice": "Crouches when discussing roots so others can see.",
+    "goal": "兼顾眼前药材和来年的种株。",
+    "en_goal": "Balance immediate medicine with next year’s parent plants.",
+    "public": "卖苗和维护暖管；反对浪费，有时把稀有品种看得比病人的催促还重。",
+    "en_public": "Sells seedlings and maintains heating pipes; hates waste but can prioritize rarity over patients’ urgency.",
+    "private": "备份种子有一部分未发芽，他尚未告知求药者；共同点检种仓并试种后可核实。",
+    "en_private": "Some backup seed has failed to sprout; he has not told medicine buyers, and inspection plus germination tests can verify it.",
+    "access": "浇水后接待，入棚先清理鞋底且勿碰药株。",
+    "en_access": "Receives visitors after watering; clean footwear and leave medicinal plants untouched."
+  },
+  {
+    "id": "sg-p29",
+    "name": "娜维·静桨",
+    "en_name": "Navi Quietoar",
+    "age": 32,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 29,
+    "faction": "saltroad",
+    "rank": 10,
+    "skills": [
+      "craft",
+      "social",
+      "shadow"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p25",
+        "text": "理解缇瑟怕鱼坏，愿调次序但不允许她代别人签收。",
+        "en_text": "Understands Tisse’s spoilage risk and can reorder unloading, not authorize proxy signatures."
+      },
+      {
+        "target": "sg-p56",
+        "text": "把封箱运给瓦瑟，要求他安排确实能签收的人而非让船一直等。",
+        "en_text": "Carries Vasser’s sealed shipments and requires an actual receiving signatory rather than endless waiting."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "湖运封箱承运人",
+    "en_role": "Sealed-cargo lake carrier",
+    "appearance": "蓝灰鳞上披防水短袍，腰挂两把形状不同的锁钥。",
+    "en_appearance": "A waterproof cape covers blue-gray scales; two different lock keys hang at her waist.",
+    "voice": "交接时逐字复述，闲谈反而常笑。",
+    "en_voice": "Repeats handover terms exactly and laughs readily off duty.",
+    "goal": "找齐缺失签收，不靠擅开货箱证明清白。",
+    "en_goal": "Recover missing receipts without opening clients’ cargo.",
+    "public": "按航次收费；重隐私，也会因被怀疑而急于替自己辩解。",
+    "en_public": "Charges per crossing; values privacy but gets defensive under suspicion.",
+    "private": "箱子曾在她船上换过外绳，原因是漏雨而不是开封；核对船日志和封蜡后才可判断。",
+    "en_private": "Replaced outer rope after rain damage, not opening; the boat log and seal examination can establish this.",
+    "access": "卸货完成后在渡台接单，不允许借问话摸货箱。",
+    "en_access": "Takes work after unloading; questions do not authorize handling cargo."
+  },
+  {
+    "id": "sg-p30",
+    "name": "鲁珂·映石",
+    "en_name": "Ruko Mirrorstone",
+    "age": 24,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 30,
+    "faction": "nine-towers",
+    "rank": 9,
+    "skills": [
+      "arcane",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p55",
+        "text": "向梅洛请教公开演示，误以为公开就能省掉监督，已被她纠正。",
+        "en_text": "Asked Melo about public demonstrations and was corrected that openness does not remove supervision."
+      },
+      {
+        "target": "sg-p56",
+        "text": "觉得瓦瑟限制太多，但记得他曾亲自帮自己检查防护线。",
+        "en_text": "Finds Vasser restrictive but remembers his personal help inspecting wards."
+      }
+    ],
+    "race": "兽裔（狐形）",
+    "en_race": "beastkin (fox-featured)",
+    "role": "防护术学徒与试场杂役",
+    "en_role": "Ward apprentice and practice-yard attendant",
+    "appearance": "耳尖留有烧痕，长尾用皮带收好。",
+    "en_appearance": "Scorched ear tips and a tail secured for work.",
+    "voice": "理论讲得很响，承认害怕时会压低声音。",
+    "en_voice": "Loud about theory, quiet about fear.",
+    "goal": "展示能挡碎屑的新护术，并获得正式助教收入。",
+    "en_goal": "Demonstrate a fragment-stopping ward and earn an assistantship.",
+    "public": "靠清理试场抵学费；渴望掌声，也真的会先扶起摔倒的同学。",
+    "en_public": "Cleans the yard for tuition; hungry for applause but helps fallen classmates first.",
+    "private": "新术曾让他短暂耳鸣，他在笔记标了问号；须经自愿讲述或获准阅记录才知道，不能视为已确定后遗症。",
+    "en_private": "The spell once caused brief ringing in his ears, marked uncertain in notes; voluntary disclosure or authorized access is needed, not a diagnosis by narration.",
+    "access": "公开练习可交谈，试验必须先让监督者划安全线。",
+    "en_access": "Available at public practice; experiments wait for a supervisor’s safety boundary."
+  },
+  {
+    "id": "sg-p31",
+    "name": "菲奥·热饼",
+    "en_name": "Fio Hotbread",
+    "age": 40,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 31,
+    "faction": "courtwards",
+    "rank": 12,
+    "skills": [
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p36",
+        "text": "替伊瑟送修屋木料，想借粮库钥匙前先弄清塌方。",
+        "en_text": "Delivers repair timber to Ither and wants to inspect collapse risks before borrowing the granary key."
+      },
+      {
+        "target": "sg-p33",
+        "text": "请乔露安排修门募料摊，答应不占婚礼花摊的位置。",
+        "en_text": "Asks Jolu for a repair-donation stall without taking wedding flower space."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "街坊修缮召集人与面点师",
+    "en_role": "Ward repair organizer and baker",
+    "appearance": "白面沾在黑卷发里，腰上挂小门锤。",
+    "en_appearance": "Flour in dark curls, a little door hammer at his belt.",
+    "voice": "常以一个饼换一句真话，但不强买答案。",
+    "en_voice": "Offers bread for a truthful word without demanding the answer.",
+    "goal": "让城门在寒潮前挡住风，不给任何继承人独占功劳。",
+    "en_goal": "Seal the gate before cold weather without a claimant monopolizing credit.",
+    "public": "卖饼组织轮值；讨厌贵族争名，自己也怕修成后没人记得街坊。",
+    "en_public": "Bakes and organizes shifts; dislikes noble vanity but fears neighbors’ work being forgotten.",
+    "private": "收过一位使者的木料定金，附款含糊；当他愿展示字据时才能讨论是否应退还。",
+    "en_private": "Accepted a claimant’s timber advance with ambiguous terms; the receipt must be shared before judging repayment.",
+    "access": "黎明买饼可见，修缮讨论在午后收摊后。",
+    "en_access": "At the bread stall at dawn; repair talks follow afternoon closing."
+  },
+  {
+    "id": "sg-p32",
+    "name": "塞维娅·灰页",
+    "en_name": "Sevia Greyleaf",
+    "age": 61,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 32,
+    "faction": "courtwards",
+    "rank": 19,
+    "skills": [
+      "craft",
+      "social",
+      "shadow"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p12",
+        "text": "向乔文借阅必须登记，不要求他为了档案院威望交出名册所有权。",
+        "en_text": "Logs loans from Joven and does not demand ownership for the archive’s prestige."
+      },
+      {
+        "target": "sg-p57",
+        "text": "愿帮瑟缇比对地契，说明旧所有权记录不能单独决定今天谁搬走。",
+        "en_text": "Helps Seti compare deeds and explains that old ownership alone cannot decide present eviction."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "档案修复师",
+    "en_role": "Archive conservator",
+    "appearance": "衣领别细针，眼镜边缘绕棉线防滑。",
+    "en_appearance": "A fine needle at her collar; cotton secures her spectacles.",
+    "voice": "把“记载如此”和“事情如此”分得很开。",
+    "en_voice": "Carefully distinguishes what a record says from what happened.",
+    "goal": "重建矛盾继承文书的保存经过。",
+    "en_goal": "Reconstruct the custody of conflicting succession documents.",
+    "public": "靠修复和检索费维持纸库；愿帮助穷人，却对口述史苛刻得近乎失礼。",
+    "en_public": "Conservation and search fees fund the archive; helps poor readers but can be rude about oral evidence.",
+    "private": "其中一位流亡抄手是她母亲，她从未看见母亲补写争议段；亲属关系需从获准家书确认，不等于共谋。",
+    "en_private": "One exile copyist was her mother, whom she never saw add the disputed passage; permitted family letters establish kinship, not collusion.",
+    "access": "预约检索即可见，原件须在监督下阅看。",
+    "en_access": "Meet through a research appointment; originals remain supervised."
+  },
+  {
+    "id": "sg-p33",
+    "name": "乔露·五瓣",
+    "en_name": "Jolu Fivepetal",
+    "age": 34,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 33,
+    "faction": "courtwards",
+    "rank": 9,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p16",
+        "text": "喜欢贝珂把交换说清楚，仍会查清他带来的旧花瓶有没有原主来找。",
+        "en_text": "Likes Beko’s clear barter terms and checks whether their used vases have claimants."
+      },
+      {
+        "target": "sg-p31",
+        "text": "认可菲奥真在干活，仍让他的摊与其他人一样按时撤场。",
+        "en_text": "Respects Fio’s work and still requires his stall to clear on time like the rest."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "花贩与广场排班人",
+    "en_role": "Flower seller and square scheduler",
+    "appearance": "花篮比肩宽，围裙上画着摊位格。",
+    "en_appearance": "A shoulder-wide basket and a stall grid drawn on her apron.",
+    "voice": "争吵时不加音量，只挪开挡路的花桶。",
+    "en_voice": "Never raises her voice in a dispute, merely moves obstructing buckets.",
+    "goal": "让三场纪念仪式都有位置，也让摊贩当天能营业。",
+    "en_goal": "Fit three commemorations around a working market day.",
+    "public": "卖鲜花兼收清洁费；厌恶站队，却会替卖不掉花的老人占好摊位。",
+    "en_public": "Sells flowers and collects cleaning fees; rejects factionalism but reserves good places for struggling elders.",
+    "private": "她排表时故意错开两位旧仇的相遇，没有篡改仪式内容；经双方同意协调后才解释。",
+    "en_private": "Scheduled two old enemies apart without altering their ceremonies; explains during mediation with their consent.",
+    "access": "白日广场花摊可见，排班表可公开查阅。",
+    "en_access": "At the flower stall by day; the schedule is public."
+  },
+  {
+    "id": "sg-p34",
+    "name": "缪特·黑芯",
+    "en_name": "Myut Blackwick",
+    "age": 45,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 34,
+    "faction": "blackwax",
+    "rank": 20,
+    "skills": [
+      "shadow",
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p16",
+        "text": "认为贝珂肯保存收据值得合作，也提醒旧货故事不能代替合法来源。",
+        "en_text": "Values Beko’s receipts and warns that a charming object story does not establish lawful origin."
+      },
+      {
+        "target": "sg-p41",
+        "text": "给赫里介绍过合法导路客，不要求他接受每一笔同行委托。",
+        "en_text": "Referred lawful guiding clients to Herri without demanding every fellowship job be accepted."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "锁匠兼消息居间人",
+    "en_role": "Locksmith and information broker",
+    "appearance": "黑蜡沾在指缝，外衣漂亮却有暗补。",
+    "en_appearance": "Black wax between his fingers; a handsome coat with discreet patches.",
+    "voice": "一句实话后常跟一句价钱。",
+    "en_voice": "A price often follows a truth.",
+    "goal": "清掉私人债务，保住同行不卖住户钥匙的底线。",
+    "en_goal": "Clear a private debt while keeping residents’ keys out of trade.",
+    "public": "开锁需证明使用权；嘴上只认钱，却会免费修独居人的门。",
+    "en_public": "Requires proof of authority before opening locks; claims to care only for money yet fixes isolated residents’ doors free.",
+    "private": "债主拿着他一次错误引路的赔偿单，不是掌握万能罪证；只有获准看单或他自述才能知道缘由。",
+    "en_private": "His creditor holds compensation for a mistaken guiding job, not universal blackmail; consented access or disclosure reveals it.",
+    "access": "晚间锁铺可约，密谈地点由双方同意。",
+    "en_access": "Appointments at the lock shop in the evening; private meeting sites need mutual agreement."
+  },
+  {
+    "id": "sg-p35",
+    "name": "阿莎·水阶",
+    "en_name": "Asha Waterstep",
+    "age": 57,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 35,
+    "faction": "courtwards",
+    "rank": 18,
+    "skills": [
+      "craft",
+      "wild",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p36",
+        "text": "靠伊瑟说明旧厨房排水走向，知道老记忆须与现场勘测互证。",
+        "en_text": "Uses Ither’s recollections of kitchen drains and checks them against surveys."
+      },
+      {
+        "target": "sg-p19",
+        "text": "请多茵远程核一张水压草图，尚未约定她来外城施工。",
+        "en_text": "Asks Doyin to review a pressure sketch without presuming she will come build."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "旧宫排水潜工",
+    "en_role": "Palace drainage diver",
+    "appearance": "深绿鳞上留白水线，肩背绕着救生绳。",
+    "en_appearance": "White waterlines mark dark green scales; rescue rope crosses her shoulders.",
+    "voice": "说话先交代出口在哪里。",
+    "en_voice": "Begins by explaining the exits.",
+    "goal": "查清宫底敲击与排水堵塞，免得外城低地被淹。",
+    "en_goal": "Trace the knocking and blocked drains before the low wards flood.",
+    "public": "靠检修旧渠生活；赞成保全遗物，但若要救人愿先打破漂亮石门。",
+    "en_public": "Maintains old drains; preserves relics but will break a beautiful door to save a life.",
+    "private": "她听过敲击节律变化，怀疑是活动闸片而非活人，但未入门查证；看她潜水笔记只能得到此猜测。",
+    "en_private": "Heard the rhythm change and suspects a moving gate, not a person; her dive notes record a hypothesis only.",
+    "access": "低水位时在入口整装，跟潜需技能与安全绳。",
+    "en_access": "Prepares at the entrance at low water; accompanying dives require skill and a lifeline."
+  },
+  {
+    "id": "sg-p36",
+    "name": "伊瑟婆婆",
+    "en_name": "Grandmother Ither",
+    "age": 83,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 36,
+    "faction": "courtwards",
+    "rank": 8,
+    "skills": [
+      "craft",
+      "faith",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p31",
+        "text": "给菲奥留锅底豆汤，要求他别把自己的故事讲成贵族的陪衬。",
+        "en_text": "Saves soup for Fio and asks him not to make her life a footnote to nobles."
+      },
+      {
+        "target": "sg-p35",
+        "text": "肯向阿莎讲旧水道，但提醒她如今的堵塞不是自己年轻时见过的状态。",
+        "en_text": "Shares old drain memories with Asha and warns today’s blockages differ from her youth."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "旧宫灶看守与豆汤厨师",
+    "en_role": "Keeper of the palace kitchens and soup cook",
+    "appearance": "白发编成细圈，围裙里藏着厚旧钥匙。",
+    "en_appearance": "White hair in a small coil, a heavy old key in her apron.",
+    "voice": "不喜欢被叫活史书，喜欢别人问汤够不够咸。",
+    "en_voice": "Dislikes being called living history; prefers questions about the soup.",
+    "goal": "修好漏雨厨房，把祖辈的劳动留在记忆里。",
+    "en_goal": "Repair the leaking kitchen and preserve servants’ work in memory.",
+    "public": "卖廉价豆汤，也教大锅饭；不卖钥匙，但并非永不肯借。",
+    "en_public": "Sells cheap soup and teaches communal cooking; refuses to sell her key but may lend it.",
+    "private": "钥匙通向的粮库早有一半塌了，她怕借钥匙等于害人；帮助查清支撑后才会详细说明。",
+    "en_private": "Half the granary behind the key has collapsed; she fears a loan could hurt someone and explains after structural help.",
+    "access": "午饭前后可帮灶或交谈，不要擅摸她的围裙。",
+    "en_access": "Help or talk around lunchtime; her apron and key remain hers."
+  },
+  {
+    "id": "sg-p37",
+    "name": "维娅·雾绳",
+    "en_name": "Veya Mistline",
+    "age": 44,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 37,
+    "faction": "ashriver-league",
+    "rank": 17,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p38",
+        "text": "催塔芙尽快恢复灯光，又知道航图错误不一定是灯塔单方责任。",
+        "en_text": "Urges Tavv to restore light while recognizing chart errors may not be the beacon’s fault."
+      },
+      {
+        "target": "sg-p40",
+        "text": "与蕾弥协商泊地用水和通行，反对把寻人名单变成码头出入证。",
+        "en_text": "Negotiates anchorage water and access with Remi without turning tracing lists into entry passes."
+      }
+    ],
+    "race": "兽裔（海豹形）",
+    "en_race": "beastkin (seal-featured)",
+    "role": "港务调度员",
+    "en_role": "Harbor dispatcher",
+    "appearance": "厚外套永远半湿，腕带缀着各泊位木牌。",
+    "en_appearance": "A perpetually damp coat; berth markers on her wrist strap.",
+    "voice": "一句话能安排三条船，遇丧讯就会停笔。",
+    "en_voice": "Can dispatch three ships in a sentence, then stops writing for news of a death.",
+    "goal": "解释近期偏航，让拥堵不挤掉小渔船生计。",
+    "en_goal": "Explain recent navigation errors without displacing small fishing boats.",
+    "public": "收固定港薪；重效率，却为熟船长破过排位惯例。",
+    "en_public": "Draws a fixed harbor wage; prizes efficiency but has favored familiar captains.",
+    "private": "她压住过一份偏航报告怕引起退运，现留有副本；比对登记时间后方可追问，不知因此究竟损失多少。",
+    "en_private": "Delayed one deviation report to avoid canceled cargo; registration times reveal the delay, not its total cost.",
+    "access": "潮汐间歇在调度棚接待，正在靠泊时只收紧急信息。",
+    "en_access": "Available between tides; during docking only urgent reports are taken."
+  },
+  {
+    "id": "sg-p38",
+    "name": "塔芙·余光",
+    "en_name": "Tavv Lastglow",
+    "age": 102,
+    "gender": "非二元",
+    "en_gender": "nonbinary",
+    "location": 38,
+    "faction": "beaconwatch",
+    "rank": 22,
+    "skills": [
+      "craft",
+      "arcane",
+      "faith"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p26",
+        "text": "请艾洛温先改船员正在用的图，古灯回声的学术讨论可以稍后。",
+        "en_text": "Asks Elowen to correct working navigation charts before debating ancient echoes."
+      },
+      {
+        "target": "sg-p37",
+        "text": "要求维娅把偏航时辰交出来，愿合作但不承担未经核实的全部过错。",
+        "en_text": "Requests Veya’s deviation times and will cooperate without accepting every unverified blame."
+      },
+      {
+        "target": "sg-p42",
+        "text": "请奥瑟解释结绳旧记，也不将祭司信仰当成灯心技术证据。",
+        "en_text": "Asks Othe about knot records without treating faith as technical evidence about the core."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "古灯守望者与灯具匠",
+    "en_role": "Ancient beacon keeper and lamp maker",
+    "appearance": "银须用海蓝绳系住，手持遮光小片。",
+    "en_appearance": "A sea-blue cord binds silver beard hair; a shutter plate rests in hand.",
+    "voice": "每讲一个奇迹就补上一个保养条件。",
+    "en_voice": "Adds a maintenance requirement to every wonder.",
+    "goal": "在恢复航标时尽量留住灯心回声。",
+    "en_goal": "Restore safe navigation while preserving the core’s echoes where possible.",
+    "public": "靠沿海船户分摊和修灯收入生活；敬畏古物，但不愿让船员替古物送命。",
+    "en_public": "Supported by coastal crews and lamp repairs; reveres relics without sacrificing sailors to them.",
+    "private": "已经录下三段不完整回声，其中人名听不清；经允许听录音也不能自动识别说话者或补全古史。",
+    "en_private": "Recorded three incomplete echoes with unclear names; permitted listening does not identify speakers or complete ancient history.",
+    "access": "补给日或午后巡检可上塔，经说明后远离灯心热区。",
+    "en_access": "Visit on supply days or afternoon inspection; keep clear of the hot core after briefing."
+  },
+  {
+    "id": "sg-p39",
+    "name": "诺姆·盐风",
+    "en_name": "Nom Saltwind",
+    "age": 50,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 39,
+    "faction": "saltroad",
+    "rank": 13,
+    "skills": [
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p60",
+        "text": "与赫莎议盐运价，知道车夫也要吃饭，却不肯把全部降价转给盐工。",
+        "en_text": "Negotiates salt freight with Hesha, recognizing driver wages without passing all cuts to salt workers."
+      },
+      {
+        "target": "sg-p58",
+        "text": "请戴鲁修盐场水泵，愿付工钱，不把同属漂泊者当免费互助凭据。",
+        "en_text": "Pays Dairu for pump repairs instead of claiming shared displacement means free labor."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "盐工领班与合伙船主",
+    "en_role": "Salt crew leader and boat co-owner",
+    "appearance": "帽檐有盐壳，手掌粗得能磨木头。",
+    "en_appearance": "Salt crust on his hat and wood-rough palms.",
+    "voice": "谈工资很硬，催债时声音却轻了。",
+    "en_voice": "Firm on wages, quieter when collecting debts.",
+    "goal": "联合议价但给欠债盐工留下活路。",
+    "en_goal": "Bargain collectively while keeping indebted workers afloat.",
+    "public": "靠盐工资和船分红生活；反对压价，却也收着合伙人欠款。",
+    "en_public": "Lives on salt wages and boat shares; opposes low prices while collecting partners’ debts.",
+    "private": "他的船份可以抵债但会损失晚年收入，他尚未做决定；只向受信任的调停人展示账册。",
+    "en_private": "Could pledge his boat share against debt at the cost of retirement income; undecided, he shows books only to trusted mediators.",
+    "access": "收盐后在风车棚休息，午间强光下不谈长事。",
+    "en_access": "Rests at the windmill shed after raking; no long talks in midday glare."
+  },
+  {
+    "id": "sg-p40",
+    "name": "蕾弥·缝帆",
+    "en_name": "Remi Mendsail",
+    "age": 38,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 40,
+    "faction": "lostlands",
+    "rank": 16,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p37",
+        "text": "肯给维娅不具名的人数估计，不把求助者个人资料拿来换泊位。",
+        "en_text": "Offers Veya anonymous headcounts, not personal information in exchange for berths."
+      },
+      {
+        "target": "sg-p58",
+        "text": "请戴鲁帮搭私密谈话屏风，答应不因他想定居就少给寻亲帮助。",
+        "en_text": "Asks Dairu to build interview screens and promises settlement choices will not reduce tracing help."
+      },
+      {
+        "target": "sg-p57",
+        "text": "愿帮瑟缇寻找旧邻，要求她先说清哪些信件可以转交。",
+        "en_text": "Helps Seti find former neighbors and asks which letters may be forwarded."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "失散登记协作者与帆布裁缝",
+    "en_role": "Family tracing volunteer and sailcloth seamstress",
+    "appearance": "手腕戴量布绳，衣袋分开装空白与已写姓名条。",
+    "en_appearance": "A measuring cord at her wrist; blank and completed name slips in separate pockets.",
+    "voice": "问姓名之前先问是否愿意留下。",
+    "en_voice": "Asks permission to record before asking a name.",
+    "goal": "帮人找亲人，又让不愿被找到的人能拒绝。",
+    "en_goal": "Reunite families while protecting those who do not want to be found.",
+    "public": "缝帆补棚挣钱；耐心听人倾诉，却不肯轻易谈自己的出身。",
+    "en_public": "Earns through sails and shelters; listens patiently but avoids her own origins.",
+    "private": "她换过姓以避旧雇主，不涉及通缉事实；获她同意才可知旧名，帮助寻亲并不授权公布。",
+    "en_private": "Changed her surname to avoid an old employer, with no established criminal charge; tracing work does not authorize revealing it.",
+    "access": "缝补摊可接洽，寻人谈话在有遮挡的桌边单独进行。",
+    "en_access": "Contact her at the mending stall; tracing interviews happen privately behind a screen."
+  },
+  {
+    "id": "sg-p41",
+    "name": "赫里·潮扣",
+    "en_name": "Herri Tideclasp",
+    "age": 30,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 41,
+    "faction": "blackwax",
+    "rank": 14,
+    "skills": [
+      "wild",
+      "shadow",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p17",
+        "text": "肯教维斯保命结，但不愿被拉去为拆钟作道德担保。",
+        "en_text": "Will teach Viss safety knots, not vouch for the ethics of dismantling a bell."
+      },
+      {
+        "target": "sg-p34",
+        "text": "认识缪特的债务压力，但拒绝用自己知道的避难路线替他换钱。",
+        "en_text": "Knows Myut’s debt pressure and refuses to sell refuge routes to repay it."
+      },
+      {
+        "target": "sg-p42",
+        "text": "曾让奥瑟代写海上失约的道歉信，不愿这段私事成为向导的闲谈价目。",
+        "en_text": "Had Othe write an apology for a missed sea meeting and does not sell that private history as guide gossip."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "潮洞向导与废索回收者",
+    "en_role": "Tidal cave guide and rope salvager",
+    "appearance": "一只耳朵穿着旧铜扣，膝垫厚得像船板。",
+    "en_appearance": "An old copper buckle in one ear; kneepads as thick as planks.",
+    "voice": "讲笑话缓和紧张，但倒计潮位时绝不玩笑。",
+    "en_voice": "Jokes to ease fear, never about the tide.",
+    "goal": "辨明洞内货物遗痕，避免港工被一网定罪。",
+    "en_goal": "Trace cargo remains without implicating every dockworker.",
+    "public": "收费带路和回收旧索；以前接过来路不明的运货活，如今拒载伤人货。",
+    "en_public": "Guides and salvages rope for fees; once took dubious cargo, now refuses harmful loads.",
+    "private": "认识一枚扣的制作匠，但不知最后持有者；展示实物并保障不乱指控后才引见。",
+    "en_private": "Recognizes a buckle’s maker, not its final owner; introduces the maker after seeing it and agreeing against unsupported accusations.",
+    "access": "退潮前在洞口接客，错过安全窗口就等下一潮。",
+    "en_access": "Meets clients before low tide; missing the window means waiting."
+  },
+  {
+    "id": "sg-p42",
+    "name": "奥瑟·潮结",
+    "en_name": "Othe Tideknot",
+    "age": 69,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 42,
+    "faction": "beaconwatch",
+    "rank": 18,
+    "skills": [
+      "faith",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p38",
+        "text": "替塔芙召集自愿搬运者，明说祝祷不能保证修灯不出事故。",
+        "en_text": "Recruits volunteer carriers for Tavv and states blessings cannot guarantee accident-free repairs."
+      },
+      {
+        "target": "sg-p41",
+        "text": "知道赫里有可改正的旧事，不把接纳等同于替所有过去担保。",
+        "en_text": "Recognizes Herri can make amends without vouching for every past action."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "祈潮所祭司与海员识字教师",
+    "en_role": "Tide shrine priest and sailors’ literacy teacher",
+    "appearance": "长袍下穿旧海靴，结绳簿用油布包住。",
+    "en_appearance": "Old sea boots under his robe; knot records in oilcloth.",
+    "voice": "祝祷简短，核人名时耐心到固执。",
+    "en_voice": "Brief in prayer, stubbornly patient with names.",
+    "goal": "弄清冒名结绳的原因，不先把求庇护者赶走。",
+    "en_goal": "Explain the borrowed name before expelling a possible sanctuary seeker.",
+    "public": "收自愿供养并教写信；相信宽恕，却不愿宽恕自己失约的旧事。",
+    "en_public": "Lives on offerings and letter lessons; believes in forgiveness but denies it to himself.",
+    "private": "死者曾是他未能按约接回的船员，尚无证据说明他的失约导致死亡；旧航记经允许阅看才知。",
+    "en_private": "The dead sailor was someone he failed to meet as promised; no evidence proves this caused the death, and old voyage notes require permission.",
+    "access": "非仪式时祈潮台开放，私人名册需说明目的并获许可。",
+    "en_access": "The shrine is open between rites; personal registers require purpose and permission."
+  },
+  {
+    "id": "sg-p43",
+    "name": "洁珊·双秤",
+    "en_name": "Jeshan Twoscale",
+    "age": 48,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 43,
+    "faction": "greygrain",
+    "rank": 17,
+    "skills": [
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p05",
+        "text": "认为艾汀报损偏少是怕失租，不愿在没有核对前称他造假。",
+        "en_text": "Suspects Aytin understated losses from fear of eviction and refuses to label it fraud before checking."
+      },
+      {
+        "target": "sg-p60",
+        "text": "让赫莎公开运费组成，愿区分路远成本与垄断加价。",
+        "en_text": "Asks Hesha to explain freight costs and distinguishes distance from monopoly markup."
+      },
+      {
+        "target": "sg-p45",
+        "text": "替苏苓估试药期间可能少卖的果量，不承诺补偿一定到位。",
+        "en_text": "Estimates Sulin’s trial-related sales loss without promising compensation will arrive."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "合仓秤师",
+    "en_role": "Granary union weighmaster",
+    "appearance": "两把小砝码挂在腰间，工作袍沾麦芒。",
+    "en_appearance": "Two test weights at her waist; chaff on her work coat.",
+    "voice": "人人都让她讲公道，她先让秤静下来。",
+    "en_voice": "Asked for fairness, she first waits for the scale to settle.",
+    "goal": "让粮价体现不同村庄的收成与运费。",
+    "en_goal": "Price grain with villages’ different yields and hauling costs in view.",
+    "public": "拿合仓工钱，公开校秤；不许造假，却害怕诚实报告断掉邻村借粮。",
+    "en_public": "Paid by the union and calibrates publicly; opposes fraud but fears honest reports cutting off a village’s credit.",
+    "private": "她有一份未提交的歉收补表，尚未核验最后两户；获准查看也不可当成最终产量。",
+    "en_private": "Holds an unsubmitted crop-loss supplement with two households unverified; access does not make its figures final.",
+    "access": "集日秤台排队可问，复杂账务需收市后。",
+    "en_access": "Queue at the scale on market days; detailed accounts wait until closing."
+  },
+  {
+    "id": "sg-p44",
+    "name": "阿伦·补旗",
+    "en_name": "Aren Patchbanner",
+    "age": 59,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 44,
+    "faction": "lostlands",
+    "rank": 20,
+    "skills": [
+      "craft",
+      "social",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p57",
+        "text": "尊重瑟缇保存乡约，争论归乡时提醒她年轻人并非都忘了故乡。",
+        "en_text": "Respects Seti’s records and reminds her that choosing settlement is not necessarily forgetting."
+      },
+      {
+        "target": "sg-p58",
+        "text": "愿支持戴鲁长住租约，哪怕这意味着营里少一位熟练修泵人。",
+        "en_text": "Supports Dairu’s long tenancy even if the camp loses a skilled pump repairer."
+      }
+    ],
+    "race": "兽裔（狼形）",
+    "en_race": "beastkin (wolf-featured)",
+    "role": "营地互助召集人与车轮匠",
+    "en_role": "Camp aid organizer and wheelwright",
+    "appearance": "灰毛下有一道细伤疤，补旗布用作工具卷。",
+    "en_appearance": "A fine scar under gray fur; patchbanner cloth wraps his tools.",
+    "voice": "不说跟我走，常说你想住在哪里。",
+    "en_voice": "Rarely says follow me; asks where people want to live.",
+    "goal": "让回乡与定居两条路都不以服从为条件。",
+    "en_goal": "Keep both return and settlement available without demanding obedience.",
+    "public": "修轮挣钱、组织共餐；反对强迫归乡，却自己无法想象死在异土。",
+    "en_public": "Repairs wheels and organizes meals; opposes forced return but cannot imagine dying elsewhere.",
+    "private": "他保存的祖地契边界已与现住户菜园重叠；愿比较地图和听双方意见后才出示，不是驱逐许可证。",
+    "en_private": "His ancestral deed overlaps current gardens; he shows it for joint comparison, not as an eviction license.",
+    "access": "白天修轮棚可见，议事在晚饭后自愿参加。",
+    "en_access": "At the wheel shed by day; evening meetings are voluntary."
+  },
+  {
+    "id": "sg-p45",
+    "name": "苏苓·晴果",
+    "en_name": "Sulin Fairfruit",
+    "age": 63,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 45,
+    "faction": "greygrain",
+    "rank": 14,
+    "skills": [
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p28",
+        "text": "认可伊佐懂植物，也要求他失败时留下记录而非换个药名再试。",
+        "en_text": "Respects Izo’s plants and demands records of failure rather than rebranding a treatment."
+      },
+      {
+        "target": "sg-p43",
+        "text": "信任洁珊不动秤，仍会要求把坏果和好果分开计价。",
+        "en_text": "Trusts Jeshan’s scale and asks that damaged and sound fruit be priced separately."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "果园主与接枝师",
+    "en_role": "Orchard grower and grafter",
+    "appearance": "发巾印着梨花，袖口插嫁接小刀。",
+    "en_appearance": "Pear blossoms on her headscarf; a grafting knife at her cuff.",
+    "voice": "讨价快，讨论一棵病树会说很久。",
+    "en_voice": "Quick at bargaining, slow and thorough about a sick tree.",
+    "goal": "用小块试验救果园，不把整季押在新药上。",
+    "en_goal": "Save the orchard through a small trial rather than gambling the season on a new treatment.",
+    "public": "卖果和接枝服务；珍惜谨慎，却会因担心失收而催促结果。",
+    "en_public": "Sells fruit and grafting; values caution but presses for results when harvest is threatened.",
+    "private": "她已在一枝树上试过民间配方，可能干扰对照；共同订试验方案时会坦白，不能假装所有树条件相同。",
+    "en_private": "Tried a folk mixture on one branch, potentially confounding tests; reveals it when planning a trial.",
+    "access": "采果时可换工交谈，试药必须征得园主同意。",
+    "en_access": "Trade work and conversation during picking; treatments require her consent."
+  },
+  {
+    "id": "sg-p46",
+    "name": "格兰·骨渠",
+    "en_name": "Grelan Bonechannel",
+    "age": 41,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 46,
+    "faction": "greygrain",
+    "rank": 16,
+    "skills": [
+      "craft",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p05",
+        "text": "请艾汀用熟悉的田埂标出漏水走向，不要求伤手的人承担重体力。",
+        "en_text": "Asks Aytin to map leaks along familiar banks rather than do heavy work with an injured hand."
+      },
+      {
+        "target": "sg-p19",
+        "text": "请多茵评估渠首改线，愿共享测量而不让她替龙骨真假背书。",
+        "en_text": "Asks Doyin about rerouting and shares measurements without demanding a verdict on dragon bones."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "渠闸维护人",
+    "en_role": "Channel gate maintainer",
+    "appearance": "浅骨色鳞片，腰间挂一把比剑还旧的扳手。",
+    "en_appearance": "Bone-pale scales; a wrench older than many swords at his waist.",
+    "voice": "对龙传说不置气，但会问传说能不能堵漏。",
+    "en_voice": "Untroubled by dragon legends, asks whether they can stop a leak.",
+    "goal": "修住渠首而不靠卖支撑水路的骨头筹钱。",
+    "en_goal": "Seal the headgate without selling the bones supporting it.",
+    "public": "受各村分摊雇用；不愿因族属被奉成祖灵解释者，又暗自好奇骨的来历。",
+    "en_public": "Paid jointly by villages; rejects being treated as an ancestry oracle yet is curious about the bones.",
+    "private": "他保存一片自然脱落的碎屑，未能确定材质；允许鉴定才能新增认识，不预设真龙遗骸。",
+    "en_private": "Kept a naturally shed fragment of unidentified material; only examination can add knowledge, not presume a dragon.",
+    "access": "停水维护时可近闸，放水时在岸上等他。",
+    "en_access": "Approach during shutdown maintenance; wait ashore while water runs."
+  },
+  {
+    "id": "sg-p47",
+    "name": "温娅·风铃",
+    "en_name": "Wenya Windchime",
+    "age": 36,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 47,
+    "faction": "ashriver-league",
+    "rank": 15,
+    "skills": [
+      "martial",
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p10",
+        "text": "与卡鲁互通失马消息，要求巡骑别因恐吓信把兽裔伙伴排除在巡队外。",
+        "en_text": "Exchanges horse reports with Karru and rejects removing beastkin partners over the threat letter."
+      },
+      {
+        "target": "sg-p11",
+        "text": "请梅荻辨认夜路牧群足迹，不把牧民进入高地自动视为越界。",
+        "en_text": "Asks Medi about herd tracks without presuming highland grazing is trespass."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "夜巡领队与铃铛修理人",
+    "en_role": "Night patrol leader and chime repairer",
+    "appearance": "耳边有细铜屑，巡夜披风内侧缝反光贝片。",
+    "en_appearance": "Copper filings near her ears; reflective shell patches inside her patrol cloak.",
+    "voice": "先听脚步再问来客；说笑很干。",
+    "en_voice": "Listens to footsteps before questioning visitors; dry humor.",
+    "goal": "查清恐吓信，维持共同巡路而不扩大猜疑。",
+    "en_goal": "Trace the threat letter while preserving the mixed patrol.",
+    "public": "靠修铃与巡夜补贴生活；说人人同等，却对自己的亲戚格外难下判断。",
+    "en_public": "Lives on repairs and patrol allowance; insists on equality but struggles to judge kin.",
+    "private": "信的折法像她表弟惯用方式，只是弱线索；她会在可靠调查者承诺不先定罪后说明。",
+    "en_private": "The fold resembles her cousin’s habit, a weak clue; tells a careful investigator who will not prejudge guilt.",
+    "access": "傍晚集合点可谈，陪巡需同意不擅追人。",
+    "en_access": "At evening muster; companions must agree not to chase independently."
+  },
+  {
+    "id": "sg-p48",
+    "name": "贝琳·春雪",
+    "en_name": "Belin Springsnow",
+    "age": 71,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 48,
+    "faction": "springhospice",
+    "rank": 21,
+    "skills": [
+      "faith",
+      "craft",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p22",
+        "text": "愿为杜埃的低扰动采法调整订单，但不能把未经检验的盐直接配药。",
+        "en_text": "Will adapt orders to Due’s gentler methods but will not use untested salt in medicine."
+      },
+      {
+        "target": "sg-p59",
+        "text": "提醒艾弥休息是照护的一部分，愿重排夜班但不能凭空增加药。",
+        "en_text": "Tells Aimi rest is part of care; can change shifts but cannot create extra medicine."
+      },
+      {
+        "target": "sg-p60",
+        "text": "请赫莎运盐和酒精，愿付真实成本，不要求车队以善名承担全部开支。",
+        "en_text": "Asks Hesha to carry salt and spirits and pays real costs rather than demanding charity by reputation."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "修院药房总管",
+    "en_role": "Hospice dispensary steward",
+    "appearance": "厚围裙洗得褪色，胸前吊药匙而非徽章。",
+    "en_appearance": "A faded apron; a medicine spoon hangs where a badge might.",
+    "voice": "先问能吃下什么，再问来意。",
+    "en_voice": "Asks what someone can eat before asking their business.",
+    "goal": "补足盐与酒精，守住按病情分药的做法。",
+    "en_goal": "Replenish salt and spirits while allocating by clinical need.",
+    "public": "靠同工供养、制剂和教学维持药房；温和接人，对插队捐助者十分冷硬。",
+    "en_public": "Maintains the dispensary through community support, preparations and teaching; gentle to visitors, stern with donors seeking priority.",
+    "private": "她留了少量急救储备而未公开数量，怕被抢购；获授权盘药者才可知，不是无限药源。",
+    "en_private": "Keeps a small emergency reserve with undisclosed quantity; authorized stocktaking reveals a finite supply.",
+    "access": "问诊后在药房外谈，病人档案与诊疗空间保持私密。",
+    "en_access": "Speak outside the dispensary after consultations; patient records and treatment space stay private."
+  },
+  {
+    "id": "sg-p49",
+    "name": "哈伦·桥钉",
+    "en_name": "Harren Bridgenail",
+    "age": 52,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 1,
+    "faction": "ashriver-league",
+    "rank": 16,
+    "skills": [
+      "craft",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p01",
+        "text": "常当面批评玛蕾省错地方，但知道她也在筹学徒工资，不愿让流言代替争论。",
+        "en_text": "Accuses Marelle of saving in the wrong places, while knowing she seeks apprentice wages; wants argument rather than rumor."
+      },
+      {
+        "target": "sg-p02",
+        "text": "想先结清芙岚的工餐账，怕她一旦停供，工人以为她而非镇里亏待人。",
+        "en_text": "Wants to settle Furran’s meal bill so any stoppage is not wrongly blamed on her."
+      },
+      {
+        "target": "sg-p04",
+        "text": "需要欧沙的船运支架，已经答应把长木扎好，免得再次撞她船底。",
+        "en_text": "Needs Osha’s ferry for supports and promised to lash long timbers clear of her hull."
+      },
+      {
+        "target": "sg-p14",
+        "text": "欣赏萨蕾温亲自动手，不愿自己的外来身份被拿来当压倒她的理由。",
+        "en_text": "Admires Sarewyn’s practical work and refuses to let outsider prestige override her."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "渡鸦桥工头",
+    "en_role": "Ravenbridge bridge foreman",
+    "appearance": "眉毛缺一角，拇指常套试钉铜环。",
+    "en_appearance": "A gap in one brow; a copper nail gauge over his thumb.",
+    "voice": "不爱演讲，爱把坏钉放到桌上。",
+    "en_voice": "Prefers putting a bad nail on the table to making speeches.",
+    "goal": "修好桥腹裂缝，保住学徒的薪水和手指。",
+    "en_goal": "Repair the underside crack and protect apprentices’ wages and fingers.",
+    "public": "按工程领薪，愿教基础木石工；骂镇长节省，却会自己赊材料。",
+    "en_public": "Paid for projects and teaches basic building; scolds the mayor’s thrift but buys supplies on credit himself.",
+    "private": "桥腹一段裂缝比公开告示严重，他暂用支架稳住；同行实检后才可确认等级，不能仅凭传言宣称桥将塌。",
+    "en_private": "One crack is worse than the notice says but temporarily shored; inspection establishes severity, not rumors of imminent collapse.",
+    "access": "早晨桥工棚集合，桥下施工需护绳且经他同意。",
+    "en_access": "At the bridge shed in the morning; work underneath needs a lifeline and his permission."
+  },
+  {
+    "id": "sg-p50",
+    "name": "塔莎·麻绳",
+    "en_name": "Tasha Hempcord",
+    "age": 27,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 2,
+    "faction": "lostlands",
+    "rank": 7,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p02",
+        "text": "感激芙岚给工钱而非只给施舍；希望将来以洗衣生意合作，不必永远做帮工。",
+        "en_text": "Values wages rather than charity from Furran; hopes to become a laundry partner, not a permanent helper."
+      },
+      {
+        "target": "sg-p27",
+        "text": "信任佩弥不会拿自己写错字取笑，愿帮书院洗桌布抵部分学料。",
+        "en_text": "Trusts Pemi not to mock mistakes and offers tablecloth washing toward materials."
+      }
+    ],
+    "race": "兽裔（兔形）",
+    "en_race": "beastkin (hare-featured)",
+    "role": "客栈跑堂与互助送餐人",
+    "en_role": "Inn server and mutual-aid meal runner",
+    "appearance": "长耳束在头巾里，托盘边刻记账点。",
+    "en_appearance": "Long ears tucked into a scarf; tally marks on her tray.",
+    "voice": "送菜很响亮，拒绝无礼要求时反而平静。",
+    "en_voice": "Calls dishes loudly and refuses disrespect calmly.",
+    "goal": "攒钱租自己的洗衣院，同时让暂住者吃到热饭。",
+    "en_goal": "Save for her own laundry yard while feeding temporary residents.",
+    "public": "靠工钱与洗衣挣钱；愿助人，却拒绝被称为永远欠恩的难民。",
+    "en_public": "Earns wages and laundry money; helpful but rejects permanent indebtedness as a refugee.",
+    "private": "她每周留两晚学写账，并不想让掌柜以为要马上离职；经她主动邀请才可旁听。",
+    "en_private": "Studies bookkeeping twice a week and fears her keeper assuming an immediate departure; lessons are shared only by invitation.",
+    "access": "饭后在洗衣棚接洗衣活，值工时不跟陌生人远行。",
+    "en_access": "Takes laundry after meals; does not leave a shift with strangers."
+  },
+  {
+    "id": "sg-p51",
+    "name": "索缇·细账",
+    "en_name": "Soti Smallledger",
+    "age": 41,
+    "gender": "非二元",
+    "en_gender": "nonbinary",
+    "location": 7,
+    "faction": "white-thorn",
+    "rank": 14,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p03",
+        "text": "相信特温能认出旧票格式，希望他别把未登记与实际失窃当成同一件事。",
+        "en_text": "Trusts Tewin on old receipt formats and wants missing records distinguished from stolen goods."
+      },
+      {
+        "target": "sg-p07",
+        "text": "尊重蕾萨愿削自己卫队份额，但提醒她计划未执行前不能算作已经节粮。",
+        "en_text": "Respects Ressa’s proposed guard cuts but will not count them as savings before implementation."
+      },
+      {
+        "target": "sg-p09",
+        "text": "担心伊芮急于安葬会丢掉辨认线索，却愿共同保存衣物和位置记录。",
+        "en_text": "Fears hurried burial may lose clues and agrees to preserve clothing and location records with Irei."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "军需书记",
+    "en_role": "Quartermaster’s clerk",
+    "appearance": "眼镜用细链固定，外套一边肩膀磨得发白。",
+    "en_appearance": "Fine chains secure spectacles; one coat shoulder is worn pale.",
+    "voice": "会把“没有”细分成没到、没记和真没有。",
+    "en_voice": "Distinguishes absent, unrecorded and never supplied.",
+    "goal": "查清缺粮账，不让军户承担所有误差。",
+    "en_goal": "Reconcile grain shortages without charging households for every discrepancy.",
+    "public": "领固定薪水并帮军属代写信；信任书面，遇到真实饥饿仍会破例先发粮后补账。",
+    "en_public": "Salaried and writes families’ letters; trusts records but sometimes feeds the hungry before paperwork.",
+    "private": "一次先发粮的数量由记忆补写，可能误差两袋；需对存粮和收粮者自愿证言核验。",
+    "en_private": "Reconstructed one emergency issue from memory, possibly two sacks out; stock and voluntary recipient testimony can check it.",
+    "access": "午后军需窗可咨询，调阅具名领粮册须正当理由。",
+    "en_access": "Questions at the afternoon supply window; named issue records require a legitimate reason."
+  },
+  {
+    "id": "sg-p52",
+    "name": "艾梵·窄盾",
+    "en_name": "Ayvan Narrowshield",
+    "age": 23,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 8,
+    "faction": "white-thorn",
+    "rank": 8,
+    "skills": [
+      "martial",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p08",
+        "text": "很想得到布洛一句称赞，正在学着把安全护送当成比演武胜负更大的本事。",
+        "en_text": "Craves Brullo’s praise and is learning that safe escort matters more than winning a display."
+      },
+      {
+        "target": "sg-p10",
+        "text": "佩服卡鲁照顾老马，试着学兽医剪的用途，而非只问骑枪技巧。",
+        "en_text": "Admires Karru’s old-horse care and asks about the shears as well as the lance."
+      }
+    ],
+    "race": "半身人",
+    "en_race": "halfling",
+    "role": "见习护路骑士",
+    "en_role": "Apprentice road knight",
+    "appearance": "盾比同伴窄，靴面擦得过分亮。",
+    "en_appearance": "A narrower shield than his peers; obsessively polished boots.",
+    "voice": "开口先说我能，后来才问怎么做。",
+    "en_voice": "Says I can before asking how.",
+    "goal": "赢得一次可靠护送的评价，而不只赢演武喝彩。",
+    "en_goal": "Earn praise for a dependable escort rather than a showy duel.",
+    "public": "以轮值换训练和食宿；痛恨被低估，也容易低估安静的同伴。",
+    "en_public": "Trades duty for training and board; hates being underestimated and does it to quiet peers.",
+    "private": "他在一次练习中明明听见停手却迟了一拍，正在私下向伤者道歉；不是初见自动获知的丑闻。",
+    "en_private": "Reacted late to a stop signal and is privately apologizing to the injured partner; this is not public gossip on arrival.",
+    "access": "公开操练结束后可约切磋，须接受教头监督和停手规则。",
+    "en_access": "Spar after public drills with supervision and stop rules."
+  },
+  {
+    "id": "sg-p53",
+    "name": "涅拉·赤炉",
+    "en_name": "Nera Redhearth",
+    "age": 81,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 20,
+    "faction": "deephearth",
+    "rank": 23,
+    "skills": [
+      "social",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p20",
+        "text": "依赖赫德兰熟悉旧契，却要他正面回答工人何时拿到欠薪。",
+        "en_text": "Needs Hedran’s covenant knowledge and demands a direct wage-payment answer."
+      },
+      {
+        "target": "sg-p21",
+        "text": "知道凯莎夹在产量与工人之间，愿谈停工补贴但需要共同算清费用。",
+        "en_text": "Recognizes Kaisha’s production conflict and will discuss shutdown support with clear costs."
+      },
+      {
+        "target": "sg-p24",
+        "text": "愿看提路完整勘测，尚未答应投资或放弃轨道产权。",
+        "en_text": "Will review Tiru’s complete survey, without yet promising funds or surrendering rail rights."
+      }
+    ],
+    "race": "矮人",
+    "en_race": "dwarf",
+    "role": "赤炉家继承代表",
+    "en_role": "Redhearth House heir representative",
+    "appearance": "礼服外罩旧矿衣，发辫嵌一枚粗铁片。",
+    "en_appearance": "An old mining coat over formal clothes; raw iron in her braid.",
+    "voice": "很会说我们，却会被追问这个我们包括谁。",
+    "en_voice": "Often says we, and is challenged on whom that includes.",
+    "goal": "证明扩井能养人，若算不清便宁可推迟继承庆典。",
+    "en_goal": "Prove expansion can support people, or postpone her succession celebration.",
+    "public": "分管采购与家产；愿听工人发言，又本能觉得祖产应由自己最后决定。",
+    "en_public": "Handles purchasing and assets; hears workers but instinctively claims final say over ancestral property.",
+    "private": "她已用个人首饰担保一批风轮备件，尚未通知家族；核对授权采购单后可知，不意味着备件已经到货。",
+    "en_private": "Pledged personal jewelry for fan spares without telling the house; purchase authorization proves the order, not delivery.",
+    "access": "议厅午后采购会可申请列席，私室另约。",
+    "en_access": "Request a place at afternoon purchasing sessions; private rooms need appointments."
+  },
+  {
+    "id": "sg-p54",
+    "name": "博岑·煤掌",
+    "en_name": "Bozen Coalpalm",
+    "age": 46,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 19,
+    "faction": "deephearth",
+    "rank": 15,
+    "skills": [
+      "craft",
+      "social",
+      "martial"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p19",
+        "text": "佩服多茵懂工程，但要求她让不识图的家属也知道何时能喝净水。",
+        "en_text": "Respects Doyin’s engineering and wants plain water-service dates for families who cannot read plans."
+      },
+      {
+        "target": "sg-p20",
+        "text": "愿与赫德兰谈分期，只要同伴听得懂条款且没有替他们私下签字。",
+        "en_text": "Will discuss installments with Hedran if workers understand and no one signs for them privately."
+      },
+      {
+        "target": "sg-p21",
+        "text": "承认凯莎会下井救人，仍坚持救人的勇敢不能替代提前停工。",
+        "en_text": "Acknowledges Kaisha’s rescues but says courage cannot replace stopping unsafe work."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "矿工推举代表与夜班支架工",
+    "en_role": "Elected miners’ delegate and night-shift shorer",
+    "appearance": "指节宽大，工作靴一只是借来的。",
+    "en_appearance": "Broad knuckles and one borrowed work boot.",
+    "voice": "开会会结巴，说支架受力却清清楚楚。",
+    "en_voice": "Stammers in meetings, precise about support loads.",
+    "goal": "把工伤照料和停工工资写进新约。",
+    "en_goal": "Secure injury care and shutdown wages in the new agreement.",
+    "public": "靠夜班工资养家；鼓励同伴开口，却常替胆小的人抢说。",
+    "en_public": "Supports a household on night wages; encourages others but speaks over the timid.",
+    "private": "妻子有离开矿城的工作机会，他没告诉同伴，怕被看成临阵退缩；只在私人信任下谈。",
+    "en_private": "His wife has work elsewhere and he fears appearing to desert the miners; shares this only in confidence.",
+    "access": "白天休班后在工人茶棚约见，不能打断他必要睡眠。",
+    "en_access": "Meet at the workers’ tea shed after daytime rest, not during needed sleep."
+  },
+  {
+    "id": "sg-p55",
+    "name": "梅洛·散页",
+    "en_name": "Melo Looseleaf",
+    "age": 64,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 25,
+    "faction": "nine-towers",
+    "rank": 20,
+    "skills": [
+      "arcane",
+      "social",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p25",
+        "text": "把缇瑟视为水路经验合作者而非免费样本来源，争论时也照付船费。",
+        "en_text": "Treats Tisse as an expert collaborator, not free samples, and pays boat fees even amid disagreement."
+      },
+      {
+        "target": "sg-p27",
+        "text": "向佩弥借过通俗讲义，承认教得懂与写得准是两门不同本事。",
+        "en_text": "Borrowed Pemi’s plain-language lessons and recognizes accuracy and teachability as different skills."
+      },
+      {
+        "target": "sg-p30",
+        "text": "愿帮鲁珂写清试验说明，拒绝用他的冒险作为开放知识的宣传。",
+        "en_text": "Helps Ruko explain tests and refuses to turn his risk-taking into publicity for openness."
+      }
+    ],
+    "race": "精灵",
+    "en_race": "elf",
+    "role": "开放抄本倡议者与水测讲师",
+    "en_role": "Open-copy advocate and water-survey lecturer",
+    "appearance": "衣袋露出不同学生的抄页，鞋上总有湖泥。",
+    "en_appearance": "Students’ pages protrude from pockets; lake mud on her shoes.",
+    "voice": "会请渔人纠正她的例子。",
+    "en_voice": "Invites fishers to correct her examples.",
+    "goal": "让测水方法公开，危险步骤附上足够训练与保护。",
+    "en_goal": "Open water-testing methods with training and safeguards for hazardous steps.",
+    "public": "靠讲课与测水委托生活；主张公开，却没总能算入穷人购买器材的成本。",
+    "en_public": "Lives on lectures and surveys; favors access but underestimates equipment costs for poorer learners.",
+    "private": "她的一版简化说明漏过废液处理，已写更正却尚未送到全部读者；查版本可发现，不等于已有人中毒。",
+    "en_private": "An abridged guide omitted waste handling; a correction has not reached all readers, with no established poisoning.",
+    "access": "鱼市旁公开测水桌可交流，实验要按现场安全安排。",
+    "en_access": "Talk at the public testing table beside the fish market; experiments follow site precautions."
+  },
+  {
+    "id": "sg-p56",
+    "name": "瓦瑟·封匣",
+    "en_name": "Vasser Sealcasket",
+    "age": 92,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 26,
+    "faction": "nine-towers",
+    "rank": 30,
+    "skills": [
+      "arcane",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p26",
+        "text": "要求艾洛温更正航图，也反对因一次抄错便否定他全部观测。",
+        "en_text": "Demands Elowen’s chart correction without discarding all his observations over one copied digit."
+      },
+      {
+        "target": "sg-p29",
+        "text": "信任娜维不擅开箱，却要查清签收断在哪一环，不让信任代替核验。",
+        "en_text": "Trusts Navi’s discretion but will trace the missing receipt instead of using trust as proof."
+      },
+      {
+        "target": "sg-p30",
+        "text": "认可鲁珂的想法有价值，要求逐步测试而不是一场证明全部。",
+        "en_text": "Values Ruko’s idea and requires staged tests rather than one all-proving demonstration."
+      }
+    ],
+    "race": "龙裔",
+    "en_race": "dragonkin",
+    "role": "危险抄本保管学者",
+    "en_role": "Custodian of hazardous manuscripts",
+    "appearance": "暗紫鳞，钥匙分别缝在三个内袋里。",
+    "en_appearance": "Dark purple scales; keys sewn into three separate inner pockets.",
+    "voice": "拒绝时会给理由，但理由常长得令人烦躁。",
+    "en_voice": "Explains refusals, often at exasperating length.",
+    "goal": "建立按风险开放的抄本制度，不把封存变成家族特权。",
+    "en_goal": "Make manuscript access proportionate to risk rather than inherited privilege.",
+    "public": "以校勘和保管薪水生活；反对草率传播，也承认封存让自己掌握权力。",
+    "en_public": "Paid for collation and custody; opposes careless dissemination and recognizes his own power in restriction.",
+    "private": "他曾因判断过严延误一次安全水泵维修，留下匿名申诉；合法阅到申诉并询问后才会解释。",
+    "en_private": "An overly strict judgment delayed a safe pump repair; an anonymous complaint and a fair inquiry reveal it.",
+    "access": "书库咨询时段可问学习路径，封匣需逐案许可。",
+    "en_access": "During archive consultations, ask about study routes; sealed items need case-specific permission."
+  },
+  {
+    "id": "sg-p57",
+    "name": "瑟缇·归土",
+    "en_name": "Seti Homeearth",
+    "age": 76,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 44,
+    "faction": "lostlands",
+    "rank": 17,
+    "skills": [
+      "social",
+      "craft",
+      "faith"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p18",
+        "text": "起初觉得欧瑞娅阻拦归乡，听过混居旧事后开始问能否做双份记录。",
+        "en_text": "First saw Oreya as blocking return; after shared-settlement stories, asks for two sets of records."
+      },
+      {
+        "target": "sg-p32",
+        "text": "感谢塞维娅保全纸契，也坚持活着的老邻人有权补充纸上遗漏。",
+        "en_text": "Values Sevia’s conservation and insists living neighbors can supply what paper omitted."
+      },
+      {
+        "target": "sg-p40",
+        "text": "觉得蕾弥的保密习惯起初生疏，后来主动给家书分别标注可分享与不可分享。",
+        "en_text": "Initially found Remi’s privacy habits unfamiliar, then began marking which letters could be shared."
+      },
+      {
+        "target": "sg-p44",
+        "text": "认为阿伦太会替各方留余地，却知道他自己也盼着回去。",
+        "en_text": "Thinks Aren leaves too much room for every side and knows he personally longs to return."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "乡约保存者与种袋缝工",
+    "en_role": "Village covenant keeper and seed-bag sewer",
+    "appearance": "旧村地图缝在大衣内衬，针筒戴在食指。",
+    "en_appearance": "An old village map in her coat lining; a needle tube on one finger.",
+    "voice": "提归乡时坚定，听年轻人说安居时会沉默很久。",
+    "en_voice": "Firm on returning home, long silent when younger people want to stay.",
+    "goal": "保存旧村土地与亲属记忆，不逼人用现在的生活偿还过去。",
+    "en_goal": "Preserve old land and kinship records without demanding present lives as payment.",
+    "public": "缝种袋自养并誊地契；主张归还祖地，又珍惜现住户给她寄的果干。",
+    "en_public": "Sews seed bags and copies deeds; wants ancestral land restored yet treasures dried fruit sent by its current occupants.",
+    "private": "她与现住祖屋的家庭持续通信，信里已有共住建议；须双方许可才分享家书。",
+    "en_private": "Corresponds with the family in her former home, including a proposal to share; letters require both sides’ permission.",
+    "access": "午后共餐棚边做针线，可听故事但抄录先问她。",
+    "en_access": "Sews near the meal shelter in the afternoon; ask before recording her stories."
+  },
+  {
+    "id": "sg-p58",
+    "name": "戴鲁·新岸",
+    "en_name": "Dairu Newshore",
+    "age": 34,
+    "gender": "男",
+    "en_gender": "man",
+    "location": 40,
+    "faction": "lostlands",
+    "rank": 12,
+    "skills": [
+      "craft",
+      "social"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p39",
+        "text": "珍惜诺姆肯按手艺付费，提醒盐场泵不能直接当饮用水泵。",
+        "en_text": "Values Nom’s payment for skill and warns saltwork pumps are not automatically potable-water pumps."
+      },
+      {
+        "target": "sg-p40",
+        "text": "支持蕾弥问名先问意愿，拒绝别人替自己把住址写进公开名册。",
+        "en_text": "Supports Remi’s consent-first approach and refuses unapproved publication of his address."
+      },
+      {
+        "target": "sg-p44",
+        "text": "感谢阿伦不以援助换归乡承诺，愿按能力继续送修理工具。",
+        "en_text": "Values Aren’s unconditional aid and keeps contributing tools as able."
+      }
+    ],
+    "race": "地精",
+    "en_race": "goblin",
+    "role": "泊地淡水修理工",
+    "en_role": "Anchorage freshwater repairer",
+    "appearance": "肩背窄却结实，头巾缝了一枚新的家门牌。",
+    "en_appearance": "Narrow sturdy shoulders; a new house-number patch on his scarf.",
+    "voice": "说到新家会用现在时，不用暂时。",
+    "en_voice": "Speaks of his new home in the present, not as temporary.",
+    "goal": "获得稳固的净水点和长住租约。",
+    "en_goal": "Secure a reliable water point and long-term tenancy.",
+    "public": "修泵谋生，也参与找人；愿保存故乡记忆，拒绝把定居视为背叛。",
+    "en_public": "Repairs pumps and helps tracing; honors his past without calling settlement betrayal.",
+    "private": "他有一张旧雇主介绍信，可能换来远地好工作，尚未决定离开；只在求职求助时分享。",
+    "en_private": "Has an employer’s letter that may secure distant work but has not decided to leave; shares it when seeking job help.",
+    "access": "水桶队散去后可在泵棚谈，修理紧急漏水时请先帮忙或等待。",
+    "en_access": "Talk at the pump shed after water queues clear; during leaks help or wait."
+  },
+  {
+    "id": "sg-p59",
+    "name": "艾弥·夜灯",
+    "en_name": "Aimi Nightlamp",
+    "age": 32,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 48,
+    "faction": "springhospice",
+    "rank": 15,
+    "skills": [
+      "faith",
+      "wild",
+      "craft"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p11",
+        "text": "愿给梅荻的牧户教急救，也明确羊病需要另请有经验的兽医。",
+        "en_text": "Offers first aid to Medi’s households and says the goats need a veterinary practitioner."
+      },
+      {
+        "target": "sg-p28",
+        "text": "理解伊佐为来年留种，但请他亲听当前患者的需求，而非只看产量。",
+        "en_text": "Understands Izo’s future seed needs and asks him to hear current care needs as well as yield figures."
+      },
+      {
+        "target": "sg-p48",
+        "text": "支持贝琳按病情分药，提醒她讲清理由能减少家属误解。",
+        "en_text": "Supports Belin’s need-based allocation and asks for explanations that families can understand."
+      }
+    ],
+    "race": "兽裔（鹿形）",
+    "en_race": "beastkin (deer-featured)",
+    "role": "巡诊医护与草药教师",
+    "en_role": "Traveling carer and herbal teacher",
+    "appearance": "短角包软布防碰病人，灯架固定在腰侧。",
+    "en_appearance": "Soft cloth covers short antlers; a lamp bracket sits at her hip.",
+    "voice": "解释风险时很直，换药时会轻声问疼不疼。",
+    "en_voice": "Direct about risks, softly asks about pain while dressing wounds.",
+    "goal": "把有限药材用在最有机会受益的人身上，并照顾照护者。",
+    "en_goal": "Use scarce medicine where it can help and care for carers too.",
+    "public": "拿修院津贴也教急救；能劝别人休息，却难承认自己手已发抖。",
+    "en_public": "Receives a hospice stipend and teaches first aid; urges others to rest but hides her own trembling hands.",
+    "private": "她准备暂停夜班，担心同工负担变重；本人愿谈才可知道，不能把疲劳诊断成特定疾病。",
+    "en_private": "Plans to pause night shifts and worries about colleagues; disclosure is hers, and fatigue does not establish a diagnosis.",
+    "access": "公开急救课后可约，诊室内不接受与当次照护无关的询问。",
+    "en_access": "Arrange talks after public first-aid lessons; treatment rooms are not for unrelated questions."
+  },
+  {
+    "id": "sg-p60",
+    "name": "赫莎·四轮",
+    "en_name": "Hesha Fourwheel",
+    "age": 49,
+    "gender": "女",
+    "en_gender": "woman",
+    "location": 43,
+    "faction": "saltroad",
+    "rank": 18,
+    "skills": [
+      "social",
+      "craft",
+      "wild"
+    ],
+    "relationships": [
+      {
+        "target": "sg-p03",
+        "text": "肯让特温核原票，但要求按时归还，车不能因文书争议无限等候。",
+        "en_text": "Allows Tewin to inspect the original but needs it returned before paperwork stalls her wagons indefinitely."
+      },
+      {
+        "target": "sg-p06",
+        "text": "以前嫌瑟梨夜班要求麻烦，如今尝试把她安排在已有护送的车次。",
+        "en_text": "Once found Serri’s night conditions inconvenient; now tries to place her on escorted departures."
+      },
+      {
+        "target": "sg-p39",
+        "text": "愿给诺姆算满载与回程两种价，不会承诺每趟都亏钱运。",
+        "en_text": "Offers Nom loaded and return-leg prices without promising loss-making trips every time."
+      },
+      {
+        "target": "sg-p43",
+        "text": "同意洁珊复核秤重，反对把车轮维修费说成没有根据的加价。",
+        "en_text": "Accepts Jeshan’s weight checks and defends wheel maintenance as a real cost."
+      },
+      {
+        "target": "sg-p48",
+        "text": "尊重贝琳不让捐助插队，愿谈回程低价，但先算易燃货的安全装载。",
+        "en_text": "Respects Belin’s refusal of donor priority and considers cheap return carriage after planning safe loading for spirits."
+      }
+    ],
+    "race": "人类",
+    "en_race": "human",
+    "role": "盐路独立车主",
+    "en_role": "Independent Saltroad wagon owner",
+    "appearance": "晒黑的手臂布满绳印，账袋比钱袋旧。",
+    "en_appearance": "Rope marks on sun-darkened arms; her ledger pouch older than her purse.",
+    "voice": "把亏多少钱说清楚，再谈能否讲人情。",
+    "en_voice": "States the loss before discussing favors.",
+    "goal": "把盐、纸和药按约送到，又不让司机连夜冒险。",
+    "en_goal": "Deliver salt, paper and medicine on terms that do not force drivers through unsafe nights.",
+    "public": "自有四辆车但只雇两位车夫；重信用，也承认善举不能永远靠别人赔钱。",
+    "en_public": "Owns four wagons with two hired drivers; values promises without making others subsidize every good deed.",
+    "private": "一份旧护送合同有可协商的空车返程条款，可用于低价救济运货；查看她愿提供的合同副本才知。",
+    "en_private": "An old escort contract has a negotiable empty-return clause that could carry low-cost aid; her shared copy reveals the option.",
+    "access": "集市停车处收单，长途随行须先谈位置、货重与费用。",
+    "en_access": "Takes orders at the market wagon ground; travel requires agreed seats, weight and cost."
+  }
+]

@@ -1,0 +1,5785 @@
+{
+  "routes": [
+    {
+      "id": "lanchuan-route-l01-l02",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l01",
+      "destination_location_id": "lanchuan-l02",
+      "segments": [
+        {
+          "id": "lanchuan-route-l01-l02.segment",
+          "from_location_id": "lanchuan-l01",
+          "to_location_id": "lanchuan-l02",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l02-l01",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l02",
+      "destination_location_id": "lanchuan-l01",
+      "segments": [
+        {
+          "id": "lanchuan-route-l02-l01.segment",
+          "from_location_id": "lanchuan-l02",
+          "to_location_id": "lanchuan-l01",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l01-l04",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l01",
+      "destination_location_id": "lanchuan-l04",
+      "segments": [
+        {
+          "id": "lanchuan-route-l01-l04.segment",
+          "from_location_id": "lanchuan-l01",
+          "to_location_id": "lanchuan-l04",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l04-l01",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l04",
+      "destination_location_id": "lanchuan-l01",
+      "segments": [
+        {
+          "id": "lanchuan-route-l04-l01.segment",
+          "from_location_id": "lanchuan-l04",
+          "to_location_id": "lanchuan-l01",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l01-l11",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l01",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l01-l11.segment",
+          "from_location_id": "lanchuan-l01",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 5760,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l01",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l01",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l01.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l01",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l02-l03",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l02",
+      "destination_location_id": "lanchuan-l03",
+      "segments": [
+        {
+          "id": "lanchuan-route-l02-l03.segment",
+          "from_location_id": "lanchuan-l02",
+          "to_location_id": "lanchuan-l03",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l03-l02",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l03",
+      "destination_location_id": "lanchuan-l02",
+      "segments": [
+        {
+          "id": "lanchuan-route-l03-l02.segment",
+          "from_location_id": "lanchuan-l03",
+          "to_location_id": "lanchuan-l02",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l02-l05",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l02",
+      "destination_location_id": "lanchuan-l05",
+      "segments": [
+        {
+          "id": "lanchuan-route-l02-l05.segment",
+          "from_location_id": "lanchuan-l02",
+          "to_location_id": "lanchuan-l05",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l05-l02",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l05",
+      "destination_location_id": "lanchuan-l02",
+      "segments": [
+        {
+          "id": "lanchuan-route-l05-l02.segment",
+          "from_location_id": "lanchuan-l05",
+          "to_location_id": "lanchuan-l02",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l03-l05",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l03",
+      "destination_location_id": "lanchuan-l05",
+      "segments": [
+        {
+          "id": "lanchuan-route-l03-l05.segment",
+          "from_location_id": "lanchuan-l03",
+          "to_location_id": "lanchuan-l05",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l05-l03",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l05",
+      "destination_location_id": "lanchuan-l03",
+      "segments": [
+        {
+          "id": "lanchuan-route-l05-l03.segment",
+          "from_location_id": "lanchuan-l05",
+          "to_location_id": "lanchuan-l03",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l07",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l07",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l07.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l07",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l07-l06",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l07",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l07-l06.segment",
+          "from_location_id": "lanchuan-l07",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l10",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l10",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l10.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l10",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l10-l06",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l10",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l10-l06.segment",
+          "from_location_id": "lanchuan-l10",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l20",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l20",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l20.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l20",
+          "duration_minutes": 3600,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l20-l06",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l20",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l20-l06.segment",
+          "from_location_id": "lanchuan-l20",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l07-l21",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l07",
+      "destination_location_id": "lanchuan-l21",
+      "segments": [
+        {
+          "id": "lanchuan-route-l07-l21.segment",
+          "from_location_id": "lanchuan-l07",
+          "to_location_id": "lanchuan-l21",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l21-l07",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l21",
+      "destination_location_id": "lanchuan-l07",
+      "segments": [
+        {
+          "id": "lanchuan-route-l21-l07.segment",
+          "from_location_id": "lanchuan-l21",
+          "to_location_id": "lanchuan-l07",
+          "duration_minutes": 4320,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l08-l10",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l08",
+      "destination_location_id": "lanchuan-l10",
+      "segments": [
+        {
+          "id": "lanchuan-route-l08-l10.segment",
+          "from_location_id": "lanchuan-l08",
+          "to_location_id": "lanchuan-l10",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l10-l08",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l10",
+      "destination_location_id": "lanchuan-l08",
+      "segments": [
+        {
+          "id": "lanchuan-route-l10-l08.segment",
+          "from_location_id": "lanchuan-l10",
+          "to_location_id": "lanchuan-l08",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l09-l15",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l09",
+      "destination_location_id": "lanchuan-l15",
+      "segments": [
+        {
+          "id": "lanchuan-route-l09-l15.segment",
+          "from_location_id": "lanchuan-l09",
+          "to_location_id": "lanchuan-l15",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l15-l09",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l15",
+      "destination_location_id": "lanchuan-l09",
+      "segments": [
+        {
+          "id": "lanchuan-route-l15-l09.segment",
+          "from_location_id": "lanchuan-l15",
+          "to_location_id": "lanchuan-l09",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l09-l06",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l09",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l09-l06.segment",
+          "from_location_id": "lanchuan-l09",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l09",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l09",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l09.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l09",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l12",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l12",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l12.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l12",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l12-l11",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l12",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l12-l11.segment",
+          "from_location_id": "lanchuan-l12",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l13",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l13",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l13.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l13",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l13-l11",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l13",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l13-l11.segment",
+          "from_location_id": "lanchuan-l13",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l15",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l15",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l15.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l15",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l15-l11",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l15",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l15-l11.segment",
+          "from_location_id": "lanchuan-l15",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l12-l01",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l12",
+      "destination_location_id": "lanchuan-l01",
+      "segments": [
+        {
+          "id": "lanchuan-route-l12-l01.segment",
+          "from_location_id": "lanchuan-l12",
+          "to_location_id": "lanchuan-l01",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l01-l12",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l01",
+      "destination_location_id": "lanchuan-l12",
+      "segments": [
+        {
+          "id": "lanchuan-route-l01-l12.segment",
+          "from_location_id": "lanchuan-l01",
+          "to_location_id": "lanchuan-l12",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l14-l15",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l14",
+      "destination_location_id": "lanchuan-l15",
+      "segments": [
+        {
+          "id": "lanchuan-route-l14-l15.segment",
+          "from_location_id": "lanchuan-l14",
+          "to_location_id": "lanchuan-l15",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l15-l14",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l15",
+      "destination_location_id": "lanchuan-l14",
+      "segments": [
+        {
+          "id": "lanchuan-route-l15-l14.segment",
+          "from_location_id": "lanchuan-l15",
+          "to_location_id": "lanchuan-l14",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l14-l09",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l14",
+      "destination_location_id": "lanchuan-l09",
+      "segments": [
+        {
+          "id": "lanchuan-route-l14-l09.segment",
+          "from_location_id": "lanchuan-l14",
+          "to_location_id": "lanchuan-l09",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l09-l14",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l09",
+      "destination_location_id": "lanchuan-l14",
+      "segments": [
+        {
+          "id": "lanchuan-route-l09-l14.segment",
+          "from_location_id": "lanchuan-l09",
+          "to_location_id": "lanchuan-l14",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l16-l17",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l16",
+      "destination_location_id": "lanchuan-l17",
+      "segments": [
+        {
+          "id": "lanchuan-route-l16-l17.segment",
+          "from_location_id": "lanchuan-l16",
+          "to_location_id": "lanchuan-l17",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l17-l16",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l17",
+      "destination_location_id": "lanchuan-l16",
+      "segments": [
+        {
+          "id": "lanchuan-route-l17-l16.segment",
+          "from_location_id": "lanchuan-l17",
+          "to_location_id": "lanchuan-l16",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l16-l19",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l16",
+      "destination_location_id": "lanchuan-l19",
+      "segments": [
+        {
+          "id": "lanchuan-route-l16-l19.segment",
+          "from_location_id": "lanchuan-l16",
+          "to_location_id": "lanchuan-l19",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l19-l16",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l19",
+      "destination_location_id": "lanchuan-l16",
+      "segments": [
+        {
+          "id": "lanchuan-route-l19-l16.segment",
+          "from_location_id": "lanchuan-l19",
+          "to_location_id": "lanchuan-l16",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l17-l20",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l17",
+      "destination_location_id": "lanchuan-l20",
+      "segments": [
+        {
+          "id": "lanchuan-route-l17-l20.segment",
+          "from_location_id": "lanchuan-l17",
+          "to_location_id": "lanchuan-l20",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l20-l17",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l20",
+      "destination_location_id": "lanchuan-l17",
+      "segments": [
+        {
+          "id": "lanchuan-route-l20-l17.segment",
+          "from_location_id": "lanchuan-l20",
+          "to_location_id": "lanchuan-l17",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l18-l17",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l18",
+      "destination_location_id": "lanchuan-l17",
+      "segments": [
+        {
+          "id": "lanchuan-route-l18-l17.segment",
+          "from_location_id": "lanchuan-l18",
+          "to_location_id": "lanchuan-l17",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l17-l18",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l17",
+      "destination_location_id": "lanchuan-l18",
+      "segments": [
+        {
+          "id": "lanchuan-route-l17-l18.segment",
+          "from_location_id": "lanchuan-l17",
+          "to_location_id": "lanchuan-l18",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l20-l38",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l20",
+      "destination_location_id": "lanchuan-l38",
+      "segments": [
+        {
+          "id": "lanchuan-route-l20-l38.segment",
+          "from_location_id": "lanchuan-l20",
+          "to_location_id": "lanchuan-l38",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l38-l20",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l38",
+      "destination_location_id": "lanchuan-l20",
+      "segments": [
+        {
+          "id": "lanchuan-route-l38-l20.segment",
+          "from_location_id": "lanchuan-l38",
+          "to_location_id": "lanchuan-l20",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l21-l22",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l21",
+      "destination_location_id": "lanchuan-l22",
+      "segments": [
+        {
+          "id": "lanchuan-route-l21-l22.segment",
+          "from_location_id": "lanchuan-l21",
+          "to_location_id": "lanchuan-l22",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l22-l21",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l22",
+      "destination_location_id": "lanchuan-l21",
+      "segments": [
+        {
+          "id": "lanchuan-route-l22-l21.segment",
+          "from_location_id": "lanchuan-l22",
+          "to_location_id": "lanchuan-l21",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l21-l24",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l21",
+      "destination_location_id": "lanchuan-l24",
+      "segments": [
+        {
+          "id": "lanchuan-route-l21-l24.segment",
+          "from_location_id": "lanchuan-l21",
+          "to_location_id": "lanchuan-l24",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l24-l21",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l24",
+      "destination_location_id": "lanchuan-l21",
+      "segments": [
+        {
+          "id": "lanchuan-route-l24-l21.segment",
+          "from_location_id": "lanchuan-l24",
+          "to_location_id": "lanchuan-l21",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l22-l23",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l22",
+      "destination_location_id": "lanchuan-l23",
+      "segments": [
+        {
+          "id": "lanchuan-route-l22-l23.segment",
+          "from_location_id": "lanchuan-l22",
+          "to_location_id": "lanchuan-l23",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l23-l22",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l23",
+      "destination_location_id": "lanchuan-l22",
+      "segments": [
+        {
+          "id": "lanchuan-route-l23-l22.segment",
+          "from_location_id": "lanchuan-l23",
+          "to_location_id": "lanchuan-l22",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l23-l24",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l23",
+      "destination_location_id": "lanchuan-l24",
+      "segments": [
+        {
+          "id": "lanchuan-route-l23-l24.segment",
+          "from_location_id": "lanchuan-l23",
+          "to_location_id": "lanchuan-l24",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l24-l23",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l24",
+      "destination_location_id": "lanchuan-l23",
+      "segments": [
+        {
+          "id": "lanchuan-route-l24-l23.segment",
+          "from_location_id": "lanchuan-l24",
+          "to_location_id": "lanchuan-l23",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l24-l25",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l24",
+      "destination_location_id": "lanchuan-l25",
+      "segments": [
+        {
+          "id": "lanchuan-route-l24-l25.segment",
+          "from_location_id": "lanchuan-l24",
+          "to_location_id": "lanchuan-l25",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l25-l24",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l25",
+      "destination_location_id": "lanchuan-l24",
+      "segments": [
+        {
+          "id": "lanchuan-route-l25-l24.segment",
+          "from_location_id": "lanchuan-l25",
+          "to_location_id": "lanchuan-l24",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l25-l22",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l25",
+      "destination_location_id": "lanchuan-l22",
+      "segments": [
+        {
+          "id": "lanchuan-route-l25-l22.segment",
+          "from_location_id": "lanchuan-l25",
+          "to_location_id": "lanchuan-l22",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l22-l25",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l22",
+      "destination_location_id": "lanchuan-l25",
+      "segments": [
+        {
+          "id": "lanchuan-route-l22-l25.segment",
+          "from_location_id": "lanchuan-l22",
+          "to_location_id": "lanchuan-l25",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l26-l27",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l26",
+      "destination_location_id": "lanchuan-l27",
+      "segments": [
+        {
+          "id": "lanchuan-route-l26-l27.segment",
+          "from_location_id": "lanchuan-l26",
+          "to_location_id": "lanchuan-l27",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l27-l26",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l27",
+      "destination_location_id": "lanchuan-l26",
+      "segments": [
+        {
+          "id": "lanchuan-route-l27-l26.segment",
+          "from_location_id": "lanchuan-l27",
+          "to_location_id": "lanchuan-l26",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l27-l28",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l27",
+      "destination_location_id": "lanchuan-l28",
+      "segments": [
+        {
+          "id": "lanchuan-route-l27-l28.segment",
+          "from_location_id": "lanchuan-l27",
+          "to_location_id": "lanchuan-l28",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l28-l27",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l28",
+      "destination_location_id": "lanchuan-l27",
+      "segments": [
+        {
+          "id": "lanchuan-route-l28-l27.segment",
+          "from_location_id": "lanchuan-l28",
+          "to_location_id": "lanchuan-l27",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l27-l31",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l27",
+      "destination_location_id": "lanchuan-l31",
+      "segments": [
+        {
+          "id": "lanchuan-route-l27-l31.segment",
+          "from_location_id": "lanchuan-l27",
+          "to_location_id": "lanchuan-l31",
+          "duration_minutes": 8640,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l31-l27",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l31",
+      "destination_location_id": "lanchuan-l27",
+      "segments": [
+        {
+          "id": "lanchuan-route-l31-l27.segment",
+          "from_location_id": "lanchuan-l31",
+          "to_location_id": "lanchuan-l27",
+          "duration_minutes": 8640,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l28-l29",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l28",
+      "destination_location_id": "lanchuan-l29",
+      "segments": [
+        {
+          "id": "lanchuan-route-l28-l29.segment",
+          "from_location_id": "lanchuan-l28",
+          "to_location_id": "lanchuan-l29",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l29-l28",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l29",
+      "destination_location_id": "lanchuan-l28",
+      "segments": [
+        {
+          "id": "lanchuan-route-l29-l28.segment",
+          "from_location_id": "lanchuan-l29",
+          "to_location_id": "lanchuan-l28",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l28-l21",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l28",
+      "destination_location_id": "lanchuan-l21",
+      "segments": [
+        {
+          "id": "lanchuan-route-l28-l21.segment",
+          "from_location_id": "lanchuan-l28",
+          "to_location_id": "lanchuan-l21",
+          "duration_minutes": 7200,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l21-l28",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l21",
+      "destination_location_id": "lanchuan-l28",
+      "segments": [
+        {
+          "id": "lanchuan-route-l21-l28.segment",
+          "from_location_id": "lanchuan-l21",
+          "to_location_id": "lanchuan-l28",
+          "duration_minutes": 7200,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l29-l30",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l29",
+      "destination_location_id": "lanchuan-l30",
+      "segments": [
+        {
+          "id": "lanchuan-route-l29-l30.segment",
+          "from_location_id": "lanchuan-l29",
+          "to_location_id": "lanchuan-l30",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l30-l29",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l30",
+      "destination_location_id": "lanchuan-l29",
+      "segments": [
+        {
+          "id": "lanchuan-route-l30-l29.segment",
+          "from_location_id": "lanchuan-l30",
+          "to_location_id": "lanchuan-l29",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l31-l17",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l31",
+      "destination_location_id": "lanchuan-l17",
+      "segments": [
+        {
+          "id": "lanchuan-route-l31-l17.segment",
+          "from_location_id": "lanchuan-l31",
+          "to_location_id": "lanchuan-l17",
+          "duration_minutes": 11520,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l17-l31",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l17",
+      "destination_location_id": "lanchuan-l31",
+      "segments": [
+        {
+          "id": "lanchuan-route-l17-l31.segment",
+          "from_location_id": "lanchuan-l17",
+          "to_location_id": "lanchuan-l31",
+          "duration_minutes": 11520,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l31-l32",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l31",
+      "destination_location_id": "lanchuan-l32",
+      "segments": [
+        {
+          "id": "lanchuan-route-l31-l32.segment",
+          "from_location_id": "lanchuan-l31",
+          "to_location_id": "lanchuan-l32",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l32-l31",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l32",
+      "destination_location_id": "lanchuan-l31",
+      "segments": [
+        {
+          "id": "lanchuan-route-l32-l31.segment",
+          "from_location_id": "lanchuan-l32",
+          "to_location_id": "lanchuan-l31",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l31-l33",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l31",
+      "destination_location_id": "lanchuan-l33",
+      "segments": [
+        {
+          "id": "lanchuan-route-l31-l33.segment",
+          "from_location_id": "lanchuan-l31",
+          "to_location_id": "lanchuan-l33",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l33-l31",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l33",
+      "destination_location_id": "lanchuan-l31",
+      "segments": [
+        {
+          "id": "lanchuan-route-l33-l31.segment",
+          "from_location_id": "lanchuan-l33",
+          "to_location_id": "lanchuan-l31",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l32-l33",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l32",
+      "destination_location_id": "lanchuan-l33",
+      "segments": [
+        {
+          "id": "lanchuan-route-l32-l33.segment",
+          "from_location_id": "lanchuan-l32",
+          "to_location_id": "lanchuan-l33",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l33-l32",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l33",
+      "destination_location_id": "lanchuan-l32",
+      "segments": [
+        {
+          "id": "lanchuan-route-l33-l32.segment",
+          "from_location_id": "lanchuan-l33",
+          "to_location_id": "lanchuan-l32",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l33-l34",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l33",
+      "destination_location_id": "lanchuan-l34",
+      "segments": [
+        {
+          "id": "lanchuan-route-l33-l34.segment",
+          "from_location_id": "lanchuan-l33",
+          "to_location_id": "lanchuan-l34",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l34-l33",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l34",
+      "destination_location_id": "lanchuan-l33",
+      "segments": [
+        {
+          "id": "lanchuan-route-l34-l33.segment",
+          "from_location_id": "lanchuan-l34",
+          "to_location_id": "lanchuan-l33",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l35-l31",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l35",
+      "destination_location_id": "lanchuan-l31",
+      "segments": [
+        {
+          "id": "lanchuan-route-l35-l31.segment",
+          "from_location_id": "lanchuan-l35",
+          "to_location_id": "lanchuan-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l31-l35",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l31",
+      "destination_location_id": "lanchuan-l35",
+      "segments": [
+        {
+          "id": "lanchuan-route-l31-l35.segment",
+          "from_location_id": "lanchuan-l31",
+          "to_location_id": "lanchuan-l35",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l36-l37",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l36",
+      "destination_location_id": "lanchuan-l37",
+      "segments": [
+        {
+          "id": "lanchuan-route-l36-l37.segment",
+          "from_location_id": "lanchuan-l36",
+          "to_location_id": "lanchuan-l37",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l37-l36",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l37",
+      "destination_location_id": "lanchuan-l36",
+      "segments": [
+        {
+          "id": "lanchuan-route-l37-l36.segment",
+          "from_location_id": "lanchuan-l37",
+          "to_location_id": "lanchuan-l36",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l36-l38",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l36",
+      "destination_location_id": "lanchuan-l38",
+      "segments": [
+        {
+          "id": "lanchuan-route-l36-l38.segment",
+          "from_location_id": "lanchuan-l36",
+          "to_location_id": "lanchuan-l38",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l38-l36",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l38",
+      "destination_location_id": "lanchuan-l36",
+      "segments": [
+        {
+          "id": "lanchuan-route-l38-l36.segment",
+          "from_location_id": "lanchuan-l38",
+          "to_location_id": "lanchuan-l36",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l36-l39",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l36",
+      "destination_location_id": "lanchuan-l39",
+      "segments": [
+        {
+          "id": "lanchuan-route-l36-l39.segment",
+          "from_location_id": "lanchuan-l36",
+          "to_location_id": "lanchuan-l39",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l39-l36",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l39",
+      "destination_location_id": "lanchuan-l36",
+      "segments": [
+        {
+          "id": "lanchuan-route-l39-l36.segment",
+          "from_location_id": "lanchuan-l39",
+          "to_location_id": "lanchuan-l36",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l36-l40",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l36",
+      "destination_location_id": "lanchuan-l40",
+      "segments": [
+        {
+          "id": "lanchuan-route-l36-l40.segment",
+          "from_location_id": "lanchuan-l36",
+          "to_location_id": "lanchuan-l40",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l40-l36",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l40",
+      "destination_location_id": "lanchuan-l36",
+      "segments": [
+        {
+          "id": "lanchuan-route-l40-l36.segment",
+          "from_location_id": "lanchuan-l40",
+          "to_location_id": "lanchuan-l36",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l37-l38",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l37",
+      "destination_location_id": "lanchuan-l38",
+      "segments": [
+        {
+          "id": "lanchuan-route-l37-l38.segment",
+          "from_location_id": "lanchuan-l37",
+          "to_location_id": "lanchuan-l38",
+          "duration_minutes": 4320,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l38-l37",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l38",
+      "destination_location_id": "lanchuan-l37",
+      "segments": [
+        {
+          "id": "lanchuan-route-l38-l37.segment",
+          "from_location_id": "lanchuan-l38",
+          "to_location_id": "lanchuan-l37",
+          "duration_minutes": 4320,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l11",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l11.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 7200,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l06",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l06.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 7200,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l06-l11-water",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l06",
+      "destination_location_id": "lanchuan-l11",
+      "segments": [
+        {
+          "id": "lanchuan-route-l06-l11-water.segment",
+          "from_location_id": "lanchuan-l06",
+          "to_location_id": "lanchuan-l11",
+          "duration_minutes": 5760,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-l11-l06-water",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l11",
+      "destination_location_id": "lanchuan-l06",
+      "segments": [
+        {
+          "id": "lanchuan-route-l11-l06-water.segment",
+          "from_location_id": "lanchuan-l11",
+          "to_location_id": "lanchuan-l06",
+          "duration_minutes": 5760,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l01-l02",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l01",
+      "destination_location_id": "xinghai-l02",
+      "segments": [
+        {
+          "id": "xinghai-route-l01-l02.segment",
+          "from_location_id": "xinghai-l01",
+          "to_location_id": "xinghai-l02",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l02-l01",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l02",
+      "destination_location_id": "xinghai-l01",
+      "segments": [
+        {
+          "id": "xinghai-route-l02-l01.segment",
+          "from_location_id": "xinghai-l02",
+          "to_location_id": "xinghai-l01",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l01-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l01",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l01-l04.segment",
+          "from_location_id": "xinghai-l01",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l01",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l01",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l01.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l01",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l02-l05",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l02",
+      "destination_location_id": "xinghai-l05",
+      "segments": [
+        {
+          "id": "xinghai-route-l02-l05.segment",
+          "from_location_id": "xinghai-l02",
+          "to_location_id": "xinghai-l05",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l05-l02",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l05",
+      "destination_location_id": "xinghai-l02",
+      "segments": [
+        {
+          "id": "xinghai-route-l05-l02.segment",
+          "from_location_id": "xinghai-l05",
+          "to_location_id": "xinghai-l02",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l01-l05",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l01",
+      "destination_location_id": "xinghai-l05",
+      "segments": [
+        {
+          "id": "xinghai-route-l01-l05.segment",
+          "from_location_id": "xinghai-l01",
+          "to_location_id": "xinghai-l05",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l05-l01",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l05",
+      "destination_location_id": "xinghai-l01",
+      "segments": [
+        {
+          "id": "xinghai-route-l05-l01.segment",
+          "from_location_id": "xinghai-l05",
+          "to_location_id": "xinghai-l01",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l03-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l03",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l03-l04.segment",
+          "from_location_id": "xinghai-l03",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 3,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l03",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l03",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l03.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l03",
+          "duration_minutes": 3,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l03-l01",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l03",
+      "destination_location_id": "xinghai-l01",
+      "segments": [
+        {
+          "id": "xinghai-route-l03-l01.segment",
+          "from_location_id": "xinghai-l03",
+          "to_location_id": "xinghai-l01",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l01-l03",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l01",
+      "destination_location_id": "xinghai-l03",
+      "segments": [
+        {
+          "id": "xinghai-route-l01-l03.segment",
+          "from_location_id": "xinghai-l01",
+          "to_location_id": "xinghai-l03",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l06-l08",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l06",
+      "destination_location_id": "xinghai-l08",
+      "segments": [
+        {
+          "id": "xinghai-route-l06-l08.segment",
+          "from_location_id": "xinghai-l06",
+          "to_location_id": "xinghai-l08",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l08-l06",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l08",
+      "destination_location_id": "xinghai-l06",
+      "segments": [
+        {
+          "id": "xinghai-route-l08-l06.segment",
+          "from_location_id": "xinghai-l08",
+          "to_location_id": "xinghai-l06",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l06-l07",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l06",
+      "destination_location_id": "xinghai-l07",
+      "segments": [
+        {
+          "id": "xinghai-route-l06-l07.segment",
+          "from_location_id": "xinghai-l06",
+          "to_location_id": "xinghai-l07",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l07-l06",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l07",
+      "destination_location_id": "xinghai-l06",
+      "segments": [
+        {
+          "id": "xinghai-route-l07-l06.segment",
+          "from_location_id": "xinghai-l07",
+          "to_location_id": "xinghai-l06",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l08-l09",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l08",
+      "destination_location_id": "xinghai-l09",
+      "segments": [
+        {
+          "id": "xinghai-route-l08-l09.segment",
+          "from_location_id": "xinghai-l08",
+          "to_location_id": "xinghai-l09",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l09-l08",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l09",
+      "destination_location_id": "xinghai-l08",
+      "segments": [
+        {
+          "id": "xinghai-route-l09-l08.segment",
+          "from_location_id": "xinghai-l09",
+          "to_location_id": "xinghai-l08",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l06-l10",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l06",
+      "destination_location_id": "xinghai-l10",
+      "segments": [
+        {
+          "id": "xinghai-route-l06-l10.segment",
+          "from_location_id": "xinghai-l06",
+          "to_location_id": "xinghai-l10",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l10-l06",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l10",
+      "destination_location_id": "xinghai-l06",
+      "segments": [
+        {
+          "id": "xinghai-route-l10-l06.segment",
+          "from_location_id": "xinghai-l10",
+          "to_location_id": "xinghai-l06",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l11-l12",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l11",
+      "destination_location_id": "xinghai-l12",
+      "segments": [
+        {
+          "id": "xinghai-route-l11-l12.segment",
+          "from_location_id": "xinghai-l11",
+          "to_location_id": "xinghai-l12",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l12-l11",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l12",
+      "destination_location_id": "xinghai-l11",
+      "segments": [
+        {
+          "id": "xinghai-route-l12-l11.segment",
+          "from_location_id": "xinghai-l12",
+          "to_location_id": "xinghai-l11",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l12-l13",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l12",
+      "destination_location_id": "xinghai-l13",
+      "segments": [
+        {
+          "id": "xinghai-route-l12-l13.segment",
+          "from_location_id": "xinghai-l12",
+          "to_location_id": "xinghai-l13",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l13-l12",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l13",
+      "destination_location_id": "xinghai-l12",
+      "segments": [
+        {
+          "id": "xinghai-route-l13-l12.segment",
+          "from_location_id": "xinghai-l13",
+          "to_location_id": "xinghai-l12",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l12-l14",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l12",
+      "destination_location_id": "xinghai-l14",
+      "segments": [
+        {
+          "id": "xinghai-route-l12-l14.segment",
+          "from_location_id": "xinghai-l12",
+          "to_location_id": "xinghai-l14",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l14-l12",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l14",
+      "destination_location_id": "xinghai-l12",
+      "segments": [
+        {
+          "id": "xinghai-route-l14-l12.segment",
+          "from_location_id": "xinghai-l14",
+          "to_location_id": "xinghai-l12",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l13-l15",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l13",
+      "destination_location_id": "xinghai-l15",
+      "segments": [
+        {
+          "id": "xinghai-route-l13-l15.segment",
+          "from_location_id": "xinghai-l13",
+          "to_location_id": "xinghai-l15",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l15-l13",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l15",
+      "destination_location_id": "xinghai-l13",
+      "segments": [
+        {
+          "id": "xinghai-route-l15-l13.segment",
+          "from_location_id": "xinghai-l15",
+          "to_location_id": "xinghai-l13",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l14-l11",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l14",
+      "destination_location_id": "xinghai-l11",
+      "segments": [
+        {
+          "id": "xinghai-route-l14-l11.segment",
+          "from_location_id": "xinghai-l14",
+          "to_location_id": "xinghai-l11",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l11-l14",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l11",
+      "destination_location_id": "xinghai-l14",
+      "segments": [
+        {
+          "id": "xinghai-route-l11-l14.segment",
+          "from_location_id": "xinghai-l11",
+          "to_location_id": "xinghai-l14",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l16-l17",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l16",
+      "destination_location_id": "xinghai-l17",
+      "segments": [
+        {
+          "id": "xinghai-route-l16-l17.segment",
+          "from_location_id": "xinghai-l16",
+          "to_location_id": "xinghai-l17",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l17-l16",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l17",
+      "destination_location_id": "xinghai-l16",
+      "segments": [
+        {
+          "id": "xinghai-route-l17-l16.segment",
+          "from_location_id": "xinghai-l17",
+          "to_location_id": "xinghai-l16",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l16-l18",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l16",
+      "destination_location_id": "xinghai-l18",
+      "segments": [
+        {
+          "id": "xinghai-route-l16-l18.segment",
+          "from_location_id": "xinghai-l16",
+          "to_location_id": "xinghai-l18",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l18-l16",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l18",
+      "destination_location_id": "xinghai-l16",
+      "segments": [
+        {
+          "id": "xinghai-route-l18-l16.segment",
+          "from_location_id": "xinghai-l18",
+          "to_location_id": "xinghai-l16",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l17-l19",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l17",
+      "destination_location_id": "xinghai-l19",
+      "segments": [
+        {
+          "id": "xinghai-route-l17-l19.segment",
+          "from_location_id": "xinghai-l17",
+          "to_location_id": "xinghai-l19",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l19-l17",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l19",
+      "destination_location_id": "xinghai-l17",
+      "segments": [
+        {
+          "id": "xinghai-route-l19-l17.segment",
+          "from_location_id": "xinghai-l19",
+          "to_location_id": "xinghai-l17",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l17-l18",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l17",
+      "destination_location_id": "xinghai-l18",
+      "segments": [
+        {
+          "id": "xinghai-route-l17-l18.segment",
+          "from_location_id": "xinghai-l17",
+          "to_location_id": "xinghai-l18",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l18-l17",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l18",
+      "destination_location_id": "xinghai-l17",
+      "segments": [
+        {
+          "id": "xinghai-route-l18-l17.segment",
+          "from_location_id": "xinghai-l18",
+          "to_location_id": "xinghai-l17",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l19-l20",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l19",
+      "destination_location_id": "xinghai-l20",
+      "segments": [
+        {
+          "id": "xinghai-route-l19-l20.segment",
+          "from_location_id": "xinghai-l19",
+          "to_location_id": "xinghai-l20",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l20-l19",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l20",
+      "destination_location_id": "xinghai-l19",
+      "segments": [
+        {
+          "id": "xinghai-route-l20-l19.segment",
+          "from_location_id": "xinghai-l20",
+          "to_location_id": "xinghai-l19",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l22",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l22",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l22.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l22",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l22-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l22",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l22-l21.segment",
+          "from_location_id": "xinghai-l22",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l22-l23",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l22",
+      "destination_location_id": "xinghai-l23",
+      "segments": [
+        {
+          "id": "xinghai-route-l22-l23.segment",
+          "from_location_id": "xinghai-l22",
+          "to_location_id": "xinghai-l23",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l23-l22",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l23",
+      "destination_location_id": "xinghai-l22",
+      "segments": [
+        {
+          "id": "xinghai-route-l23-l22.segment",
+          "from_location_id": "xinghai-l23",
+          "to_location_id": "xinghai-l22",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l24",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l24",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l24.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l24",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l24-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l24",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l24-l21.segment",
+          "from_location_id": "xinghai-l24",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l25",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l25",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l25.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l25",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l25-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l25",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l25-l21.segment",
+          "from_location_id": "xinghai-l25",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l31-l32",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l31",
+      "destination_location_id": "xinghai-l32",
+      "segments": [
+        {
+          "id": "xinghai-route-l31-l32.segment",
+          "from_location_id": "xinghai-l31",
+          "to_location_id": "xinghai-l32",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l32-l31",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l32",
+      "destination_location_id": "xinghai-l31",
+      "segments": [
+        {
+          "id": "xinghai-route-l32-l31.segment",
+          "from_location_id": "xinghai-l32",
+          "to_location_id": "xinghai-l31",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l31-l33",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l31",
+      "destination_location_id": "xinghai-l33",
+      "segments": [
+        {
+          "id": "xinghai-route-l31-l33.segment",
+          "from_location_id": "xinghai-l31",
+          "to_location_id": "xinghai-l33",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l33-l31",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l33",
+      "destination_location_id": "xinghai-l31",
+      "segments": [
+        {
+          "id": "xinghai-route-l33-l31.segment",
+          "from_location_id": "xinghai-l33",
+          "to_location_id": "xinghai-l31",
+          "duration_minutes": 10,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l31-l34",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l31",
+      "destination_location_id": "xinghai-l34",
+      "segments": [
+        {
+          "id": "xinghai-route-l31-l34.segment",
+          "from_location_id": "xinghai-l31",
+          "to_location_id": "xinghai-l34",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l34-l31",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l34",
+      "destination_location_id": "xinghai-l31",
+      "segments": [
+        {
+          "id": "xinghai-route-l34-l31.segment",
+          "from_location_id": "xinghai-l34",
+          "to_location_id": "xinghai-l31",
+          "duration_minutes": 15,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l31-l35",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l31",
+      "destination_location_id": "xinghai-l35",
+      "segments": [
+        {
+          "id": "xinghai-route-l31-l35.segment",
+          "from_location_id": "xinghai-l31",
+          "to_location_id": "xinghai-l35",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l35-l31",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l35",
+      "destination_location_id": "xinghai-l31",
+      "segments": [
+        {
+          "id": "xinghai-route-l35-l31.segment",
+          "from_location_id": "xinghai-l35",
+          "to_location_id": "xinghai-l31",
+          "duration_minutes": 20,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l06",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l06",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l06.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l06",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l06-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l06",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l06-l04.segment",
+          "from_location_id": "xinghai-l06",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l11",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l11",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l11.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l11",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l11-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l11",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l11-l04.segment",
+          "from_location_id": "xinghai-l11",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l16",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l16",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l16.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l16",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l16-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l16",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l16-l04.segment",
+          "from_location_id": "xinghai-l16",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l04-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l04",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l04-l21.segment",
+          "from_location_id": "xinghai-l04",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l04",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l04",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l04.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l04",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l26",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l26",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l26.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l26",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l26-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l26",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l26-l21.segment",
+          "from_location_id": "xinghai-l26",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l11-l27",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l11",
+      "destination_location_id": "xinghai-l27",
+      "segments": [
+        {
+          "id": "xinghai-route-l11-l27.segment",
+          "from_location_id": "xinghai-l11",
+          "to_location_id": "xinghai-l27",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l27-l11",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l27",
+      "destination_location_id": "xinghai-l11",
+      "segments": [
+        {
+          "id": "xinghai-route-l27-l11.segment",
+          "from_location_id": "xinghai-l27",
+          "to_location_id": "xinghai-l11",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l28",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l28",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l28.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l28",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l28-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l28",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l28-l21.segment",
+          "from_location_id": "xinghai-l28",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l29",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l29",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l29.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l29",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l29-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l29",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l29-l21.segment",
+          "from_location_id": "xinghai-l29",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l30",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l30",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l30.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l30",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l30-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l30",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l30-l21.segment",
+          "from_location_id": "xinghai-l30",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l31",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l31",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l31.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l31-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l31",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l31-l21.segment",
+          "from_location_id": "xinghai-l31",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l36",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l36",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l36.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l36",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l36-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l36",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l36-l21.segment",
+          "from_location_id": "xinghai-l36",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l37",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l37",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l37.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l37",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l37-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l37",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l37-l21.segment",
+          "from_location_id": "xinghai-l37",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 2880,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l23-l38",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l23",
+      "destination_location_id": "xinghai-l38",
+      "segments": [
+        {
+          "id": "xinghai-route-l23-l38.segment",
+          "from_location_id": "xinghai-l23",
+          "to_location_id": "xinghai-l38",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l38-l23",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l38",
+      "destination_location_id": "xinghai-l23",
+      "segments": [
+        {
+          "id": "xinghai-route-l38-l23.segment",
+          "from_location_id": "xinghai-l38",
+          "to_location_id": "xinghai-l23",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l21-l39",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l21",
+      "destination_location_id": "xinghai-l39",
+      "segments": [
+        {
+          "id": "xinghai-route-l21-l39.segment",
+          "from_location_id": "xinghai-l21",
+          "to_location_id": "xinghai-l39",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l39-l21",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l39",
+      "destination_location_id": "xinghai-l21",
+      "segments": [
+        {
+          "id": "xinghai-route-l39-l21.segment",
+          "from_location_id": "xinghai-l39",
+          "to_location_id": "xinghai-l21",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l26-l40",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l26",
+      "destination_location_id": "xinghai-l40",
+      "segments": [
+        {
+          "id": "xinghai-route-l26-l40.segment",
+          "from_location_id": "xinghai-l26",
+          "to_location_id": "xinghai-l40",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "xinghai-route-l40-l26",
+      "version": "1.0",
+      "origin_location_id": "xinghai-l40",
+      "destination_location_id": "xinghai-l26",
+      "segments": [
+        {
+          "id": "xinghai-route-l40-l26.segment",
+          "from_location_id": "xinghai-l40",
+          "to_location_id": "xinghai-l26",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l02",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l02",
+      "segments": [
+        {
+          "id": "sg-route-l01-l02.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l02",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l02-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l02",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l02-l01.segment",
+          "from_location_id": "sg-l02",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l03",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l03",
+      "segments": [
+        {
+          "id": "sg-route-l01-l03.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l03",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l03-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l03",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l03-l01.segment",
+          "from_location_id": "sg-l03",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l04",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l04",
+      "segments": [
+        {
+          "id": "sg-route-l01-l04.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l04",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l04-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l04",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l04-l01.segment",
+          "from_location_id": "sg-l04",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l05",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l05",
+      "segments": [
+        {
+          "id": "sg-route-l01-l05.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l05",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l05-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l05",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l05-l01.segment",
+          "from_location_id": "sg-l05",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l06",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l06",
+      "segments": [
+        {
+          "id": "sg-route-l01-l06.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l06",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l06-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l06",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l06-l01.segment",
+          "from_location_id": "sg-l06",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l02-l03",
+      "version": "1.0",
+      "origin_location_id": "sg-l02",
+      "destination_location_id": "sg-l03",
+      "segments": [
+        {
+          "id": "sg-route-l02-l03.segment",
+          "from_location_id": "sg-l02",
+          "to_location_id": "sg-l03",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l03-l02",
+      "version": "1.0",
+      "origin_location_id": "sg-l03",
+      "destination_location_id": "sg-l02",
+      "segments": [
+        {
+          "id": "sg-route-l03-l02.segment",
+          "from_location_id": "sg-l03",
+          "to_location_id": "sg-l02",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l04-l05",
+      "version": "1.0",
+      "origin_location_id": "sg-l04",
+      "destination_location_id": "sg-l05",
+      "segments": [
+        {
+          "id": "sg-route-l04-l05.segment",
+          "from_location_id": "sg-l04",
+          "to_location_id": "sg-l05",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l05-l04",
+      "version": "1.0",
+      "origin_location_id": "sg-l05",
+      "destination_location_id": "sg-l04",
+      "segments": [
+        {
+          "id": "sg-route-l05-l04.segment",
+          "from_location_id": "sg-l05",
+          "to_location_id": "sg-l04",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l08",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l08",
+      "segments": [
+        {
+          "id": "sg-route-l07-l08.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l08",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l08-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l08",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l08-l07.segment",
+          "from_location_id": "sg-l08",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l09",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l09",
+      "segments": [
+        {
+          "id": "sg-route-l07-l09.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l09",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l09-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l09",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l09-l07.segment",
+          "from_location_id": "sg-l09",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l10",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l10",
+      "segments": [
+        {
+          "id": "sg-route-l07-l10.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l10",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l10-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l10",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l10-l07.segment",
+          "from_location_id": "sg-l10",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l11",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l11",
+      "segments": [
+        {
+          "id": "sg-route-l07-l11.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l11",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l11-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l11",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l11-l07.segment",
+          "from_location_id": "sg-l11",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l12",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l12",
+      "segments": [
+        {
+          "id": "sg-route-l07-l12.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l12",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l12-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l12",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l12-l07.segment",
+          "from_location_id": "sg-l12",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l08-l09",
+      "version": "1.0",
+      "origin_location_id": "sg-l08",
+      "destination_location_id": "sg-l09",
+      "segments": [
+        {
+          "id": "sg-route-l08-l09.segment",
+          "from_location_id": "sg-l08",
+          "to_location_id": "sg-l09",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l09-l08",
+      "version": "1.0",
+      "origin_location_id": "sg-l09",
+      "destination_location_id": "sg-l08",
+      "segments": [
+        {
+          "id": "sg-route-l09-l08.segment",
+          "from_location_id": "sg-l09",
+          "to_location_id": "sg-l08",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l10-l11",
+      "version": "1.0",
+      "origin_location_id": "sg-l10",
+      "destination_location_id": "sg-l11",
+      "segments": [
+        {
+          "id": "sg-route-l10-l11.segment",
+          "from_location_id": "sg-l10",
+          "to_location_id": "sg-l11",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l11-l10",
+      "version": "1.0",
+      "origin_location_id": "sg-l11",
+      "destination_location_id": "sg-l10",
+      "segments": [
+        {
+          "id": "sg-route-l11-l10.segment",
+          "from_location_id": "sg-l11",
+          "to_location_id": "sg-l10",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l14",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l14",
+      "segments": [
+        {
+          "id": "sg-route-l13-l14.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l14",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l14-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l14",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l14-l13.segment",
+          "from_location_id": "sg-l14",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l15",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l15",
+      "segments": [
+        {
+          "id": "sg-route-l13-l15.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l15",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l15-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l15",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l15-l13.segment",
+          "from_location_id": "sg-l15",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l16",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l16",
+      "segments": [
+        {
+          "id": "sg-route-l13-l16.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l16",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l16-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l16",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l16-l13.segment",
+          "from_location_id": "sg-l16",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l17",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l17",
+      "segments": [
+        {
+          "id": "sg-route-l13-l17.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l17",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l17-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l17",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l17-l13.segment",
+          "from_location_id": "sg-l17",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l18",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l18",
+      "segments": [
+        {
+          "id": "sg-route-l13-l18.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l18",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l18-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l18",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l18-l13.segment",
+          "from_location_id": "sg-l18",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l14-l15",
+      "version": "1.0",
+      "origin_location_id": "sg-l14",
+      "destination_location_id": "sg-l15",
+      "segments": [
+        {
+          "id": "sg-route-l14-l15.segment",
+          "from_location_id": "sg-l14",
+          "to_location_id": "sg-l15",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l15-l14",
+      "version": "1.0",
+      "origin_location_id": "sg-l15",
+      "destination_location_id": "sg-l14",
+      "segments": [
+        {
+          "id": "sg-route-l15-l14.segment",
+          "from_location_id": "sg-l15",
+          "to_location_id": "sg-l14",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l16-l17",
+      "version": "1.0",
+      "origin_location_id": "sg-l16",
+      "destination_location_id": "sg-l17",
+      "segments": [
+        {
+          "id": "sg-route-l16-l17.segment",
+          "from_location_id": "sg-l16",
+          "to_location_id": "sg-l17",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l17-l16",
+      "version": "1.0",
+      "origin_location_id": "sg-l17",
+      "destination_location_id": "sg-l16",
+      "segments": [
+        {
+          "id": "sg-route-l17-l16.segment",
+          "from_location_id": "sg-l17",
+          "to_location_id": "sg-l16",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l20",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l20",
+      "segments": [
+        {
+          "id": "sg-route-l19-l20.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l20",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l20-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l20",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l20-l19.segment",
+          "from_location_id": "sg-l20",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l21",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l21",
+      "segments": [
+        {
+          "id": "sg-route-l19-l21.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l21",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l21-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l21",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l21-l19.segment",
+          "from_location_id": "sg-l21",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l22",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l22",
+      "segments": [
+        {
+          "id": "sg-route-l19-l22.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l22",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l22-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l22",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l22-l19.segment",
+          "from_location_id": "sg-l22",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l23",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l23",
+      "segments": [
+        {
+          "id": "sg-route-l19-l23.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l23",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l23-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l23",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l23-l19.segment",
+          "from_location_id": "sg-l23",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l24",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l24",
+      "segments": [
+        {
+          "id": "sg-route-l19-l24.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l24",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l24-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l24",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l24-l19.segment",
+          "from_location_id": "sg-l24",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l20-l21",
+      "version": "1.0",
+      "origin_location_id": "sg-l20",
+      "destination_location_id": "sg-l21",
+      "segments": [
+        {
+          "id": "sg-route-l20-l21.segment",
+          "from_location_id": "sg-l20",
+          "to_location_id": "sg-l21",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l21-l20",
+      "version": "1.0",
+      "origin_location_id": "sg-l21",
+      "destination_location_id": "sg-l20",
+      "segments": [
+        {
+          "id": "sg-route-l21-l20.segment",
+          "from_location_id": "sg-l21",
+          "to_location_id": "sg-l20",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l22-l23",
+      "version": "1.0",
+      "origin_location_id": "sg-l22",
+      "destination_location_id": "sg-l23",
+      "segments": [
+        {
+          "id": "sg-route-l22-l23.segment",
+          "from_location_id": "sg-l22",
+          "to_location_id": "sg-l23",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l23-l22",
+      "version": "1.0",
+      "origin_location_id": "sg-l23",
+      "destination_location_id": "sg-l22",
+      "segments": [
+        {
+          "id": "sg-route-l23-l22.segment",
+          "from_location_id": "sg-l23",
+          "to_location_id": "sg-l22",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l26",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l26",
+      "segments": [
+        {
+          "id": "sg-route-l25-l26.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l26",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l26-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l26",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l26-l25.segment",
+          "from_location_id": "sg-l26",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l27",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l27",
+      "segments": [
+        {
+          "id": "sg-route-l25-l27.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l27",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l27-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l27",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l27-l25.segment",
+          "from_location_id": "sg-l27",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l28",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l28",
+      "segments": [
+        {
+          "id": "sg-route-l25-l28.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l28",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l28-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l28",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l28-l25.segment",
+          "from_location_id": "sg-l28",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l29",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l29",
+      "segments": [
+        {
+          "id": "sg-route-l25-l29.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l29",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l29-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l29",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l29-l25.segment",
+          "from_location_id": "sg-l29",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l30",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l30",
+      "segments": [
+        {
+          "id": "sg-route-l25-l30.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l30",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l30-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l30",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l30-l25.segment",
+          "from_location_id": "sg-l30",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l26-l27",
+      "version": "1.0",
+      "origin_location_id": "sg-l26",
+      "destination_location_id": "sg-l27",
+      "segments": [
+        {
+          "id": "sg-route-l26-l27.segment",
+          "from_location_id": "sg-l26",
+          "to_location_id": "sg-l27",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l27-l26",
+      "version": "1.0",
+      "origin_location_id": "sg-l27",
+      "destination_location_id": "sg-l26",
+      "segments": [
+        {
+          "id": "sg-route-l27-l26.segment",
+          "from_location_id": "sg-l27",
+          "to_location_id": "sg-l26",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l28-l29",
+      "version": "1.0",
+      "origin_location_id": "sg-l28",
+      "destination_location_id": "sg-l29",
+      "segments": [
+        {
+          "id": "sg-route-l28-l29.segment",
+          "from_location_id": "sg-l28",
+          "to_location_id": "sg-l29",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l29-l28",
+      "version": "1.0",
+      "origin_location_id": "sg-l29",
+      "destination_location_id": "sg-l28",
+      "segments": [
+        {
+          "id": "sg-route-l29-l28.segment",
+          "from_location_id": "sg-l29",
+          "to_location_id": "sg-l28",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l32",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l32",
+      "segments": [
+        {
+          "id": "sg-route-l31-l32.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l32",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l32-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l32",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l32-l31.segment",
+          "from_location_id": "sg-l32",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l33",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l33",
+      "segments": [
+        {
+          "id": "sg-route-l31-l33.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l33",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l33-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l33",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l33-l31.segment",
+          "from_location_id": "sg-l33",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l34",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l34",
+      "segments": [
+        {
+          "id": "sg-route-l31-l34.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l34",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l34-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l34",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l34-l31.segment",
+          "from_location_id": "sg-l34",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l35",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l35",
+      "segments": [
+        {
+          "id": "sg-route-l31-l35.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l35",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l35-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l35",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l35-l31.segment",
+          "from_location_id": "sg-l35",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l36",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l36",
+      "segments": [
+        {
+          "id": "sg-route-l31-l36.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l36",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l36-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l36",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l36-l31.segment",
+          "from_location_id": "sg-l36",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l32-l33",
+      "version": "1.0",
+      "origin_location_id": "sg-l32",
+      "destination_location_id": "sg-l33",
+      "segments": [
+        {
+          "id": "sg-route-l32-l33.segment",
+          "from_location_id": "sg-l32",
+          "to_location_id": "sg-l33",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l33-l32",
+      "version": "1.0",
+      "origin_location_id": "sg-l33",
+      "destination_location_id": "sg-l32",
+      "segments": [
+        {
+          "id": "sg-route-l33-l32.segment",
+          "from_location_id": "sg-l33",
+          "to_location_id": "sg-l32",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l34-l35",
+      "version": "1.0",
+      "origin_location_id": "sg-l34",
+      "destination_location_id": "sg-l35",
+      "segments": [
+        {
+          "id": "sg-route-l34-l35.segment",
+          "from_location_id": "sg-l34",
+          "to_location_id": "sg-l35",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l35-l34",
+      "version": "1.0",
+      "origin_location_id": "sg-l35",
+      "destination_location_id": "sg-l34",
+      "segments": [
+        {
+          "id": "sg-route-l35-l34.segment",
+          "from_location_id": "sg-l35",
+          "to_location_id": "sg-l34",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l38",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l38",
+      "segments": [
+        {
+          "id": "sg-route-l37-l38.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l38",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l38-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l38",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l38-l37.segment",
+          "from_location_id": "sg-l38",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l39",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l39",
+      "segments": [
+        {
+          "id": "sg-route-l37-l39.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l39",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l39-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l39",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l39-l37.segment",
+          "from_location_id": "sg-l39",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l40",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l40",
+      "segments": [
+        {
+          "id": "sg-route-l37-l40.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l40",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l40-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l40",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l40-l37.segment",
+          "from_location_id": "sg-l40",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l41",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l41",
+      "segments": [
+        {
+          "id": "sg-route-l37-l41.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l41",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l41-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l41",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l41-l37.segment",
+          "from_location_id": "sg-l41",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l42",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l42",
+      "segments": [
+        {
+          "id": "sg-route-l37-l42.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l42",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l42-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l42",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l42-l37.segment",
+          "from_location_id": "sg-l42",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l38-l39",
+      "version": "1.0",
+      "origin_location_id": "sg-l38",
+      "destination_location_id": "sg-l39",
+      "segments": [
+        {
+          "id": "sg-route-l38-l39.segment",
+          "from_location_id": "sg-l38",
+          "to_location_id": "sg-l39",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l39-l38",
+      "version": "1.0",
+      "origin_location_id": "sg-l39",
+      "destination_location_id": "sg-l38",
+      "segments": [
+        {
+          "id": "sg-route-l39-l38.segment",
+          "from_location_id": "sg-l39",
+          "to_location_id": "sg-l38",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l40-l41",
+      "version": "1.0",
+      "origin_location_id": "sg-l40",
+      "destination_location_id": "sg-l41",
+      "segments": [
+        {
+          "id": "sg-route-l40-l41.segment",
+          "from_location_id": "sg-l40",
+          "to_location_id": "sg-l41",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l41-l40",
+      "version": "1.0",
+      "origin_location_id": "sg-l41",
+      "destination_location_id": "sg-l40",
+      "segments": [
+        {
+          "id": "sg-route-l41-l40.segment",
+          "from_location_id": "sg-l41",
+          "to_location_id": "sg-l40",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l44",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l44",
+      "segments": [
+        {
+          "id": "sg-route-l43-l44.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l44",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l44-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l44",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l44-l43.segment",
+          "from_location_id": "sg-l44",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l45",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l45",
+      "segments": [
+        {
+          "id": "sg-route-l43-l45.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l45",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l45-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l45",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l45-l43.segment",
+          "from_location_id": "sg-l45",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l46",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l46",
+      "segments": [
+        {
+          "id": "sg-route-l43-l46.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l46",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l46-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l46",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l46-l43.segment",
+          "from_location_id": "sg-l46",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l47",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l47",
+      "segments": [
+        {
+          "id": "sg-route-l43-l47.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l47",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l47-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l47",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l47-l43.segment",
+          "from_location_id": "sg-l47",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l48",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l48",
+      "segments": [
+        {
+          "id": "sg-route-l43-l48.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l48",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l48-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l48",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l48-l43.segment",
+          "from_location_id": "sg-l48",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l44-l45",
+      "version": "1.0",
+      "origin_location_id": "sg-l44",
+      "destination_location_id": "sg-l45",
+      "segments": [
+        {
+          "id": "sg-route-l44-l45.segment",
+          "from_location_id": "sg-l44",
+          "to_location_id": "sg-l45",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l45-l44",
+      "version": "1.0",
+      "origin_location_id": "sg-l45",
+      "destination_location_id": "sg-l44",
+      "segments": [
+        {
+          "id": "sg-route-l45-l44.segment",
+          "from_location_id": "sg-l45",
+          "to_location_id": "sg-l44",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l46-l47",
+      "version": "1.0",
+      "origin_location_id": "sg-l46",
+      "destination_location_id": "sg-l47",
+      "segments": [
+        {
+          "id": "sg-route-l46-l47.segment",
+          "from_location_id": "sg-l46",
+          "to_location_id": "sg-l47",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l47-l46",
+      "version": "1.0",
+      "origin_location_id": "sg-l47",
+      "destination_location_id": "sg-l46",
+      "segments": [
+        {
+          "id": "sg-route-l47-l46.segment",
+          "from_location_id": "sg-l47",
+          "to_location_id": "sg-l46",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l01-l07.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l07-l01.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l01-l13.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 480,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l13-l01.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 480,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l01-l19.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l19-l01.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l01-l25.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l25-l01.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l01-l43.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l43-l01.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l07-l31.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l31-l07.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l13-l19.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l19-l13.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l13-l25.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l25-l13.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l19-l31.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1800,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l31-l19.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1800,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l25-l31.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l31-l25.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l25-l37.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l37-l25.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l31-l37.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l37-l31.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l37-l43.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l43-l37.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l43-l07.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l07-l43.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-tide-gauge-short",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l02",
+      "destination_location_id": "lanchuan-l03",
+      "segments": [
+        {
+          "id": "lanchuan-route-tide-gauge-short.segment",
+          "from_location_id": "lanchuan-l02",
+          "to_location_id": "lanchuan-l03",
+          "duration_minutes": 600,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "lanchuan-route-tide-gauge-outer",
+      "version": "1.0",
+      "origin_location_id": "lanchuan-l02",
+      "destination_location_id": "lanchuan-l03",
+      "segments": [
+        {
+          "id": "lanchuan-route-tide-gauge-outer.segment",
+          "from_location_id": "lanchuan-l02",
+          "to_location_id": "lanchuan-l03",
+          "duration_minutes": 660,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "lanchuan-l01": "澜口城",
+    "lanchuan-l02": "潮信渡",
+    "lanchuan-l03": "白鹭渔村",
+    "lanchuan-l04": "青盐滩",
+    "lanchuan-l05": "望潮崖",
+    "lanchuan-l06": "鹤渡镇",
+    "lanchuan-l07": "浮萍坞",
+    "lanchuan-l08": "菱歌村与回雁峰麓",
+    "lanchuan-l09": "三柳客栈",
+    "lanchuan-l10": "烟波庄",
+    "lanchuan-l11": "清河城",
+    "lanchuan-l12": "漕口集",
+    "lanchuan-l13": "老槐坞",
+    "lanchuan-l14": "十里长堤",
+    "lanchuan-l15": "桑麻镇",
+    "lanchuan-l16": "少林寺",
+    "lanchuan-l17": "寺前街",
+    "lanchuan-l18": "嵩山派太室别院",
+    "lanchuan-l19": "塔林",
+    "lanchuan-l20": "麦黄村与一线天",
+    "lanchuan-l21": "迎仙镇",
+    "lanchuan-l22": "云雾茶坡",
+    "lanchuan-l23": "百步梯与孤松亭",
+    "lanchuan-l24": "紫霄观",
+    "lanchuan-l25": "洗心涧",
+    "lanchuan-l26": "华山玉女峰",
+    "lanchuan-l27": "铁索桥驿",
+    "lanchuan-l28": "锦溪镇",
+    "lanchuan-l29": "回春谷",
+    "lanchuan-l30": "雾锁沟",
+    "lanchuan-l31": "落雁关",
+    "lanchuan-l32": "驼铃集",
+    "lanchuan-l33": "黑石驿与乱石岗",
+    "lanchuan-l34": "沙泉村与崆峒台",
+    "lanchuan-l35": "恒山见性峰",
+    "lanchuan-l36": "寒松堡",
+    "lanchuan-l37": "赤炉庄",
+    "lanchuan-l38": "凌河渡",
+    "lanchuan-l39": "昆仑三圣殿",
+    "lanchuan-l40": "听雪庐",
+    "xinghai-l01": "朱伯利外环47号减压长廊",
+    "xinghai-l02": "老锚机械酒吧与二手船材集市",
+    "xinghai-l03": "枢纽三号真空改装船坞",
+    "xinghai-l04": "星际佣兵联盟朱伯利办事处",
+    "xinghai-l05": "废弃47号排污减压井盲端",
+    "xinghai-l06": "铁铸要塞第一防线",
+    "xinghai-l07": "灰烬盆地外围隔离死线",
+    "xinghai-l08": "苏尼尔地下避难母城",
+    "xinghai-l09": "基因衰竭终末收容所",
+    "xinghai-l10": "裂谷潜伏观测暗哨",
+    "xinghai-l11": "圣金天港迎宾空间站",
+    "xinghai-l12": "太阳花议会大道",
+    "xinghai-l13": "下沉混血贫民窟“锈蚀带”",
+    "xinghai-l14": "皇家生命科学院基因所",
+    "xinghai-l15": "黯星地表渗透死士密巢",
+    "xinghai-l16": "浮岛空港悬空着舰甲板",
+    "xinghai-l17": "悬崖岩壁黑市回廊",
+    "xinghai-l18": "龙坦下层洞穴酒吧",
+    "xinghai-l19": "龙之宫殿主议事厅",
+    "xinghai-l20": "浮岛引擎核心与护盾中枢",
+    "xinghai-l21": "银绿主航道西风跳跃点",
+    "xinghai-l22": "碎石带流亡者补给哨站",
+    "xinghai-l23": "废弃卡雅深空采矿平台",
+    "xinghai-l24": "柴达无土农业生态环",
+    "xinghai-l25": "“灰雀号”中型改装武装货船",
+    "xinghai-l26": "赤色帝国前沿远征军星门堡垒",
+    "xinghai-l27": "光辉联邦万神星域外围办事处",
+    "xinghai-l28": "虚灵教派深空祈愿圣所",
+    "xinghai-l29": "机械国度",
+    "xinghai-l30": "无限财团全宇宙物流金融中继站",
+    "xinghai-l31": "黯星星系级隐匿母舰“母体号”指挥桥",
+    "xinghai-l32": "异化原体培育反应堆舱",
+    "xinghai-l33": "碳化猎杀训练场",
+    "xinghai-l34": "纯血剥夺忏悔室",
+    "xinghai-l35": "深空幽灵鱼雷发射管组",
+    "xinghai-l36": "荒芜黑洞边缘观测站遗迹",
+    "xinghai-l37": "无光之星",
+    "xinghai-l38": "远古战舰坟场“铁墓”",
+    "xinghai-l39": "虚灵先知密语祭坛",
+    "xinghai-l40": "柯尔顿边界星门“长夜之咽”",
+    "sg-l01": "渡鸦桥镇",
+    "sg-l02": "三盏灯客栈",
+    "sg-l03": "旧税关",
+    "sg-l04": "磨石渡",
+    "sg-l05": "灰烬田",
+    "sg-l06": "白砾驿",
+    "sg-l07": "断旗堡",
+    "sg-l08": "白棘演武场",
+    "sg-l09": "断誓礼拜堂",
+    "sg-l10": "红砂隘口",
+    "sg-l11": "悬草坡",
+    "sg-l12": "倒旗墓道",
+    "sg-l13": "沉钟林口",
+    "sg-l14": "根桥聚落",
+    "sg-l15": "鹿角泉",
+    "sg-l16": "空心榆集",
+    "sg-l17": "沉钟沼",
+    "sg-l18": "长眠树庭",
+    "sg-l19": "铜脊矿城",
+    "sg-l20": "深炉议厅",
+    "sg-l21": "七号通风井",
+    "sg-l22": "盐晶洞",
+    "sg-l23": "冷锤工坊",
+    "sg-l24": "矿灯旧轨",
+    "sg-l25": "镜湖镇",
+    "sg-l26": "第六观星塔",
+    "sg-l27": "渡烛书院",
+    "sg-l28": "裂纹温室",
+    "sg-l29": "无声渡台",
+    "sg-l30": "倒影试场",
+    "sg-l31": "无名王庭外城",
+    "sg-l32": "失名档案院",
+    "sg-l33": "裂冠广场",
+    "sg-l34": "黑蜡下街",
+    "sg-l35": "沉王水宫",
+    "sg-l36": "无火旧宫灶",
+    "sg-l37": "雾湾港",
+    "sg-l38": "最后古灯塔",
+    "sg-l39": "风骨盐场",
+    "sg-l40": "破帆泊地",
+    "sg-l41": "潮鸣洞",
+    "sg-l42": "远礁祈潮所",
+    "sg-l43": "灰穗集",
+    "sg-l44": "缝旗营",
+    "sg-l45": "晴风果园",
+    "sg-l46": "旧龙骨渠",
+    "sg-l47": "风铃丘",
+    "sg-l48": "春雪修院"
+  },
+  "aliases": {
+    "lanchuan-l01": [
+      "澜口城"
+    ],
+    "lanchuan-l02": [
+      "潮信渡"
+    ],
+    "lanchuan-l03": [
+      "白鹭渔村"
+    ],
+    "lanchuan-l04": [
+      "青盐滩"
+    ],
+    "lanchuan-l05": [
+      "望潮崖"
+    ],
+    "lanchuan-l06": [
+      "鹤渡镇"
+    ],
+    "lanchuan-l07": [
+      "浮萍坞"
+    ],
+    "lanchuan-l08": [
+      "菱歌村"
+    ],
+    "lanchuan-l09": [
+      "三柳客栈"
+    ],
+    "lanchuan-l10": [
+      "烟波庄"
+    ],
+    "lanchuan-l11": [
+      "清河城"
+    ],
+    "lanchuan-l12": [
+      "漕口集"
+    ],
+    "lanchuan-l13": [
+      "老槐坞"
+    ],
+    "lanchuan-l14": [
+      "十里长堤"
+    ],
+    "lanchuan-l15": [
+      "桑麻镇"
+    ],
+    "lanchuan-l16": [
+      "少林寺"
+    ],
+    "lanchuan-l17": [
+      "寺前街"
+    ],
+    "lanchuan-l18": [
+      "嵩山派太室别院"
+    ],
+    "lanchuan-l19": [
+      "塔林"
+    ],
+    "lanchuan-l20": [
+      "麦黄村"
+    ],
+    "lanchuan-l21": [
+      "迎仙镇"
+    ],
+    "lanchuan-l22": [
+      "云雾茶坡"
+    ],
+    "lanchuan-l23": [
+      "百步梯"
+    ],
+    "lanchuan-l24": [
+      "紫霄观"
+    ],
+    "lanchuan-l25": [
+      "洗心涧"
+    ],
+    "lanchuan-l26": [
+      "华山玉女峰"
+    ],
+    "lanchuan-l27": [
+      "铁索桥驿"
+    ],
+    "lanchuan-l28": [
+      "锦溪镇"
+    ],
+    "lanchuan-l29": [
+      "回春谷"
+    ],
+    "lanchuan-l30": [
+      "雾锁沟"
+    ],
+    "lanchuan-l31": [
+      "落雁关"
+    ],
+    "lanchuan-l32": [
+      "驼铃集"
+    ],
+    "lanchuan-l33": [
+      "黑石驿"
+    ],
+    "lanchuan-l34": [
+      "沙泉村"
+    ],
+    "lanchuan-l35": [
+      "恒山见性峰"
+    ],
+    "lanchuan-l36": [
+      "寒松堡"
+    ],
+    "lanchuan-l37": [
+      "赤炉庄"
+    ],
+    "lanchuan-l38": [
+      "凌河渡"
+    ],
+    "lanchuan-l39": [
+      "昆仑三圣殿"
+    ],
+    "lanchuan-l40": [
+      "听雪庐"
+    ],
+    "xinghai-l01": [
+      "朱伯利外环47号减压长廊",
+      "外环47号减压长廊"
+    ],
+    "xinghai-l02": [
+      "老锚机械酒吧"
+    ],
+    "xinghai-l03": [
+      "枢纽三号真空改装船坞"
+    ],
+    "xinghai-l04": [
+      "星际佣兵联盟朱伯利办事处"
+    ],
+    "xinghai-l05": [
+      "废弃47号排污减压井盲端"
+    ],
+    "xinghai-l06": [
+      "铁铸要塞第一防线"
+    ],
+    "xinghai-l07": [
+      "灰烬盆地外围隔离死线"
+    ],
+    "xinghai-l08": [
+      "苏尼尔地下避难母城"
+    ],
+    "xinghai-l09": [
+      "基因衰竭终末收容所"
+    ],
+    "xinghai-l10": [
+      "裂谷潜伏观测暗哨"
+    ],
+    "xinghai-l11": [
+      "圣金天港迎宾空间站"
+    ],
+    "xinghai-l12": [
+      "太阳花议会大道"
+    ],
+    "xinghai-l13": [
+      "下沉混血贫民窟“锈蚀带”"
+    ],
+    "xinghai-l14": [
+      "皇家生命科学院基因所"
+    ],
+    "xinghai-l15": [
+      "黯星地表渗透死士密巢"
+    ],
+    "xinghai-l16": [
+      "浮岛空港悬空着舰甲板"
+    ],
+    "xinghai-l17": [
+      "悬崖岩壁黑市回廊"
+    ],
+    "xinghai-l18": [
+      "龙坦下层洞穴酒吧"
+    ],
+    "xinghai-l19": [
+      "龙之宫殿主议事厅"
+    ],
+    "xinghai-l20": [
+      "浮岛引擎核心"
+    ],
+    "xinghai-l21": [
+      "银绿主航道西风跳跃点"
+    ],
+    "xinghai-l22": [
+      "碎石带流亡者补给哨站"
+    ],
+    "xinghai-l23": [
+      "废弃卡雅深空采矿平台"
+    ],
+    "xinghai-l24": [
+      "柴达无土农业生态环"
+    ],
+    "xinghai-l25": [
+      "“灰雀号”中型改装武装货船"
+    ],
+    "xinghai-l26": [
+      "赤色帝国前沿远征军星门堡垒"
+    ],
+    "xinghai-l27": [
+      "光辉联邦万神星域外围办事处"
+    ],
+    "xinghai-l28": [
+      "虚灵教派深空祈愿圣所"
+    ],
+    "xinghai-l29": [
+      "机械国度"
+    ],
+    "xinghai-l30": [
+      "无限财团全宇宙物流金融中继站"
+    ],
+    "xinghai-l31": [
+      "黯星星系级隐匿母舰“母体号”指挥桥"
+    ],
+    "xinghai-l32": [
+      "异化原体培育反应堆舱"
+    ],
+    "xinghai-l33": [
+      "碳化猎杀训练场"
+    ],
+    "xinghai-l34": [
+      "纯血剥夺忏悔室"
+    ],
+    "xinghai-l35": [
+      "深空幽灵鱼雷发射管组"
+    ],
+    "xinghai-l36": [
+      "荒芜黑洞边缘观测站遗迹"
+    ],
+    "xinghai-l37": [
+      "无光之星"
+    ],
+    "xinghai-l38": [
+      "远古战舰坟场“铁墓”"
+    ],
+    "xinghai-l39": [
+      "虚灵先知密语祭坛"
+    ],
+    "xinghai-l40": [
+      "柯尔顿边界星门“长夜之咽”"
+    ],
+    "sg-l01": [
+      "渡鸦桥镇",
+      "Ravenbridge"
+    ],
+    "sg-l02": [
+      "三盏灯客栈",
+      "Three Lamps Inn"
+    ],
+    "sg-l03": [
+      "旧税关",
+      "Old Tollhouse"
+    ],
+    "sg-l04": [
+      "磨石渡",
+      "Millstone Ferry"
+    ],
+    "sg-l05": [
+      "灰烬田",
+      "Ash Fields"
+    ],
+    "sg-l06": [
+      "白砾驿",
+      "Whitegravel Post"
+    ],
+    "sg-l07": [
+      "断旗堡",
+      "Brokenbanner Keep"
+    ],
+    "sg-l08": [
+      "白棘演武场",
+      "White Thorn Yard"
+    ],
+    "sg-l09": [
+      "断誓礼拜堂",
+      "Broken Oath Chapel"
+    ],
+    "sg-l10": [
+      "红砂隘口",
+      "Red Sand Pass"
+    ],
+    "sg-l11": [
+      "悬草坡",
+      "Hanginggrass Slope"
+    ],
+    "sg-l12": [
+      "倒旗墓道",
+      "Fallen Banner Crypt"
+    ],
+    "sg-l13": [
+      "沉钟林口",
+      "Sunkenbell Verge"
+    ],
+    "sg-l14": [
+      "根桥聚落",
+      "Rootbridge Enclave"
+    ],
+    "sg-l15": [
+      "鹿角泉",
+      "Antler Spring"
+    ],
+    "sg-l16": [
+      "空心榆集",
+      "Hollow Elm Fair"
+    ],
+    "sg-l17": [
+      "沉钟沼",
+      "Sunkenbell Marsh"
+    ],
+    "sg-l18": [
+      "长眠树庭",
+      "Longsleep Grove"
+    ],
+    "sg-l19": [
+      "铜脊矿城",
+      "Copperback"
+    ],
+    "sg-l20": [
+      "深炉议厅",
+      "Deephearth Hall"
+    ],
+    "sg-l21": [
+      "七号通风井",
+      "Vent Shaft Seven"
+    ],
+    "sg-l22": [
+      "盐晶洞",
+      "Saltglass Cavern"
+    ],
+    "sg-l23": [
+      "冷锤工坊",
+      "Coldhammer Workshop"
+    ],
+    "sg-l24": [
+      "矿灯旧轨",
+      "Lantern Rail"
+    ],
+    "sg-l25": [
+      "镜湖镇",
+      "Mirrorlake"
+    ],
+    "sg-l26": [
+      "第六观星塔",
+      "Sixth Observatory"
+    ],
+    "sg-l27": [
+      "渡烛书院",
+      "Candleford School"
+    ],
+    "sg-l28": [
+      "裂纹温室",
+      "Cracked Glasshouse"
+    ],
+    "sg-l29": [
+      "无声渡台",
+      "Quiet Landing"
+    ],
+    "sg-l30": [
+      "倒影试场",
+      "Reflections Yard"
+    ],
+    "sg-l31": [
+      "无名王庭外城",
+      "Outer Nameless Court"
+    ],
+    "sg-l32": [
+      "失名档案院",
+      "House of Lost Names"
+    ],
+    "sg-l33": [
+      "裂冠广场",
+      "Splitcrown Square"
+    ],
+    "sg-l34": [
+      "黑蜡下街",
+      "Blackwax Understreet"
+    ],
+    "sg-l35": [
+      "沉王水宫",
+      "Drowned King’s Hall"
+    ],
+    "sg-l36": [
+      "无火旧宫灶",
+      "Cold Palace Kitchens"
+    ],
+    "sg-l37": [
+      "雾湾港",
+      "Mistbay Harbor"
+    ],
+    "sg-l38": [
+      "最后古灯塔",
+      "Last Ancient Beacon"
+    ],
+    "sg-l39": [
+      "风骨盐场",
+      "Windbone Saltpans"
+    ],
+    "sg-l40": [
+      "破帆泊地",
+      "Torn Sail Anchorage"
+    ],
+    "sg-l41": [
+      "潮鸣洞",
+      "Tidesong Cave"
+    ],
+    "sg-l42": [
+      "远礁祈潮所",
+      "Farreef Shrine"
+    ],
+    "sg-l43": [
+      "灰穗集",
+      "Greygrain Market"
+    ],
+    "sg-l44": [
+      "缝旗营",
+      "Patchbanner Camp"
+    ],
+    "sg-l45": [
+      "晴风果园",
+      "Fairwind Orchard"
+    ],
+    "sg-l46": [
+      "旧龙骨渠",
+      "Old Dragonbone Channel"
+    ],
+    "sg-l47": [
+      "风铃丘",
+      "Windchime Hill"
+    ],
+    "sg-l48": [
+      "春雪修院",
+      "Springsnow Hospice"
+    ]
+  }
+}

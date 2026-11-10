@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "three-banner-ruin",
+  "version": "0.9.2",
+  "package_id": "sample-world",
+  "package_version": "1",
+  "ruleset_id": "sample-rules",
+  "ruleset_version": "1",
+  "theme": "A branch-pruned ruin whose approach and operating duties are coordinated by a party.",
+  "objectives": [
+    {"id":"align-weights","description":"Balance two counterweights."},
+    {"id":"open-seal","description":"Open the inner seal after the weights are aligned."}
+  ],
+  "areas": [
+    {"id":"outer-court","name":"Outer court","description":"A broad court with three approaches."},
+    {"id":"west-gallery","name":"West gallery","description":"A narrow gallery with a fallen beam."},
+    {"id":"gear-room","name":"Gear room","description":"Two counterweights control a gate."},
+    {"id":"sealed-hall","name":"Sealed hall","description":"A final chamber beyond the gate."},
+    {"id":"upper-walk","name":"Upper walk","description":"An elevated route visible from the court."}
+  ],
+  "connections": [
+    {"id":"court-gallery","from_area_id":"outer-court","to_area_id":"west-gallery","bidirectional":true,"player_visible":true},
+    {"id":"gallery-gears","from_area_id":"west-gallery","to_area_id":"gear-room","bidirectional":true,"player_visible":true},
+    {"id":"gears-seal","from_area_id":"gear-room","to_area_id":"sealed-hall","bidirectional":false,"player_visible":true},
+    {"id":"court-upper","from_area_id":"outer-court","to_area_id":"upper-walk","bidirectional":true,"player_visible":true},
+    {"id":"upper-gears","from_area_id":"upper-walk","to_area_id":"gear-room","bidirectional":true,"player_visible":true}
+  ],
+  "entry_location_ids": [],
+  "entry_area_ids": ["outer-court"],
+  "exit_area_ids": ["sealed-hall"],
+  "challenges": [
+    {"id":"counterweights","area_id":"gear-room","reference_id":"challenge.counterweights"},
+    {"id":"beam-crossing","area_id":"west-gallery","reference_id":"challenge.beam-crossing"}
+  ],
+  "content_refs": [{"id":"seal-cache","area_id":"sealed-hall","kind":"reward","reference_id":"content.seal-cache","quantity":1}],
+  "completion_paths": [
+    {"id":"split-duty","objective_ids":["align-weights","open-seal"],"challenge_ids":["counterweights"],"required_ability_ids":["ability.coordination","ability.lever-work"]},
+    {"id":"upper-route","objective_ids":["align-weights","open-seal"],"challenge_ids":["counterweights"],"required_ability_ids":["ability.climbing","ability.coordination"]},
+    {"id":"brace-and-haul","objective_ids":["align-weights","open-seal"],"challenge_ids":["beam-crossing","counterweights"],"required_ability_ids":["ability.teamwork"]}
+  ]
+}

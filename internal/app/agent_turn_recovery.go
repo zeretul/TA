@@ -1,0 +1,195 @@
+package app
+
+import (
+	"context"
+	agentchat "ta/internal/agents/chat"
+	agentconversation "ta/internal/agents/conversation"
+	agentexecution "ta/internal/agents/execution"
+	"fmt"
+	"strings"
+
+	"ta/config"
+	"ta/internal/agents/prompts"
+	agentrun "ta/internal/agents/run"
+	appagentruntime "ta/internal/app/agentruntime"
+	apptask "ta/internal/app/task"
+
+	agent "ta/agent"
+)
+
+func (a *App) prepareWritingProfileCycle(
+	ctx context.Context,
+	request agentexecution.CycleRestoreRequest,
+	binding agentrun.RuntimeBinding,
+) (agentexecution.Cycle, error) {
+	var activeRuntime ideChatRuntime
+	var task *apptask.Task
+	if strings.TrimSpace(request.Options.TaskID) != "" {
+		var err error
+		activeRuntime, task, err = a.chat().activeCommandRuntime()
+		if err != nil {
+			return agentexecution.Cycle{}, err
+		}
+		if task.ID() != strings.TrimSpace(request.Options.TaskID) || activeRuntime.projectID != binding.ProjectID || activeRuntime.sess == nil || activeRuntime.sess.ID != binding.SessionID {
+			return agentexecution.Cycle{}, ErrAgentContextChanged
+		}
+	}
+	cycle, runtime, err := a.chat().prepareWritingCycle(ctx, request.Request, request.Options.TaskID)
+	if err != nil {
+		return agentexecution.Cycle{}, err
+	}
+	if strings.TrimSpace(runtime.projectID) != binding.ProjectID || runtime.sess == nil || runtime.sess.ID != binding.SessionID {
+		return agentexecution.Cycle{}, fmt.Errorf(
+			"%w: prepared writing runtime does not match durable binding",
+			agentexecution.ErrCyclePreparationUnavailable,
+		)
+	}
+	if task != nil {
+		if runtime.workspace != activeRuntime.workspace || runtime.sess != activeRuntime.sess || runtime.executionRuntime != activeRuntime.executionRuntime {
+			return agentexecution.Cycle{}, ErrAgentContextChanged
+		}
+		if err := a.chat().confirmActiveCommandRuntime(activeRuntime, task); err != nil {
+			return agentexecution.Cycle{}, err
+		}
+	}
+	return cycle, nil
+}
+
+func (a *App) prepareInteractiveProfileCycle(
+	ctx context.Context,
+	request agentexecution.CycleRestoreRequest,
+	binding agentrun.RuntimeBinding,
+) (agentexecution.Cycle, error) {
+	var target interactiveAgentCommandTarget
+	if strings.TrimSpace(request.Options.TaskID) != "" {
+		var err error
+		target, err = a.interactiveService().activeAgentCommandTarget(binding.StoryID, binding.BranchID)
+		if err != nil {
+			return agentexecution.Cycle{}, err
+		}
+		if target.task.ID() != strings.TrimSpace(request.Options.TaskID) {
+			return agentexecution.Cycle{}, ErrAgentContextChanged
+		}
+	}
+	cycle, err := a.interactiveService().prepareInteractiveAgentCycle(ctx, interactiveAgentCycleRequest{
+		CommandID: string(request.CommandID),
+		StoryID:   binding.StoryID, BranchID: binding.BranchID,
+		Message: request.Request.Message, StyleScenes: request.Request.StyleScenes,
+		Locale: request.Request.Locale, InputVisibility: request.Request.InputVisibility,
+	})
+	if err != nil {
+		return agentexecution.Cycle{}, err
+	}
+	if cycle.externalAssembly != nil || cycle.runtimeCfg.ProjectID != binding.ProjectID || cycle.storyID != binding.StoryID || cycle.branchID != binding.BranchID {
+		return agentexecution.Cycle{}, fmt.Errorf(
+			"%w: prepared game runtime does not match durable binding",
+			agentexecution.ErrCyclePreparationUnavailable,
+		)
+	}
+	if target.task != nil {
+		if cycle.executionRuntime != target.executionRuntime {
+			return agentexecution.Cycle{}, ErrAgentContextChanged
+		}
+		if err := a.interactiveService().confirmActiveAgentCommandTarget(target); err != nil {
+			return agentexecution.Cycle{}, err
+		}
+	}
+	cycle.bindCommit(request.Emit)
+	return agentexecution.Cycle{
+		Definition: cycle.definition, Conversation: cycle.conversation,
+		BookService: cycle.bookService, Request: cycle.request,
+		Options: cycle.options(request.Options.TaskID),
+	}, nil
+}
+
+func (s *ChatAppService) prepareWritingCycle(
+	ctx context.Context,
+	request agentchat.ChatRequest,
+	taskID string,
+) (agentexecution.Cycle, ideChatRuntime, error) {
+	runtime, resolved, err := s.prepareIDEChatRuntime(ctx, request)
+	if err != nil {
+		return agentexecution.Cycle{}, ideChatRuntime{}, err
+	}
+	agentHost, err := s.app.AgentHostCapabilities(ctx, &runtime.cfg, agentrun.AgentKindIDE)
+	if err != nil {
+		return agentexecution.Cycle{}, ideChatRuntime{}, err
+	}
+	builtAgent, err := appagentruntime.BuildConversationAgent(
+		ctx, &runtime.cfg, runtime.state, runtime.ideTeller, agentrun.AgentKindIDE,
+		agentHost,
+	)
+	if err != nil {
+		return agentexecution.Cycle{}, ideChatRuntime{}, err
+	}
+	systemPrompt := builtAgent.Composition
+	runtimeContexts := prompts.IDEWorkspaceRuntimeContextsForContext(runtime.state, resolved.IDEContext)
+	conversation := agentconversation.NewSessionConversationForAgentWithRuntimeContexts(
+		runtime.sess, &runtime.cfg, config.AgentKindIDE,
+		runtimeContexts.StableTitle, runtimeContexts.Stable,
+		runtimeContexts.DynamicTitle, runtimeContexts.Dynamic,
+	).WithInputVisibility(resolved.InputVisibility).WithInputDisplayContent(resolved.DisplayMessage)
+	options := runtime.agentOptions(taskID)
+	options.IdleTimeout = appagentruntime.IdleTimeout(runtime.cfg)
+	options.ToolResultMaxBytes = appagentruntime.ToolResultMaxBytes(runtime.cfg)
+	options.SystemPromptLog = systemPrompt
+	options = s.bindReviewFeedbackInputCommit(options, runtime, resolved)
+	return agentexecution.Cycle{
+		Definition: builtAgent.Definition, Conversation: conversation, BookService: runtime.bookService, Request: resolved,
+		Options: options,
+	}, runtime, nil
+}
+
+type queuedExecutionProfile struct {
+	id        agentexecution.ProfileID
+	prepare   func(context.Context, agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error)
+	canonical func(context.Context, agentexecution.CanonicalInputRequest) (agent.CanonicalAdapter, error)
+}
+
+func (profile queuedExecutionProfile) ID() agentexecution.ProfileID {
+	return profile.id
+}
+
+func (profile queuedExecutionProfile) PrepareCycle(
+	ctx context.Context,
+	request agentexecution.CycleRestoreRequest,
+) (agentexecution.Cycle, error) {
+	if profile.prepare == nil {
+		return agentexecution.Cycle{}, fmt.Errorf("%w: profile %q cannot prepare a cycle", agentexecution.ErrProfileInvalid, profile.ID())
+	}
+	return profile.prepare(ctx, request)
+}
+
+func (profile queuedExecutionProfile) CanonicalInput(
+	ctx context.Context,
+	request agentexecution.CanonicalInputRequest,
+) (agent.CanonicalAdapter, error) {
+	if profile.canonical == nil {
+		return nil, fmt.Errorf("%w: profile %q has no canonical input boundary", agentexecution.ErrProfileInvalid, profile.ID())
+	}
+	return profile.canonical(ctx, request)
+}
+
+func (app *App) executionProfiles() []agentexecution.Profile {
+	profile := func(
+		id agentexecution.ProfileID,
+		prepare func(context.Context, agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error),
+		canonical func(context.Context, agentexecution.CanonicalInputRequest) (agent.CanonicalAdapter, error),
+	) queuedExecutionProfile {
+		return queuedExecutionProfile{id: id, prepare: prepare, canonical: canonical}
+	}
+	return []agentexecution.Profile{
+		profile(agentexecution.ProfileWriting, func(ctx context.Context, request agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error) {
+			return app.prepareWritingProfileCycle(ctx, request, request.Binding)
+		}, app.sessionCanonicalInput),
+		profile(agentexecution.ProfileAgentChat, func(ctx context.Context, request agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error) {
+			return app.AgentChat().PrepareCycle(ctx, request, request.Binding)
+		}, app.sessionCanonicalInput),
+		profile(agentexecution.ProfileGame, func(ctx context.Context, request agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error) {
+			return app.prepareInteractiveProfileCycle(ctx, request, request.Binding)
+		}, app.gameCanonicalInput),
+		profile(agentexecution.ProfileImage, func(ctx context.Context, request agentexecution.CycleRestoreRequest) (agentexecution.Cycle, error) {
+			return app.Images().PrepareCycle(ctx, request, request.Binding)
+		}, app.sessionCanonicalInput),
+	}
+}

@@ -1,0 +1,96 @@
+.codex/
+.agents/
+playground
+output/
+dist/
+log/
+.gocache/
+.gocache-pr/
+.gomodcache/
+.npm-cache/
+ta-windows-test/
+TA.exe
+TA.exe~
+ta-test.exe
+nova-windows-test/
+nova-test.exe
+data/
+web/node_modules/
+web/dist/
+web/playwright-report/
+web/test-results/
+internal/webfs/dist/
+plan.md
+docs/*
+!docs/tests/
+docs/tests/*
+!docs/tests/large-change-regression-checklist.md
+!docs/automation-project-agent.md
+!docs/claude-runtime.md
+!docs/ci-performance.md
+!docs/skills-library.md
+!docs/resource-pack-import-export-design.md
+!docs/speech.md
+!docs/agent-runtime-session-design-audit.md
+.worktrees/
+.pnpm-store/
+.DS_Store
+.denova
+.nova
+.ta-game
+.ta-toolchain
+prd
+.playwright-cli/
+tmp/
+/npm/
+
+# Local installation backups can contain personal configuration and game data.
+/备份/
+
+# --- 自制版补充（本地开发与验收产物，不入库）---
+# 独立数据根：本项目的运行数据、存档、日志一律不提交
+.denova-baseline/
+.denova-dev/
+.denova-*/
+web/acceptance-run.log
+web/real-model-acceptance-result.json
+web/story-pack-acceptance-result.json
+web/character-acceptance-result.json
+test-results/
+acceptance-*.log
+
+# 交付文档需要入库（上游 docs/* 规则会忽略，这里显式放行）
+!docs/启动说明.md
+!docs/剧本包格式.md
+!docs/原版基线验收报告.md
+!docs/交付说明.md
+!docs/集成点与后续迭代.md
+!docs/人物交流交付报告.md
+
+# TA runtime data and local build toolchain
+.ta
+.ta-*/
+
+# External media files are installed independently of the source repository.
+/media/*.mp4
+/media/*.webm
+/media/u-*
+
+# Local runtime, personal data and historical development material.
+/dev-data/
+/game/
+/.ta-dev/
+/资料归档/
+/.claude/
+/node_modules/
+
+# Local downloaded packages and isolated restores.
+/云端交付/
+
+# Machine-specific model configuration; commit only config.example.toml.
+/config.toml
+
+# Handoff documents kept for the receiving developer
+!docs/试玩反馈待办.md
+!docs/三世界机制与底座适配分析_20261108.md
+!docs/DOT_0.7.0_云端开发接手.md

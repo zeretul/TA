@@ -1,0 +1,245 @@
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
+import { ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import type { AgentAskAnswer, AgentAskResolution } from '@/lib/api'
+import {
+  agentSubAgentSessionKey,
+  agentViewAskInteraction,
+  agentViewContent,
+  agentViewStableKey,
+  buildAgentSubAgentTimelineGroups,
+  isAgentSubAgentTimelineView,
+  isQuietTraceView,
+  type AgentExecutionTiming,
+  type AgentMessageView,
+} from '@/lib/agent-message-view'
+import { AgentMessageItem } from './AgentMessageItem'
+import { MessageItem } from './MessageItem'
+import { buildSubAgentSummaryMessage } from './subagent-session'
+import { buildToolCallTree, type AgentProcessNode } from './tool-call-tree'
+
+interface AgentExecutionProcessProps {
+  projectId?: string
+  active: boolean
+  activeSubAgentSessionKey?: string
+  activeTraceDisplay: 'expanded' | 'collapsed'
+  /**
+   * 'quiet' keeps the process off the story stage: no disclosure, no tool names
+   * or counts. Only what the player must act on or know survives.
+   */
+  presentation?: 'full' | 'quiet'
+  highlightDialogue: boolean
+  messageStyle?: CSSProperties
+  onGenerateInteractiveImage?: (view: AgentMessageView) => void
+  onOpenSubAgentSession?: (view: AgentMessageView) => void
+  onInteractiveCardLayoutChange?: (element?: HTMLElement) => void
+  onResolveAsk?: (view: AgentMessageView, action: { status: 'answered'; answers: AgentAskAnswer[] } | { status: 'cancelled' }) => Promise<AgentAskResolution>
+  timing?: AgentExecutionTiming
+  views: AgentMessageView[]
+}
+
+/** One stable disclosure for the non-terminal timeline of an Agent run. */
+export function AgentExecutionProcess({
+  projectId,
+  active,
+  activeSubAgentSessionKey,
+  activeTraceDisplay,
+  presentation = 'full',
+  highlightDialogue,
+  messageStyle,
+  onGenerateInteractiveImage,
+  onOpenSubAgentSession,
+  onInteractiveCardLayoutChange,
+  onResolveAsk,
+  timing,
+  views,
+}: AgentExecutionProcessProps) {
+  const { t } = useTranslation()
+  const running = active || views.some((view) => view.streaming || view.status === 'running')
+  const [expanded, setExpanded] = useState(activeTraceDisplay === 'expanded' && running)
+  const userToggledRef = useRef(false)
+  const wasRunningRef = useRef(running)
+  const progressCount = views.filter((view) => !view.metadata.subagent && view.kind === 'assistant' && agentViewContent(view).trim()).length
+  const toolCount = views.filter((view) => view.kind === 'tool').length
+  // A collapsed trace hides its cards, so a failed read would be invisible unless
+  // the summary itself carries the failure. §8.4 资料库故障是技术问题，明确提示.
+  const failedToolCount = views.filter((view) => view.kind === 'tool' && view.status === 'error').length
+  const subAgentCount = new Set(views.filter(isAgentSubAgentTimelineView).map(agentSubAgentSessionKey)).size
+  const duration = useExecutionDuration(timing, running)
+  const label = [
+    running ? t('chat.trace.executing') : t('chat.trace.execution'),
+    progressCount > 0 ? t('chat.trace.progressUpdates', { count: progressCount }) : '',
+    toolCount > 0 ? t('chat.trace.toolCalls', { count: toolCount }) : '',
+    failedToolCount > 0 ? t('chat.trace.toolFailures', { count: failedToolCount }) : '',
+    subAgentCount > 0 ? t('chat.subagent.label') : '',
+  ].filter(Boolean).join(' · ')
+  const processTree = useMemo(() => buildToolCallTree(views), [views])
+  // A quiet trace drops the disclosure entirely but keeps the two things the
+  // player cannot lose: a question awaiting an answer, and a real failure.
+  const quietViews = useMemo(
+    () => presentation === 'quiet' ? views.filter(isQuietTraceView) : [],
+    [presentation, views],
+  )
+  useLayoutEffect(() => {
+    const wasRunning = wasRunningRef.current
+    wasRunningRef.current = running
+    if (wasRunning && !running) {
+      userToggledRef.current = false
+      setExpanded(false)
+    } else if (running && !userToggledRef.current && activeTraceDisplay === 'expanded') {
+      setExpanded(true)
+    }
+  }, [activeTraceDisplay, running])
+
+  const renderProcessItems = (nodes: AgentProcessNode[], depth = 0) => {    const processItems: ReactNode[] = []
+    const nodeViews = nodes.map(node => node.view)
+    const subAgentGroups = onOpenSubAgentSession ? buildAgentSubAgentTimelineGroups(nodeViews) : []
+    const subAgentGroupsByStart = new Map(subAgentGroups.map(group => [group.startIndex, group]))
+    const groupedSubAgentIndexes = new Set(subAgentGroups.flatMap(group => group.viewIndexes))
+    for (let index = 0; index < nodes.length; index += 1) {
+      const node = nodes[index]
+      const view = node.view
+      const subAgentGroup = subAgentGroupsByStart.get(index)
+      if (onOpenSubAgentSession && subAgentGroup) {
+        const pendingApprovalView = subAgentGroup.views.find(item => agentViewAskInteraction(item)?.status === 'pending')
+        if (pendingApprovalView) {
+          processItems.push(
+            <AgentMessageItem
+              projectId={projectId}
+              key={`subagent-approval-${subAgentGroup.key}`}
+              view={pendingApprovalView}
+              highlightDialogue={highlightDialogue}
+              messageStyle={messageStyle}
+              onInteractiveCardLayoutChange={onInteractiveCardLayoutChange}
+              onResolveAsk={onResolveAsk}
+            />,
+          )
+          continue
+        }
+        const summary = buildSubAgentSummaryMessage(subAgentGroup.views)
+        if (summary) {
+          processItems.push(
+            <MessageItem
+              projectId={projectId}
+              key={`subagent-${subAgentGroup.key}`}
+              message={summary}
+              highlightDialogue={highlightDialogue}
+              messageStyle={messageStyle}
+              onOpenSubAgentSession={() => onOpenSubAgentSession(subAgentGroup.views[0])}
+              activeSubAgentSessionKey={activeSubAgentSessionKey}
+            />,
+          )
+          continue
+        }
+      }
+      if (groupedSubAgentIndexes.has(index)) continue
+      if (view.kind === 'reasoning' && !view.streaming && !agentViewContent(view).trim()) continue
+      processItems.push(
+        <div key={agentViewStableKey(view) || index} data-tool-call-depth={depth} className="min-w-0">
+          <AgentMessageItem
+            projectId={projectId}
+            view={view}
+            assistantPresentation={view.kind === 'assistant' ? 'progress' : undefined}
+            highlightDialogue={highlightDialogue}
+            messageStyle={messageStyle}
+            onGenerateInteractiveImage={onGenerateInteractiveImage}
+            onOpenSubAgentSession={onOpenSubAgentSession}
+            onInteractiveCardLayoutChange={onInteractiveCardLayoutChange}
+            onResolveAsk={onResolveAsk}
+          />
+          {node.children.length > 0 ? (
+            <div className={`${depth < 3 ? 'ml-3' : 'ml-0'} mt-2 space-y-2 border-l border-[var(--nova-border)] pl-3`}>
+              {renderProcessItems(node.children, depth + 1)}
+            </div>
+          ) : null}
+        </div>,
+      )
+    }
+    return processItems
+  }
+
+  if (presentation === 'quiet') {
+    if (quietViews.length === 0) return null
+    return (
+      <div className="flex flex-col gap-2" data-agent-execution-process data-agent-execution-quiet>
+        {quietViews.map((view, index) => (
+          <AgentMessageItem
+            projectId={projectId}
+            key={agentViewStableKey(view) || `quiet-${index}`}
+            view={view}
+            highlightDialogue={highlightDialogue}
+            messageStyle={messageStyle}
+            onInteractiveCardLayoutChange={onInteractiveCardLayoutChange}
+            onResolveAsk={onResolveAsk}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex justify-start" data-agent-execution-process>
+      <Collapsible
+        open={expanded}
+        onOpenChange={(open) => {
+          userToggledRef.current = true
+          setExpanded(open)
+        }}
+        className="w-full"
+      >
+        <CollapsibleTrigger
+          type="button"
+          className={`group flex min-w-0 flex-wrap items-center gap-1 py-1 text-left text-xs transition-colors hover:text-[var(--nova-text)] ${failedToolCount > 0 ? 'text-[var(--nova-danger)]' : 'text-[var(--nova-text-muted)]'}`}
+        >
+          {running ? <span aria-hidden="true" className="size-1.5 animate-pulse rounded-full bg-[var(--nova-text-muted)]" /> : null}
+          <span>{label}</span>
+          {duration ? (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="font-mono tabular-nums">{duration}</span>
+            </>
+          ) : null}
+          <ChevronRight
+            aria-hidden="true"
+            data-agent-execution-toggle-icon
+            className={`size-3 opacity-60 transition-[transform,opacity] duration-[var(--nova-motion-fast)] ease-[var(--nova-panel-motion-ease)] group-hover:opacity-100 ${expanded ? 'rotate-90' : ''}`}
+          />
+        </CollapsibleTrigger>
+        <CollapsibleContent data-agent-execution-content className="nova-agent-execution-content">
+          <div className="flex flex-col gap-2 py-2">
+            {renderProcessItems(processTree)}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  )
+}
+
+function useExecutionDuration(timing: AgentExecutionTiming | undefined, running: boolean) {
+  const [, refresh] = useState(0)
+  const hasFinalDuration = timing?.durationMS !== undefined && Number.isFinite(timing.durationMS) && timing.durationMS >= 0
+  const hasLiveStart = running && timing?.startedAtMS !== undefined && Number.isFinite(timing.startedAtMS)
+
+  useEffect(() => {
+    if (hasFinalDuration || !hasLiveStart) return undefined
+    const interval = window.setInterval(() => refresh(value => value + 1), 1_000)
+    return () => window.clearInterval(interval)
+  }, [hasFinalDuration, hasLiveStart, timing?.startedAtMS])
+
+  if (hasFinalDuration) return formatExecutionDuration(timing.durationMS as number)
+  if (!hasLiveStart) return ''
+  return formatExecutionDuration(Math.max(0, Date.now() - (timing?.startedAtMS as number)))
+}
+
+export function formatExecutionDuration(milliseconds: number) {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1_000))
+  const seconds = totalSeconds % 60
+  const totalMinutes = Math.floor(totalSeconds / 60)
+  if (totalMinutes === 0) return `${seconds}s`
+  const minutes = totalMinutes % 60
+  const hours = Math.floor(totalMinutes / 60)
+  if (hours === 0) return `${minutes}m${seconds}s`
+  return `${hours}h${minutes}m${seconds}s`
+}

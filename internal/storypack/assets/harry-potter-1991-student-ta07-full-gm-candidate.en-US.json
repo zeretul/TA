@@ -1,0 +1,55 @@
+{
+  "name": "Harry Potter · Hogwarts First Year, 1991",
+  "description": "In September 1991, Hogwarts windows shine above the Black Lake. Some first-years grew up with moving portraits; others rode a magical train for the first time today. Four long tables are set in the Great Hall, and the Sorting Hat still sits on its stool.",
+  "title": "Harry Potter · Hogwarts First Year, 1991",
+  "creation": {
+    "origins": {
+      "hp-start-muggleborn": {
+        "name": "Muggle-born first-year",
+        "description": "It is your first time inside Hogwarts. You spent the morning looking for a train. Tonight even the portraits are studying the new students."
+      },
+      "hp-start-wizardfamily": {
+        "name": "First-year from a wizarding family",
+        "description": "Your family told countless stories about the school. Only at the castle doors do you hear how close the lake is to the steps."
+      },
+      "hp-start-borrowedbooks": {
+        "name": "First-year with borrowed books",
+        "description": "The previous owner marked the end of every chapter. You hold the borrowed books close as the other students file into the castle."
+      },
+      "hp-start-well-funded": {
+        "name": "Well-provisioned first-year",
+        "description": "Your trunk is fully packed and your family put aside extra spending money. At the castle doors the crowd is louder than any story you heard at home."
+      },
+      "hp-start-studious": {
+        "name": "Bookish first-year",
+        "description": "Over the summer you read Magical Theory and two borrowed textbooks. You know the ideas; casting can wait for class. A sheet of questions sits between the pages."
+      },
+      "custom": {
+        "name": "Custom background",
+        "description": "Write where you came from, who you are, and what brought you here."
+      }
+    }
+  },
+  "templates": {
+    "hp-start-muggleborn": {
+      "name": "Muggle-born first-year",
+      "description": "It is your first time inside Hogwarts. You spent the morning looking for a train. Tonight even the portraits are studying the new students."
+    },
+    "hp-start-wizardfamily": {
+      "name": "First-year from a wizarding family",
+      "description": "Your family told countless stories about the school. Only at the castle doors do you hear how close the lake is to the steps."
+    },
+    "hp-start-borrowedbooks": {
+      "name": "First-year with borrowed books",
+      "description": "The previous owner marked the end of every chapter. You hold the borrowed books close as the other students file into the castle."
+    },
+    "hp-start-well-funded": {
+      "name": "Well-provisioned first-year",
+      "description": "Your trunk is fully packed and your family put aside extra spending money. At the castle doors the crowd is louder than any story you heard at home."
+    },
+    "hp-start-studious": {
+      "name": "Bookish first-year",
+      "description": "Over the summer you read Magical Theory and two borrowed textbooks. You know the ideas; casting can wait for class. A sheet of questions sits between the pages."
+    }
+  }
+}

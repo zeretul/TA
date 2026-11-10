@@ -1,0 +1,90 @@
+import { defineConfig, devices } from '@playwright/test'
+
+const backendPort = process.env.TA_E2E_BACKEND_PORT || '18080'
+const frontendPort = process.env.TA_E2E_FRONTEND_PORT || '15173'
+const modelPort = process.env.TA_E2E_MODEL_PORT || '18081'
+const packaged = Boolean(process.env.TA_E2E_PACKAGE_DIR)
+const baseURL = `http://127.0.0.1:${packaged ? backendPort : frontendPort}`
+
+export default defineConfig({
+  testDir: './tests',
+  outputDir: './test-results/artifacts',
+  // Shard individual cases instead of keeping large files on one runner.
+  // Each runner still owns one backend and runs one test at a time because
+  // user settings and the current workspace are shared within that backend.
+  fullyParallel: true,
+  workers: 1,
+  forbidOnly: Boolean(process.env.CI),
+  retries: 0,
+  reporter: process.env.CI
+    ? [['line'], ['html', { open: 'never' }], ['json', { outputFile: 'test-results/playwright.json' }]]
+    : [['list'], ['html', { open: 'never' }]],
+  use: {
+    baseURL,
+    launchOptions: { executablePath: process.env.TA_CHROMIUM_EXECUTABLE_PATH },
+    // Keep all requests observable by the deterministic network fixture.
+    serviceWorkers: 'block',
+    locale: 'zh-CN',
+    colorScheme: 'dark',
+    // Functional journeys do not need to wait for every transition. Tests of
+    // navigation motion explicitly opt back into the normal animation path.
+    reducedMotion: 'reduce',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
+  expect: {
+    timeout: 10_000,
+  },
+  projects: [
+    {
+      name: 'browser',
+      testMatch: /browser\/.*\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'e2e',
+      testMatch: /e2e\/.*\.spec\.ts/,
+      // Real journeys include route hydration, multiple model/tool rounds, and
+      // reloads. Budget the whole journey separately from assertion deadlines.
+      timeout: 120_000,
+      // Full-suite CI includes tool rounds and conversation hydration with a
+      // populated workspace. Allow those asynchronous results time to render.
+      expect: { timeout: 30_000 },
+      use: { ...devices['Desktop Chrome'] },
+    },
+    ...(packaged ? [{
+      name: 'production',
+      testMatch: /production\/.*\.spec\.ts/,
+      use: { ...devices['Desktop Chrome'] },
+    }] : []),
+  ],
+  webServer: [
+    {
+      command: 'node ./scripts/e2e-model-server.mjs',
+      url: `http://127.0.0.1:${modelPort}/health`,
+      reuseExistingServer: false,
+      env: {
+        TA_E2E_MODEL_PORT: modelPort,
+      },
+    },
+    {
+      command: 'node ./scripts/start-e2e-backend.mjs',
+      url: `http://127.0.0.1:${backendPort}/api/status`,
+      reuseExistingServer: false,
+      env: {
+        TA_E2E_BACKEND_PORT: backendPort,
+        TA_E2E_MODEL_PORT: modelPort,
+      },
+    },
+    ...(!packaged ? [{
+      command: `pnpm dev --host 127.0.0.1 --port ${frontendPort} --strictPort`,
+      url: baseURL,
+      reuseExistingServer: false,
+      env: {
+        TA_BACKEND_PORT: backendPort,
+        TA_FRONTEND_PORT: frontendPort,
+        TA_TEST_VITE_CACHE_DIR: `node_modules/.vite-playwright-${frontendPort}`,
+      },
+    }] : []),
+  ],
+})

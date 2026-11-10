@@ -1,0 +1,39 @@
+{
+  "utc": "2026-11-04T01:25:01.576836+00:00",
+  "exit_code": 0,
+  "passed": true,
+  "checks": [
+    {
+      "file": "storypack/sui-guan-realms.json",
+      "exact": true,
+      "source_sha256": "6a1eff0021b74f880ef9b3d31aa0b77c96c885c459de3ed6d2c2bba98dc52399",
+      "rebuilt_sha256": "6a1eff0021b74f880ef9b3d31aa0b77c96c885c459de3ed6d2c2bba98dc52399"
+    },
+    {
+      "file": "storypack/sui-guan-realms.en-US.json",
+      "exact": true,
+      "source_sha256": "458e6a903d7e94f45b355b64a5b43239fb35ef95c3bd15453ce25d58c8d29fa8",
+      "rebuilt_sha256": "458e6a903d7e94f45b355b64a5b43239fb35ef95c3bd15453ce25d58c8d29fa8"
+    },
+    {
+      "file": "quest/sui-guan.json",
+      "exact": true,
+      "source_sha256": "59e2d761e669131d1c36e853ce736f1c411471c172bc27eacf45a31a16f444cb",
+      "rebuilt_sha256": "59e2d761e669131d1c36e853ce736f1c411471c172bc27eacf45a31a16f444cb"
+    },
+    {
+      "file": "quest/sui-guan.en-US.json",
+      "exact": true,
+      "source_sha256": "37e21169b9964c8a0ef6c5e0dd5cd4d7845f27830490a189a59fefdd2211407b",
+      "rebuilt_sha256": "37e21169b9964c8a0ef6c5e0dd5cd4d7845f27830490a189a59fefdd2211407b"
+    },
+    {
+      "file": "routes/sui-guan-routes.json",
+      "exact": true,
+      "source_sha256": "cd06ede4d7e2db36ad8ba9adc6d789a236dc80cd0d196df1d7bcca1e7e5969f5",
+      "rebuilt_sha256": "cd06ede4d7e2db36ad8ba9adc6d789a236dc80cd0d196df1d7bcca1e7e5969f5"
+    }
+  ],
+  "scope": "Temporary independent authoring rebuild; candidate and main source not written.",
+  "stderr": ""
+}

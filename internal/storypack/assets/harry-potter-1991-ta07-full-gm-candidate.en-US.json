@@ -1,0 +1,55 @@
+{
+  "name": "Harry Potter · Adult Wizards, 1991",
+  "description": "In London in 1991, an unassuming pub leads to Diagon Alley. Robes, owls and wands have shops of their own while people wait for buses on the other side. Farther away, Hogsmeade shopkeepers are already counting on the September school trade.",
+  "title": "Harry Potter · Adult Wizards, 1991",
+  "creation": {
+    "origins": {
+      "hp-start-traveller": {
+        "name": "Diagon Alley visitor",
+        "description": "You finished basic magical schooling and have arrived in London with a suitcase. The Leaky Cauldron’s keeper has set the room key on the counter."
+      },
+      "hp-start-potions": {
+        "name": "Potion-ingredient buyer",
+        "description": "You bring a list of ingredients to Diagon Alley. The price beside the last item has been crossed out."
+      },
+      "hp-start-village": {
+        "name": "Hogsmeade lodger",
+        "description": "You have taken a room in Hogsmeade. From the inn you can see the road to the school. A hiring notice hangs at the door."
+      },
+      "hp-start-trained-apothecary": {
+        "name": "Experienced potion maker",
+        "description": "Years mixing potions earned you some savings and a practiced hand. The supplier has placed a muddy bundle of roots on the counter for inspection."
+      },
+      "hp-start-journeyman-wizard": {
+        "name": "Wizard returned from abroad",
+        "description": "After years abroad, you return to Hogsmeade with money put aside and a set of well-practiced everyday spells. The old inn is open, under a new keeper."
+      },
+      "custom": {
+        "name": "Custom background",
+        "description": "Write where you came from, who you are, and what brought you here."
+      }
+    }
+  },
+  "templates": {
+    "hp-start-traveller": {
+      "name": "Diagon Alley visitor",
+      "description": "You finished basic magical schooling and have arrived in London with a suitcase. The Leaky Cauldron’s keeper has set the room key on the counter."
+    },
+    "hp-start-potions": {
+      "name": "Potion-ingredient buyer",
+      "description": "You bring a list of ingredients to Diagon Alley. The price beside the last item has been crossed out."
+    },
+    "hp-start-village": {
+      "name": "Hogsmeade lodger",
+      "description": "You have taken a room in Hogsmeade. From the inn you can see the road to the school. A hiring notice hangs at the door."
+    },
+    "hp-start-trained-apothecary": {
+      "name": "Experienced potion maker",
+      "description": "Years mixing potions earned you some savings and a practiced hand. The supplier has placed a muddy bundle of roots on the counter for inspection."
+    },
+    "hp-start-journeyman-wizard": {
+      "name": "Wizard returned from abroad",
+      "description": "After years abroad, you return to Hogsmeade with money put aside and a set of well-practiced everyday spells. The old inn is open, under a new keeper."
+    }
+  }
+}

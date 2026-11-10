@@ -1,0 +1,28 @@
+{
+  "quest.su_qian_return_source": {
+    "title": "Revisit the Material Source",
+    "brief": "After rechecking and speaking with you in person, Su Qian offers 10 spirit stones for another visit to the market. This pays for the agreed source visit, not proof of fraud or a guarantee of efficacy.",
+    "objectives": {
+      "quest.su_qian_return_source.visit": "Actually arrive at Yue Market after this agreement."
+    },
+    "choices": {}
+  },
+  "quest.su_qian_materials": {
+    "title": "Sort Out This Batch of Materials",
+    "brief": "Su Qian has materials awaiting handover, but their stated purpose and records do not agree. She wants the records checked and the source visited.",
+    "objectives": {
+      "quest.su_qian_materials.check": "Recover the material named in the record from its actual source.",
+      "quest.su_qian_materials.source": "Personally visit the market named as its source."
+    },
+    "choices": {},
+    "completion_reaction": "I have rechecked the material and your account. I am willing to discuss one further visit to its source with you. Your earlier help is real, but it does not guarantee the medicine or speak for the entire sect."
+  },
+  "quest.herb_handover": {
+    "title": "The Sealed Bottle in the Herb Garden",
+    "brief": "A buyer at the market and nearby homes is offering spirit stones for usable medicine recovered from the ancient cultivator cave.",
+    "objectives": {
+      "quest.herb_handover.pill": "Recover the sealed medicine bottle from the ancient cave garden."
+    },
+    "choices": {}
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "scope": "Original history-mode artwork. Character images are artistic interpretations, not documentary likenesses. No commercial original-game art is included.",
+  "assets": [
+    {
+      "file": "ming-study.png",
+      "sha256": "c8cd4228987432537b41d629d49a8a9fa797b3ee019f4dcce301db7724c2843c",
+      "width": 2172,
+      "height": 724,
+      "source": "builtin image_gen",
+      "prompt_specification": "Original ultra-wide Ming imperial study at dawn; folded memorials, brush, inkstone and bronze lamp on right; palace roofs and northern mountains beyond carved windows; ink wash, mineral pigments, parchment, charcoal, ochre and cinnabar; quiet left half for UI. No readable text, people, logos or modern/fantasy elements."
+    },
+    {
+      "file": "song-study.png",
+      "sha256": "71cab6447db173fa6e986ae2b98d37e3bc2de43a11a4d852471bd77b4360b224",
+      "width": 2172,
+      "height": 724,
+      "source": "builtin image_gen",
+      "prompt_specification": "Original ultra-wide early Southern Song temporary court study; river reeds, supply boats, tiled roofs, rain and blue-green mountains; desk, memorials, celadon cup, brush and lamp on right; painted silk/mineral pigments in jade, slate and cream; quiet left half. No readable text, people, logos or copied commercial art."
+    },
+    {
+      "file": "ming-portraits.png",
+      "sha256": "4baab8d1ef0da4d0a00ae9c95f581475b551a680102be72862d5b1d21a3a5790",
+      "width": 1354,
+      "height": 1161,
+      "source": "builtin image_gen",
+      "prompt_specification": "Original 42-cell portrait atlas, exact 7 columns by 6 rows, no margins or gutters. Adult Ming eunuchs, ministers, scholars, commanders, a European Jesuit astronomer and rebel leaders. Distinct faces, both eyes open, full hats and shoulders, consistent scale and dark backgrounds; muted historically inspired painted robes and armor. No text, labels, modern or fantasy elements. Row-by-row role layout follows the original 42-person reference roster; final binding corrects the last-row portrait positions."
+    },
+    {
+      "file": "song-portraits.png",
+      "sha256": "0db54513ba88f3ad3a7b6953e4dfab9ae3a2ab79b33da96d019b4da8848dd502",
+      "width": 1586,
+      "height": 992,
+      "source": "builtin image_gen",
+      "prompt_specification": "Original 40-cell portrait atlas, exact 8 columns by 5 rows, no margins or gutters. Southern Song emperor, court officials, scholars, naval and army commanders, distinct adult faces with open eyes; Song futou hats, muted robes and practical armor, same framing and dark backgrounds. No labels, numbering, modern or fantasy elements. Roster order follows the 40-person scenario data."
+    },
+    {
+      "file": "ming-court-portraits.png",
+      "sha256": "f67d019491ae9abb779783ff656158e562cfce690f6f3e667e5ce2ba65285694",
+      "width": 1402,
+      "height": 1122,
+      "source": "builtin image_gen",
+      "prompt_specification": "Original 80-cell portrait atlas, exact 10 columns by 8 rows, equal square cells, no margins/gutters/text. First 22 military officers, next 16 civil officials, six rebels, five engineer-scholars, eight young adult future talents, and remaining court officials/censors/governors. Distinct adult faces, open eyes, full hats and shoulders, historically inspired Ming robes and armor, consistent dark neutral backgrounds."
+    }
+  ],
+  "map_source": "User-provided history simulator game/map_tools/map_data.json and adjacency.json; reference hashes are recorded in scenario provenance."
+}

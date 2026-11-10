@@ -1,0 +1,201 @@
+import { APIError, fetchAPI, jsonHeaders, parseSSEStream, readErrorMessage, requestJSON } from '@/lib/api-client'
+import type { ComfyUIWorkflowCatalog, ComfyUIWorkflowSnapshot, ImageAPIEndpointSettings, ImageAPIProfileSettings, ImagePingResult, LayeredSettings, ModelCatalog, ModelDiscoveryResult, ModelEndpointSettings, ModelPingResult, ModelProfileSettings, SettingsLayer, UpdateApplyResult, UpdateCheckResult, UpdateInstallResult } from './types'
+import type { SSEEvent } from '@/lib/api-client'
+import { projectAPIPath } from '@/lib/api-client/project-scope'
+import { queryClient } from '@/lib/query-client'
+import { GLOBAL_SETTINGS_TARGET, projectSettingsTarget, settingsQueryKeys, settingsQueryOptions } from './query'
+import type { SettingsTarget } from './query'
+import { SettingsSaveError, settingsSaveFiles } from './save-error'
+import type { SettingsPatch } from './merge-patch'
+
+export { GLOBAL_SETTINGS_TARGET, projectSettingsTarget }
+export type { SettingsTarget }
+
+export type { SettingsPatch } from './merge-patch'
+export { createSettingsMergePatch } from './merge-patch'
+
+/** Shares the current settings snapshot across startup consumers. */
+export function fetchSettings(): Promise<LayeredSettings> {
+  return fetchSettingsTarget(GLOBAL_SETTINGS_TARGET)
+}
+
+/** Returns the user layer merged with exactly one Project layer. */
+export function fetchProjectSettings(projectId: string): Promise<LayeredSettings> {
+  return fetchSettingsTarget(projectSettingsTarget(projectId))
+}
+
+/** Forces a canonical settings refresh while TanStack Query coalesces callers. */
+export function refreshSettings(): Promise<LayeredSettings> {
+  return refreshSettingsTarget(GLOBAL_SETTINGS_TARGET)
+}
+
+export function refreshProjectSettings(projectId: string): Promise<LayeredSettings> {
+  return refreshSettingsTarget(projectSettingsTarget(projectId))
+}
+
+export function fetchSettingsTarget(target: SettingsTarget): Promise<LayeredSettings> {
+  return queryClient.fetchQuery(settingsQueryOptions(target))
+}
+
+export async function refreshSettingsTarget(target: SettingsTarget): Promise<LayeredSettings> {
+  const options = settingsQueryOptions(target)
+  await queryClient.invalidateQueries({ queryKey: options.queryKey, exact: true, refetchType: 'none' })
+  return queryClient.fetchQuery({ ...options, staleTime: 0 })
+}
+
+/** Removes cached settings snapshots, primarily for tests and sign-out. */
+export function invalidateSettingsCache(projectId?: string) {
+  if (projectId === undefined) {
+    queryClient.removeQueries({ queryKey: settingsQueryKeys.all })
+    return
+  }
+  queryClient.removeQueries({ queryKey: settingsQueryKeys.project(projectId), exact: true })
+}
+
+export function patchSettings(layer: SettingsLayer, changes: SettingsPatch, baseRevision?: string): Promise<LayeredSettings> {
+  return patchSettingsTarget(GLOBAL_SETTINGS_TARGET, layer, changes, baseRevision)
+}
+
+export function patchProjectSettings(projectId: string, layer: SettingsLayer, changes: SettingsPatch, baseRevision?: string): Promise<LayeredSettings> {
+  return patchSettingsTarget(projectSettingsTarget(projectId), layer, changes, baseRevision)
+}
+
+export async function patchSettingsTarget(
+  target: SettingsTarget,
+  layer: SettingsLayer,
+  changes: SettingsPatch,
+  baseRevision?: string,
+): Promise<LayeredSettings> {
+  const queryKey = target.kind === 'project' ? settingsQueryKeys.project(target.projectId) : settingsQueryKeys.global()
+  const path = target.kind === 'project' ? projectAPIPath(target.projectId, 'settings') : '/api/settings'
+  let snapshot: LayeredSettings
+  try {
+    snapshot = await requestJSON<LayeredSettings>(path, {
+      method: 'PATCH',
+      headers: jsonHeaders,
+      body: JSON.stringify({ layer, changes, ...(baseRevision ? { base_revision: baseRevision } : {}) }),
+    })
+  } catch (error) {
+    const files = settingsSaveFiles(error)
+    if (!(error instanceof APIError) || !files) throw error
+    try {
+      // An older in-flight GET may still contain the pre-save state.
+      await queryClient.cancelQueries({ queryKey, exact: true })
+      snapshot = await refreshSettingsTarget(target)
+    } catch (refreshError) {
+      console.error('[settings] failed to refresh settings after a partial save', refreshError)
+      throw error
+    }
+    primeSettingsQuery(queryKey, snapshot, layer === 'user')
+    throw new SettingsSaveError(error, snapshot, files)
+  }
+  primeSettingsQuery(queryKey, snapshot, layer === 'user')
+  return snapshot
+}
+
+/** Revokes one saved rule by stable ID so concurrent rule additions cannot be
+ * lost through replacement of a stale settings array. */
+export async function revokeAgentApprovalRule(id: string): Promise<LayeredSettings> {
+  const snapshot = await requestJSON<LayeredSettings>(`/api/settings/agent-approval-rules/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  })
+  primeSettingsQuery(settingsQueryKeys.global(), snapshot, true)
+  return snapshot
+}
+
+function primeSettingsQuery(queryKey: readonly string[], snapshot: LayeredSettings, invalidateAll: boolean) {
+  void queryClient.cancelQueries({ queryKey, exact: true })
+  if (invalidateAll) {
+    void queryClient.invalidateQueries({
+      queryKey: settingsQueryKeys.all,
+      predicate: (query) => !sameQueryKey(query.queryKey, queryKey),
+      refetchType: 'all',
+    })
+  }
+  queryClient.setQueryData(queryKey, snapshot)
+}
+
+function sameQueryKey(left: readonly unknown[], right: readonly unknown[]): boolean {
+  return left.length === right.length && left.every((value, index) => value === right[index])
+}
+
+export async function checkForUpdate(signal?: AbortSignal): Promise<UpdateCheckResult> {
+  return requestJSON('/api/update/check', { signal })
+}
+
+export async function fetchUpdateStatus(signal?: AbortSignal): Promise<import('./types').UpdateStatusResult> {
+  return requestJSON('/api/update/status', { signal })
+}
+
+export async function installUpdateStream(signal?: AbortSignal): Promise<ReadableStream<SSEEvent>> {
+  const res = await fetchAPI('/api/update/install/stream', { method: 'POST', signal })
+  if (!res.ok) throw new Error(await readErrorMessage(res))
+  if (!res.body) throw new Error('No response body')
+  return parseSSEStream(res.body)
+}
+
+export async function applyUpdate(): Promise<UpdateApplyResult> {
+  return requestJSON('/api/update/apply', { method: 'POST' })
+}
+
+export function fetchModelCatalog(signal?: AbortSignal): Promise<ModelCatalog> {
+  return requestJSON('/api/models/catalog', { signal })
+}
+
+/** Loads optional protocol-native model suggestions without validating or
+ * restricting the profile's custom model text. */
+export function discoverModels(endpoint: ModelEndpointSettings, profile: ModelProfileSettings, signal?: AbortSignal): Promise<ModelDiscoveryResult> {
+  return requestJSON('/api/models/discover', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ endpoint, profile }),
+    signal,
+  })
+}
+
+/** Validates an unsaved profile through the same resolver and adapter as a real Agent run. */
+export function pingModelProfile(endpoint: ModelEndpointSettings, profile: ModelProfileSettings, signal?: AbortSignal): Promise<ModelPingResult> {
+  return requestJSON('/api/models/ping', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ endpoint, profile }),
+    signal,
+  })
+}
+
+/** Validates an unsaved image profile through one minimal real Images API request. */
+export function pingImageProfile(endpoint: ImageAPIEndpointSettings, profile: ImageAPIProfileSettings, signal?: AbortSignal): Promise<ImagePingResult> {
+  return requestJSON('/api/images/ping', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ endpoint, profile }),
+    signal,
+  })
+}
+
+export async function uploadUpdate(file: File, checksums: File): Promise<UpdateInstallResult> {
+  const body = new FormData()
+  body.append('file', file)
+  body.append('checksums', checksums)
+  return requestJSON('/api/update/upload', { method: 'POST', body })
+}
+
+/** Lists saved ComfyUI workflows without requiring the draft profile to be runnable yet. */
+export function discoverComfyUIWorkflows(endpoint: ImageAPIEndpointSettings, profile: ImageAPIProfileSettings, signal?: AbortSignal): Promise<ComfyUIWorkflowCatalog> {
+  return requestJSON('/api/images/comfyui/workflows/discover', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ endpoint, profile }),
+    signal,
+  })
+}
+
+/** Imports the latest API graph for one fresh saved ComfyUI workflow. */
+export function loadComfyUIWorkflow(endpoint: ImageAPIEndpointSettings, profile: ImageAPIProfileSettings, path: string, signal?: AbortSignal): Promise<ComfyUIWorkflowSnapshot> {
+  return requestJSON('/api/images/comfyui/workflows/load', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ endpoint, profile, path }),
+    signal,
+  })
+}

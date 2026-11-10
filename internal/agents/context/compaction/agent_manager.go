@@ -1,0 +1,168 @@
+package compaction
+
+import (
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"sync"
+
+	"ta/config"
+	agentcontext "ta/internal/agents/context"
+	"ta/internal/agents/modelio"
+	"ta/internal/agents/toolresult"
+
+	agent "ta/agent"
+	publiccompaction "ta/agent/compaction"
+)
+
+// taManager applies the same product visibility policy to the selected
+// source as the primary model request. Agent owns planning and model execution.
+type taManager struct {
+	delegate          agent.CompactionManager
+	toolContextPolicy toolresult.ContextPolicy
+	identity          agent.CapabilityIdentity
+	initializeOnce    sync.Once
+	initializeErr     error
+}
+
+func newTaManager(delegate agent.CompactionManager, policy toolresult.ContextPolicy) agent.CompactionManager {
+	if delegate == nil {
+		return nil
+	}
+	return &taManager{
+		delegate: delegate, toolContextPolicy: policy,
+	}
+}
+
+func (manager *taManager) InitializeDefinition(ctx context.Context) error {
+	if manager == nil || manager.delegate == nil {
+		return errors.New("Text Adventure Compaction manager delegate is required")
+	}
+	manager.initializeOnce.Do(func() {
+		if initializer, ok := manager.delegate.(agent.DefinitionInitializer); ok {
+			if err := initializer.InitializeDefinition(ctx); err != nil {
+				manager.initializeErr = fmt.Errorf("initialize delegate: %w", err)
+				return
+			}
+		}
+		manager.identity = capabilityIdentity("denova.compaction.manager", struct {
+			Delegate    agent.CapabilityIdentity
+			ToolContext toolresult.ContextPolicy
+		}{manager.delegate.Identity(), manager.toolContextPolicy})
+	})
+	return manager.initializeErr
+}
+
+func (manager *taManager) Identity() agent.CapabilityIdentity {
+	if err := manager.InitializeDefinition(context.Background()); err != nil {
+		return agent.CapabilityIdentity{}
+	}
+	return manager.identity
+}
+
+func (manager *taManager) SummaryLimitBytes() int {
+	if err := manager.InitializeDefinition(context.Background()); err != nil {
+		return 0
+	}
+	return manager.delegate.SummaryLimitBytes()
+}
+
+func (manager *taManager) Plan(
+	ctx context.Context,
+	request agent.CompactionPlanRequest,
+) (agent.CompactionPlan, error) {
+	if err := manager.InitializeDefinition(ctx); err != nil {
+		return agent.CompactionPlan{}, err
+	}
+	return manager.delegate.Plan(ctx, request)
+}
+
+func (manager *taManager) Compact(
+	ctx context.Context,
+	request agent.CompactionCompactRequest,
+) (agent.CompactionCheckpoint, error) {
+	if err := manager.InitializeDefinition(ctx); err != nil {
+		return agent.CompactionCheckpoint{}, err
+	}
+	request.Messages = toolresult.ApplyContextPolicy(request.Messages, manager.toolContextPolicy)
+	return manager.delegate.Compact(ctx, request)
+}
+
+// NewAgentManager adapts Text Adventure's context policy and model to the public Agent
+// Compaction capability. Agent owns checkpoint durability and recovery; this
+// package owns only Text Adventure's planning configuration and summary semantics.
+func NewAgentManager(
+	cfg *config.Config,
+	agentKind string,
+) (agent.CompactionManager, error) {
+	modelSettings := config.ResolveAgentModel(cfg, agentKind)
+	return NewAgentManagerForModel(cfg, agentKind, modelSettings.ContextWindowTokens)
+}
+
+// NewAgentManagerForModel applies policy from policyKind while sizing every
+// pressure, reserve, validation, and summarization decision for the concrete
+// model used by this Definition. It is the correct seam for child Agents that
+// inherit a product policy but override their model.
+func NewAgentManagerForModel(
+	cfg *config.Config,
+	policyKind string,
+	contextWindowTokens int,
+) (agent.CompactionManager, error) {
+	if contextWindowTokens <= 0 {
+		return nil, errors.New("Text Adventure Compaction context window must be positive")
+	}
+	settings := config.ResolveAgentContext(cfg, policyKind)
+	hardLimit := settings.MaxProviderInputBytes
+	summaryLimit := min(settings.MaxFragmentBytes, settings.MaxTotalInjectedBytes, settings.MaxProviderInputBytes)
+	if !settings.CompactionEnabled {
+		return publiccompaction.Disabled(hardLimit, summaryLimit), nil
+	}
+	completionReserve, toolReserve := EstimateProjectionReservesForModel(cfg, policyKind, 0, contextWindowTokens)
+	trigger := int(float64(contextWindowTokens*4) * settings.CompactionThreshold)
+	if trigger <= 0 || trigger >= hardLimit {
+		trigger = int(float64(hardLimit) * settings.CompactionThreshold)
+	}
+	manager := publiccompaction.Standard(publiccompaction.StandardConfig{
+		Prompt:       compactionDomainRequirements(policyKind) + "\n" + agentcontext.CompactionCheckpointSchema() + "\n" + settings.CheckpointGuidance,
+		Execution:    modelio.ModelExecutionPolicy(cfg),
+		TriggerBytes: trigger, HardLimitBytes: hardLimit,
+		SummaryLimitBytes:   summaryLimit,
+		ContextWindowTokens: contextWindowTokens,
+		ReservedTokens:      completionReserve + toolReserve,
+		TriggerRatio:        settings.CompactionThreshold,
+		RecoveryBand:        config.DefaultContextCompactionRecoveryBand,
+		MinimumChangeTokens: max(256, contextWindowTokens/100),
+	})
+	return newTaManager(manager, toolresult.ResolveContextPolicy(cfg, policyKind)), nil
+}
+
+// NewElisionPolicyForModel is the cheap first stage of automatic context
+// maintenance. It shares the existing per-Agent compaction switch and concrete
+// model budget; there is no independent product state or user-facing threshold.
+// The soft trigger scales with the summary trigger (60% before the default 85%).
+func NewElisionPolicyForModel(cfg *config.Config, policyKind string, contextWindowTokens int) *agent.ElisionPolicy {
+	if contextWindowTokens <= 0 {
+		return nil
+	}
+	settings := config.ResolveAgentContext(cfg, policyKind)
+	if !settings.CompactionEnabled {
+		return nil
+	}
+	completionReserve, toolReserve := EstimateProjectionReservesForModel(cfg, policyKind, 0, contextWindowTokens)
+	return &agent.ElisionPolicy{
+		ContextWindowTokens: contextWindowTokens, ReservedTokens: completionReserve + toolReserve,
+		TriggerRatio: settings.CompactionThreshold * (.60 / .85),
+	}
+}
+
+func capabilityIdentity(kind string, configuration any) agent.CapabilityIdentity {
+	encoded, _ := json.Marshal(configuration)
+	digest := sha256.Sum256(encoded)
+	return agent.CapabilityIdentity{Kind: kind, Version: 1, ConfigHash: hex.EncodeToString(digest[:])}
+}
+
+var _ agent.CompactionManager = (*taManager)(nil)
+var _ agent.DefinitionInitializer = (*taManager)(nil)

@@ -1,0 +1,72 @@
+{
+  "actor": {
+    "acquired": null,
+    "assets": {},
+    "battle": {
+      "can_surrender": true,
+      "id": "battle",
+      "opponent_id": "rival",
+      "opponent_name": "Visible rival",
+      "player_scale": "person",
+      "round": 0,
+      "scale": "person",
+      "status": "active"
+    },
+    "currency": 0,
+    "defeated": {},
+    "energy": 100,
+    "equipment": {},
+    "experience": 0,
+    "family": "wuxia",
+    "health": 100,
+    "injury": 0,
+    "inventory": {
+      "potion": 1
+    },
+    "max_energy": 100,
+    "max_health": 100,
+    "rank": 1,
+    "skills": {
+      "owned": 1
+    },
+    "training": {}
+  },
+  "clock_seconds": 0,
+  "enemy_condition": "steady",
+  "family": "wuxia",
+  "head": "fixture-head",
+  "items": [
+    {
+      "acquisition": "market",
+      "background": "测试背景",
+      "description": "测试简介",
+      "effect": "heal",
+      "id": "potion",
+      "kind": "consumable",
+      "name": "Owned potion",
+      "power": 20,
+      "price": 5,
+      "quality_grade": "green",
+      "scale": "person",
+      "usable": true
+    }
+  ],
+  "skills": [
+    {
+      "background": "测试背景",
+      "cost": 5,
+      "description": "测试简介",
+      "id": "owned",
+      "kind": "attack",
+      "learned": true,
+      "name": "Known ability",
+      "power": 10,
+      "quality_grade": "white",
+      "required_rank": 1,
+      "scale": "person",
+      "trainable": false,
+      "training_hours": 2,
+      "usable": true
+    }
+  ]
+}

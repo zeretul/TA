@@ -1,0 +1,287 @@
+#!/bin/bash
+set -e
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+FRONTEND_BIND_HOST="${TA_FRONTEND_HOST:-${DENOVA_FRONTEND_HOST:-${NOVA_FRONTEND_HOST:-}}}"
+
+cd "${ROOT_DIR}"
+
+read_config_value() {
+    local path="$1"
+    local key="$2"
+    if [ ! -f "${path}" ]; then
+        return
+    fi
+    awk -v key="${key}" '
+        /^[[:space:]]*#/ { next }
+        $0 ~ "^[[:space:]]*" key "[[:space:]]*=" {
+            sub(/^[^=]*=/, "", $0)
+            sub(/[[:space:]]*#.*/, "", $0)
+            gsub(/^[[:space:]]+|[[:space:]]+$/, "", $0)
+            gsub(/^"|"$/, "", $0)
+            print $0
+            exit
+        }
+    ' "${path}"
+}
+
+is_valid_port() {
+    [[ "$1" =~ ^[0-9]+$ ]] && [ "$1" -ge 1 ] && [ "$1" -le 65535 ]
+}
+
+expand_path() {
+    local path="$1"
+    case "${path}" in
+      "~")
+        echo "${HOME:-~}"
+        ;;
+      "~/"*)
+        echo "${HOME:-~}/${path#~/}"
+        ;;
+      *)
+        echo "${path}"
+        ;;
+    esac
+}
+
+default_data_dir() {
+    for candidate in .ta-game .denova .nova; do
+        if [ -d "${candidate}" ]; then
+            echo "./${candidate}"
+            return
+        fi
+    done
+    echo "./.ta-game"
+}
+
+startup_data_dir() {
+    if [ -n "${TA_DIR:-}" ]; then
+        expand_path "${TA_DIR}"
+        return
+    fi
+    if [ -n "${DENOVA_DIR:-}" ]; then
+        expand_path "${DENOVA_DIR}"
+        return
+    fi
+    if [ -n "${NOVA_DIR:-}" ]; then
+        expand_path "${NOVA_DIR}"
+        return
+    fi
+
+    local configured
+    configured="$(read_config_value "config.toml" "denova_dir")"
+    if [ -z "${configured}" ]; then
+        configured="$(read_config_value "config.toml" "nova_dir")"
+    fi
+    if [ -n "${configured}" ]; then
+        expand_path "${configured}"
+        return
+    fi
+
+    default_data_dir
+}
+
+resolve_port() {
+    local current_env_value="$1"
+    local legacy_env_value="$2"
+    local key="$3"
+    local fallback="$4"
+    local port="${fallback}"
+    local value
+
+    value="$(read_config_value "config.toml" "${key}")"
+    if is_valid_port "${value}"; then
+        port="${value}"
+    fi
+
+    value="$(read_config_value "$(startup_data_dir)/config.toml" "${key}")"
+    if is_valid_port "${value}"; then
+        port="${value}"
+    fi
+
+    if is_valid_port "${legacy_env_value}"; then
+        port="${legacy_env_value}"
+    fi
+    if is_valid_port "${current_env_value}"; then
+        port="${current_env_value}"
+    fi
+
+    echo "${port}"
+}
+
+BACKEND_PORT="$(resolve_port "${TA_BACKEND_PORT:-${DENOVA_BACKEND_PORT:-}}" "${NOVA_BACKEND_PORT:-}" "backend_port" "8080")"
+FRONTEND_PORT="$(resolve_port "${TA_FRONTEND_PORT:-${DENOVA_FRONTEND_PORT:-}}" "${NOVA_FRONTEND_PORT:-}" "frontend_port" "5173")"
+FRONTEND_URL="http://localhost:${FRONTEND_PORT}"
+BACKEND_URL="http://localhost:${BACKEND_PORT}"
+
+MODE="all"  # all | fe | be
+if [ $# -gt 0 ] && [[ "$1" != --* ]]; then
+    MODE="$1"
+    shift
+fi
+
+usage() {
+    echo "Usage: ./scripts/bootstrap.sh [all|fe|be] [options]"
+    echo "  all  - Start the frontend and backend (default)"
+    echo "  fe   - Start only the frontend (Vite development server)"
+    echo "  be   - Start only the backend (Go server)"
+    echo ""
+    echo "Frontend options:"
+    echo "  --backend-port <port>  Set Vite's backend proxy port when starting the frontend separately"
+    echo "  --lan                  Allow LAN access to the frontend (IPv4 and IPv6 when available)"
+    echo "  --host <host>          Set the Vite development server bind address"
+}
+
+detect_lan_address() {
+    local addr
+
+    if command -v ipconfig >/dev/null 2>&1; then
+        for iface in en0 en1 en2 en3; do
+            addr="$(ipconfig getifaddr "${iface}" 2>/dev/null || true)"
+            if [ -n "${addr}" ]; then
+                echo "${addr}"
+                return
+            fi
+        done
+    fi
+
+    if command -v hostname >/dev/null 2>&1; then
+        addr="$(hostname -I 2>/dev/null | awk '{print $1}' || true)"
+        if [ -n "${addr}" ]; then
+            echo "${addr}"
+            return
+        fi
+    fi
+
+    if command -v ifconfig >/dev/null 2>&1; then
+        addr="$(ifconfig | awk '/inet / && $2 != "127.0.0.1" {print $2; exit}' || true)"
+        if [ -n "${addr}" ]; then
+            echo "${addr}"
+            return
+        fi
+    fi
+}
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+      --backend-port)
+        if [ "${MODE}" != "fe" ] && [ "${MODE}" != "frontend" ]; then
+            echo "Error: --backend-port is only supported in fe mode"
+            exit 1
+        fi
+        if [ $# -lt 2 ] || ! is_valid_port "$2"; then
+            echo "Error: --backend-port requires a port from 1 to 65535"
+            exit 1
+        fi
+        BACKEND_PORT="$2"
+        shift 2
+        ;;
+      --lan)
+        FRONTEND_BIND_HOST="0.0.0.0"
+        shift
+        ;;
+      --host)
+        if [ $# -lt 2 ]; then
+            echo "Error: --host requires a bind address"
+            exit 1
+        fi
+        FRONTEND_BIND_HOST="$2"
+        shift 2
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "Error: unknown argument $1"
+        usage
+        exit 1
+        ;;
+    esac
+done
+
+BACKEND_URL="http://localhost:${BACKEND_PORT}"
+
+case "$MODE" in
+  fe|frontend)
+    echo "==> Starting the Text Adventure frontend development server"
+    echo "  Frontend URL: ${FRONTEND_URL}"
+    echo "  Backend proxy: ${BACKEND_URL}"
+    if [ "${FRONTEND_BIND_HOST}" = "0.0.0.0" ]; then
+        LAN_ADDRESS="$(detect_lan_address)"
+        if [ -n "${LAN_ADDRESS}" ]; then
+            echo "  LAN URL: http://${LAN_ADDRESS}:${FRONTEND_PORT}"
+        else
+            echo "  LAN URL: http://<local-LAN-IP>:${FRONTEND_PORT}"
+        fi
+    elif [ -n "${FRONTEND_BIND_HOST}" ]; then
+        echo "  Bind address: ${FRONTEND_BIND_HOST}"
+    fi
+    echo ""
+
+    if ! command -v pnpm >/dev/null 2>&1; then
+        echo "Error: pnpm was not found. Install pnpm first."
+        exit 1
+    fi
+
+    if [ ! -d "web/node_modules" ]; then
+        echo "==> Installing frontend dependencies"
+        (cd web && pnpm install)
+    fi
+
+    echo "  Press Ctrl+C to stop"
+    export TA_BACKEND_PORT="${BACKEND_PORT}"
+    export TA_FRONTEND_PORT="${FRONTEND_PORT}"
+    # An unspecified host lets Node use dual-stack networking when available,
+    # avoiding localhost IPv6 fallback delays with an IPv4-only LAN listener.
+    if [ "${FRONTEND_BIND_HOST}" = "0.0.0.0" ]; then
+        cd web && exec pnpm dev --host --port "${FRONTEND_PORT}"
+    fi
+    if [ -n "${FRONTEND_BIND_HOST}" ]; then
+        cd web && exec pnpm dev --host "${FRONTEND_BIND_HOST}" --port "${FRONTEND_PORT}"
+    fi
+    cd web && exec pnpm dev --port "${FRONTEND_PORT}"
+    ;;
+
+  be|backend)
+    echo "==> Starting the Text Adventure backend development server"
+    echo "  The final URL will be shown after the server starts"
+    echo ""
+
+    echo "==> Resolving Go dependencies"
+    go mod tidy
+
+    echo "  Press Ctrl+C to stop"
+    exec go run ./cmd/ta --dev-mode --no-open
+    ;;
+
+  all)
+    echo "==> Starting Text Adventure development services"
+    echo "  The final URLs will be shown after the services start"
+    echo ""
+
+    if ! command -v pnpm >/dev/null 2>&1; then
+        echo "Error: pnpm was not found. Install pnpm first."
+        exit 1
+    fi
+
+    if [ ! -d "web/node_modules" ]; then
+        echo "==> Installing frontend dependencies"
+        (cd web && pnpm install)
+    fi
+
+    echo "==> Resolving Go dependencies"
+    go mod tidy
+
+    echo "==> Starting the frontend and backend"
+    echo "  Press Ctrl+C to stop"
+    echo ""
+
+    exec go run ./cmd/ta --dev --dev-mode --no-open
+    ;;
+
+  *)
+    usage
+    exit 1
+    ;;
+esac

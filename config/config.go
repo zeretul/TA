@@ -1,0 +1,739 @@
+package config
+
+import (
+	"context"
+	"fmt"
+	"log/slog"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
+
+	toml "github.com/pelletier/go-toml/v2"
+
+	workspacelayout "ta/internal/workspace"
+)
+
+// Config 保存 Text Adventure 的全局配置。
+type Config struct {
+	OpenAIAPIKey              string                  `toml:"openai_api_key"`
+	OpenAIBaseURL             string                  `toml:"openai_base_url"`
+	OpenAIModel               string                  `toml:"openai_model"`
+	OpenAIContextWindowTokens int                     `toml:"openai_context_window_tokens"`
+	ModelEndpoints            []ModelEndpointSettings `toml:"model_endpoints"`
+	ModelProfiles             []ModelProfileSettings  `toml:"model_profiles"`
+	// LegacyImageAPI* keep startup config files readable while their values are
+	// projected into the canonical image profile schema.
+	LegacyImageAPIKey        *string                      `toml:"image_api_key"`
+	LegacyImageAPIBaseURL    *string                      `toml:"image_api_base_url"`
+	LegacyImageAPIModel      *string                      `toml:"image_api_model"`
+	DefaultImageAPIProfileID string                       `toml:"default_image_api_profile_id"`
+	ImageAPIEndpoints        []ImageAPIEndpointSettings   `toml:"image_api_endpoints"`
+	ImageAPIProfiles         []ImageAPIProfileSettings    `toml:"image_api_profiles"`
+	AgentModels              AgentModelSettings           `toml:"agent_models"`
+	AgentRuntimes            AgentRuntimeSettings         `toml:"agent_runtimes"`
+	AgentTools               AgentToolSettings            `toml:"agent_tools"`
+	AgentPrompts             AgentPromptSettings          `toml:"agent_prompts"`
+	AgentSkills              AgentSkillSettings           `toml:"agent_skills"`
+	AgentContexts            AgentContextSettings         `toml:"agent_context"`
+	GeneralSubAgents         AgentGeneralSubAgentSettings `toml:"general_sub_agents"`
+	SubAgents                []SubAgentConfig             `toml:"sub_agents"`
+	CustomAgents             []CustomAgentConfig          `toml:"custom_agents"`
+	DefaultImageAgentID      string                       `toml:"default_image_agent_id"`
+	WebAccess                WebAccessConfig              `toml:"web_access"`
+	Labs                     ResolvedLabs                 `toml:"labs"`
+	SkillsDir                string                       `toml:"skills_dir"`
+	BackendPort              int                          `toml:"backend_port"`
+	FrontendPort             int                          `toml:"frontend_port"`
+	AllowLANAccess           bool                         `toml:"allow_lan_access"`
+	RemoteAccessUsername     string                       `toml:"remote_access_username"`
+	RemoteAccessPasswordHash string                       `toml:"remote_access_password_hash"`
+	Language                 string                       `toml:"language"`
+	DenovaDir                string                       `toml:"denova_dir"`
+	NovaDir                  string                       `toml:"nova_dir"`
+	Workspace                string                       `toml:"workspace"`
+	// ProjectID and ProjectStoreDir are runtime-owned bindings. They never
+	// persist into user configuration or enter the content workspacelayout.
+	ProjectID           string `toml:"-"`
+	ProjectStoreDir     string `toml:"-"`
+	ActiveCustomAgentID string `toml:"-"`
+	// ActiveAgentRuntime is request-local and is resolved from the conversation
+	// snapshot. Agent defaults must never override it during execution.
+	ActiveAgentRuntime          *RuntimeSelection         `toml:"-" json:"-"`
+	ActiveCustomAgentName       string                    `toml:"-"`
+	ActiveCustomAgentRevision   string                    `toml:"-"`
+	RuntimeWebPort              int                       `toml:"-"`
+	// MediaDir is the directory the shipped clips are read from. Like
+	// RuntimeWebPort it is resolved at startup from the executable's own
+	// location, never from user configuration: a build without clips simply
+	// leaves it empty and every character window keeps its portrait.
+	MediaDir                    string                    `toml:"-"`
+	DevMode                     bool                      `toml:"-"`
+	LLMInputLogEnabled          bool                      `toml:"llm_input_log_enabled"`
+	TraceCaptureLevel           string                    `toml:"trace_capture_level"`
+	TraceExporter               string                    `toml:"trace_exporter"`
+	TraceRetentionRuns          int                       `toml:"trace_retention_runs"`
+	IDEStoryTellerID            string                    `toml:"-"`
+	InteractiveStoryTellerID    string                    `toml:"-"`
+	IDEImagePresetID            string                    `toml:"-"`
+	ImagePresetToolPrompt       string                    `toml:"-"`
+	// ImageReferencePeople is the cast of one image run, encoded as the image
+	// package's reference list. It is a string because the config package must
+	// not learn about portraits or image requests, and because it is rewritten
+	// per run rather than persisted.
+	ImageReferencePeople        string                    `toml:"-"`
+	MaxIteration                int                       `toml:"max_iteration"`
+	ModelMaxRetries             int                       `toml:"model_max_retries"`
+	AgentIdleTimeoutSeconds     int                       `toml:"agent_idle_timeout_seconds"`
+	AgentToolResultLimitKB      int                       `toml:"agent_tool_result_limit_kb"`
+	AgentToolParallelism        int                       `toml:"agent_tool_parallelism"`
+	AgentSubAgentParallelism    int                       `toml:"agent_subagent_parallelism"`
+	AgentScriptTimeoutSeconds   int                       `toml:"agent_script_timeout_seconds"`
+	AgentApprovalMode           AgentApprovalMode         `toml:"agent_approval_mode"`
+	AgentApprovalRules          []AgentApprovalRule       `toml:"agent_approval_rules"`
+	ShellEnvironmentMode        ShellEnvironmentMode      `toml:"shell_environment_mode"`
+	ShellEnvironmentShell       string                    `toml:"shell_environment_shell"`
+	AgentBashPath               string                    `toml:"agent_bash_path"`
+	ProjectFileTreeEntryLimit   int                       `toml:"project_file_tree_entry_limit"`
+	ChapterFilenameFormat       string                    `toml:"-"`
+	VolumeDirFormat             string                    `toml:"-"`
+	ChapterGroupMin             int                       `toml:"-"`
+	ChapterGroupMax             int                       `toml:"-"`
+	VersionTimedEnabled         bool                      `toml:"-"`
+	VersionTimedIntervalMinutes int                       `toml:"-"`
+	InteractiveReplyTargetChars int                       `toml:"-"`
+	ResumeLastWorkspace         bool                      `toml:"-"`
+	UpdateCheckEnabled          bool                      `toml:"-"`
+}
+
+// LoadWithWorkspace 在已知 workspace 时读取分层配置（默认 < 用户级 < 工作区级 < 环境变量）。
+func LoadWithWorkspace(workspace string) (*Config, LayeredSettings, error) {
+	return LoadWithProject(startupNovaDir(), workspace, "")
+}
+
+// LoadWithProject constructs a clean runtime configuration for an explicit
+// Project Store path. It is the Project-ID-era equivalent of
+// LoadWithWorkspace and prevents a background Project from inheriting fields
+// already merged into the foreground runtime.
+func LoadWithProject(novaDir, workspace, projectConfigPath string) (*Config, LayeredSettings, error) {
+	layered, err := LoadLayeredWithStartupConfigAt(novaDir, workspace, projectConfigPath)
+	if err != nil {
+		return nil, LayeredSettings{}, err
+	}
+	novaDir = layered.Paths.DenovaDir
+	return configFromLayered(novaDir, workspace, layered), layered, nil
+}
+
+func configFromLayered(novaDir, workspace string, layered LayeredSettings) *Config {
+	s := layered.Effective
+	cfg := &Config{
+		OpenAIAPIKey:                s.OpenAIAPIKey,
+		OpenAIBaseURL:               s.OpenAIBaseURL,
+		OpenAIModel:                 s.OpenAIModel,
+		OpenAIContextWindowTokens:   settingsInt(s.OpenAIContextWindowTokens, DefaultContextWindowTokens),
+		ModelEndpoints:              s.ModelEndpoints,
+		ModelProfiles:               s.ModelProfiles,
+		DefaultImageAPIProfileID:    s.DefaultImageAPIProfileID,
+		ImageAPIEndpoints:           s.ImageAPIEndpoints,
+		ImageAPIProfiles:            s.ImageAPIProfiles,
+		AgentModels:                 s.AgentModels,
+		AgentRuntimes:               s.AgentRuntimes,
+		AgentTools:                  s.AgentTools,
+		AgentPrompts:                s.AgentPrompts,
+		AgentSkills:                 s.AgentSkills,
+		AgentContexts:               s.AgentContexts,
+		GeneralSubAgents:            s.GeneralSubAgents,
+		SubAgents:                   s.SubAgents,
+		CustomAgents:                s.CustomAgents,
+		DefaultImageAgentID:         settingsOptionalString(s.DefaultImageAgentID),
+		WebAccess:                   ResolveWebAccessSettings(s.WebAccess),
+		Labs:                        ResolveLabs(s.Labs),
+		SkillsDir:                   s.SkillsDir,
+		BackendPort:                 settingsInt(s.BackendPort, 8080),
+		FrontendPort:                settingsInt(s.FrontendPort, 5173),
+		AllowLANAccess:              settingsBool(s.AllowLANAccess, false),
+		RemoteAccessUsername:        s.RemoteAccessUsername,
+		RemoteAccessPasswordHash:    s.RemoteAccessPasswordHash,
+		Language:                    s.Language,
+		DenovaDir:                   novaDir,
+		NovaDir:                     novaDir,
+		Workspace:                   workspace,
+		IDEStoryTellerID:            s.IDEStoryTellerID,
+		InteractiveStoryTellerID:    s.InteractiveStoryTellerID,
+		IDEImagePresetID:            s.IDEImagePresetID,
+		MaxIteration:                settingsInt(s.MaxIteration, 0),
+		ModelMaxRetries:             settingsInt(s.ModelMaxRetries, 5),
+		AgentIdleTimeoutSeconds:     settingsAgentIdleTimeoutSeconds(s.AgentIdleTimeoutSeconds),
+		AgentToolResultLimitKB:      settingsAgentToolResultLimitKB(s.AgentToolResultLimitKB),
+		AgentToolParallelism:        settingsAgentToolParallelism(s.AgentToolParallelism),
+		AgentSubAgentParallelism:    settingsAgentSubAgentParallelism(s.AgentSubAgentParallelism),
+		AgentScriptTimeoutSeconds:   settingsAgentScriptTimeoutSeconds(s.AgentScriptTimeoutSeconds),
+		AgentApprovalMode:           NormalizeAgentApprovalMode(s.AgentApprovalMode),
+		AgentApprovalRules:          NormalizeAgentApprovalRules(s.AgentApprovalRules),
+		ShellEnvironmentMode:        normalizeShellEnvironmentMode(s.ShellEnvironmentMode),
+		ShellEnvironmentShell:       s.ShellEnvironmentShell,
+		AgentBashPath:               s.AgentBashPath,
+		ProjectFileTreeEntryLimit:   settingsProjectFileTreeEntryLimit(s.ProjectFileTreeEntryLimit),
+		LLMInputLogEnabled:          settingsBool(s.LLMInputLogEnabled, false),
+		TraceCaptureLevel:           settingsString(s.TraceCaptureLevel, DefaultTraceCaptureLevel),
+		TraceExporter:               settingsString(s.TraceExporter, DefaultTraceExporter),
+		TraceRetentionRuns:          settingsInt(s.TraceRetentionRuns, DefaultTraceRetentionRuns),
+		ChapterFilenameFormat:       s.ChapterFilenameFormat,
+		VolumeDirFormat:             s.VolumeDirFormat,
+		ChapterGroupMin:             settingsInt(s.ChapterGroupMin, 3),
+		ChapterGroupMax:             settingsInt(s.ChapterGroupMax, 8),
+		VersionTimedEnabled:         settingsBool(s.VersionTimedEnabled, true),
+		VersionTimedIntervalMinutes: settingsInt(s.VersionTimedIntervalMinutes, 10),
+		InteractiveReplyTargetChars: 2000,
+		ResumeLastWorkspace:         true,
+		UpdateCheckEnabled:          settingsBool(s.UpdateCheckEnabled, true),
+	}
+
+	// 环境变量始终最高优先级
+	overrideFromEnv(cfg)
+	syncLegacyModelProjection(cfg)
+
+	if cfg.Workspace != "" {
+		if abs, err := filepath.Abs(cfg.Workspace); err == nil {
+			cfg.Workspace = abs
+		}
+	}
+	if cfg.SkillsDir != "" {
+		cfg.SkillsDir = normalizePath(cfg.SkillsDir)
+	}
+	normalizeConfigDataDir(cfg)
+	return cfg
+}
+
+// LoadLayeredWithStartupConfig reads layered settings with the same global
+// startup config layer used by LoadWithWorkspace.
+func LoadLayeredWithStartupConfig(novaDir, workspace string) (LayeredSettings, error) {
+	return LoadLayeredWithStartupConfigAt(novaDir, workspace, "")
+}
+
+// LoadLayeredWithStartupConfigAt reads the Project layer from an explicit
+// user-state path. An empty path preserves the legacy workspace-local layout.
+func LoadLayeredWithStartupConfigAt(novaDir, workspace, projectConfigPath string) (LayeredSettings, error) {
+	if strings.TrimSpace(novaDir) == "" {
+		novaDir = startupNovaDir()
+	} else {
+		novaDir = normalizePath(novaDir)
+	}
+	globalSettings := settingsFromConfig(loadGlobalConfig())
+	globalSettings.DenovaDir = novaDir
+	globalSettings.NovaDir = novaDir
+	return LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath, globalSettings)
+}
+
+func startupNovaDir() string {
+	global := loadGlobalConfig()
+	novaDir := firstNonEmpty(global.DenovaDir, global.NovaDir)
+	if novaDir == "" {
+		novaDir = defaultNovaDir()
+	}
+	if v := envCompat("TA_DIR", "DENOVA_DIR", "NOVA_DIR"); v != "" {
+		novaDir = v
+	}
+	if novaDir == "" {
+		novaDir = defaultNovaDir()
+	}
+	return normalizePath(novaDir)
+}
+
+func loadGlobalConfig() *Config {
+	cfg := &Config{
+		AgentIdleTimeoutSeconds: -1, AgentToolResultLimitKB: -1, AgentToolParallelism: -1, AgentSubAgentParallelism: -1,
+		AgentScriptTimeoutSeconds: -1,
+		Labs:                      ResolvedLabs{},
+	}
+	for _, path := range globalConfigCandidates() {
+		data, err := os.ReadFile(path)
+		if err != nil {
+			continue
+		}
+		if err := toml.Unmarshal(data, cfg); err != nil {
+			continue
+		}
+		return cfg
+	}
+	return cfg
+}
+
+func settingsFromConfig(cfg *Config) Settings {
+	if cfg == nil {
+		return Settings{}
+	}
+	settings := Settings{
+		OpenAIAPIKey:             cfg.OpenAIAPIKey,
+		OpenAIBaseURL:            cfg.OpenAIBaseURL,
+		OpenAIModel:              cfg.OpenAIModel,
+		ModelEndpoints:           sanitizeModelEndpoints(cfg.ModelEndpoints),
+		ModelProfiles:            sanitizeModelProfiles(cfg.ModelProfiles),
+		LegacyImageAPIKey:        cfg.LegacyImageAPIKey,
+		LegacyImageAPIBaseURL:    cfg.LegacyImageAPIBaseURL,
+		LegacyImageAPIModel:      cfg.LegacyImageAPIModel,
+		DefaultImageAPIProfileID: cfg.DefaultImageAPIProfileID,
+		ImageAPIEndpoints:        cfg.ImageAPIEndpoints,
+		ImageAPIProfiles:         cfg.ImageAPIProfiles,
+		AgentModels:              cfg.AgentModels,
+		AgentRuntimes:            cfg.AgentRuntimes,
+		AgentTools:               cfg.AgentTools,
+		AgentPrompts:             cfg.AgentPrompts,
+		AgentSkills:              cfg.AgentSkills,
+		AgentContexts:            cfg.AgentContexts,
+		GeneralSubAgents:         cfg.GeneralSubAgents,
+		SubAgents:                cfg.SubAgents,
+		CustomAgents:             cfg.CustomAgents,
+		DefaultImageAgentID:      stringPtr(cfg.DefaultImageAgentID),
+		WebAccess:                settingsFromWebAccessConfig(cfg.WebAccess),
+		Labs: LabSettings{
+			DeveloperMode: boolPtr(cfg.Labs.DeveloperMode),
+		},
+		SkillsDir:                cfg.SkillsDir,
+		DenovaDir:                firstNonEmpty(cfg.DenovaDir, cfg.NovaDir),
+		NovaDir:                  firstNonEmpty(cfg.DenovaDir, cfg.NovaDir),
+		RemoteAccessUsername:     cfg.RemoteAccessUsername,
+		RemoteAccessPasswordHash: cfg.RemoteAccessPasswordHash,
+		Language:                 cfg.Language,
+		ChapterFilenameFormat:    cfg.ChapterFilenameFormat,
+		VolumeDirFormat:          cfg.VolumeDirFormat,
+		IDEStoryTellerID:         cfg.IDEStoryTellerID,
+		InteractiveStoryTellerID: cfg.InteractiveStoryTellerID,
+		IDEImagePresetID:         cfg.IDEImagePresetID,
+		AgentApprovalMode:        cfg.AgentApprovalMode,
+		AgentApprovalRules:       NormalizeAgentApprovalRules(cfg.AgentApprovalRules),
+		ShellEnvironmentMode:     cfg.ShellEnvironmentMode,
+		ShellEnvironmentShell:    cfg.ShellEnvironmentShell,
+		AgentBashPath:            cfg.AgentBashPath,
+	}
+	if cfg.BackendPort > 0 {
+		settings.BackendPort = &cfg.BackendPort
+	}
+	if cfg.FrontendPort > 0 {
+		settings.FrontendPort = &cfg.FrontendPort
+	}
+	settings.AllowLANAccess = &cfg.AllowLANAccess
+	if cfg.MaxIteration > 0 {
+		settings.MaxIteration = &cfg.MaxIteration
+	}
+	if cfg.ModelMaxRetries > 0 {
+		settings.ModelMaxRetries = &cfg.ModelMaxRetries
+	}
+	if cfg.AgentIdleTimeoutSeconds >= 0 {
+		settings.AgentIdleTimeoutSeconds = &cfg.AgentIdleTimeoutSeconds
+	}
+	if cfg.AgentToolResultLimitKB >= 0 {
+		settings.AgentToolResultLimitKB = &cfg.AgentToolResultLimitKB
+	}
+	if cfg.AgentToolParallelism >= 0 {
+		settings.AgentToolParallelism = &cfg.AgentToolParallelism
+	}
+	if cfg.AgentSubAgentParallelism >= 0 {
+		settings.AgentSubAgentParallelism = &cfg.AgentSubAgentParallelism
+	}
+	if cfg.AgentScriptTimeoutSeconds >= 0 {
+		settings.AgentScriptTimeoutSeconds = &cfg.AgentScriptTimeoutSeconds
+	}
+	if cfg.ProjectFileTreeEntryLimit > 0 {
+		settings.ProjectFileTreeEntryLimit = &cfg.ProjectFileTreeEntryLimit
+	}
+	if cfg.LLMInputLogEnabled {
+		settings.LLMInputLogEnabled = &cfg.LLMInputLogEnabled
+	}
+	if cfg.TraceCaptureLevel != "" {
+		settings.TraceCaptureLevel = cfg.TraceCaptureLevel
+	}
+	if cfg.TraceExporter != "" {
+		settings.TraceExporter = cfg.TraceExporter
+	}
+	if cfg.TraceRetentionRuns > 0 {
+		settings.TraceRetentionRuns = &cfg.TraceRetentionRuns
+	}
+	if cfg.OpenAIContextWindowTokens > 0 {
+		settings.OpenAIContextWindowTokens = &cfg.OpenAIContextWindowTokens
+	}
+	settings, _ = migrateModelEndpointSettings(settings)
+	settings, _ = migrateImageAPIEndpointSettings(settings)
+	settings.ModelEndpoints = sanitizeModelEndpoints(settings.ModelEndpoints)
+	settings.ImageAPIProfiles = sanitizeImageAPIProfiles(settings.ImageAPIProfiles)
+	settings.ImageAPIEndpoints = sanitizeImageAPIEndpoints(settings.ImageAPIEndpoints)
+	return settings
+}
+
+func globalConfigCandidates() []string {
+	candidates := []string{"config.toml"}
+	if exe, err := os.Executable(); err == nil {
+		candidates = append(candidates, filepath.Join(filepath.Dir(exe), "config.toml"))
+	}
+	return candidates
+}
+
+// Load 加载启动配置；默认不指定 workspace，让 App 恢复上次打开的书籍或进入无书籍状态。
+func Load() *Config {
+	cfg, _, err := LoadWithWorkspace("")
+	if err != nil || cfg == nil {
+		slog.ErrorContext(context.Background(), fmt.Sprintf("[config] LoadWithWorkspace failed, falling back to defaults: %v", err))
+		// fallback：返回纯默认值 + env，保持启动不挂
+		d := DefaultSettings()
+		cfg = &Config{
+			OpenAIBaseURL:               d.OpenAIBaseURL,
+			OpenAIModel:                 d.OpenAIModel,
+			OpenAIContextWindowTokens:   settingsInt(d.OpenAIContextWindowTokens, DefaultContextWindowTokens),
+			ModelEndpoints:              d.ModelEndpoints,
+			ModelProfiles:               d.ModelProfiles,
+			DefaultImageAPIProfileID:    d.DefaultImageAPIProfileID,
+			ImageAPIEndpoints:           d.ImageAPIEndpoints,
+			ImageAPIProfiles:            d.ImageAPIProfiles,
+			AgentModels:                 d.AgentModels,
+			AgentRuntimes:               d.AgentRuntimes,
+			AgentTools:                  d.AgentTools,
+			AgentPrompts:                d.AgentPrompts,
+			AgentSkills:                 d.AgentSkills,
+			AgentContexts:               d.AgentContexts,
+			GeneralSubAgents:            d.GeneralSubAgents,
+			SubAgents:                   d.SubAgents,
+			CustomAgents:                d.CustomAgents,
+			DefaultImageAgentID:         settingsOptionalString(d.DefaultImageAgentID),
+			WebAccess:                   ResolveWebAccessSettings(d.WebAccess),
+			Labs:                        ResolveLabs(d.Labs),
+			SkillsDir:                   d.SkillsDir,
+			BackendPort:                 settingsInt(d.BackendPort, 8080),
+			FrontendPort:                settingsInt(d.FrontendPort, 5173),
+			AllowLANAccess:              settingsBool(d.AllowLANAccess, false),
+			RemoteAccessUsername:        d.RemoteAccessUsername,
+			RemoteAccessPasswordHash:    d.RemoteAccessPasswordHash,
+			Language:                    d.Language,
+			DenovaDir:                   normalizePath(d.DenovaDir),
+			NovaDir:                     normalizePath(d.NovaDir),
+			IDEStoryTellerID:            d.IDEStoryTellerID,
+			InteractiveStoryTellerID:    d.InteractiveStoryTellerID,
+			IDEImagePresetID:            d.IDEImagePresetID,
+			MaxIteration:                settingsInt(d.MaxIteration, 0),
+			ModelMaxRetries:             settingsInt(d.ModelMaxRetries, 5),
+			AgentIdleTimeoutSeconds:     settingsAgentIdleTimeoutSeconds(d.AgentIdleTimeoutSeconds),
+			AgentToolResultLimitKB:      settingsAgentToolResultLimitKB(d.AgentToolResultLimitKB),
+			AgentToolParallelism:        settingsAgentToolParallelism(d.AgentToolParallelism),
+			AgentSubAgentParallelism:    settingsAgentSubAgentParallelism(d.AgentSubAgentParallelism),
+			AgentScriptTimeoutSeconds:   settingsAgentScriptTimeoutSeconds(d.AgentScriptTimeoutSeconds),
+			AgentApprovalMode:           NormalizeAgentApprovalMode(d.AgentApprovalMode),
+			AgentApprovalRules:          NormalizeAgentApprovalRules(d.AgentApprovalRules),
+			ShellEnvironmentMode:        normalizeShellEnvironmentMode(d.ShellEnvironmentMode),
+			ShellEnvironmentShell:       d.ShellEnvironmentShell,
+			AgentBashPath:               d.AgentBashPath,
+			ProjectFileTreeEntryLimit:   settingsProjectFileTreeEntryLimit(d.ProjectFileTreeEntryLimit),
+			LLMInputLogEnabled:          settingsBool(d.LLMInputLogEnabled, false),
+			TraceCaptureLevel:           settingsString(d.TraceCaptureLevel, DefaultTraceCaptureLevel),
+			TraceExporter:               settingsString(d.TraceExporter, DefaultTraceExporter),
+			TraceRetentionRuns:          settingsInt(d.TraceRetentionRuns, DefaultTraceRetentionRuns),
+			ChapterFilenameFormat:       d.ChapterFilenameFormat,
+			VolumeDirFormat:             d.VolumeDirFormat,
+			ChapterGroupMin:             settingsInt(d.ChapterGroupMin, 3),
+			ChapterGroupMax:             settingsInt(d.ChapterGroupMax, 8),
+			VersionTimedEnabled:         settingsBool(d.VersionTimedEnabled, true),
+			VersionTimedIntervalMinutes: settingsInt(d.VersionTimedIntervalMinutes, 10),
+			InteractiveReplyTargetChars: 2000,
+			ResumeLastWorkspace:         true,
+			UpdateCheckEnabled:          settingsBool(d.UpdateCheckEnabled, true),
+		}
+		overrideFromEnv(cfg)
+		if cfg.Workspace != "" {
+			if abs, err := filepath.Abs(cfg.Workspace); err == nil {
+				cfg.Workspace = abs
+			}
+		}
+		if cfg.SkillsDir != "" {
+			cfg.SkillsDir = normalizePath(cfg.SkillsDir)
+		}
+		normalizeConfigDataDir(cfg)
+	}
+	return cfg
+}
+
+func settingsInt(v *int, fallback int) int {
+	if v == nil || *v <= 0 {
+		return fallback
+	}
+	return *v
+}
+
+func settingsAgentIdleTimeoutSeconds(v *int) int {
+	if v == nil || *v < 0 {
+		return DefaultAgentIdleTimeoutSeconds
+	}
+	return *v
+}
+
+func settingsAgentToolResultLimitKB(v *int) int {
+	if v == nil || *v <= 0 {
+		return DefaultAgentToolResultLimitKB
+	}
+	return *v
+}
+
+func settingsAgentToolParallelism(value *int) int {
+	if value == nil || *value <= 0 {
+		return DefaultAgentToolParallelism
+	}
+	if *value > MaxAgentToolParallelism {
+		return MaxAgentToolParallelism
+	}
+	return *value
+}
+
+func settingsAgentSubAgentParallelism(value *int) int {
+	if value == nil || *value <= 0 {
+		return DefaultAgentSubAgentParallelism
+	}
+	if *value > MaxAgentSubAgentParallelism {
+		return MaxAgentSubAgentParallelism
+	}
+	return *value
+}
+
+func settingsAgentScriptTimeoutSeconds(value *int) int {
+	if value == nil || *value < 0 {
+		return DefaultAgentScriptTimeoutSecs
+	}
+	return *value
+}
+
+func settingsProjectFileTreeEntryLimit(value *int) int {
+	if value == nil || *value <= 0 {
+		return DefaultProjectFileTreeEntryLimit
+	}
+	if *value > MaxProjectFileTreeEntryLimit {
+		return MaxProjectFileTreeEntryLimit
+	}
+	return *value
+}
+
+func settingsBool(v *bool, fallback bool) bool {
+	if v == nil {
+		return fallback
+	}
+	return *v
+}
+
+func settingsString(v, fallback string) string {
+	if strings.TrimSpace(v) == "" {
+		return fallback
+	}
+	return v
+}
+
+func settingsOptionalString(value *string) string {
+	if value == nil {
+		return ""
+	}
+	return strings.TrimSpace(*value)
+}
+
+// overrideFromEnv 用环境变量覆盖配置
+func overrideFromEnv(cfg *Config) {
+	ApplyModelEnvironment(cfg)
+	ApplyImageAPIEnvironment(cfg)
+	if v := envCompat("TA_SKILLS_DIR", "DENOVA_SKILLS_DIR", "NOVA_SKILLS_DIR"); v != "" {
+		cfg.SkillsDir = v
+	}
+	if v := envCompat("TA_DIR", "DENOVA_DIR", "NOVA_DIR"); v != "" {
+		cfg.DenovaDir = v
+		cfg.NovaDir = v
+	}
+	if v := envCompat("TA_WORKSPACE", "DENOVA_WORKSPACE", "NOVA_WORKSPACE"); v != "" {
+		cfg.Workspace = v
+	}
+	if v := envCompat("TA_BACKEND_PORT", "DENOVA_BACKEND_PORT", "NOVA_BACKEND_PORT"); v != "" {
+		if port, err := strconv.Atoi(v); err == nil && port >= 1 && port <= 65535 {
+			cfg.BackendPort = port
+		}
+	}
+	if v := envCompat("TA_FRONTEND_PORT", "DENOVA_FRONTEND_PORT", "NOVA_FRONTEND_PORT"); v != "" {
+		if port, err := strconv.Atoi(v); err == nil && port >= 1 && port <= 65535 {
+			cfg.FrontendPort = port
+		}
+	}
+	if v := strings.TrimSpace(envCompat("TA_PROJECT_FILE_TREE_ENTRY_LIMIT", "DENOVA_PROJECT_FILE_TREE_ENTRY_LIMIT")); v != "" {
+		if limit, err := strconv.Atoi(v); err == nil {
+			cfg.ProjectFileTreeEntryLimit = settingsProjectFileTreeEntryLimit(&limit)
+		}
+	}
+	if v := envCompat("TA_AGENT_IDLE_TIMEOUT_SECONDS", "DENOVA_AGENT_IDLE_TIMEOUT_SECONDS", "NOVA_AGENT_IDLE_TIMEOUT_SECONDS"); v != "" {
+		if seconds, err := strconv.Atoi(v); err == nil && seconds >= 0 {
+			cfg.AgentIdleTimeoutSeconds = seconds
+		}
+	}
+	if v := strings.TrimSpace(envCompat("TA_SEARXNG_BASE_URL", "DENOVA_SEARXNG_BASE_URL")); v != "" {
+		cfg.WebAccess.SearXNGBaseURL = strings.TrimRight(v, "/")
+	}
+}
+
+// ApplyModelEnvironment reapplies the released model environment variables
+// after persisted settings refreshes so their highest-precedence contract is
+// identical for writing and game runtimes.
+func ApplyModelEnvironment(cfg *Config) {
+	if cfg == nil {
+		return
+	}
+	endpointOverride := ModelEndpointSettings{ID: DefaultModelEndpointID}
+	profileOverride := ModelProfileSettings{ID: DefaultModelEndpointID}
+	if v := os.Getenv("OPENAI_API_KEY"); v != "" {
+		cfg.OpenAIAPIKey = v
+		endpointOverride.APIKey = v
+	}
+	if v := os.Getenv("OPENAI_BASE_URL"); v != "" {
+		cfg.OpenAIBaseURL = v
+		endpointOverride.BaseURL = v
+	}
+	if v := os.Getenv("OPENAI_MODEL"); v != "" {
+		cfg.OpenAIModel = v
+		profileOverride.Model = v
+	}
+	if endpointOverride.APIKey != "" || endpointOverride.BaseURL != "" {
+		found := false
+		for index, endpoint := range cfg.ModelEndpoints {
+			if modelEndpointID(endpoint) == DefaultModelEndpointID {
+				cfg.ModelEndpoints[index] = mergeModelEndpoint(endpoint, endpointOverride)
+				found = true
+				break
+			}
+		}
+		if !found {
+			cfg.ModelEndpoints = append(cfg.ModelEndpoints, mergeModelEndpoint(legacyModelEndpoint(cfg), endpointOverride))
+		}
+	}
+	if profileOverride.Model != "" {
+		found := false
+		for index, profile := range cfg.ModelProfiles {
+			if modelProfileID(profile) == DefaultModelEndpointID {
+				cfg.ModelProfiles[index] = mergeModelProfile(profile, profileOverride)
+				found = true
+				break
+			}
+		}
+		if !found {
+			profileOverride.EndpointID = DefaultModelEndpointID
+			cfg.ModelProfiles = append(cfg.ModelProfiles, profileOverride)
+		}
+	}
+	syncLegacyModelProjection(cfg)
+}
+
+func syncLegacyModelProjection(cfg *Config) {
+	if cfg == nil {
+		return
+	}
+	resolved := ResolveAgentModel(cfg, "")
+	cfg.OpenAIAPIKey = resolved.APIKey
+	cfg.OpenAIBaseURL = resolved.BaseURL
+	cfg.OpenAIModel = resolved.Model
+	cfg.OpenAIContextWindowTokens = resolved.ContextWindowTokens
+}
+
+func (cfg *Config) RemoteAccessConfig() RemoteAccessConfig {
+	if cfg == nil {
+		return RemoteAccessConfig{}
+	}
+	return RemoteAccessConfig{
+		DataDir:        cfg.DataDir(),
+		AllowLANAccess: cfg.AllowLANAccess,
+		Username:       cfg.RemoteAccessUsername,
+		PasswordHash:   cfg.RemoteAccessPasswordHash,
+	}
+}
+
+// DataDir returns the canonical Text Adventure data directory. DenovaDir is the
+// authoritative field; the legacy NovaDir name remains accepted only as a
+// deserialization alias for older config files, so this accessor bridges the
+// two during the rename. Runtime code should read through DataDir instead of
+// touching DenovaDir/NovaDir directly so the fallback lives in one seam.
+func (cfg *Config) DataDir() string {
+	if cfg == nil {
+		return ""
+	}
+	if dir := strings.TrimSpace(cfg.DenovaDir); dir != "" {
+		return dir
+	}
+	return strings.TrimSpace(cfg.NovaDir)
+}
+
+// SetDataDir sets the canonical Text Adventure data directory, keeping the deprecated
+// NovaDir field mirrored so any legacy reader still resolves the same value.
+func (cfg *Config) SetDataDir(dir string) {
+	if cfg == nil {
+		return
+	}
+	dir = strings.TrimSpace(dir)
+	cfg.DenovaDir = dir
+	cfg.NovaDir = dir
+}
+
+func defaultNovaDir() string {
+	for _, name := range workspacelayout.DataDirNames {
+		if dirExists(name) {
+			return "./" + name
+		}
+	}
+	return "./" + workspacelayout.DataDirName
+}
+
+func normalizeConfigDataDir(cfg *Config) {
+	if cfg == nil {
+		return
+	}
+	dataDir := firstNonEmpty(cfg.DenovaDir, cfg.NovaDir)
+	if dataDir == "" {
+		dataDir = defaultNovaDir()
+	}
+	dataDir = normalizePath(dataDir)
+	cfg.DenovaDir = dataDir
+	cfg.NovaDir = dataDir
+}
+
+// Names are tried newest first. The product's current prefix wins; the two
+// earlier prefixes stay readable so a launcher, unit file or shell profile
+// written before the rename keeps pointing the runtime at the same data.
+func envCompat(names ...string) string {
+	for _, name := range names {
+		if v := os.Getenv(name); v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
+func firstNonEmpty(values ...string) string {
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			return strings.TrimSpace(value)
+		}
+	}
+	return ""
+}
+
+func dirExists(path string) bool {
+	info, err := os.Stat(path)
+	return err == nil && info.IsDir()
+}
+
+func normalizePath(path string) string {
+	path = expandHome(path)
+	if abs, err := filepath.Abs(path); err == nil {
+		return abs
+	}
+	return path
+}
+
+func expandHome(path string) string {
+	if path == "~" {
+		if home, err := os.UserHomeDir(); err == nil && home != "" {
+			return home
+		}
+		return path
+	}
+	if len(path) > 2 && path[:2] == "~/" {
+		if home, err := os.UserHomeDir(); err == nil && home != "" {
+			return filepath.Join(home, path[2:])
+		}
+	}
+	return path
+}

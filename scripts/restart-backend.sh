@@ -1,0 +1,102 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd -P)"
+
+process_cwd() {
+    local pid="$1"
+
+    if [ -e "/proc/${pid}/cwd" ]; then
+        readlink "/proc/${pid}/cwd"
+        return
+    fi
+    if command -v lsof >/dev/null 2>&1; then
+        lsof -a -d cwd -p "${pid}" -Fn 2>/dev/null | sed -n 's/^n//p'
+        return
+    fi
+    return 1
+}
+
+is_repository_backend() {
+    local pid="$1"
+    local cwd
+    local process_name
+    local command_line
+
+    cwd="$(process_cwd "${pid}")" || return 1
+    [ "${cwd}" = "${ROOT_DIR}" ] || return 1
+
+    process_name="$(ps -p "${pid}" -o comm= 2>/dev/null)" || return 1
+    process_name="${process_name#"${process_name%%[![:space:]]*}"}"
+    process_name="${process_name%"${process_name##*[![:space:]]}"}"
+
+    case "${process_name##*/}" in
+      TA|TA.exe)
+        return 0
+        ;;
+      go|go.exe)
+        command_line="$(ps -p "${pid}" -o command= 2>/dev/null)" || return 1
+        case "${command_line}" in
+          *"go run ./cmd/ta"*)
+            return 0
+            ;;
+        esac
+        ;;
+    esac
+
+    return 1
+}
+
+if ! command -v pgrep >/dev/null 2>&1; then
+    echo "Error: pgrep is required to identify the Text Adventure backend safely." >&2
+    exit 1
+fi
+if [ ! -e "/proc/$$/cwd" ] && ! command -v lsof >/dev/null 2>&1; then
+    echo "Error: cannot inspect process working directories; install lsof first." >&2
+    exit 1
+fi
+
+backend_pids=()
+while IFS= read -r pid; do
+    if [ -n "${pid}" ] && [ "${pid}" != "$$" ] && is_repository_backend "${pid}"; then
+        backend_pids+=("${pid}")
+    fi
+done < <(
+    {
+        pgrep -x TA || true
+        pgrep -x TA.exe || true
+        pgrep -f 'go run ./cmd/ta([[:space:]]|$)' || true
+    } | sort -u
+)
+
+if [ "${#backend_pids[@]}" -eq 0 ]; then
+    echo "==> No running Text Adventure backend found for this repository"
+else
+    echo "==> Stopping the Text Adventure backend (PID: ${backend_pids[*]})"
+    for pid in "${backend_pids[@]}"; do
+        if kill -0 "${pid}" 2>/dev/null; then
+            if ! kill -TERM "${pid}" 2>/dev/null && kill -0 "${pid}" 2>/dev/null; then
+                echo "Error: failed to stop Text Adventure backend process ${pid}." >&2
+                exit 1
+            fi
+        fi
+    done
+
+    while :; do
+        has_running_process=false
+        for pid in "${backend_pids[@]}"; do
+            if kill -0 "${pid}" 2>/dev/null; then
+                has_running_process=true
+                break
+            fi
+        done
+        if [ "${has_running_process}" = false ]; then
+            break
+        fi
+        sleep 0.1
+    done
+fi
+
+echo "==> Restarting the Text Adventure backend"
+exec "${SCRIPT_DIR}/bootstrap.sh" be

@@ -1,0 +1,122 @@
+#!/bin/sh
+
+set -eu
+
+ROOT_DIR="$(CDPATH= cd "$(dirname "$0")/.." && pwd -P)"
+TEST_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/ta-install-test.XXXXXX")"
+
+cleanup() {
+  rm -rf "${TEST_ROOT}"
+}
+
+trap cleanup 0
+trap 'exit 1' HUP INT TERM
+
+case "$(uname -s)" in
+  Darwin) platform_os="darwin" ;;
+  Linux) platform_os="linux" ;;
+  *) printf 'Skipping installer test on unsupported OS.\n'; exit 0 ;;
+esac
+
+case "$(uname -m)" in
+  arm64 | aarch64) platform_arch="arm64" ;;
+  x86_64 | amd64) platform_arch="x64" ;;
+  *) printf 'Skipping installer test on unsupported architecture.\n'; exit 0 ;;
+esac
+
+VERSION="v0.4.0"
+# The installer no longer ships a default release channel; the test supplies a
+# placeholder owner/repository the fake curl answers for.
+TA_INSTALL_TEST_REPOSITORY="example-org/ta-fixture"
+export TA_INSTALL_TEST_REPOSITORY
+ARCHIVE_NAME="TA-${VERSION}-${platform_os}-${platform_arch}.tar.gz"
+RELEASE_DIR="${TEST_ROOT}/release"
+PACKAGE_ROOT="${TEST_ROOT}/package"
+PACKAGE_DIR="${PACKAGE_ROOT}/TA"
+FAKE_BIN="${TEST_ROOT}/fake-bin"
+HOME_DIR="${TEST_ROOT}/home"
+mkdir -p "${RELEASE_DIR}" "${PACKAGE_DIR}/web" "${PACKAGE_DIR}/skills" "${FAKE_BIN}" "${HOME_DIR}"
+
+cat > "${PACKAGE_DIR}/TA" <<'EOF'
+#!/bin/sh
+if [ "${1:-}" = "--version" ]; then
+  printf '0.4.0\n'
+  exit 0
+fi
+printf '%s\n' "${TA_DIR:-${DENOVA_DIR:-}}"
+EOF
+cat > "${PACKAGE_DIR}/TA-updater" <<'EOF'
+#!/bin/sh
+exit 0
+EOF
+chmod 0755 "${PACKAGE_DIR}/TA" "${PACKAGE_DIR}/TA-updater"
+printf 'fixture\n' > "${PACKAGE_DIR}/web/index.html"
+printf 'fixture\n' > "${PACKAGE_DIR}/skills/README.md"
+
+(cd "${PACKAGE_ROOT}" && tar -czf "${RELEASE_DIR}/${ARCHIVE_NAME}" TA)
+if command -v sha256sum >/dev/null 2>&1; then
+  checksum="$(sha256sum "${RELEASE_DIR}/${ARCHIVE_NAME}" | awk '{print $1}')"
+else
+  checksum="$(shasum -a 256 "${RELEASE_DIR}/${ARCHIVE_NAME}" | awk '{print $1}')"
+fi
+printf '%s  %s\n' "${checksum}" "${ARCHIVE_NAME}" > "${RELEASE_DIR}/checksums.txt"
+
+cat > "${FAKE_BIN}/curl" <<'EOF'
+#!/bin/sh
+set -eu
+output=""
+url=""
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -o) output="$2"; shift 2 ;;
+    -w | --retry | --retry-delay) shift 2 ;;
+    -*) shift ;;
+    *) url="$1"; shift ;;
+  esac
+done
+case "${url}" in
+  */releases/latest) printf '%s' "https://github.com/${TA_INSTALL_TEST_REPOSITORY}/releases/tag/v0.4.0" ;;
+  */checksums.txt) cp "${TA_INSTALL_TEST_RELEASE_DIR}/checksums.txt" "${output}" ;;
+  */TA-v0.4.0-*.tar.gz) cp "${TA_INSTALL_TEST_RELEASE_DIR}/${url##*/}" "${output}" ;;
+  *) printf 'Unexpected installer URL: %s\n' "${url}" >&2; exit 1 ;;
+esac
+EOF
+chmod 0755 "${FAKE_BIN}/curl"
+
+PATH="${FAKE_BIN}:${PATH}" \
+HOME="${HOME_DIR}" \
+TA_REPOSITORY="${TA_INSTALL_TEST_REPOSITORY}" \
+TA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+sh "${ROOT_DIR}/scripts/install.sh" >/dev/null
+
+LAUNCHER="${HOME_DIR}/.local/bin/ta"
+INSTALL_DIR="${HOME_DIR}/.local/lib/ta"
+[ "$(HOME="${HOME_DIR}" "${LAUNCHER}" --version)" = "0.4.0" ]
+[ "$(HOME="${HOME_DIR}" "${LAUNCHER}")" = "${HOME_DIR}/.ta-game" ]
+[ "$(HOME="${HOME_DIR}" TA_DIR="${TEST_ROOT}/custom-data" "${LAUNCHER}")" = "${TEST_ROOT}/custom-data" ]
+[ ! -e "${INSTALL_DIR}/tools" ]
+[ ! -e "${INSTALL_DIR}/licenses" ]
+
+printf 'preserved = true\n' > "${INSTALL_DIR}/config.toml"
+PATH="${FAKE_BIN}:${PATH}" \
+HOME="${HOME_DIR}" \
+TA_REPOSITORY="${TA_INSTALL_TEST_REPOSITORY}" \
+TA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+sh "${ROOT_DIR}/scripts/install.sh" >/dev/null
+grep -Fq 'preserved = true' "${INSTALL_DIR}/config.toml"
+
+# A corrupt download must leave the existing installation and user config intact.
+printf 'corrupt archive\n' >> "${RELEASE_DIR}/${ARCHIVE_NAME}"
+if PATH="${FAKE_BIN}:${PATH}" \
+  HOME="${HOME_DIR}" \
+  TA_REPOSITORY="${TA_INSTALL_TEST_REPOSITORY}" \
+  TA_INSTALL_TEST_RELEASE_DIR="${RELEASE_DIR}" \
+  sh "${ROOT_DIR}/scripts/install.sh" >"${TEST_ROOT}/corrupt-install.log" 2>&1; then
+  printf 'Installer unexpectedly accepted a corrupt archive.\n' >&2
+  exit 1
+fi
+grep -Fq 'SHA-256 verification failed' "${TEST_ROOT}/corrupt-install.log"
+[ "$(HOME="${HOME_DIR}" "${LAUNCHER}" --version)" = "0.4.0" ]
+grep -Fq 'preserved = true' "${INSTALL_DIR}/config.toml"
+
+printf 'Installer tests passed.\n'

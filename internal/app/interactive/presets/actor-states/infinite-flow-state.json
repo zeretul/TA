@@ -1,0 +1,536 @@
+{
+  "version": 6,
+  "id": "infinite-flow-state",
+  "name": "无限流状态系统",
+  "description": "面向副本规则、任务结算、空间资源、规则污染、队伍博弈和异常实体；面板只承接空间明确公布的评级，不自行套用六维。",
+  "actor_state": {
+    "templates": [
+      {
+        "id": "protagonist",
+        "name": "主角状态表",
+        "description": "集中维护主角人物设定、检定面板、动态状态、技能、重要物品和有方向的关系；不假设 Lore 已包含完整角色资料。",
+        "fields": [
+          {
+            "name": "姓名",
+            "type": "string",
+            "description": "主角姓名；尚未确定时保持空白，确认后只在正式改名时更新。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、社会身份等当前故事确实使用的信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录有辨识度的外貌、衣着、装备外观和当前伪装；忽略无承接价值的临时描写。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录会持续影响选择的性格倾向与已确认背景，不复述回合经历。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "空间评级",
+            "type": "string",
+            "default": "未公布",
+            "description": "记录轮回空间或副本系统明确公布的等级、阶位或综合评级。",
+            "update_instruction": "只在空间正式公布、结算或修正评级时更新；没有公开评级时保持“未公布”。",
+            "group": "面板",
+            "display": "inline"
+          },
+          {
+            "name": "当前资源",
+            "type": "string",
+            "default": "",
+            "description": "合并记录当前副本实际采用的生命、精神、积分或次数资源；没有的项目不写。",
+            "update_instruction": "资源消耗、恢复或上限变化时更新，使用“名称 当前值/上限”逐项表达。",
+            "group": "状态",
+            "display": "block"
+          },
+          {
+            "name": "规则影响",
+            "type": "list",
+            "default": [],
+            "description": "只列正在作用于当前 Actor 的污染、死亡标记、规则限制、增益与异常。",
+            "update_instruction": "每项写名称、影响及解除条件或时限；已经结算或解除后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的技能、血统能力或道具。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "当前处境",
+            "type": "string",
+            "description": "记录当前优势、危险、限制和直接压力；具体地点由故事状态维护。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "空间身份",
+            "type": "string",
+            "description": "记录权限、队伍身份和已完成副本等长期信息；评级放入面板，积分与规则污染放入状态。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 12 条。删除记录时 replace 整个 object。类型可使用主动技能、被动技能、血统、天赋、临时能力或职业能力；记录次数、冷却、积分代价和规则限制等实际存在的约束。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 16 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用道具、消耗品、诅咒物、线索物、兑换物、任务物或装备；记录剩余次数、绑定、污染和诅咒等实际状态。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 12 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按合作、竞争、资源债务、救命债、队伍承诺或敌对等副本语义表达。",
+            "group": "行囊",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "story_context",
+        "name": "故事状态表",
+        "description": "集中维护当前场景、世界局势和当前任务；不保存纪要、总结、行动选项或幕后计划。",
+        "fields": [
+          {
+            "name": "当前时间",
+            "type": "string",
+            "description": "按世界观记录当前日期、时段或阶段；只保留对行动有意义的精度。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前详细地点",
+            "type": "string",
+            "description": "用一个字段表达当前具体地点及必要的上级范围，不再拆分大区、区域和房间。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前事件",
+            "type": "string",
+            "description": "合并记录正在发生的事件、直接压力和下一步必须面对的问题。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "在场角色",
+            "type": "list",
+            "default": [],
+            "description": "使用 Actor 状态中已有的精确 ID；新建 Actor 直接使用故事语言中的角色名称，Actor 名称即 ID。只保留当前可感知或正在互动的角色。",
+            "group": "当前场景",
+            "display": "list"
+          },
+          {
+            "name": "本次交战",
+            "type": "object",
+            "default": {},
+            "description": "记录当前实际交战的生灵，键为已存在 Actor 的精确 ID。敌方值可为简短依据，或 {basis,side:\"enemy\",lethal_intents}。本场自愿助战者用 {basis,side:\"player\",target_id,source_exchange_index}；target_id 必须是本场真实在场敌方，source_exchange_index 引用本回合 character_facts.exchanges 中本人向主角作出接受助战的回应（从1起，speaker=character、channel=scene、addressed_to=protagonist）。回应可为符合灵智的明确动作，不强求人类语言。本人回应须记录 participation_decision={kind:combat,target_id:该敌方ID,decision:accept}，引用本回合对此事最后一条本人决定，refuse或未作答不可参战。已登记者须确实同场；首次真实相遇可在同回合合法登记自己的Actor和profile再回应。目录、好感、关系、主角的命令不能代替本人同意，也不能把远处或归档者凭空召来。此意愿只覆盖本场，不建立常驻队伍。可选 lethal_intents 项仍为 {actor_id,target_id,source_exchange_index}，只声明真实公开杀意，不决定死亡。",
+            "update_instruction": "只有实际开始或继续交战才更新。敌意、低好感、敌对关系、敌人模板和持有兵器不等于开战。双方须真实在场，离场、收回、停战、投降或被制服者移出；交战结束清空对象。助战必须先有当事者本场的明确接受，不能把拒绝、模糊回应或普通承诺解释为参战；变更其迎击对象须重新取得回应。保留未变的本场记录时保留原始依据和引用，不伪造新的同意。每名生灵每回合按自身已学技能、资源和伤势行动，不能用长串命令增加出手机会。lethal_intents 仅引用本回合被接受的实际公开场景话语，exchange.addressed_to 必须与 target_id 一致，并明确表达已决定杀死目标或生死交战。不得依据旁人、转述、疑问、私念、假设、含糊措辞、切磋或制服意图推断杀意；玩家话语须是玩家本次输入实际包含的内容。不得重用旧杀意或在结算后补写。伤害、死亡和消耗由正式战斗规则决定。",
+            "group": "当前场景"
+          },
+          {
+            "name": "可承接钩子",
+            "type": "string",
+            "description": "保留一个下一段可以直接承接的未完成动作、对话、发现或迫近威胁；它不是剧情总结或选项列表。",
+            "update_instruction": "只写一个当前最直接的承接点。原钩子已经兑现、失效或被更强的新钩子替代时更新；使用具体对象与动作，不写泛泛的“继续探索”或多个备选项。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "世界局势",
+            "type": "string",
+            "description": "记眼下的世界概况和正在发生的主要事件。写清哪些地方或势力发生了什么，哪些变化仍在持续。",
+            "group": "世界状态",
+            "display": "block"
+          },
+          {
+            "name": "当前任务",
+            "type": "object",
+            "default": {},
+            "description": "记录已经成立且仍需推进的任务。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的任务名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、状态、目标与进度、时限、明确的奖惩和关联对象名称/ID，最多 8 条；关联对象引用已有状态面板名称/ID。任务结算且结果已进入正文后删除；删除记录时 replace 整个 object。任务类型可使用副本主线、支线、隐藏、生存、团队、个人或结算。",
+            "group": "当前任务"
+          },
+          {
+            "name": "轮回空间状态",
+            "type": "string",
+            "description": "记录跨副本长期生效的空间规则、权限体系、结算秩序和当前整体局势。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "当前副本",
+            "type": "object",
+            "default": {},
+            "description": "记录当前副本的阶段、规则、时限和结算条件。",
+            "update_instruction": "object 只写副本名称、类型与难度、当前阶段与区域、剩余时间、任务名称（名称即 ID）、已确认规则、违规记录、核心威胁、结算和逃离条件。任务名称使用故事语言并与当前任务记录一致。稳定程度使用稳定、波动、崩坏等文字状态；副本结算后 replace 为空 object。",
+            "group": "题材状态"
+          }
+        ]
+      },
+      {
+        "id": "important_character",
+        "name": "重要角色状态表",
+        "description": "每个反复登场的重要角色使用独立 Actor；重点维护当前状态、对主角好感与已知信息，以及自身技能、物品和其他关系。",
+        "fields": [
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、组织与公开身份等有用信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录辨识特征、常见装束、装备外观和当前伪装。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录稳定性格、关键来历和会持续影响行为的背景。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "出场与位置",
+            "type": "string",
+            "description": "用一句话记录在场、离场、失联、死亡等存续状态及当前位置或最后确认位置。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "已知位置",
+            "type": "object",
+            "default": {},
+            "description": "主角最后实际获知的位置及该条消息的来源、获知时刻和可信度。",
+            "update_instruction": "只在主角真正观察或获得新消息时更新；对象使用location、learned_at、source、nature、confidence及可选evidence_refs。location写这条消息的位置，不写后台实时位置；learned_at是获知时的世界时间，不是当前时刻或文件时间。source仅observation、conversation、public_record；nature仅experienced、told、hearsay、conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs仅引用主角可见的已提交exchange精确ID；没有证据就省略，不复制私人谈话、NPC私有状态或作者资料。信息缺失留空，不推断，不随着NPC后台移动更新。",
+            "group": "经历见闻"
+          },
+          {
+            "name": "空间评级",
+            "type": "string",
+            "default": "未公布",
+            "description": "记录轮回空间或副本系统明确公布的等级、阶位或综合评级。",
+            "update_instruction": "只在空间正式公布、结算或修正评级时更新；没有公开评级时保持“未公布”。",
+            "group": "面板",
+            "display": "inline"
+          },
+          {
+            "name": "当前资源",
+            "type": "string",
+            "default": "",
+            "description": "合并记录当前副本实际采用的生命、精神、积分或次数资源；没有的项目不写。",
+            "update_instruction": "资源消耗、恢复或上限变化时更新，使用“名称 当前值/上限”逐项表达。",
+            "group": "状态",
+            "display": "block"
+          },
+          {
+            "name": "规则影响",
+            "type": "list",
+            "default": [],
+            "description": "只列正在作用于当前 Actor 的污染、死亡标记、规则限制、增益与异常。",
+            "update_instruction": "每项写名称、影响及解除条件或时限；已经结算或解除后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的技能、血统能力或道具。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "当前目标与处境",
+            "type": "string",
+            "description": "记录已经由行为、对话或设定确认的近期目标、压力、优势与限制，不猜测幕后计划。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "与主角关系",
+            "type": "string",
+            "description": "记录关系类型、当前态度、关系阶段、重要承诺、边界和主要矛盾。",
+            "group": "关系",
+            "display": "block"
+          },
+          {
+            "name": "对主角好感度",
+            "type": "number",
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "description": "该角色对主角的总体情感倾向，不代表信任、服从或恋爱关系。 0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。",
+            "update_instruction": "该数值由好感结算写入，不要在 state_changes 中直接改写；会改变双方关系的有效互动或事件通过 character_facts.affinities 提交，并说明所依据的那一件事实。关系类型与关系阶段只随相应剧情事实更新，不根据好感度自动推导。",
+            "group": "关系",
+            "display": "stat"
+          },
+          {
+            "name": "已知人物关系",
+            "type": "object",
+            "default": {},
+            "description": "只记录主角已经获知的该人物对其他已知人物的有方向关系。",
+            "update_instruction": "键为已登记且主角已知的目标Actor精确ID；值用kind写有方向的关系，learned_at写实际获知的世界时刻。source仅observation、conversation或public_record；nature仅experienced、told、hearsay或conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs可列主角可见的已提交exchange精确ID，无引用就省略。只记亲眼见到或明确获知的关系，不从好感、同场、作者资料、NPC私有关系或私人谈话复制，不附自由证据原文。最多12项；不自动镜像，只有真正获知变化才更新。正式主角关系以character_facts.relationships为准。",
+            "group": "关系"
+          },
+          {
+            "name": "对主角的已知信息",
+            "type": "list",
+            "default": [],
+            "description": "只列会影响该角色判断或行动、且该角色确实已经得知的信息，最多 6 项。",
+            "group": "经历见闻",
+            "display": "list"
+          },
+          {
+            "name": "队伍角色与空间身份",
+            "type": "string",
+            "description": "合并记录当前队伍职责和空间权限；已公开的个人任务统一写入当前目标与处境。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型可使用主动技能、被动技能、血统、天赋、临时能力或职业能力；记录次数、冷却、积分代价和规则限制等实际存在的约束。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 6 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用道具、消耗品、诅咒物、线索物、兑换物、任务物或装备；记录剩余次数、绑定、污染和诅咒等实际状态。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 6 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按合作、竞争、资源债务、救命债、队伍承诺或敌对等副本语义表达。 对主角的关系已由专用字段维护，此处只记录该角色对其他 Actor 或势力的关系。",
+            "group": "行囊",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "opponent",
+        "name": "敌对对象状态表",
+        "description": "每个需要持续追踪的敌人、怪物、Boss 或异常实体使用独立 Actor；相近威胁信息合并维护。",
+        "fields": [
+          {
+            "name": "类型与外观",
+            "type": "string",
+            "description": "合并记录敌人、怪物、Boss、陷阱或异常实体的类型、身份与辨识特征。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "存续与位置",
+            "type": "string",
+            "description": "用一句话记录活跃、撤退、被俘、失效、消灭等状态及所在或最后确认位置。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "威胁态势",
+            "type": "string",
+            "description": "合并记录威胁级别、警戒或追击状态和当前目标。",
+            "update_instruction": "使用低、中、高、致命四档：低=通常无需专门准备；中=会造成明确损失；高=需要资源、协作或针对性策略；致命=正面对抗很可能导致死亡或不可逆后果。只有能力、数量、环境或目标发生实质变化时调整。",
+            "group": "威胁",
+            "display": "block"
+          },
+          {
+            "name": "空间评级",
+            "type": "string",
+            "default": "未公布",
+            "description": "记录轮回空间或副本系统明确公布的等级、阶位或综合评级。",
+            "update_instruction": "只在空间正式公布、结算或修正评级时更新；没有公开评级时保持“未公布”。",
+            "group": "面板",
+            "display": "inline"
+          },
+          {
+            "name": "当前资源",
+            "type": "string",
+            "default": "",
+            "description": "合并记录当前副本实际采用的生命、精神、积分或次数资源；没有的项目不写。",
+            "update_instruction": "资源消耗、恢复或上限变化时更新，使用“名称 当前值/上限”逐项表达。",
+            "group": "状态",
+            "display": "block"
+          },
+          {
+            "name": "规则影响",
+            "type": "list",
+            "default": [],
+            "description": "只列正在作用于当前 Actor 的污染、死亡标记、规则限制、增益与异常。",
+            "update_instruction": "每项写名称、影响及解除条件或时限；已经结算或解除后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的技能、血统能力或道具。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "状态",
+            "display": "list"
+          },
+          {
+            "name": "行动模式",
+            "type": "string",
+            "description": "记录已经观察或可靠确认的攻击倾向、触发方式和行为规律。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "弱点与退场条件",
+            "type": "string",
+            "description": "合并记录已确认弱点，以及击败、驱散、封印、谈判或摆脱条件。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "触发、规避与规则影响",
+            "type": "string",
+            "description": "合并记录触发条件、规避方式、规则领域和追击阶段；持续污染放入状态，只写已经确认或有充分线索支持的内容。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型可使用主动技能、被动技能、血统、天赋、临时能力或职业能力；记录次数、冷却、积分代价和规则限制等实际存在的约束。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 4 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用道具、消耗品、诅咒物、线索物、兑换物、任务物或装备；记录剩余次数、绑定、污染和诅咒等实际状态。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 4 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按合作、竞争、资源债务、救命债、队伍承诺或敌对等副本语义表达。",
+            "group": "行囊",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "world_entities",
+        "name": "世界实体表",
+        "description": "地点与势力集中在同一个世界 Actor 中，以两个 object 字段保持不同记录结构。",
+        "fields": [
+          {
+            "name": "地点记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍有探索、通行、资源或剧情价值的重要地点。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的地点名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、所属范围、当前状态、风险、关键特征与通路，最多 16 条。风险使用低、中、高、致命等文字等级，不保存画布坐标；删除记录时 replace 整个 object。地点类型可使用空间大厅、副本区域、房间、规则节点、安全区、禁区或出口。",
+            "group": "地点"
+          },
+          {
+            "name": "势力记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍在影响主角、任务或世界局势的重要势力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的势力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、核心特征、存续状态、对主角立场、主要范围和当前行动，最多 8 条。存续状态、主要范围与当前行动只在本次确有依据时才改写：写清这个变化是怎么来的——谁说的、谁办的、在什么地方见到的，或主角亲眼见到的结果；只听到有人这么说、只被转告一句旧消息、只是自己的推测，都不足以改写，宁可先写成传闻或怀疑，也不要当成这个势力现在的样子。没有依据时保留原有记录不动。旧记录可能写于很久以前，见 Actor 上标出的写下时间；超出这个时间的说法不能当成眼下的事实。删除记录时 replace 整个 object。势力类型可使用轮回队伍、空间组织、原住民阵营、规则实体或敌对小队。",
+            "group": "势力"
+          }
+        ]
+      }
+    ],
+    "initial_actors": [
+      {
+        "id": "protagonist",
+        "name": "主角",
+        "template_id": "protagonist",
+        "role": "protagonist",
+        "description": "当前故事的可玩主角；身份、状态、技能、重要物品和关系集中维护在此 Actor。"
+      },
+      {
+        "id": "story",
+        "name": "故事状态",
+        "template_id": "story_context",
+        "role": "story_context",
+        "description": "当前场景、世界局势与当前任务的统一状态对象。"
+      },
+      {
+        "id": "world",
+        "name": "世界实体",
+        "template_id": "world_entities",
+        "role": "world",
+        "description": "仍对当前故事有行动价值的重要地点与势力。"
+      }
+    ]
+  },
+  "custom": false
+}

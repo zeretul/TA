@@ -1,0 +1,443 @@
+import { useId, useRef, useState } from 'react'
+import { ChevronDown, Loader2, Sparkles, Star, Trash2, Upload } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { ImagePreviewDialog } from '@/components/common/ImagePreviewDialog'
+import { SearchHighlightTextarea } from '@/components/common/SearchHighlightTextarea'
+import { TooltipIconButton } from '@/components/common/tooltip-icon-button'
+import { projectFileAssetURL, type LoreItem } from '@/lib/api'
+import type { ImagePreset } from '../../types'
+import { DEFAULT_IMAGE_PRESET_ID } from '../../image-settings'
+import { presetActionButtonClassName as actionButtonClassName, presetIconActionClassName as iconActionClassName, presetInputClassName as inputClassName, presetSelectClassName as selectClassName } from '../preset-config/editor-styles'
+import { PresetEmptyState as EmptyState } from '../preset-config/PresetEmptyState'
+import { PresetField as Field } from '../preset-config/PresetField'
+import { BooleanSwitchField } from './BooleanSwitchField'
+import { LOAD_MODE_OPTIONS, loadModeDescription, LORE_RESIDENT_TOTAL_WARNING_BYTES, loreImportanceLabel, loreLoadModeLabel, loreTypeLabel } from '@/features/lore/options'
+import type { DocumentReviewController, DocumentReviewNavigationIntent } from '@/features/document-review/controller'
+import type { DocumentReviewSnapshot } from '@/components/Editor/documentReviewAnchors'
+import { LoreContentEditor } from '@/features/lore/LoreContentEditor'
+import { hasLoreProtagonistTag, splitLoreTags, toggleLoreProtagonistTag } from '@/features/lore/tags'
+
+export function LoreEditor({
+  projectId,
+  draft,
+  tagDraft,
+  residentTotalBytes,
+  imagePresets,
+  imagePresetId,
+  imageInstruction,
+  imageGenerationMode,
+  imageBusyAction,
+  searchQuery,
+  setDraft,
+  setTagDraft,
+  onImagePresetChange,
+  setImageInstruction,
+  onImageGenerationModeChange,
+  onGenerateImage,
+  onUploadImage,
+  onClearImage,
+  onSave,
+  documentReview,
+  documentReviewNavigationIntent,
+  onPrepareReviewSnapshot,
+}: {
+  projectId: string
+  draft: LoreItem | null
+  tagDraft: string
+  residentTotalBytes: number
+  imagePresets: ImagePreset[]
+  imagePresetId: string
+  imageInstruction: string
+  imageGenerationMode: 'agent' | 'custom'
+  imageBusyAction: 'generate' | 'upload' | 'clear' | ''
+  searchQuery?: string
+  setDraft: (draft: LoreItem | null) => void
+  setTagDraft: (value: string) => void
+  onImagePresetChange: (id: string) => void
+  setImageInstruction: (value: string) => void
+  onImageGenerationModeChange: (value: 'agent' | 'custom') => void
+  onGenerateImage: () => void
+  onUploadImage: (file: File) => void
+  onClearImage: () => void
+  onSave: () => void
+  documentReview?: DocumentReviewController
+  documentReviewNavigationIntent?: DocumentReviewNavigationIntent | null
+  onPrepareReviewSnapshot?: () => Promise<DocumentReviewSnapshot>
+}) {  const { t } = useTranslation()
+  const [imageDialogOpen, setImageDialogOpen] = useState(false)
+  const [loadModeOpen, setLoadModeOpen] = useState(false)
+  const tagInputId = useId()
+  if (!draft) {
+    return <EmptyState title={t('settingPanel.editor.noLoreSelected')} description={t('settingPanel.editor.noLoreSelectedDesc')} />
+  }
+
+  const residentWarning = draft.enabled !== false && draft.load_mode === 'resident' && residentTotalBytes > LORE_RESIDENT_TOTAL_WARNING_BYTES
+  const imagePath = draft.image?.image_path || ''
+  const imageSrc = imagePath ? projectFileAssetURL(projectId, imagePath) : ''
+  // A person the world's catalog authored already has a shipped face, which the
+  // server reports on every read. It answers only when the author has not chosen
+  // a picture of their own: a chosen picture is a decision, and the shipped
+  // default must not quietly stand in front of it.
+  const portraitSrc = imageSrc ? '' : draft.portrait_display_url || draft.portrait_url || ''
+  // The two questions are different. `hasImage` is what the page can draw, which
+  // includes the shipped face; `hasOwnImage` is what the author can clear, which
+  // is only a picture stored on this entry.
+  const hasImage = Boolean(imageSrc || portraitSrc)
+  const hasOwnImage = Boolean(imagePath)
+  const validImagePresets = imagePresets.filter((preset) => !preset.invalid)
+  const selectedImagePresetId = imagePresetId || validImagePresets[0]?.id || DEFAULT_IMAGE_PRESET_ID
+  const openGenerateLabel = imagePath ? t('settingPanel.loreImage.openRegenerate') : t('settingPanel.loreImage.openGenerate')
+  const protagonistTagActive = draft.type === 'character' && hasLoreProtagonistTag(splitLoreTags(tagDraft))
+  const toggleProtagonistTag = () => {
+    const tags = toggleLoreProtagonistTag(splitLoreTags(tagDraft))
+    setDraft({ ...draft, tags })
+    setTagDraft(tags.join('，'))
+  }
+  const topGridClassName = cn(
+    'grid shrink-0 items-stretch gap-2 border-b border-[var(--nova-border)] bg-[var(--nova-surface)] px-3 py-2.5 sm:px-4',
+    hasImage && 'lg:grid-cols-[15rem_minmax(0,1fr)] 2xl:grid-cols-[18rem_minmax(0,1fr)]',
+  )
+  const imageAction = (
+    <Button className={iconActionClassName} variant="outline" size="icon-sm" disabled={Boolean(imageBusyAction)} onClick={() => setImageDialogOpen(true)} aria-label={openGenerateLabel}>
+      {imageBusyAction ? <Loader2 data-icon="inline-start" className="animate-spin" /> : <Sparkles data-icon="inline-start" />}
+    </Button>
+  )
+
+  return (
+    <>
+      {/* Mobile grows with content for page scrolling; desktop needs Radix's wrapper to inherit the pane height. */}
+      <ScrollArea
+        className="min-h-0 flex-1"
+        viewportProps={{ className: 'md:[&>div]:h-full' }}
+        role="region"
+        aria-label={t('settingPanel.lore.editorScrollArea')}
+      >
+        <div className="flex min-h-full min-w-0 flex-col">
+          <div className={topGridClassName}>
+            {hasImage ? (
+              <div className="grid min-h-0 grid-rows-[auto_minmax(0,1fr)] gap-1.5">
+                <div className="flex min-w-0 items-center justify-between gap-2">
+                  <span className="text-[11px] text-[var(--nova-text-faint)]">{t('settingPanel.loreImage.current')}</span>
+                  {imageAction}
+                </div>
+                <LoreImageCompactControl
+                  imageSrc={imageSrc || portraitSrc}
+                  title={draft.name || t('settingPanel.loreImage.current')}
+                  alt={draft.image?.alt_text || draft.name}
+                  caption={imageSrc ? undefined : t('settingPanel.loreImage.defaultPortrait')}
+                />
+              </div>
+            ) : null}
+            <div className="grid min-w-0 gap-1.5" role="group" aria-label={t('settingPanel.lore.metadata')}>
+              {!hasImage ? (
+                <div className="flex min-h-7 min-w-0 items-center gap-2">
+                  <span className="shrink-0 text-[11px] text-[var(--nova-text-faint)]">{t('settingPanel.loreImage.current')}</span>
+                  <span className="min-w-0 flex-1 truncate text-xs text-[var(--nova-text-faint)]">{t('settingPanel.loreImage.empty')}</span>
+                  {imageAction}
+                </div>
+              ) : null}
+              <div
+                data-slot="lore-primary-fields"
+                className={cn(
+                  'grid min-w-0 grid-cols-2 gap-2 md:grid-cols-3',
+                  hasImage
+                    ? '2xl:grid-cols-[minmax(12rem,2fr)_repeat(3,minmax(7rem,1fr))]'
+                    : 'xl:grid-cols-[minmax(12rem,2fr)_repeat(3,minmax(7rem,1fr))]',
+                )}
+              >
+                <Field label={t('settingPanel.field.name')} className={cn('col-span-2', hasImage ? '2xl:col-span-1' : 'xl:col-span-1')}>
+                  {/* Identity is what the assistant writes. Showing it in a plain
+                      input invited hand-typed changes that never touched the
+                      entity's real state, so the field now reads and copies. */}
+                  <Input className={cn(inputClassName, 'cursor-default')} value={draft.name} readOnly aria-readonly="true" />
+                </Field>
+                <BooleanSwitchField label={t('settingPanel.field.enabled')} checked={draft.enabled ?? true} onCheckedChange={(enabled) => setDraft({ ...draft, enabled })} />
+                <Field label={t('settingPanel.field.type')}>
+                  <div className={cn(selectClassName, 'flex h-8 items-center truncate px-2 text-xs text-[var(--nova-text)]')}>
+                    {loreTypeLabel(draft.type, t)}
+                  </div>
+                </Field>
+                <Field label={t('settingPanel.field.importance')}>
+                  <div className={cn(selectClassName, 'flex h-8 items-center truncate px-2 text-xs text-[var(--nova-text)]')}>
+                    {loreImportanceLabel(draft.importance, t)}
+                  </div>
+                </Field>
+              </div>
+              <div data-slot="lore-secondary-fields" className="grid min-w-0 items-start gap-2 md:grid-cols-[minmax(10rem,0.8fr)_minmax(0,1.2fr)]">
+                <Field label={t('settingPanel.field.tags')} htmlFor={tagInputId}>
+                  <div className="flex min-w-0 items-center gap-1.5">
+                    <Input id={tagInputId} className={cn(inputClassName, 'min-w-0 flex-1')} value={tagDraft} onChange={(event) => setTagDraft(event.target.value)} placeholder={t('settingPanel.placeholder.tags')} />
+                    {draft.type === 'character' ? (
+                      <TooltipIconButton
+                        label={t(protagonistTagActive ? 'loreWorkspace.unmarkProtagonist' : 'loreWorkspace.markProtagonist')}
+                        variant="outline"
+                        size="icon"
+                        tooltipSide="bottom"
+                        aria-pressed={protagonistTagActive}
+                        onClick={toggleProtagonistTag}
+                        className={cn(
+                          iconActionClassName,
+                          protagonistTagActive && 'border-[var(--nova-warning)] bg-[var(--nova-warning-bg)] text-[var(--nova-warning)] hover:bg-[var(--nova-warning-bg)] hover:text-[var(--nova-warning)]',
+                        )}
+                      >
+                        <Star data-icon="inline-start" className={protagonistTagActive ? 'fill-current' : undefined} />
+                      </TooltipIconButton>
+                    ) : null}
+                  </div>
+                </Field>
+                <Field label={t('settingPanel.field.brief')}>
+                  <SearchHighlightTextarea
+                    autoResize
+                    readOnly
+                    highlightQuery={searchQuery}
+                    className="nova-field min-h-14 resize-y text-xs leading-5 shadow-none focus-visible:ring-0"
+                    value={draft.brief_description || ''}
+                    placeholder={t('settingPanel.placeholder.brief')}
+                  />
+                </Field>
+              </div>
+              <div className="min-w-0 text-[11px] leading-4 text-[var(--nova-text-faint)]">
+                {loadModeDescription(draft.load_mode, t)}
+                {residentWarning ? (
+                  <span className="ml-2 text-[var(--nova-warning)]">
+                    {t('settingPanel.lore.residentWarning', { size: Math.ceil(residentTotalBytes / 1024), threshold: LORE_RESIDENT_TOTAL_WARNING_BYTES / 1024 })}
+                  </span>
+                ) : null}
+              </div>
+              {/* Reading mode is an author's detail, not something a player must
+                  set up per person. The natural sentence above already says what
+                  the current choice means, so the control stays folded away
+                  until someone actually wants to change it. */}
+              <Collapsible open={loadModeOpen} onOpenChange={setLoadModeOpen} className="min-w-0">
+                <CollapsibleTrigger asChild>
+                  <button
+                    type="button"
+                    data-slot="lore-load-mode-trigger"
+                    aria-expanded={loadModeOpen}
+                    className="flex w-fit items-center gap-1 rounded text-[11px] text-[var(--nova-text-muted)] transition-colors hover:text-[var(--nova-text)]"
+                  >
+                    <span>{t('settingPanel.lore.loadModeAdvanced', { mode: loreLoadModeLabel(draft.load_mode, t) })}</span>
+                    <ChevronDown className={cn('h-3 w-3 shrink-0 transition-transform', loadModeOpen && 'rotate-180')} />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-1.5 grid min-w-0 gap-1.5">
+                  <Select value={draft.load_mode || 'auto'} onValueChange={(value) => setDraft({ ...draft, load_mode: value as LoreItem['load_mode'] })}>
+                    <SelectTrigger size="sm" aria-label={t('settingPanel.field.loadMode')} className={cn(selectClassName, 'max-w-56')}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="nova-panel border text-[var(--nova-text)]">
+                      <SelectGroup>
+                        {LOAD_MODE_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>{loreLoadModeLabel(option.value, t)}</SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <p className="min-w-0 text-[11px] leading-4 text-[var(--nova-text-faint)]">{t('settingPanel.lore.loadModeHint')}</p>
+                </CollapsibleContent>
+              </Collapsible>
+            </div>
+          </div>
+          <div className="flex min-h-[420px] min-w-0 flex-1 flex-col bg-[var(--nova-bg)]">
+            <LoreContentEditor
+                projectId={projectId}
+                resourceKey={draft.id}
+                value={draft.content || ''}
+                onChange={(content) => setDraft({ ...draft, content })}
+                readOnly
+                highlightQuery={searchQuery}
+                onSaveShortcut={onSave}
+                review={documentReview && onPrepareReviewSnapshot ? {
+                  target: { kind: 'lore_item', id: draft.id, field: 'content' },
+                  resourceLabel: draft.name,
+                  controller: documentReview,
+                  prepareSnapshot: onPrepareReviewSnapshot,
+                  navigationIntent: documentReviewNavigationIntent,
+                } : undefined}
+                richAriaLabel={t('settingPanel.field.content')}
+                sourceAriaLabel={t('settingPanel.field.content')}
+                editorClassName="text-xs leading-5 [&_.tiptap]:min-h-0 [&_.tiptap]:min-w-0 [&_.tiptap]:flex-1 [&_.tiptap]:px-5 [&_.tiptap]:pb-4 [&_.tiptap]:pt-2 sm:[&_.tiptap]:px-6"
+            />
+          </div>
+        </div>
+      </ScrollArea>
+      <LoreImageGenerateDialog
+        open={imageDialogOpen}
+        itemName={draft.name || t('settingPanel.loreImage.current')}
+        imagePath={imagePath}
+        hasOwnImage={hasOwnImage}
+        imagePresets={validImagePresets}
+        imagePresetId={selectedImagePresetId}
+        imageInstruction={imageInstruction}
+        imageGenerationMode={imageGenerationMode}
+        imageBusyAction={imageBusyAction}
+        onOpenChange={setImageDialogOpen}
+        onImagePresetChange={onImagePresetChange}
+        setImageInstruction={setImageInstruction}
+        onImageGenerationModeChange={onImageGenerationModeChange}
+        onGenerateImage={onGenerateImage}
+        onUploadImage={onUploadImage}
+        onClearImage={onClearImage}
+      />
+    </>
+  )
+}
+
+function LoreImageCompactControl({
+  imageSrc,
+  title,
+  alt,
+  caption,
+}: {
+  imageSrc: string
+  title: string
+  alt: string
+  caption?: string
+}) {
+  const { t } = useTranslation()
+
+  return (
+    <div className="grid h-full min-h-48 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden rounded-lg border border-[var(--nova-border)] bg-[var(--nova-surface-2)]">
+      <ImagePreviewDialog src={imageSrc} title={title} alt={alt}>
+        <button type="button" className="group h-full w-full overflow-hidden bg-[var(--nova-surface)]" aria-label={t('settingPanel.loreImage.openPreview')}>
+          <img src={imageSrc} alt={alt} className="h-full w-full object-cover transition group-hover:scale-[1.03]" />
+        </button>
+      </ImagePreviewDialog>
+      {caption ? (
+        <p className="min-w-0 truncate border-t border-[var(--nova-border)] px-2 py-1 text-[11px] text-[var(--nova-text-faint)]">{caption}</p>
+      ) : null}
+    </div>
+  )
+}
+
+function LoreImageGenerateDialog({
+  open,
+  itemName,
+  imagePath,
+  hasOwnImage,
+  imagePresets,
+  imagePresetId,
+  imageInstruction,
+  imageGenerationMode,
+  imageBusyAction,
+  onOpenChange,
+  onImagePresetChange,
+  setImageInstruction,
+  onImageGenerationModeChange,
+  onGenerateImage,
+  onUploadImage,
+  onClearImage,
+}: {
+  open: boolean
+  itemName: string
+  imagePath: string
+  hasOwnImage: boolean
+  imagePresets: ImagePreset[]
+  imagePresetId: string
+  imageInstruction: string
+  imageGenerationMode: 'agent' | 'custom'
+  imageBusyAction: 'generate' | 'upload' | 'clear' | ''
+  onOpenChange: (open: boolean) => void
+  onImagePresetChange: (id: string) => void
+  setImageInstruction: (value: string) => void
+  onImageGenerationModeChange: (value: 'agent' | 'custom') => void
+  onGenerateImage: () => void
+  onUploadImage: (file: File) => void
+  onClearImage: () => void
+}) {
+  const { t } = useTranslation()
+  const uploadInputRef = useRef<HTMLInputElement>(null)
+  const imageBusy = Boolean(imageBusyAction)
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-[min(calc(100vw-2rem),560px)] gap-3 border border-[var(--nova-border)] bg-[var(--nova-surface)] text-[var(--nova-text)]">
+        <DialogHeader>
+          <DialogTitle>{imagePath ? t('settingPanel.loreImage.regenerate') : t('settingPanel.loreImage.generate')}</DialogTitle>
+          <DialogDescription>{t('settingPanel.loreImage.dialogDesc', { name: itemName })}</DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-3">
+          <Field label={t('settingPanel.loreImage.generationMode')}>
+            <Select value={imageGenerationMode} onValueChange={(value) => onImageGenerationModeChange(value as 'agent' | 'custom')} disabled={imageBusy}>
+              <SelectTrigger size="sm" className={selectClassName}><SelectValue /></SelectTrigger>
+              <SelectContent className="nova-panel border text-[var(--nova-text)]">
+                <SelectGroup>
+                  <SelectItem value="agent">{t('settingPanel.loreImage.modeAgent')}</SelectItem>
+                  <SelectItem value="custom">{t('settingPanel.loreImage.modeCustom')}</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>
+          {imageGenerationMode === 'agent' && <Field label={t('settingPanel.loreImage.preset')}>
+            <Select value={imagePresetId} onValueChange={onImagePresetChange} disabled={imageBusy}>
+              <SelectTrigger size="sm" className={selectClassName}>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="nova-panel border text-[var(--nova-text)]">
+                <SelectGroup>
+                  {imagePresets.length > 0 ? imagePresets.map((preset) => (
+                    <SelectItem key={preset.id} value={preset.id}>{preset.name}</SelectItem>
+                  )) : (
+                    <SelectItem value={DEFAULT_IMAGE_PRESET_ID}>{t('settingPanel.editor.defaultImagePreset')}</SelectItem>
+                  )}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </Field>}
+          <Field label={t(imageGenerationMode === 'custom' ? 'settingPanel.loreImage.customPrompt' : 'settingPanel.loreImage.instruction')}>
+            <Textarea
+              className="nova-field min-h-28 resize-y text-xs leading-5 shadow-none focus-visible:ring-0"
+              value={imageInstruction}
+              onChange={(event) => setImageInstruction(event.target.value)}
+              placeholder={t(imageGenerationMode === 'custom' ? 'settingPanel.loreImage.customPromptPlaceholder' : 'settingPanel.loreImage.instructionPlaceholder')}
+              disabled={imageBusy}
+            />
+          </Field>
+        </div>
+
+        <input
+          ref={uploadInputRef}
+          type="file"
+          accept="image/png,image/jpeg"
+          className="hidden"
+          aria-label={t('settingPanel.loreImage.uploadFile')}
+          onChange={(event) => {
+            const file = event.currentTarget.files?.[0]
+            event.currentTarget.value = ''
+            if (file) onUploadImage(file)
+          }}
+        />
+
+        <DialogFooter className="border-[var(--nova-border)] bg-[var(--nova-surface-2)]">
+          <Button className={actionButtonClassName} variant="outline" size="sm" onClick={() => onOpenChange(false)}>
+            {t('common.close')}
+          </Button>
+          <Button className={actionButtonClassName} variant="outline" size="sm" disabled={imageBusy} onClick={() => uploadInputRef.current?.click()}>
+            {imageBusyAction === 'upload' ? <Loader2 data-icon="inline-start" className="animate-spin" /> : <Upload data-icon="inline-start" />}
+            {imageBusyAction === 'upload' ? t('settingPanel.loreImage.uploading') : t('settingPanel.loreImage.upload')}
+          </Button>
+          {/* Only a picture stored on this entry can be cleared. A shipped
+              default is not the author's to remove, and offering the control
+              for it would promise a change that cannot happen. */}
+          <Button className={actionButtonClassName} variant="outline" size="sm" disabled={!hasOwnImage || imageBusy} onClick={onClearImage}>
+            {imageBusyAction === 'clear' ? <Loader2 data-icon="inline-start" className="animate-spin" /> : <Trash2 data-icon="inline-start" />}
+            {t('settingPanel.loreImage.clear')}
+          </Button>
+          <Button className={actionButtonClassName} variant="outline" size="sm" disabled={imageBusy} onClick={onGenerateImage}>
+            {imageBusyAction === 'generate' ? <Loader2 data-icon="inline-start" className="animate-spin" /> : <Sparkles data-icon="inline-start" />}
+            {imagePath ? t('settingPanel.loreImage.regenerate') : t('settingPanel.loreImage.generate')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}

@@ -1,0 +1,198 @@
+package prompts
+
+import (
+	"fmt"
+	"strings"
+)
+
+// This file holds the two prompts the intimacy window needs: one person being
+// asked whether they agree, and one round of the conversation that follows.
+//
+// They are separate from the group prompt on purpose. The group prompt says
+// nobody gains anything and that the group is not an organization; that is right
+// for a party and wrong here, where the whole scene is the activity. Copying it
+// and patching one line would leave the rest of the group's framing in place, so
+// the shared parts — the member block, the scene block, the dialogue style, the
+// `lines` contract — are reused and the rest is written for this purpose.
+//
+// The hard rules are the design's own (§3, §5, §15): adult, voluntary, not
+// explicit, and no cultivation, recovery, spirit or breakthrough gain of any
+// kind. There is no field for such a gain and no instruction offering one, so a
+// model cannot be talked into inventing one.
+
+const intimacyBuiltIn = "你在写互动故事里一场私下的对话。你为这场里的各个人物说话，每个人用他自己的口吻、他自己知道的事和他自己的动机。你不是更大世界的旁白，也不决定这间屋子外面发生什么。面向玩家的散文要写成场景、亲历的过往或自然的口语，不能写成契约、许可政策、软件限制或实现说明。拒绝要通过人物和处境表达；不要把 id、schema 和内部指令写进散文。"
+
+// intimacyCommonRules is the part both prompts must state. It is a function
+// rather than a constant because the invitation has no roster to address and
+// must not claim one.
+//
+// consented is the difference between the two: the round has a confirmed roster,
+// while the invitation is the moment consent is still being asked for. Telling a
+// person being asked that everyone has already agreed would answer the question
+// for them, so that sentence is only written once the answer exists.
+func writeIntimacyHardRules(sb *strings.Builder, consented bool) {
+	sb.WriteString("\n## What this scene is, and is not\n")
+	if consented {
+		sb.WriteString("- This is a private intimacy scene between adults. Everyone in it is an adult, and everyone in it has agreed to be here.\n")
+	} else {
+		sb.WriteString("- This is a private intimacy scene between adults. Everyone involved is an adult, but nobody has agreed yet: the protagonist is asking, and whether you agree is yours to answer.\n")
+	}
+	sb.WriteString("- Keep it non-explicit. Write the approach, the atmosphere, what is said and what is felt; do not write explicit sexual detail. This is a story, not a depiction.\n")
+	sb.WriteString("- Consent is real and continuous. A person may refuse, hesitate, change their mind, stop, or ask to slow down at any point, and that is an outcome the story honours rather than a problem to be talked around. Never pressure, bargain or wear someone down into agreeing.\n")
+	sb.WriteString("- Nothing here grants cultivation progress, spirit, health, a breakthrough, a technique, an item or any other gain. Do not describe such a gain, do not promise one, and do not have anyone hope for one. The scene is the scene.\n")
+	sb.WriteString("- Nobody outside this room knows it happened. Do not have an absent person notice, hear, guess or be told.\n")
+}
+
+// IntimacyInvitationInput is the system prompt for one person's answer to an
+// invitation.
+type IntimacyInvitationInput struct {
+	// MustDecline carries an already authored boundary, not a model preference.
+	MustDecline string
+	Workspace   string
+	// CharacterContext is the invited person's own preparation: who they are,
+	// what they know, what they remember, and where they stand with the
+	// protagonist. It is that person's alone; the other invitees never see it.
+	CharacterContext string
+	// StoryContext is where the protagonist is and what just happened.
+	StoryContext string
+	// ActivityNote says how the other invitees answered, if any. It is stated so
+	// a person can answer knowing whether others were asked, without being told
+	// anything private about them.
+	ActivityNote string
+	// DialogueStylePrompt governs manner of speech only.
+	DialogueStylePrompt string
+	// OutputLanguage is the locale the player's page is reading in.
+	OutputLanguage string
+}
+
+// BuildIntimacyInvitationInstruction composes the prompt for one person's answer.
+//
+// The answer is theirs to give: the program has already checked that they are
+// adult and present, so what is left is whether they want to. The output
+// contract therefore carries a status the model must state plainly, and a
+// condition when the yes is conditional — an unstated condition cannot be
+// settled and is treated as a refusal.
+func BuildIntimacyInvitationInstruction(in IntimacyInvitationInput) string {
+	var sb strings.Builder
+	sb.WriteString(intimacyBuiltIn)
+	writeIntimacyHardRules(&sb, false)
+	if refusal := strings.TrimSpace(in.MustDecline); refusal != "" {
+		sb.WriteString("\n这次邀请涉及你已明确拒绝的事情：" + refusal + "。按本人的口吻拒绝，status必须为declined；不要因请求而改写既有意愿。\n")
+	}
+
+	if context := strings.TrimSpace(in.CharacterContext); context != "" {
+		sb.WriteString("\n## You are this person\n\n")
+		sb.WriteString(context)
+		sb.WriteString("\n")
+	}
+	if scene := strings.TrimSpace(in.StoryContext); scene != "" {
+		sb.WriteString("\n## Where things currently stand\n\n")
+		sb.WriteString(scene)
+		sb.WriteString("\n")
+	}
+	if note := strings.TrimSpace(in.ActivityNote); note != "" {
+		sb.WriteString("\n## Who else was asked\n\n")
+		sb.WriteString("The protagonist has invited others too. This is how each of them answered, as far as you know:\n\n")
+		sb.WriteString(note)
+		sb.WriteString("\nYou answer for yourself. Their answer is not yours, and you are not obliged to match it.\n")
+	}
+
+	sb.WriteString("\n## How to answer\n")
+	sb.WriteString("- Answer as this person, in their own voice, from what they know and want. Do not narrate the protagonist's thoughts.\n")
+	sb.WriteString("- Say plainly whether you agree. You may agree, refuse, or agree only if something is settled first. If you set a condition, state it in one clear sentence.\n")
+	sb.WriteString("- A refusal needs no justification, and a refusal is a complete answer. Do not soften it into a yes.\n")
+	sb.WriteString("- Do not describe anything explicit, and do not describe a gain of any kind.\n")
+	sb.WriteString("- Two or three sentences of reply is enough: what they say, and whatever small action belongs with it.\n")
+
+	if dialogue := strings.TrimSpace(in.DialogueStylePrompt); dialogue != "" {
+		sb.WriteString("\n## How this story's dialogue sounds\n\n")
+		sb.WriteString("The following describes the manner of speech in this story. It governs expression only. Who this person is, what they mean and what they know all outrank it.\n\n")
+		sb.WriteString(dialogue)
+		sb.WriteString("\n")
+	}
+
+	sb.WriteString("\n## Output\n\n")
+	sb.WriteString(playerFacingLanguageLine(in.OutputLanguage, "上方的故事材料") + "适用于 `reply` 和 `condition`；JSON 键名和 `status` 取值保持原样。\n\n")
+	sb.WriteString("Output only a JSON object, with no Markdown fence and no commentary:\n\n")
+	sb.WriteString("{\"status\":\"accepted|declined|conditional\",\"reply\":\"<what they say, in their voice>\",\"condition\":\"<required only when status is conditional>\"}\n\n")
+	sb.WriteString("- `status` is this person's own answer. `accepted` means yes. `declined` means no. `conditional` means yes if the stated condition is met.\n")
+	sb.WriteString("- `reply` is what they actually say. It must carry the same answer as `status`; do not write a warm reply for a refusal.\n")
+	sb.WriteString("- `condition` is required when `status` is `conditional`, and must be one sentence. Leave it out otherwise.\n")
+	return sb.String()
+}
+
+// IntimacyRoundInput is the system prompt for one round of the conversation.
+type IntimacyRoundInput struct {
+	Workspace string
+	// Members is the confirmed roster, with the same public persona the group
+	// prompt uses. Private context stays out: everyone here is in the room.
+	Members []GroupChatMember
+	// JointHistory is the part of this conversation every member present was
+	// there for.
+	JointHistory string
+	// SceneContext is where this is happening, in the story's own words.
+	SceneContext string
+	// DialogueStylePrompt governs manner of speech only.
+	DialogueStylePrompt string
+	// ReplyTargetChars is the length target for one line.
+	ReplyTargetChars int
+	// Opening asks for the first lines, before the player has spoken.
+	Opening bool
+	// OutputLanguage is the locale the player's page is reading in.
+	OutputLanguage string
+}
+
+// BuildIntimacyRoundInstruction composes the prompt for one conversation round.
+func BuildIntimacyRoundInstruction(in IntimacyRoundInput) string {
+	var sb strings.Builder
+	sb.WriteString(intimacyBuiltIn)
+	writeIntimacyHardRules(&sb, true)
+
+	sb.WriteString("\n## Who is here\n\n")
+	for _, member := range in.Members {
+		writeGroupMember(&sb, member)
+	}
+
+	if scene := strings.TrimSpace(in.SceneContext); scene != "" {
+		sb.WriteString("\n## Where things currently stand\n\n")
+		sb.WriteString(scene)
+		sb.WriteString("\n")
+	}
+	if history := strings.TrimSpace(in.JointHistory); history != "" {
+		sb.WriteString("\n## What has already been said here\n\n")
+		sb.WriteString("Everyone here was present for every line below.\n\n")
+		sb.WriteString(history)
+		sb.WriteString("\n")
+	}
+
+	sb.WriteString("\n## How to run this round\n")
+	if in.Opening {
+		sb.WriteString("- The activity has just begun and the protagonist has not spoken yet. Write the opening: each person settling in, in their own voice, as themselves. Do not decide what the protagonist does or feels.\n")
+	} else {
+		sb.WriteString("- The protagonist's new line is the user turn. Answer it as the people here.\n")
+	}
+	sb.WriteString("- Let the few who have a real reason to speak speak. Silence is a valid answer for anyone with nothing to add, and silence is not agreement.\n")
+	sb.WriteString(fmt.Sprintf("- Never write more than %d speakers in one round, and never make the whole roster take a turn.\n", MaxGroupSpeakersPerRound))
+	sb.WriteString("- Keep each person's own voice: what they care about, what they want and how they usually speak must show. Two people must never sound interchangeable.\n")
+	sb.WriteString("- Anyone may refuse, hesitate, deflect, stop, or say they want to slow down. That is honoured, not negotiated away.\n")
+	sb.WriteString("- Do not narrate the protagonist's thoughts, feelings or decisions. The player owns those.\n")
+	sb.WriteString("- Do not narrate the wider world, and do not describe anything outside this room.\n")
+	sb.WriteString("- Do not decide outcomes. Nobody leaves, arrives, fights, pays, cultivates, travels or gains anything because of what is said here.\n")
+	sb.WriteString("- Only the people listed above may speak. Never invent someone, and never write a line for the protagonist.\n")
+
+	if dialogue := strings.TrimSpace(in.DialogueStylePrompt); dialogue != "" {
+		sb.WriteString("\n## How this story's dialogue sounds\n\n")
+		sb.WriteString("The following describes the manner of speech in this story. It governs expression only. Who each person is, what they mean and what they know all outrank it.\n\n")
+		sb.WriteString(dialogue)
+		sb.WriteString("\n")
+	}
+
+	sb.WriteString("\n## Output\n\n")
+	sb.WriteString(playerFacingLanguageLine(in.OutputLanguage, "上方的故事材料") + "适用于 `text`；`author_id` 和 JSON 键名保持原样。\n\n")
+	sb.WriteString("Output only a JSON object, with no Markdown fence and no commentary:\n\n")
+	sb.WriteString("{\"lines\":[{\"author_id\":\"<exact id from the roster>\",\"text\":\"<what they say, in their voice>\"}]}\n\n")
+	sb.WriteString("- `lines` is ordered: the first line is spoken first. Each entry is one person's contribution, including any small action that belongs to them.\n")
+	sb.WriteString("- Use the exact `author_id` values from the roster. Never use a name, a title, or the protagonist.\n")
+	writeGroupReplyTargetInstruction(&sb, in.ReplyTargetChars, in.OutputLanguage)
+	return sb.String()
+}

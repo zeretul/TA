@@ -1,0 +1,364 @@
+import { useState } from 'react'
+import { Bot, Check, ChevronLeft, ChevronRight, Copy, Dice5, GitBranch, ImagePlus, Loader2, MoreHorizontal, Pencil, RefreshCw, Volume2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import type { ChatMessage, RuleRollChatMessage, UserMessageReference } from '@/lib/api'
+import { TooltipIconButton } from '@/components/common/tooltip-icon-button'
+import {
+  DEFAULT_TOOLTIP_DELAY_MS,
+  DEFAULT_TOOLTIP_SKIP_DELAY_MS,
+  TooltipProvider,
+} from '@/components/ui/tooltip'
+import { subAgentStatusTranslationKey } from './subagent-session'
+import { AgentRunActions } from './AgentRunActions'
+
+const copyFeedbackDurationMs = 1200
+const messageActionTooltipDelayMs = DEFAULT_TOOLTIP_DELAY_MS
+const messageActionTooltipSkipDelayMs = DEFAULT_TOOLTIP_SKIP_DELAY_MS
+const messageActionTooltipSideOffset = 3
+
+export function SentMessageReferences({ references }: { references?: UserMessageReference[] }) {
+  const { t } = useTranslation()
+  if (!references?.length) return null
+  return (
+    <div data-testid="sent-message-references" className="mb-1.5 flex max-w-full flex-col gap-1 border-b border-current/10 pb-1.5 text-[11px] leading-4">
+      {references.map((reference, index) => (
+        <div key={`${reference.kind}:${reference.id || reference.label}:${index}`} className="flex min-w-0 items-start gap-1.5">
+          <span className="shrink-0 rounded bg-black/10 px-1 py-0.5 text-[10px] opacity-75 dark:bg-white/10">
+            {t(`chat.reference.${reference.kind}`)}
+          </span>
+          <span className="min-w-0 break-words">
+            <span className="font-medium">{reference.label}{formatReferenceLines(reference)}</span>
+            {reference.detail ? <span className="ml-1 opacity-75">— {reference.detail}</span> : null}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function formatReferenceLines(reference: UserMessageReference): string {
+  if (reference.start_line === undefined) return ''
+  if (reference.end_line !== undefined && reference.end_line !== reference.start_line) return `:L${reference.start_line}-L${reference.end_line}`
+  return `:L${reference.start_line}`
+}
+
+export function RuleRollBlock({ message }: { message: RuleRollChatMessage }) {
+  const { t } = useTranslation()
+  const roll = message.rule_roll
+  if (!roll) return null
+  const rolls = roll.rolls?.length ? roll.rolls.join(', ') : '-'
+  const kept = Number.isFinite(roll.kept_roll) ? roll.kept_roll : undefined
+  const bonus = Number.isFinite(roll.bonus_total) ? roll.bonus_total : undefined
+  const total = Number.isFinite(roll.total) ? roll.total : undefined
+  const target = Number.isFinite(roll.target) ? roll.target : undefined
+  const cost = roll.cost || roll.stakes || ''
+  const stateChanges = roll.state_changes || []
+  return (
+    <div className="flex justify-start">
+      <div className="w-full rounded-[var(--nova-radius)] border border-[var(--nova-border)] bg-[var(--nova-surface)] px-3 py-2 text-xs shadow-[var(--nova-shadow)]">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <Dice5 className="h-4 w-4 shrink-0 text-[var(--nova-text-faint)]" />
+          <span className="min-w-0 truncate font-semibold text-[var(--nova-text)]">{roll.label || t('snapshot.ruleRoll.title')}</span>
+          <span className="rounded border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-1.5 py-0.5 text-[10px] text-[var(--nova-text-muted)]">{roll.difficulty || t('snapshot.noRecord')}</span>
+          <span className="rounded border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-1.5 py-0.5 text-[10px] text-[var(--nova-text-muted)]">{[roll.dice, roll.roll_mode].filter(Boolean).join(' ') || t('snapshot.noRecord')}</span>
+          {roll.outcome ? <span className={`ml-auto shrink-0 font-semibold ${ruleRollOutcomeClass(roll.outcome)}`}>{roll.outcome}</span> : null}
+        </div>
+        <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-[var(--nova-text-muted)]">
+          <span>{t('snapshot.field.rolls')}: {rolls}</span>
+          {kept !== undefined ? <span>{t('snapshot.field.kept_roll')}: {formatRuleRollNumber(kept)}</span> : null}
+          {bonus !== undefined ? <span>{t('snapshot.field.bonus_total')}: {formatSignedRuleRollNumber(bonus)}</span> : null}
+          {total !== undefined || target !== undefined ? <span>{t('snapshot.ruleRoll.totalTarget', { total: total !== undefined ? formatRuleRollNumber(total) : '-', target: target !== undefined ? formatRuleRollNumber(target) : '-' })}</span> : null}
+          {Number.isFinite(roll.base_target) ? <span>{t('snapshot.field.base_target')}: {formatRuleRollNumber(roll.base_target || 0)}</span> : null}
+        </div>
+        {roll.result ? <div className="mt-1.5 text-[var(--nova-text)]">{roll.result}</div> : null}
+        {cost ? <div className="mt-1 text-[11px] leading-5 text-[var(--nova-text-faint)]">{t('snapshot.ruleRoll.cost')}: {cost}</div> : null}
+        {stateChanges.length ? (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {stateChanges.map((change, index) => (
+              <span key={`${change.actor_id}:${change.field_id}:${index}`} className="rounded border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-1.5 py-0.5 text-[10px] text-[var(--nova-text-muted)]">
+                {change.actor_id} / {change.field_id} {formatSignedRuleRollNumber(change.change)}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function ruleRollOutcomeClass(outcome: string) {
+  if (outcome.includes('success')) return 'text-[var(--nova-success)]'
+  if (outcome.includes('failure')) return 'text-[var(--nova-danger)]'
+  return 'text-[var(--nova-text-muted)]'
+}
+
+function formatRuleRollNumber(value: number) {
+  if (!Number.isFinite(value)) return '-'
+  return Number.isInteger(value) ? String(value) : value.toFixed(1)
+}
+
+function formatSignedRuleRollNumber(value: number) {
+  if (!Number.isFinite(value)) return '-'
+  const formatted = formatRuleRollNumber(value)
+  return value > 0 ? `+${formatted}` : formatted
+}
+
+export function MessageInlineMeta({ projectId, message, content, align, reserveSpace = false, hideActions = false, onEdit, editLabelKey = 'chat.action.editTurn', onCreateBranch, onReadAloud, onGenerateInteractiveImage, generatingInteractiveImage = false, interactiveImageGenerationDisabled = false, onRegenerate, onSwitchVersion, versionIndex = -1, versionCount = 0 }: { projectId?: string; message: ChatMessage; content: string; align: 'left' | 'right'; reserveSpace?: boolean; hideActions?: boolean; onEdit?: (message: ChatMessage) => void; editLabelKey?: 'chat.action.editTurn' | 'chat.action.editAssistantReply'; onCreateBranch?: (message: ChatMessage) => void; onReadAloud?: (message: ChatMessage) => void; onGenerateInteractiveImage?: (message: ChatMessage) => void; generatingInteractiveImage?: boolean; interactiveImageGenerationDisabled?: boolean; onRegenerate?: (message: ChatMessage) => void; onSwitchVersion?: (message: ChatMessage, direction: -1 | 1) => void; versionIndex?: number; versionCount?: number }) {
+  const { t } = useTranslation()
+  const [copied, setCopied] = useState(false)
+  const isMobile = useIsMobile()
+  const [actionsOpen, setActionsOpen] = useState(false)
+  const formatted = formatMessageHoverTime(message.created_at)
+  const runID = message.run_id?.trim()
+  const canSwitchVersion = Boolean(onSwitchVersion && versionCount > 1 && versionIndex >= 0)
+  const hasRunActions = !hideActions && Boolean(runID && (message.role === 'assistant' || message.role === 'error'))
+  const hasMessageAction = hasRunActions || (!hideActions && Boolean(onReadAloud || onEdit || onCreateBranch || onGenerateInteractiveImage || onRegenerate || canSwitchVersion))
+  const showCopyAction = !hideActions && Boolean(content.trim())
+  const metaTooltip = {
+    tooltipSide: 'top' as const,
+    tooltipSideOffset: messageActionTooltipSideOffset,
+    useTooltipProvider: false,
+  }
+  if (!formatted && !showCopyAction && !hasMessageAction) {
+    if (!reserveSpace) return null
+    return (
+      <div className={`nova-message-meta nova-message-meta-${align} nova-message-meta-spacer`} aria-hidden="true">
+        <span />
+      </div>
+    )
+  }
+  if (isMobile) {
+    const actions = [
+      ...(onReadAloud ? [{ label: t('speech.read'), icon: Volume2, run: () => onReadAloud(message) }] : []),
+      ...(onEdit ? [{ label: t(editLabelKey), icon: Pencil, run: () => onEdit(message) }] : []),
+      ...(onCreateBranch ? [{ label: t('chat.action.createBranch'), icon: GitBranch, run: () => onCreateBranch(message) }] : []),
+      ...(onGenerateInteractiveImage ? [{ label: t(message.role === 'assistant' && (message.interactive_images?.length || message.interactive_image) ? 'chat.interactiveImage.regenerate' : 'chat.action.generateInteractiveImage'), icon: generatingInteractiveImage ? Loader2 : ImagePlus, disabled: interactiveImageGenerationDisabled, run: () => onGenerateInteractiveImage(message) }] : []),
+      ...(onRegenerate ? [{ label: t('chat.action.regenerateTurn'), icon: RefreshCw, run: () => onRegenerate(message) }] : []),
+      ...(canSwitchVersion && onSwitchVersion ? [
+        { label: t('chat.action.prevVersion'), icon: ChevronLeft, disabled: versionIndex <= 0, run: () => onSwitchVersion(message, -1) },
+        { label: t('chat.action.nextVersion'), icon: ChevronRight, disabled: versionIndex >= versionCount - 1, run: () => onSwitchVersion(message, 1) },
+      ] : []),
+    ]
+    return (
+      <div className={`nova-message-meta nova-message-meta-${align}`} aria-label={formatted}>
+        {formatted ? <time className="nova-message-time mr-auto" dateTime={message.created_at}>{formatted}</time> : null}
+        {canSwitchVersion ? <span className="text-xs tabular-nums">{versionIndex + 1}/{versionCount}</span> : null}
+        {showCopyAction ? <Button variant="ghost" size="icon" aria-label={t(copied ? 'chat.action.copyMessageDone' : 'chat.action.copyMessage')} onClick={() => { setCopied(true); window.setTimeout(() => setCopied(false), copyFeedbackDurationMs); void copyText(content) }}>{copied ? <Check /> : <Copy />}</Button> : null}
+        {hasMessageAction ? (
+          <Popover open={actionsOpen} onOpenChange={setActionsOpen}>
+            <PopoverTrigger asChild><Button variant="ghost" size="icon" aria-label={t('chat.action.more')}><MoreHorizontal /></Button></PopoverTrigger>
+            <PopoverContent side="top" align={align === 'right' ? 'end' : 'start'} className="flex w-72 flex-col gap-1 p-2" aria-label={t('chat.action.more')}>
+              {actions.map(({ label, icon: Icon, run, ...options }) => <Button key={label} variant="ghost" className="w-full justify-start gap-2 whitespace-normal text-left" disabled={'disabled' in options && options.disabled} onClick={() => { setActionsOpen(false); run() }}><Icon />{label}</Button>)}
+              {hasRunActions && runID ? <AgentRunActions projectId={projectId} runID={runID} showLabels onNavigate={() => setActionsOpen(false)} /> : null}
+            </PopoverContent>
+          </Popover>
+        ) : null}
+      </div>
+    )
+  }
+  return (
+    <TooltipProvider delayDuration={messageActionTooltipDelayMs} skipDelayDuration={messageActionTooltipSkipDelayMs} disableHoverableContent>
+      <div className={`nova-message-meta nova-message-meta-${align}`} aria-label={formatted}>
+        {showCopyAction && (
+          <TooltipIconButton
+            label={copied ? t('chat.action.copyMessageDone') : t('chat.action.copyMessage')}
+            {...metaTooltip}
+            className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)]"
+            onClick={(event) => {
+              event.stopPropagation()
+              setCopied(true)
+              window.setTimeout(() => setCopied(false), copyFeedbackDurationMs)
+              void copyText(content)
+            }}
+          >
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          </TooltipIconButton>
+        )}
+        {hasRunActions && runID ? <AgentRunActions projectId={projectId} runID={runID} /> : null}
+        {onEdit && (
+          <TooltipIconButton
+            label={t(editLabelKey)}
+            {...metaTooltip}
+            className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)]"
+            onClick={(event) => {
+              event.stopPropagation()
+              onEdit(message)
+            }}
+          >
+            <Pencil className="h-3 w-3" />
+          </TooltipIconButton>
+        )}
+        {onReadAloud && (
+          <TooltipIconButton label={t('speech.read')} {...metaTooltip} className="size-5 text-muted-foreground" onClick={() => onReadAloud(message)}><Volume2 className="size-3" /></TooltipIconButton>
+        )}
+        {onCreateBranch && (
+          <TooltipIconButton
+            label={t('chat.action.createBranch')}
+            {...metaTooltip}
+            className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)]"
+            onClick={(event) => {
+              event.stopPropagation()
+              onCreateBranch(message)
+            }}
+          >
+            <GitBranch className="h-3 w-3" />
+          </TooltipIconButton>
+        )}
+        {onGenerateInteractiveImage && (
+          <TooltipIconButton
+            label={message.role === 'assistant' && (message.interactive_images?.length || message.interactive_image) ? t('chat.interactiveImage.regenerate') : t('chat.action.generateInteractiveImage')}
+            {...metaTooltip}
+            className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)] disabled:cursor-not-allowed disabled:opacity-45"
+            disabled={interactiveImageGenerationDisabled}
+            onClick={(event) => {
+              event.stopPropagation()
+              onGenerateInteractiveImage(message)
+            }}
+          >
+            {generatingInteractiveImage ? <Loader2 className="h-3 w-3 animate-spin" /> : <ImagePlus className="h-3 w-3" />}
+          </TooltipIconButton>
+        )}
+        {onRegenerate && (
+          <TooltipIconButton
+            label={t('chat.action.regenerateTurn')}
+            {...metaTooltip}
+            className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)]"
+            onClick={(event) => {
+              event.stopPropagation()
+              onRegenerate(message)
+            }}
+          >
+            <RefreshCw className="h-3 w-3" />
+          </TooltipIconButton>
+        )}
+        {canSwitchVersion && onSwitchVersion && (
+          <>
+            <TooltipIconButton
+              label={t('chat.action.prevVersion')}
+              {...metaTooltip}
+              className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)] disabled:cursor-not-allowed disabled:opacity-30"
+              disabled={versionIndex <= 0}
+              onClick={(event) => {
+                event.stopPropagation()
+                onSwitchVersion(message, -1)
+              }}
+            >
+              <ChevronLeft className="h-3 w-3" />
+            </TooltipIconButton>
+            <span className="min-w-7 text-center font-mono text-[10px] leading-5 text-[var(--nova-text-faint)]">
+              {versionIndex + 1}/{versionCount}
+            </span>
+            <TooltipIconButton
+              label={t('chat.action.nextVersion')}
+              {...metaTooltip}
+              className="h-5 w-5 border border-transparent bg-transparent text-[var(--nova-text-faint)] shadow-none hover:border-[var(--nova-border)] hover:bg-[var(--nova-hover)] hover:text-[var(--nova-text-muted)] disabled:cursor-not-allowed disabled:opacity-30"
+              disabled={versionIndex >= versionCount - 1}
+              onClick={(event) => {
+                event.stopPropagation()
+                onSwitchVersion(message, 1)
+              }}
+            >
+              <ChevronRight className="h-3 w-3" />
+            </TooltipIconButton>
+          </>
+        )}
+        {formatted ? <time className="nova-message-time" dateTime={message.created_at}>{formatted}</time> : null}
+      </div>
+    </TooltipProvider>
+  )
+}
+
+function formatMessageHoverTime(value?: string) {
+  if (!value) return ''
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  const time = `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
+  const now = new Date()
+  const sameDay = date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  if (sameDay) return time
+  return `${date.getFullYear()}-${padTime(date.getMonth() + 1)}-${padTime(date.getDate())} ${time}`
+}
+
+function padTime(value: number) {
+  return value.toString().padStart(2, '0')
+}
+
+async function copyText(content: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(content)
+      return true
+    } catch {
+      // Fall through to the legacy path for embedded/local browser surfaces.
+    }
+  }
+
+  const textarea = document.createElement('textarea')
+  textarea.value = content
+  textarea.setAttribute('readonly', 'true')
+  textarea.style.position = 'fixed'
+  textarea.style.left = '-9999px'
+  textarea.style.top = '0'
+  document.body.appendChild(textarea)
+  textarea.select()
+  try {
+    return document.execCommand('copy')
+  } finally {
+    document.body.removeChild(textarea)
+  }
+}
+
+export function SubAgentSessionCard({
+  message,
+  onOpen,
+  active,
+}: {
+  message: ChatMessage
+  onOpen?: (message: ChatMessage) => void
+  active?: boolean
+}) {
+  const { t } = useTranslation()
+  const name = message.agent_name || message.subagent_type || t('chat.subagent.label')
+  const statusLabel = t(subAgentStatusTranslationKey(message.subagent_status, message.streaming === true))
+  const cardContent = (
+    <>
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-[var(--nova-border)] bg-[var(--nova-surface-2)] text-[var(--nova-text-muted)]">
+        <Bot className="h-3.5 w-3.5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium text-[var(--nova-text)]">{t('chat.subagent.outputFrom', { name })}</span>
+        <span className="mt-0.5 block truncate text-[11px] text-[var(--nova-text-faint)]">{statusLabel}</span>
+      </span>
+      {onOpen ? (
+        <span className="shrink-0 rounded border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-1.5 py-0.5 text-[10px] text-[var(--nova-text-muted)]">
+          {t('chat.subagent.openSession')}
+        </span>
+      ) : null}
+    </>
+  )
+  const cardClassName = 'flex min-h-10 w-full min-w-0 items-center gap-2 px-3 py-2 text-left'
+
+  return (
+    <div className="flex justify-start">
+      <div className={`w-full overflow-hidden rounded-lg border bg-[var(--nova-surface)] text-xs shadow-[var(--nova-shadow)] ${active ? 'border-[var(--nova-accent)] ring-1 ring-[var(--nova-accent)]/40' : 'border-[var(--nova-border)]'}`}>
+        {onOpen ? (
+          <button
+            type="button"
+            className={cardClassName}
+            onClick={() => onOpen(message)}
+            aria-label={t('chat.subagent.outputFrom', { name })}
+          >
+            {cardContent}
+          </button>
+        ) : (
+          <div className={cardClassName}>{cardContent}</div>
+        )}
+      </div>
+    </div>
+  )
+}

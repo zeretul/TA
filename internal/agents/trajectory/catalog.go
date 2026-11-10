@@ -1,0 +1,411 @@
+// Package trajectory projects existing Agent Sessions, Run traces, and
+// explicit outcome feedback as read-only resources for learning Agents.
+package trajectory
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/fs"
+	"log/slog"
+	"net/url"
+	"os"
+	"path/filepath"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+
+	agentrun "ta/internal/agents/run"
+	"ta/internal/agents/session"
+
+	agent "ta/agent"
+	agenttools "ta/agent/tools"
+)
+
+const Scheme = "trajectory://"
+
+const (
+	maxResourceURIBytes    = 4096
+	defaultTrajectoryLimit = 100
+	maxTrajectoryLimit     = 500
+)
+
+// RunURI returns the stable resource identifier shared by product surfaces and
+// an Agent. Callers never need to reproduce URI escaping rules.
+func RunURI(projectID, runID string) string {
+	return Scheme + "projects/" + url.PathEscape(projectID) + "/runs/" + url.PathEscape(runID)
+}
+
+type Source struct {
+	ProjectID string `json:"project_id"`
+	Name      string `json:"name"`
+	Workspace string `json:"-"`
+	StateRoot string `json:"-"`
+}
+
+type SourceProvider func(context.Context) ([]Source, error)
+
+type Catalog struct {
+	Sources  SourceProvider
+	Outcomes *OutcomeStore
+	Limit    int
+}
+
+// Resource is one redacted, model-visible trajectory document. Persisted traces
+// and product-facing detail views remain exact and use their own bounded reader.
+type Resource struct {
+	URI     string `json:"uri"`
+	Kind    string `json:"kind"`
+	Content string `json:"content"`
+}
+
+type readInput struct {
+	Path       string `json:"path" jsonschema_description:"Trajectory resource URI: trajectory://index, trajectory://outcomes, trajectory://projects/{project_id}/sessions/{session_id}, or trajectory://projects/{project_id}/runs/{run_id}."`
+	Offset     int    `json:"offset,omitempty" jsonschema:"minimum=1" jsonschema_description:"One-based first JSONL line for a Session or Run trajectory; defaults to 1. Line 1 is the resource manifest; subsequent lines follow chronological history positions."`
+	ByteOffset int    `json:"byte_offset,omitempty" jsonschema:"minimum=0" jsonschema_description:"Zero-based UTF-8 byte offset within the selected first Session or Run trajectory line for exact continuation."`
+	Limit      int    `json:"limit,omitempty" jsonschema:"minimum=1" jsonschema_description:"Maximum selected Session/Run trajectory lines or index/outcome entries. Defaults to and cannot exceed the configured trajectory cap; the configurable ceiling is 500."`
+}
+
+type projectIndex struct {
+	Source   Source                     `json:"source"`
+	Sessions []session.SessionMeta      `json:"sessions"`
+	Runs     []agentrun.RunTraceSummary `json:"runs"`
+}
+
+type indexIssue struct {
+	ProjectID   string `json:"project_id"`
+	ProjectName string `json:"project_name"`
+	Message     string `json:"message"`
+}
+
+type indexDocument struct {
+	Schema   string         `json:"schema"`
+	Projects []projectIndex `json:"projects"`
+	Outcomes string         `json:"outcomes"`
+	Issues   []indexIssue   `json:"issues,omitempty"`
+}
+
+// NewReadAdapter creates the trajectory:// contribution to the ordinary read
+// tool. It never exposes raw filesystem paths to the model.
+func NewReadAdapter(catalog Catalog) (agenttools.ReadAdapter, error) {
+	if catalog.Sources == nil {
+		return nil, errors.New("trajectory source provider is required")
+	}
+	return agenttools.NewReadAdapter(agent.CapabilityIdentity{
+		Kind: "denova.read.trajectory", Version: 3,
+		ConfigHash: fmt.Sprintf("limit=%d", effectiveTrajectoryLimit(catalog.Limit)),
+	}, "trajectory", func(_ context.Context, resource string) (bool, error) {
+		return strings.HasPrefix(strings.ToLower(strings.TrimSpace(resource)), Scheme), nil
+	}, catalog.read)
+}
+
+// Read returns the redacted resource exposed through the ordinary Agent read
+// tool. Session and Run resources use the default first JSONL window because
+// this compact API does not expose continuation offsets.
+func (catalog Catalog) Read(ctx context.Context, resource string, limit int) (Resource, error) {
+	if catalog.Sources == nil {
+		return Resource{}, errors.New("trajectory source provider is required")
+	}
+	result, err := catalog.read(ctx, readInput{Path: resource, Limit: limit})
+	if err != nil {
+		return Resource{}, err
+	}
+	return Resource{URI: result.Path, Kind: result.Kind, Content: result.Content}, nil
+}
+
+func (catalog Catalog) read(ctx context.Context, input readInput) (agenttools.ReadResult, error) {
+	resource := strings.TrimSpace(input.Path)
+	if len(resource) > maxResourceURIBytes {
+		return agenttools.ReadResult{}, fmt.Errorf("trajectory resource URI exceeds %d bytes", maxResourceURIBytes)
+	}
+	parsed, err := url.Parse(resource)
+	if err != nil || parsed.Scheme != "trajectory" {
+		return agenttools.ReadResult{}, fmt.Errorf("invalid trajectory resource %q", resource)
+	}
+	if input.Limit > maxTrajectoryLimit {
+		return agenttools.ReadResult{}, fmt.Errorf("trajectory limit cannot exceed %d", maxTrajectoryLimit)
+	}
+	limit := effectiveTrajectoryLimit(catalog.Limit)
+	if input.Limit > 0 && input.Limit < limit {
+		limit = input.Limit
+	}
+	segments := pathSegments(parsed)
+	if parsed.Host == "index" && len(segments) == 0 {
+		if input.Offset > 0 || input.ByteOffset > 0 {
+			return agenttools.ReadResult{}, errors.New("trajectory offset and byte_offset are supported only for Session and Run resources")
+		}
+		return catalog.readIndex(ctx, resource, limit)
+	}
+	if parsed.Host == "outcomes" && len(segments) == 0 {
+		if input.Offset > 0 || input.ByteOffset > 0 {
+			return agenttools.ReadResult{}, errors.New("trajectory offset and byte_offset are supported only for Session and Run resources")
+		}
+		return catalog.readOutcomes(resource, limit)
+	}
+	if parsed.Host != "projects" || len(segments) != 3 {
+		return agenttools.ReadResult{}, fs.ErrNotExist
+	}
+	source, err := catalog.source(ctx, segments[0])
+	if err != nil {
+		return agenttools.ReadResult{}, err
+	}
+	switch segments[1] {
+	case "sessions":
+		return catalog.readSessionResource(ctx, resource, source, segments[2], input, limit)
+	case "runs":
+		return catalog.readRunResource(ctx, resource, source, segments[2], input, limit)
+	default:
+		return agenttools.ReadResult{}, fs.ErrNotExist
+	}
+}
+
+func effectiveTrajectoryLimit(limit int) int {
+	if limit <= 0 || limit > maxTrajectoryLimit {
+		return defaultTrajectoryLimit
+	}
+	return limit
+}
+
+func (catalog Catalog) readIndex(ctx context.Context, resource string, limit int) (agenttools.ReadResult, error) {
+	sources, err := catalog.Sources(ctx)
+	if err != nil {
+		return agenttools.ReadResult{}, err
+	}
+	sort.Slice(sources, func(i, j int) bool { return sources[i].ProjectID < sources[j].ProjectID })
+	document := indexDocument{Schema: "denova.trajectory.index.v1", Outcomes: Scheme + "outcomes"}
+	for _, source := range sources {
+		if err := ctx.Err(); err != nil {
+			return agenttools.ReadResult{}, err
+		}
+		entry := projectIndex{Source: source, Sessions: []session.SessionMeta{}, Runs: []agentrun.RunTraceSummary{}}
+		directory := sessionDir(source.StateRoot)
+		_, statErr := os.Stat(directory)
+		if statErr == nil {
+			store, openErr := session.NewStore(directory)
+			if openErr != nil {
+				document.addProjectIssue(ctx, source, "sessions", "Session trajectories are unavailable for this Project", openErr)
+			} else {
+				listed, listErr := store.List("")
+				closeErr := store.Close()
+				if listErr != nil {
+					document.addProjectIssue(ctx, source, "sessions", "Session trajectories are unavailable for this Project", listErr)
+				} else {
+					entry.Sessions = listed
+				}
+				if closeErr != nil {
+					slog.WarnContext(ctx, "[trajectory] Project trajectory store close failed", "project_id", source.ProjectID, "component", "sessions", "error", closeErr)
+				}
+			}
+		} else if !errors.Is(statErr, fs.ErrNotExist) {
+			document.addProjectIssue(ctx, source, "sessions", "Session trajectories are unavailable for this Project", statErr)
+		}
+		sort.Slice(entry.Sessions, func(i, j int) bool { return entry.Sessions[i].UpdatedAt.After(entry.Sessions[j].UpdatedAt) })
+		runs, listErr := agentrun.ListRunTraces(agentrun.TraceLocation{Workspace: source.Workspace, StateRoot: source.StateRoot}, limit)
+		if listErr != nil {
+			document.addProjectIssue(ctx, source, "runs", "Run trajectories are unavailable for this Project", listErr)
+		} else {
+			entry.Runs = runs
+		}
+		for index := range entry.Runs {
+			entry.Runs[index].Path = ""
+		}
+		document.Projects = append(document.Projects, entry)
+	}
+	document.Projects = limitProjectIndexEntries(document.Projects, limit)
+	return jsonResult(resource, "trajectory_index", document)
+}
+
+func (document *indexDocument) addProjectIssue(ctx context.Context, source Source, component, message string, err error) {
+	slog.WarnContext(ctx, "[trajectory] Project trajectory index read failed", "project_id", source.ProjectID, "component", component, "error", err)
+	document.Issues = append(document.Issues, indexIssue{ProjectID: source.ProjectID, ProjectName: source.Name, Message: message})
+}
+
+type indexEntryKind uint8
+
+const (
+	indexSessionEntry indexEntryKind = iota
+	indexRunEntry
+)
+
+type indexEntryRef struct {
+	ProjectIndex int
+	EntryIndex   int
+	Kind         indexEntryKind
+	Timestamp    time.Time
+	ID           string
+}
+
+func limitProjectIndexEntries(projects []projectIndex, limit int) []projectIndex {
+	limited := make([]projectIndex, len(projects))
+	entries := make([]indexEntryRef, 0)
+	for projectPosition, project := range projects {
+		limited[projectPosition] = projectIndex{Source: project.Source, Sessions: []session.SessionMeta{}, Runs: []agentrun.RunTraceSummary{}}
+		for entryIndex, target := range project.Sessions {
+			entries = append(entries, indexEntryRef{ProjectIndex: projectPosition, EntryIndex: entryIndex, Kind: indexSessionEntry, Timestamp: target.UpdatedAt, ID: target.ID})
+		}
+		for entryIndex, target := range project.Runs {
+			entries = append(entries, indexEntryRef{ProjectIndex: projectPosition, EntryIndex: entryIndex, Kind: indexRunEntry, Timestamp: target.CreatedAt, ID: target.ID})
+		}
+	}
+	sort.Slice(entries, func(i, j int) bool {
+		left, right := entries[i], entries[j]
+		if !left.Timestamp.Equal(right.Timestamp) {
+			return left.Timestamp.After(right.Timestamp)
+		}
+		leftProjectID, rightProjectID := projects[left.ProjectIndex].Source.ProjectID, projects[right.ProjectIndex].Source.ProjectID
+		if leftProjectID != rightProjectID {
+			return leftProjectID < rightProjectID
+		}
+		if left.Kind != right.Kind {
+			return left.Kind < right.Kind
+		}
+		return left.ID < right.ID
+	})
+	if len(entries) > limit {
+		entries = entries[:limit]
+	}
+	for _, entry := range entries {
+		switch entry.Kind {
+		case indexSessionEntry:
+			limited[entry.ProjectIndex].Sessions = append(limited[entry.ProjectIndex].Sessions, projects[entry.ProjectIndex].Sessions[entry.EntryIndex])
+		case indexRunEntry:
+			limited[entry.ProjectIndex].Runs = append(limited[entry.ProjectIndex].Runs, projects[entry.ProjectIndex].Runs[entry.EntryIndex])
+		}
+	}
+	return limited
+}
+
+func (catalog Catalog) readOutcomes(resource string, limit int) (agenttools.ReadResult, error) {
+	if catalog.Outcomes == nil {
+		return jsonResult(resource, "trajectory_outcomes", []Outcome{})
+	}
+	outcomes, err := catalog.Outcomes.List(limit)
+	if err != nil {
+		return agenttools.ReadResult{}, err
+	}
+	return jsonResult(resource, "trajectory_outcomes", outcomes)
+}
+
+func (catalog Catalog) source(ctx context.Context, projectID string) (Source, error) {
+	sources, err := catalog.Sources(ctx)
+	if err != nil {
+		return Source{}, err
+	}
+	for _, source := range sources {
+		if source.ProjectID == projectID {
+			return source, nil
+		}
+	}
+	return Source{}, fs.ErrNotExist
+}
+
+func jsonResult(resource, kind string, value any) (agenttools.ReadResult, error) {
+	encoded, err := json.MarshalIndent(value, "", "  ")
+	if err != nil {
+		return agenttools.ReadResult{}, err
+	}
+	return agenttools.ReadResult{Path: resource, Kind: kind, Content: string(encoded), Total: len(encoded)}, nil
+}
+
+func redactTrajectoryValue(value any, source Source) any {
+	return newTrajectoryRedactor(source).redact(value)
+}
+
+type trajectoryRedactor struct {
+	privateRoots []string
+}
+
+func newTrajectoryRedactor(source Source) trajectoryRedactor {
+	privateRoots := make([]string, 0, 6)
+	for _, root := range []string{source.StateRoot, source.Workspace} {
+		root = strings.TrimSpace(root)
+		if root == "" {
+			continue
+		}
+		cleaned := filepath.Clean(root)
+		if filepath.Dir(cleaned) == cleaned {
+			continue
+		}
+		for _, candidate := range []string{
+			root,
+			cleaned,
+			filepath.ToSlash(cleaned),
+			strings.ReplaceAll(cleaned, "/", `\`),
+		} {
+			if candidate == "" || containsFold(privateRoots, candidate) {
+				continue
+			}
+			privateRoots = append(privateRoots, candidate)
+		}
+	}
+	sort.Slice(privateRoots, func(i, j int) bool { return len(privateRoots[i]) > len(privateRoots[j]) })
+	return trajectoryRedactor{privateRoots: privateRoots}
+}
+
+func (redactor trajectoryRedactor) redact(value any) any {
+	switch typed := value.(type) {
+	case map[string]any:
+		result := make(map[string]any, len(typed))
+		for key, item := range typed {
+			result[key] = redactor.redact(item)
+		}
+		return result
+	case []any:
+		result := make([]any, len(typed))
+		for index, item := range typed {
+			result[index] = redactor.redact(item)
+		}
+		return result
+	case string:
+		result := typed
+		for _, privateRoot := range redactor.privateRoots {
+			result = replaceAllFold(result, privateRoot, "[private-root]")
+		}
+		return result
+	default:
+		return value
+	}
+}
+
+func containsFold(values []string, target string) bool {
+	for _, value := range values {
+		if strings.EqualFold(value, target) {
+			return true
+		}
+	}
+	return false
+}
+
+func replaceAllFold(value, old, replacement string) string {
+	if old == "" {
+		return value
+	}
+	lowerOld := strings.ToLower(old)
+	for {
+		index := strings.Index(strings.ToLower(value), lowerOld)
+		if index < 0 {
+			return value
+		}
+		value = value[:index] + replacement + value[index+len(old):]
+	}
+}
+
+func pathSegments(parsed *url.URL) []string {
+	parts := strings.Split(strings.Trim(parsed.EscapedPath(), "/"), "/")
+	if len(parts) == 1 && parts[0] == "" {
+		return nil
+	}
+	result := make([]string, 0, len(parts))
+	for _, part := range parts {
+		decoded, err := url.PathUnescape(part)
+		if err != nil || decoded == "" || decoded == "." || decoded == ".." || strings.ContainsAny(decoded, `/\\`) {
+			return []string{"__invalid__", strconv.Itoa(len(parts))}
+		}
+		result = append(result, decoded)
+	}
+	return result
+}
+
+func sessionDir(stateRoot string) string { return filepath.Join(stateRoot, "sessions") }

@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "tests/fixtures/adventure-progression.tsx",
+    "tests/adventure-progression.spec.ts",
+    "playwright.progression.config.ts"
+  ],
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/jest-dom",
+      "node"
+    ]
+  }
+}

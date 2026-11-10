@@ -1,0 +1,169 @@
+{
+  "head": "fixture-head",
+  "items": [
+    {
+      "background": "Fixture background",
+      "def_id": "implement.upper.rare.effect",
+      "definition": {
+        "applicable_stage": "qi_7",
+        "background": "Fixture background",
+        "base_price": 150,
+        "description": "Fixture description",
+        "grade": "upper",
+        "id": "implement.upper.rare.effect",
+        "implement": {
+          "attack_bonus": 0.18,
+          "operating_mana_fraction": 0.02,
+          "special_effect": "item.effect.implement.meridian_throughput"
+        },
+        "kind": "implement",
+        "name_key": "item.implement.upper_rare_effect.name",
+        "quality_grade": "purple",
+        "rarity": "rare"
+      },
+      "description": "Fixture description",
+      "id": "Owned blade",
+      "instance_description": "real worn hilt",
+      "name": "Owned blade",
+      "operating_mana_cost": 3,
+      "quality_grade": "purple",
+      "quantity": 1,
+      "source": "actual gift",
+      "stage_eligible": false
+    },
+    {
+      "background": "Fixture background",
+      "def_id": "pill.restore.health.lower",
+      "definition": {
+        "background": "Fixture background",
+        "base_price": 3,
+        "description": "Fixture description",
+        "grade": "lower",
+        "id": "pill.restore.health.lower",
+        "kind": "pill",
+        "name_key": "item.pill.restore_health_lower.name",
+        "pill": {
+          "grade": "lower",
+          "purpose": "restore_health",
+          "registered_stage": {
+            "layer": 6,
+            "realm": "qi"
+          }
+        },
+        "quality_grade": "white",
+        "rarity": "common"
+      },
+      "description": "Fixture description",
+      "id": "Restoring pill",
+      "name": "Restoring pill",
+      "operating_mana_cost": 0,
+      "quality_grade": "white",
+      "quantity": 2,
+      "restore_amount": 20,
+      "source": "actual apothecary",
+      "stage_eligible": true
+    },
+    {
+      "background": "Fixture background",
+      "def_id": "implement.lower.common",
+      "definition": {
+        "applicable_stage": "qi_1",
+        "background": "Fixture background",
+        "base_price": 20,
+        "description": "Fixture description",
+        "grade": "lower",
+        "id": "implement.lower.common",
+        "implement": {
+          "attack_bonus": 0.05
+        },
+        "kind": "implement",
+        "name_key": "item.implement.lower_common.name",
+        "quality_grade": "white",
+        "rarity": "common"
+      },
+      "description": "Fixture description",
+      "id": "Equipped focus",
+      "instance_description": "old grip wrapping",
+      "name": "Equipped focus",
+      "operating_mana_cost": 0,
+      "quality_grade": "white",
+      "quantity": 1,
+      "slot": "weapon",
+      "source": "actual school issue",
+      "stage_eligible": true
+    }
+  ],
+  "skills": [
+    {
+      "background": "Fixture background",
+      "burden_cost": 0,
+      "castable": true,
+      "definition": {
+        "background": "Fixture background",
+        "burden": 6,
+        "description": "Fixture description",
+        "element": "fire",
+        "execution_actions": 1,
+        "id": "fire_bolt",
+        "mana_fraction": 0.05,
+        "name_key": "skill.fire_bolt.name",
+        "power": 1.2,
+        "quality_grade": "white",
+        "targets": 1,
+        "variant_base": "burn",
+        "version": 1
+      },
+      "description": "Fixture description",
+      "id": "fire_bolt",
+      "instance_description": "own skill wording",
+      "mana_cost": 6,
+      "mastered": true,
+      "name": "fire_bolt",
+      "name_key": "skill.fire_bolt.name",
+      "quality_grade": "white",
+      "required_learning_minutes": 1440,
+      "source": "actual teacher",
+      "version": 1
+    }
+  ],
+  "techniques": [
+    {
+      "active": false,
+      "background": "Fixture background",
+      "definition": {
+        "background": "Fixture background",
+        "breakthrough_bonus": 0.05,
+        "circulation": "warm",
+        "description": "Fixture description",
+        "growth_coefficient": 1.15,
+        "id": "method.warm_origin",
+        "learnable_skill_refs": [
+          "skill.fire_bolt",
+          "skill.fire_wave"
+        ],
+        "minimum_stage": "qi_3",
+        "name": "温元诀",
+        "quality": "good",
+        "quality_attack": 0.05,
+        "quality_grade": "blue",
+        "rarity": "uncommon",
+        "specialty": {
+          "attack": 0.1,
+          "defense": -0.2,
+          "health_max": -0.05
+        },
+        "standard_learning_minutes": 14400,
+        "supports_through": "foundation_late",
+        "version": 1
+      },
+      "description": "Fixture description",
+      "id": "method.warm_origin",
+      "instance_description": "own method wording",
+      "learning_minutes": 0,
+      "mastered": true,
+      "name": "温元诀",
+      "quality_grade": "blue",
+      "source": "actual manual"
+    }
+  ]
+}

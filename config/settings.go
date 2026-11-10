@@ -1,0 +1,1020 @@
+package config
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"log/slog"
+	"path/filepath"
+	"runtime"
+	"strings"
+
+	"ta/agent/providers"
+	toml "github.com/pelletier/go-toml/v2"
+
+	"ta/internal/revisionfile"
+	"ta/internal/style"
+	workspacelayout "ta/internal/workspace"
+)
+
+// Settings 是用户设置的持久化模型。工作区文件只会从中取出 Agent 定制字段。
+// 指针类型用于区分 "未设置"（继承上层）与 "显式置零"。
+type Settings struct {
+
+	// 模型
+	OpenAIAPIKey              string                  `toml:"openai_api_key,omitempty" json:"openai_api_key,omitempty"`
+	OpenAIBaseURL             string                  `toml:"openai_base_url,omitempty" json:"openai_base_url,omitempty"`
+	OpenAIModel               string                  `toml:"openai_model,omitempty" json:"openai_model,omitempty"`
+	OpenAIContextWindowTokens *int                    `toml:"openai_context_window_tokens,omitempty" json:"openai_context_window_tokens,omitempty"`
+	ModelEndpoints            []ModelEndpointSettings `toml:"model_endpoints,omitempty" json:"model_endpoints,omitempty"`
+	ModelProfiles             []ModelProfileSettings  `toml:"model_profiles,omitempty" json:"model_profiles,omitempty"`
+	Speech                    *SpeechSettings         `toml:"speech,omitempty" json:"speech,omitempty"`
+	// LegacyImageAPI* are presence-aware decode aliases for the former
+	// top-level image settings. They are migrated into ImageAPIProfiles.
+	LegacyImageAPIKey        *string                      `toml:"image_api_key,omitempty" json:"image_api_key,omitempty"`
+	LegacyImageAPIBaseURL    *string                      `toml:"image_api_base_url,omitempty" json:"image_api_base_url,omitempty"`
+	LegacyImageAPIModel      *string                      `toml:"image_api_model,omitempty" json:"image_api_model,omitempty"`
+	DefaultImageAPIProfileID string                       `toml:"default_image_api_profile_id,omitempty" json:"default_image_api_profile_id,omitempty"`
+	ImageAPIEndpoints        []ImageAPIEndpointSettings   `toml:"image_api_endpoints,omitempty" json:"image_api_endpoints,omitempty"`
+	ImageAPIProfiles         []ImageAPIProfileSettings    `toml:"image_api_profiles,omitempty" json:"image_api_profiles,omitempty"`
+	AgentModels              AgentModelSettings           `toml:"agent_models,omitempty" json:"agent_models,omitempty"`
+	AgentRuntimes            AgentRuntimeSettings         `toml:"agent_runtimes,omitempty" json:"agent_runtimes,omitzero"`
+	AgentTools               AgentToolSettings            `toml:"agent_tools,omitempty" json:"agent_tools,omitempty"`
+	AgentPrompts             AgentPromptSettings          `toml:"agent_prompts,omitempty" json:"agent_prompts,omitempty"`
+	AgentSkills              AgentSkillSettings           `toml:"agent_skills,omitempty" json:"agent_skills,omitempty"`
+	AgentContexts            AgentContextSettings         `toml:"agent_context,omitempty" json:"agent_context,omitempty"`
+	GeneralSubAgents         AgentGeneralSubAgentSettings `toml:"general_sub_agents,omitempty" json:"general_sub_agents,omitempty"`
+	SubAgents                []SubAgentConfig             `toml:"sub_agents,omitempty" json:"sub_agents,omitempty"`
+	CustomAgents             []CustomAgentConfig          `toml:"custom_agents,omitempty" json:"custom_agents,omitempty"`
+	DefaultImageAgentID      *string                      `toml:"default_image_agent_id,omitempty" json:"default_image_agent_id,omitempty"`
+	WebAccess                WebAccessSettings            `toml:"web_access,omitempty" json:"web_access,omitempty"`
+	Labs                     LabSettings                  `toml:"labs,omitempty" json:"labs,omitempty"`
+
+	// 路径
+	SkillsDir    string `toml:"skills_dir,omitempty" json:"skills_dir,omitempty"`
+	DenovaDir    string `toml:"denova_dir,omitempty" json:"denova_dir,omitempty"`
+	NovaDir      string `toml:"nova_dir,omitempty" json:"nova_dir,omitempty"`
+	BackendPort  *int   `toml:"backend_port,omitempty" json:"backend_port,omitempty"`
+	FrontendPort *int   `toml:"frontend_port,omitempty" json:"frontend_port,omitempty"`
+
+	// 远程访问
+	AllowLANAccess           *bool  `toml:"allow_lan_access,omitempty" json:"allow_lan_access,omitempty"`
+	RemoteAccessUsername     string `toml:"remote_access_username,omitempty" json:"remote_access_username,omitempty"`
+	RemoteAccessPasswordHash string `toml:"remote_access_password_hash,omitempty" json:"-"`
+	RemoteAccessPassword     string `toml:"-" json:"remote_access_password,omitempty"`
+	RemoteAccessPasswordSet  bool   `toml:"-" json:"remote_access_password_set,omitempty"`
+
+	// 编辑器
+	AutoSaveEnabled             *bool  `toml:"auto_save_enabled,omitempty" json:"auto_save_enabled,omitempty"`
+	AutoSaveIntervalMs          *int   `toml:"auto_save_interval_ms,omitempty" json:"auto_save_interval_ms,omitempty"`
+	ChapterFilenameFormat       string `toml:"chapter_filename_format,omitempty" json:"chapter_filename_format,omitempty"`
+	VolumeDirFormat             string `toml:"volume_dir_format,omitempty" json:"volume_dir_format,omitempty"`
+	MaxOpenTabs                 *int   `toml:"max_open_tabs,omitempty" json:"max_open_tabs,omitempty"`
+	ProjectFileTreeEntryLimit   *int   `toml:"project_file_tree_entry_limit,omitempty" json:"project_file_tree_entry_limit,omitempty"`
+	ChapterGroupMin             *int   `toml:"chapter_group_min,omitempty" json:"chapter_group_min,omitempty"`
+	ChapterGroupMax             *int   `toml:"chapter_group_max,omitempty" json:"chapter_group_max,omitempty"`
+	VersionTimedEnabled         *bool  `toml:"version_timed_enabled,omitempty" json:"version_timed_enabled,omitempty"`
+	VersionTimedIntervalMinutes *int   `toml:"version_timed_interval_minutes,omitempty" json:"version_timed_interval_minutes,omitempty"`
+
+	// 外观
+	UIFontFamily           string `toml:"ui_font_family,omitempty" json:"ui_font_family,omitempty"`
+	UIFontSize             *int   `toml:"ui_font_size,omitempty" json:"ui_font_size,omitempty"`
+	ReadingFontFamily      string `toml:"reading_font_family,omitempty" json:"reading_font_family,omitempty"`
+	ReadingFontSize        *int   `toml:"reading_font_size,omitempty" json:"reading_font_size,omitempty"`
+	SourceEditorFontFamily string `toml:"source_editor_font_family,omitempty" json:"source_editor_font_family,omitempty"`
+	Language               string `toml:"language,omitempty" json:"language,omitempty"`
+	Theme                  string `toml:"theme,omitempty" json:"theme,omitempty"`
+	MotionIntensity        string `toml:"motion_intensity,omitempty" json:"motion_intensity,omitempty"`
+	UpdateCheckEnabled     *bool  `toml:"update_check_enabled,omitempty" json:"update_check_enabled,omitempty"`
+	// ClipsEnabled lets the player stop the character window from starting a
+	// scene clip on its own. It is a playback preference, not a content switch:
+	// the clip and its play button stay where they are.
+	ClipsEnabled *bool `toml:"clips_enabled,omitempty" json:"clips_enabled,omitempty"`
+
+	// Agent
+	MaxIteration              *int                `toml:"max_iteration,omitempty" json:"max_iteration,omitempty"`
+	ModelMaxRetries           *int                `toml:"model_max_retries,omitempty" json:"model_max_retries,omitempty"`
+	AgentIdleTimeoutSeconds   *int                `toml:"agent_idle_timeout_seconds,omitempty" json:"agent_idle_timeout_seconds,omitempty"`
+	AgentToolResultLimitKB    *int                `toml:"agent_tool_result_limit_kb,omitempty" json:"agent_tool_result_limit_kb,omitempty"`
+	AgentToolParallelism      *int                `toml:"agent_tool_parallelism,omitempty" json:"agent_tool_parallelism,omitempty"`
+	AgentSubAgentParallelism  *int                `toml:"agent_subagent_parallelism,omitempty" json:"agent_subagent_parallelism,omitempty"`
+	AgentScriptTimeoutSeconds *int                `toml:"agent_script_timeout_seconds,omitempty" json:"agent_script_timeout_seconds,omitempty"`
+	AgentApprovalMode         AgentApprovalMode   `toml:"agent_approval_mode,omitempty" json:"agent_approval_mode,omitempty"`
+	AgentApprovalRules        []AgentApprovalRule `toml:"agent_approval_rules,omitempty" json:"agent_approval_rules,omitempty"`
+
+	// Agent shell execution is user-scoped. A workspace must not choose which
+	// host profile is loaded or substitute the executable used on the machine.
+	ShellEnvironmentMode  ShellEnvironmentMode `toml:"shell_environment_mode,omitempty" json:"shell_environment_mode,omitempty"`
+	ShellEnvironmentShell string               `toml:"shell_environment_shell,omitempty" json:"shell_environment_shell,omitempty"`
+	AgentBashPath         string               `toml:"agent_bash_path,omitempty" json:"agent_bash_path,omitempty"`
+
+	LLMInputLogEnabled  *bool  `toml:"llm_input_log_enabled,omitempty" json:"llm_input_log_enabled,omitempty"`
+	TraceCaptureLevel   string `toml:"trace_capture_level,omitempty" json:"trace_capture_level,omitempty"`
+	TraceExporter       string `toml:"trace_exporter,omitempty" json:"trace_exporter,omitempty"`
+	TraceRetentionRuns  *int   `toml:"trace_retention_runs,omitempty" json:"trace_retention_runs,omitempty"`
+	IDEStoryTellerID    string `toml:"ide_story_teller_id,omitempty" json:"ide_story_teller_id,omitempty"`
+	IDEImagePresetID    string `toml:"ide_image_preset_id,omitempty" json:"ide_image_preset_id,omitempty"`
+	// AgentQuickPrompts is a user-level UI preference. Workspace configuration
+	// must not replace one creator's personal shortcut layout.
+	AgentQuickPrompts AgentQuickPromptRegistry `toml:"agent_quick_prompts,omitempty" json:"agent_quick_prompts,omitempty"`
+	// AgentQuickPromptsInCommands opts all page scopes into slash suggestions; nil means disabled.
+	AgentQuickPromptsInCommands *bool `toml:"agent_quick_prompts_in_commands,omitempty" json:"agent_quick_prompts_in_commands,omitempty"`
+
+	// 游戏模式
+	InteractiveStoryTellerID   string   `toml:"interactive_story_teller_id,omitempty" json:"interactive_story_teller_id,omitempty"`
+	InteractiveStageFontSize   *int     `toml:"interactive_stage_font_size,omitempty" json:"interactive_stage_font_size,omitempty"`
+	InteractiveStageLineHeight *float64 `toml:"interactive_stage_line_height,omitempty" json:"interactive_stage_line_height,omitempty"`
+}
+
+func boolPtr(v bool) *bool        { return &v }
+func intPtr(v int) *int           { return &v }
+func floatPtr(v float64) *float64 { return &v }
+func stringPtr(v string) *string  { return &v }
+
+const (
+	DefaultAgentIdleTimeoutSeconds = 0
+	// Keep one model-visible tool result above the shared 50 KiB fragment floor
+	// while preventing a single successful call from consuming most of the
+	// default 400K-token context window.
+	DefaultAgentToolResultLimitKB   = 128
+	DefaultAgentToolParallelism     = 8
+	MaxAgentToolParallelism         = 64
+	DefaultAgentSubAgentParallelism = 4
+	MaxAgentSubAgentParallelism     = 32
+	DefaultAgentScriptTimeoutSecs   = 0
+	DefaultTraceCaptureLevel        = "summary"
+	DefaultTraceExporter            = "local"
+	DefaultTraceRetentionRuns       = 100
+	// An ordinary creator project should fit comfortably in one response. The
+	// hard ceiling keeps an accidental generated tree from growing without
+	// bound even when the user raises the normal limit.
+	DefaultProjectFileTreeEntryLimit = 100_000
+	MaxProjectFileTreeEntryLimit     = 1_000_000
+)
+
+// DefaultSettings 返回内置默认配置（最低优先级）。
+func DefaultSettings() Settings {
+	return Settings{
+		DefaultImageAPIProfileID:    DefaultImageAPIProfileID,
+		DefaultImageAgentID:         stringPtr(""),
+		ImageAPIEndpoints:           []ImageAPIEndpointSettings{DefaultImageAPIEndpoint()},
+		ImageAPIProfiles:            []ImageAPIProfileSettings{DefaultImageAPIProfile()},
+		SkillsDir:                   "./skills",
+		DenovaDir:                   "./" + workspacelayout.DataDirName,
+		NovaDir:                     "./" + workspacelayout.DataDirName,
+		BackendPort:                 intPtr(8080),
+		FrontendPort:                intPtr(5173),
+		AllowLANAccess:              boolPtr(false),
+		AutoSaveEnabled:             boolPtr(true),
+		AutoSaveIntervalMs:          intPtr(1500),
+		ChapterFilenameFormat:       "ch{order:05}-{chapter}-{title}.md",
+		VolumeDirFormat:             "v{order:05}-{volume}",
+		MaxOpenTabs:                 intPtr(5),
+		ProjectFileTreeEntryLimit:   intPtr(DefaultProjectFileTreeEntryLimit),
+		ChapterGroupMin:             intPtr(3),
+		ChapterGroupMax:             intPtr(8),
+		VersionTimedEnabled:         boolPtr(true),
+		VersionTimedIntervalMinutes: intPtr(10),
+		UIFontFamily:                "apple-system",
+		UIFontSize:                  intPtr(14),
+		ReadingFontFamily:           "apple-system",
+		ReadingFontSize:             intPtr(18),
+		SourceEditorFontFamily:      "mono",
+		Language:                    "auto",
+		Theme:                       "dark",
+		MotionIntensity:             "system",
+		UpdateCheckEnabled:          boolPtr(true),
+		ClipsEnabled:                boolPtr(true),
+		ModelMaxRetries:             intPtr(5),
+		AgentIdleTimeoutSeconds:     intPtr(DefaultAgentIdleTimeoutSeconds),
+		AgentToolResultLimitKB:      intPtr(DefaultAgentToolResultLimitKB),
+		AgentToolParallelism:        intPtr(DefaultAgentToolParallelism),
+		AgentSubAgentParallelism:    intPtr(DefaultAgentSubAgentParallelism),
+		AgentScriptTimeoutSeconds:   intPtr(DefaultAgentScriptTimeoutSecs),
+		AgentApprovalMode:           AgentApprovalWrite,
+		ShellEnvironmentMode:        ShellEnvironmentAuto,
+		LLMInputLogEnabled:          boolPtr(false),
+		TraceCaptureLevel:           DefaultTraceCaptureLevel,
+		TraceExporter:               DefaultTraceExporter,
+		TraceRetentionRuns:          intPtr(DefaultTraceRetentionRuns),
+		AgentModels: AgentModelSettings{
+			IDE:              AgentModelOverride{ThinkingLevel: string(providers.ThinkingLevelMedium)},
+			InteractiveStory: AgentModelOverride{ThinkingLevel: string(providers.ThinkingLevelLow)},
+			VersionSummary:   AgentModelOverride{ThinkingLevel: string(providers.ThinkingLevelOff)},
+			ToolAgent:        AgentModelOverride{ThinkingLevel: string(providers.ThinkingLevelOff)},
+		},
+		AgentTools:                 DefaultAgentToolSettings(),
+		WebAccess:                  DefaultWebAccessSettings(),
+		Labs:                       DefaultLabSettings(),
+		AgentSkills:                AgentSkillSettings{},
+		AgentContexts:              DefaultAgentContextSettings(),
+		GeneralSubAgents:           DefaultAgentGeneralSubAgentSettings(),
+		SubAgents:                  nil,
+		IDEStoryTellerID:           style.DefaultID,
+		IDEImagePresetID:           "realistic",
+		InteractiveStoryTellerID:   style.DefaultID,
+		InteractiveStageFontSize:   intPtr(16),
+		InteractiveStageLineHeight: floatPtr(1.78),
+	}
+}
+
+// Merge 用 child 的非零字段覆盖 parent 后返回新值。
+// 字符串：空串视为未设置；指针：nil 视为未设置。
+func Merge(parent, child Settings) Settings {
+	out := parent
+	if child.OpenAIAPIKey != "" {
+		out.OpenAIAPIKey = child.OpenAIAPIKey
+	}
+	if child.OpenAIBaseURL != "" {
+		out.OpenAIBaseURL = child.OpenAIBaseURL
+	}
+	if child.OpenAIModel != "" {
+		out.OpenAIModel = child.OpenAIModel
+	}
+	if child.OpenAIContextWindowTokens != nil {
+		out.OpenAIContextWindowTokens = child.OpenAIContextWindowTokens
+	}
+	out.ModelEndpoints = mergeModelEndpoints(out.ModelEndpoints, child.ModelEndpoints)
+	out.ModelProfiles = mergeModelProfiles(out.ModelProfiles, child.ModelProfiles)
+	if child.Speech != nil {
+		speech := *child.Speech
+		out.Speech = &speech
+	}
+	if child.DefaultImageAPIProfileID != "" {
+		out.DefaultImageAPIProfileID = child.DefaultImageAPIProfileID
+	}
+	out.ImageAPIEndpoints = mergeImageAPIEndpoints(out.ImageAPIEndpoints, child.ImageAPIEndpoints)
+	out.ImageAPIProfiles = mergeImageAPIProfiles(out.ImageAPIProfiles, child.ImageAPIProfiles)
+	out.AgentModels = MergeAgentModelSettings(out.AgentModels, child.AgentModels)
+	out.AgentRuntimes = MergeAgentRuntimeSettings(out.AgentRuntimes, child.AgentRuntimes)
+	out.AgentTools = MergeAgentToolSettings(out.AgentTools, child.AgentTools)
+	out.AgentPrompts = MergeAgentPromptSettings(out.AgentPrompts, child.AgentPrompts)
+	out.AgentSkills = MergeAgentSkillSettings(out.AgentSkills, child.AgentSkills)
+	out.AgentContexts = MergeAgentContextSettings(out.AgentContexts, child.AgentContexts)
+	out.GeneralSubAgents = MergeAgentGeneralSubAgentSettings(out.GeneralSubAgents, child.GeneralSubAgents)
+	out.SubAgents = MergeSubAgents(out.SubAgents, child.SubAgents)
+	out.CustomAgents = MergeCustomAgents(out.CustomAgents, child.CustomAgents)
+	if child.DefaultImageAgentID != nil {
+		value := NormalizeCustomAgentID(*child.DefaultImageAgentID)
+		out.DefaultImageAgentID = &value
+	}
+	out.WebAccess = MergeWebAccessSettings(out.WebAccess, child.WebAccess)
+	out.Labs = MergeLabSettings(out.Labs, child.Labs)
+	if child.SkillsDir != "" {
+		out.SkillsDir = child.SkillsDir
+	}
+	if child.NovaDir != "" {
+		out.DenovaDir = child.NovaDir
+		out.NovaDir = child.NovaDir
+	}
+	if child.DenovaDir != "" {
+		out.DenovaDir = child.DenovaDir
+		out.NovaDir = child.DenovaDir
+	}
+	if child.BackendPort != nil {
+		out.BackendPort = child.BackendPort
+	}
+	if child.FrontendPort != nil {
+		out.FrontendPort = child.FrontendPort
+	}
+	if child.AllowLANAccess != nil {
+		out.AllowLANAccess = child.AllowLANAccess
+	}
+	if child.RemoteAccessUsername != "" {
+		out.RemoteAccessUsername = child.RemoteAccessUsername
+	}
+	if child.RemoteAccessPasswordHash != "" {
+		out.RemoteAccessPasswordHash = child.RemoteAccessPasswordHash
+		out.RemoteAccessPasswordSet = true
+	}
+	if child.AutoSaveEnabled != nil {
+		out.AutoSaveEnabled = child.AutoSaveEnabled
+	}
+	if child.AutoSaveIntervalMs != nil {
+		out.AutoSaveIntervalMs = child.AutoSaveIntervalMs
+	}
+	if child.ChapterFilenameFormat != "" {
+		out.ChapterFilenameFormat = child.ChapterFilenameFormat
+	}
+	if child.VolumeDirFormat != "" {
+		out.VolumeDirFormat = child.VolumeDirFormat
+	}
+	if child.MaxOpenTabs != nil {
+		out.MaxOpenTabs = child.MaxOpenTabs
+	}
+	if child.ProjectFileTreeEntryLimit != nil {
+		out.ProjectFileTreeEntryLimit = child.ProjectFileTreeEntryLimit
+	}
+	if child.ChapterGroupMin != nil {
+		out.ChapterGroupMin = child.ChapterGroupMin
+	}
+	if child.ChapterGroupMax != nil {
+		out.ChapterGroupMax = child.ChapterGroupMax
+	}
+	if child.VersionTimedEnabled != nil {
+		out.VersionTimedEnabled = child.VersionTimedEnabled
+	}
+	if child.VersionTimedIntervalMinutes != nil {
+		out.VersionTimedIntervalMinutes = child.VersionTimedIntervalMinutes
+	}
+	if child.UIFontFamily != "" {
+		out.UIFontFamily = child.UIFontFamily
+	}
+	if child.UIFontSize != nil {
+		out.UIFontSize = child.UIFontSize
+	}
+	if child.ReadingFontFamily != "" {
+		out.ReadingFontFamily = child.ReadingFontFamily
+	}
+	if child.ReadingFontSize != nil {
+		out.ReadingFontSize = child.ReadingFontSize
+	}
+	if child.SourceEditorFontFamily != "" {
+		out.SourceEditorFontFamily = child.SourceEditorFontFamily
+	}
+	if child.Language != "" {
+		out.Language = child.Language
+	}
+	if child.Theme != "" {
+		out.Theme = child.Theme
+	}
+	if child.MotionIntensity != "" {
+		out.MotionIntensity = child.MotionIntensity
+	}
+	if child.UpdateCheckEnabled != nil {
+		out.UpdateCheckEnabled = child.UpdateCheckEnabled
+	}
+	if child.ClipsEnabled != nil {
+		out.ClipsEnabled = child.ClipsEnabled
+	}
+	if child.MaxIteration != nil {
+		out.MaxIteration = child.MaxIteration
+	}
+	if child.ModelMaxRetries != nil {
+		out.ModelMaxRetries = child.ModelMaxRetries
+	}
+	if child.AgentIdleTimeoutSeconds != nil {
+		out.AgentIdleTimeoutSeconds = child.AgentIdleTimeoutSeconds
+	}
+	if child.AgentToolResultLimitKB != nil {
+		out.AgentToolResultLimitKB = child.AgentToolResultLimitKB
+	}
+	if child.AgentToolParallelism != nil {
+		out.AgentToolParallelism = child.AgentToolParallelism
+	}
+	if child.AgentSubAgentParallelism != nil {
+		out.AgentSubAgentParallelism = child.AgentSubAgentParallelism
+	}
+	if child.AgentScriptTimeoutSeconds != nil {
+		out.AgentScriptTimeoutSeconds = child.AgentScriptTimeoutSeconds
+	}
+	if child.AgentApprovalMode != "" {
+		out.AgentApprovalMode = NormalizeAgentApprovalMode(child.AgentApprovalMode)
+	}
+	if child.AgentApprovalRules != nil {
+		out.AgentApprovalRules = NormalizeAgentApprovalRules(child.AgentApprovalRules)
+	}
+	if child.ShellEnvironmentMode != "" {
+		out.ShellEnvironmentMode = normalizeShellEnvironmentMode(child.ShellEnvironmentMode)
+	}
+	if child.ShellEnvironmentShell != "" {
+		out.ShellEnvironmentShell = child.ShellEnvironmentShell
+	}
+	if child.AgentBashPath != "" {
+		out.AgentBashPath = child.AgentBashPath
+	}
+	if child.LLMInputLogEnabled != nil {
+		out.LLMInputLogEnabled = child.LLMInputLogEnabled
+	}
+	if child.TraceCaptureLevel != "" {
+		out.TraceCaptureLevel = child.TraceCaptureLevel
+	}
+	if child.TraceExporter != "" {
+		out.TraceExporter = child.TraceExporter
+	}
+	if child.TraceRetentionRuns != nil {
+		out.TraceRetentionRuns = child.TraceRetentionRuns
+	}
+	if child.IDEStoryTellerID != "" {
+		out.IDEStoryTellerID = child.IDEStoryTellerID
+	}
+	if child.InteractiveStoryTellerID != "" {
+		out.InteractiveStoryTellerID = child.InteractiveStoryTellerID
+	}
+	if child.IDEImagePresetID != "" {
+		out.IDEImagePresetID = child.IDEImagePresetID
+	}
+	if child.AgentQuickPrompts != nil {
+		out.AgentQuickPrompts = cloneAgentQuickPrompts(child.AgentQuickPrompts)
+	}
+	if child.AgentQuickPromptsInCommands != nil {
+		out.AgentQuickPromptsInCommands = child.AgentQuickPromptsInCommands
+	}
+	if child.InteractiveStageFontSize != nil {
+		out.InteractiveStageFontSize = child.InteractiveStageFontSize
+	}
+	if child.InteractiveStageLineHeight != nil {
+		out.InteractiveStageLineHeight = child.InteractiveStageLineHeight
+	}
+	return out
+}
+
+const (
+	// UserConfigFilename 是用户级配置文件名（位于 DenovaDir 下）。
+	UserConfigFilename = "config.toml"
+	// WorkspaceConfigDir 是工作区级 Agent 定制目录（相对于 workspace）。
+	WorkspaceConfigDir = workspacelayout.DataDirName
+	// LegacyWorkspaceConfigDir 是改名前的工作区级配置目录，仅用于兼容已有工作区。
+	LegacyWorkspaceConfigDir = workspacelayout.LegacyDataDirName
+	// WorkspaceConfigFilename 是工作区级配置文件名。
+	WorkspaceConfigFilename = "config.toml"
+)
+
+// LayeredSettings 暴露默认、全局、用户与工作区 Agent 定制快照及合并后的 effective 值。
+type LayeredSettings struct {
+	Default                    Settings                                 `json:"default"`
+	Global                     Settings                                 `json:"global"`
+	User                       Settings                                 `json:"user"`
+	Workspace                  Settings                                 `json:"workspace"`
+	Inherited                  SettingsInheritance                      `json:"inherited"`
+	Effective                  Settings                                 `json:"effective"`
+	Paths                      SettingsPaths                            `json:"paths"`
+	Revisions                  SettingsRevisions                        `json:"revisions"`
+	Access                     SettingsAccess                           `json:"access"`
+	Runtime                    SettingsRuntime                          `json:"runtime"`
+	BuiltinAgentPrompts        AgentPromptSettings                      `json:"builtin_agent_prompts,omitempty"`
+	BuiltinAgentPromptBlocks   AgentPromptBlockSettings                 `json:"builtin_agent_prompt_blocks,omitempty"`
+	BuiltinAgentPromptSources  AgentPromptSourceSettings                `json:"builtin_agent_prompt_sources,omitempty"`
+	BuiltinCompactionSources   AgentPromptSourceSettings                `json:"builtin_agent_compaction_sources,omitempty"`
+	AgentContracts             []AgentContractDefinition                `json:"agent_contracts"`
+	AgentToolCapabilities      []AgentToolCapabilityCatalogEntry        `json:"agent_tool_capabilities"`
+	ResolvedAgentToolManifests map[string][]ResolvedAgentToolCapability `json:"resolved_agent_tool_manifests"`
+	ResolvedAgentContexts      map[string]ResolvedAgentContextSettings  `json:"resolved_agent_contexts"`
+	ResolvedAgentDefinitions   map[string]ResolvedAgentDefinition       `json:"resolved_agent_definitions"`
+}
+
+// SettingsInheritance contains the authoritative value below each writable
+// layer. The Settings UI uses it for "inherit" labels without duplicating
+// Merge semantics in the frontend.
+type SettingsInheritance struct {
+	User      Settings `json:"user"`
+	Workspace Settings `json:"workspace"`
+}
+
+var (
+	ErrSettingsRevisionConflict = errors.New("配置已被其他操作更新，请重新加载后再保存")
+	errSettingsFileMissing      = errors.New("settings file is missing")
+)
+
+// SettingsPaths 是设置页只读展示的真实配置路径。
+type SettingsPaths struct {
+	DenovaDir       string `json:"denova_dir"`
+	NovaDir         string `json:"nova_dir"`
+	UserConfig      string `json:"user_config"`
+	WorkspaceConfig string `json:"workspace_config"`
+}
+
+// SettingsRevisions 是配置文件的轻量版本，用于阻止旧配置草稿覆盖外部写入。
+type SettingsRevisions struct {
+	User      string `json:"user"`
+	Workspace string `json:"workspace"`
+}
+
+// SettingsAccess exposes the Text Adventure entry addresses users can open in browsers.
+type SettingsAccess struct {
+	LocalURL string `json:"local_url"`
+	LANURL   string `json:"lan_url"`
+}
+
+// SettingsRuntime exposes process-level platform details used by runtime-only
+// capability gates. These fields are not persisted to config files.
+type SettingsRuntime struct {
+	GOOS    string `json:"goos"`
+	DevMode bool   `json:"dev_mode"`
+	// StoryModelReady reports whether this machine resolves a model a story can
+	// be written with. The application layer answers it through the same
+	// provider resolution a real call runs, which counts environment overrides
+	// and presets that supply their own base URL. It is absent when no layer has
+	// answered, so a reader can tell "not asked" from "nothing configured".
+	StoryModelReady *bool `json:"story_model_ready,omitempty"`
+}
+
+// ReadSettingsFile 读取 TOML，文件不存在时返回零值且无错误。
+func ReadSettingsFile(path string) (Settings, error) {
+	var settings Settings
+	var backupPath string
+	var migrationDetected bool
+	_, err := revisionfile.Mutate(
+		context.Background(),
+		path,
+		revisionfile.Options{FileMode: 0o644, DirectoryMode: 0o755},
+		func(snapshot revisionfile.Snapshot) ([]byte, error) {
+			if !snapshot.Exists {
+				return nil, errSettingsFileMissing
+			}
+			decoded, migrated, decodeErr := decodeSettingsFileWithMigration(path, snapshot.Content)
+			if decodeErr != nil {
+				return nil, decodeErr
+			}
+			settings = decoded
+			if !migrated {
+				return snapshot.Content, nil
+			}
+			migrationDetected = true
+			backupPath, decodeErr = preserveModelSettingsMigrationBackup(path, snapshot)
+			if decodeErr != nil {
+				return nil, decodeErr
+			}
+			data, marshalErr := toml.Marshal(settings)
+			if marshalErr != nil {
+				return nil, fmt.Errorf("序列化失败: %w", marshalErr)
+			}
+			return data, nil
+		},
+	)
+	if errors.Is(err, errSettingsFileMissing) {
+		return Settings{}, nil
+	}
+	if err != nil {
+		if migrationDetected {
+			slog.WarnContext(context.Background(), "[config] could not persist migrated model settings; using the migrated in-memory view", "path", path, "error", err)
+			return settings, nil
+		}
+		return Settings{}, fmt.Errorf("读取 %s 失败: %w", path, err)
+	}
+	if backupPath != "" {
+		slog.InfoContext(context.Background(), "[config] migrated legacy model settings", "path", path, "backup_path", backupPath)
+	}
+	return settings, nil
+}
+
+func decodeSettingsFile(path string, data []byte) (Settings, error) {
+	settings, _, err := decodeSettingsFileWithMigration(path, data)
+	return settings, err
+}
+
+func decodeSettingsFileWithMigration(path string, data []byte) (Settings, bool, error) {
+	var s Settings
+	if err := toml.Unmarshal(data, &s); err != nil {
+		return Settings{}, false, fmt.Errorf("解析 %s 失败: %w", path, err)
+	}
+	migrated := hasLegacyImageSettings(s) || hasEmbeddedModelEndpointSettings(s) || hasEmbeddedImageAPIEndpointSettings(s)
+	if err := validateSettingsRuntimes(s); err != nil {
+		return Settings{}, false, fmt.Errorf("validate settings %s: %w", path, err)
+	}
+	return sanitizeEditableSettings(s), migrated, nil
+}
+
+// WriteSettingsFile 写入 TOML，自动创建父目录。
+func WriteSettingsFile(path string, s Settings) error {
+	return WriteSettingsFileIfRevision(path, s, "")
+}
+
+// WriteSettingsFileIfRevision 写入配置；expectedRevision 非空时要求磁盘文件未被外部改动。
+func WriteSettingsFileIfRevision(path string, s Settings, expectedRevision string) error {
+	if err := validateSettingsRuntimes(s); err != nil {
+		return err
+	}
+	data, err := toml.Marshal(sanitizeEditableSettings(s))
+	if err != nil {
+		return fmt.Errorf("序列化失败: %w", err)
+	}
+	if _, err := revisionfile.ReplaceIfRevision(
+		context.Background(),
+		path,
+		expectedRevision,
+		data,
+		revisionfile.Options{FileMode: 0o644, DirectoryMode: 0o755},
+	); err != nil {
+		if errors.Is(err, revisionfile.ErrRevisionConflict) {
+			return ErrSettingsRevisionConflict
+		}
+		return fmt.Errorf("写入 %s 失败: %w", path, err)
+	}
+	return nil
+}
+
+// MutateSettingsFile locks one settings path across reading, preparing and
+// committing the next TOML snapshot. Callers use it for read-modify-write
+// policies that must not be prepared from stale settings.
+func MutateSettingsFile(
+	path string,
+	expectedRevision string,
+	mutate func(Settings) (Settings, error),
+) (string, error) {
+	if mutate == nil {
+		return "", errors.New("settings mutator is nil")
+	}
+	var backupPath string
+	result, err := revisionfile.Mutate(
+		context.Background(),
+		path,
+		revisionfile.Options{FileMode: 0o644, DirectoryMode: 0o755},
+		func(snapshot revisionfile.Snapshot) ([]byte, error) {
+			if expectedRevision != "" && snapshot.Revision != expectedRevision {
+				return nil, ErrSettingsRevisionConflict
+			}
+			current := Settings{}
+			if snapshot.Exists {
+				var decodeErr error
+				var migrated bool
+				current, migrated, decodeErr = decodeSettingsFileWithMigration(path, snapshot.Content)
+				if decodeErr != nil {
+					return nil, decodeErr
+				}
+				if migrated {
+					backupPath, decodeErr = preserveModelSettingsMigrationBackup(path, snapshot)
+					if decodeErr != nil {
+						return nil, decodeErr
+					}
+				}
+			}
+			next, mutateErr := mutate(current)
+			if mutateErr != nil {
+				return nil, mutateErr
+			}
+			if err := validateSettingsRuntimes(next); err != nil {
+				return nil, err
+			}
+			data, marshalErr := toml.Marshal(sanitizeEditableSettings(next))
+			if marshalErr != nil {
+				return nil, fmt.Errorf("序列化失败: %w", marshalErr)
+			}
+			return data, nil
+		},
+	)
+	if err != nil {
+		return "", err
+	}
+	if backupPath != "" {
+		slog.InfoContext(context.Background(), "[config] migrated legacy model settings during mutation", "path", path, "backup_path", backupPath)
+	}
+	return result.Revision, nil
+}
+
+// SettingsFileRevision 返回配置文件内容版本；缺失文件使用 stable sentinel。
+func SettingsFileRevision(path string) (string, error) {
+	snapshot, err := revisionfile.Read(context.Background(), path)
+	if err != nil {
+		return "", fmt.Errorf("读取 %s 版本失败: %w", path, err)
+	}
+	return snapshot.Revision, nil
+}
+
+// UserConfigPath 计算用户级配置路径。novaDir 已经过 normalizePath 处理。
+func UserConfigPath(novaDir string) string {
+	if novaDir == "" {
+		novaDir = normalizePath(defaultNovaDir())
+	}
+	return filepath.Join(novaDir, UserConfigFilename)
+}
+
+// WorkspaceConfigPath 计算工作区级 Agent 定制路径。
+func WorkspaceConfigPath(workspace string) string {
+	return workspacelayout.Path(workspace, WorkspaceConfigFilename)
+}
+
+// ProjectConfigPath returns the user-owned Agent override file in a Project
+// Store. It intentionally has no dependency on the content directory.
+func ProjectConfigPath(projectStoreRoot string) string {
+	projectStoreRoot = strings.TrimSpace(projectStoreRoot)
+	if projectStoreRoot == "" {
+		return ""
+	}
+	return filepath.Join(projectStoreRoot, WorkspaceConfigFilename)
+}
+
+// LoadLayered 读取用户设置 + 工作区 Agent 定制并与默认值合并。
+// novaDir 为空时使用默认 ./.ta-game（后端运行目录下），已有旧目录时兼容沿用。
+func LoadLayered(novaDir, workspace string) (LayeredSettings, error) {
+	return LoadLayeredWithGlobal(novaDir, workspace, Settings{})
+}
+
+// LoadLayeredWithGlobal 读取用户设置 + 工作区 Agent 定制，并加入全局启动配置层。
+func LoadLayeredWithGlobal(novaDir, workspace string, global Settings) (LayeredSettings, error) {
+	return LoadLayeredWithGlobalAt(novaDir, workspace, "", global)
+}
+
+// LoadLayeredWithGlobalAt is the Project-aware settings boundary. The content
+// workspace remains available to runtime consumers while its user-owned Agent
+// configuration is read from projectConfigPath.
+func LoadLayeredWithGlobalAt(novaDir, workspace, projectConfigPath string, global Settings) (LayeredSettings, error) {
+	if strings.TrimSpace(novaDir) == "" {
+		novaDir = normalizePath(defaultNovaDir())
+	} else {
+		novaDir = normalizePath(novaDir)
+	}
+	global.AgentToolResultLimitKB = normalizeAgentToolResultLimitKB(global.AgentToolResultLimitKB)
+	global.AgentToolParallelism = normalizeAgentToolParallelism(global.AgentToolParallelism)
+	global.AgentSubAgentParallelism = normalizeAgentSubAgentParallelism(global.AgentSubAgentParallelism)
+	global.AgentScriptTimeoutSeconds = normalizeAgentScriptTimeoutSeconds(global.AgentScriptTimeoutSeconds)
+	global.ProjectFileTreeEntryLimit = normalizeProjectFileTreeEntryLimit(global.ProjectFileTreeEntryLimit)
+	user, err := loadUserSettingsWithProfiles(novaDir)
+	if err != nil {
+		return LayeredSettings{}, err
+	}
+	var ws Settings
+	workspaceConfigPath := strings.TrimSpace(projectConfigPath)
+	if workspaceConfigPath == "" {
+		workspaceConfigPath = WorkspaceConfigPath(workspace)
+	}
+	if workspace != "" {
+		ws, err = ReadSettingsFile(workspaceConfigPath)
+		if err != nil {
+			return LayeredSettings{}, err
+		}
+		ws = workspaceAgentSettings(ws)
+	}
+	def := DefaultSettings()
+	def.DenovaDir = novaDir
+	def.NovaDir = novaDir
+	globalDir := firstNonEmpty(global.DenovaDir, global.NovaDir)
+	if globalDir == "" {
+		global.DenovaDir = novaDir
+		global.NovaDir = novaDir
+	} else {
+		globalDir = normalizePath(globalDir)
+		global.DenovaDir = globalDir
+		global.NovaDir = globalDir
+	}
+	eff := Merge(Merge(Merge(def, global), user), ws)
+	inherited := SettingsInheritance{
+		User:      withResolvedLabs(Merge(Merge(def, global), ws)),
+		Workspace: withResolvedLabs(Merge(Merge(def, global), user)),
+	}
+	catalogConfig := &Config{
+		AgentModels: eff.AgentModels, AgentTools: eff.AgentTools, AgentPrompts: eff.AgentPrompts,
+		AgentRuntimes: eff.AgentRuntimes,
+		AgentSkills:   eff.AgentSkills, AgentContexts: eff.AgentContexts, CustomAgents: eff.CustomAgents,
+	}
+	resolvedToolManifests := ResolveAgentToolManifestsForGOOS(catalogConfig, runtime.GOOS)
+	resolvedContexts := ResolveAgentContexts(catalogConfig)
+	for _, customAgent := range eff.CustomAgents {
+		runtimeKind := CustomAgentRuntimeKind(customAgent)
+		if runtimeKind == "" {
+			continue
+		}
+		customConfig := *catalogConfig
+		if err := ApplyCustomAgent(&customConfig, runtimeKind, customAgent.ID); err != nil {
+			continue
+		}
+		resolvedToolManifests[customAgent.ID] = ResolveAgentToolManifestForGOOS(
+			ResolveAgentTools(&customConfig, runtimeKind), runtimeKind, runtime.GOOS,
+		)
+		resolvedContexts[customAgent.ID] = ResolveAgentContext(&customConfig, runtimeKind)
+	}
+	backendPort := settingsInt(eff.BackendPort, 8080)
+	revisions := SettingsRevisions{}
+	userConfigPath := UserConfigPath(novaDir)
+	if rev, err := UserSettingsRevision(novaDir); err == nil {
+		revisions.User = rev
+	} else {
+		return LayeredSettings{}, err
+	}
+	if workspace != "" {
+		if rev, err := SettingsFileRevision(workspaceConfigPath); err == nil {
+			revisions.Workspace = rev
+		} else {
+			return LayeredSettings{}, err
+		}
+	}
+	return LayeredSettings{
+		Default:   def,
+		Global:    global,
+		User:      user,
+		Workspace: ws,
+		Inherited: inherited,
+		Effective: eff,
+		Paths: SettingsPaths{
+			DenovaDir:       novaDir,
+			NovaDir:         novaDir,
+			UserConfig:      userConfigPath,
+			WorkspaceConfig: workspaceConfigPath,
+		},
+		Revisions: revisions,
+		Access: SettingsAccess{
+			LocalURL: LocalHTTPURL(backendPort),
+			LANURL:   LANHTTPURL(backendPort),
+		},
+		Runtime:                    SettingsRuntime{GOOS: runtime.GOOS},
+		AgentContracts:             AgentContractDefinitions(),
+		AgentToolCapabilities:      AgentToolCapabilityCatalogForGOOS(runtime.GOOS),
+		ResolvedAgentToolManifests: resolvedToolManifests,
+		ResolvedAgentContexts:      resolvedContexts,
+		ResolvedAgentDefinitions:   ResolveAgentDefinitions(eff.CustomAgents),
+	}, nil
+}
+
+func withResolvedLabs(settings Settings) Settings {
+	labs := ResolveLabs(settings.Labs)
+	settings.Labs = LabSettings{
+		DeveloperMode: boolPtr(labs.DeveloperMode),
+	}
+	return settings
+}
+
+// PrepareWorkspaceAgentSettingsForWrite replaces only the Agent overrides that
+// are intentionally workspace-scoped. Legacy general settings remain on disk so
+// the transition is reversible, but LoadLayered no longer applies them.
+func PrepareWorkspaceAgentSettingsForWrite(existing, incoming Settings) Settings {
+	scoped := workspaceAgentSettings(incoming)
+	existing.AgentRuntimes = scoped.AgentRuntimes
+	existing.AgentTools = scoped.AgentTools
+	existing.AgentPrompts = scoped.AgentPrompts
+	existing.AgentSkills = scoped.AgentSkills
+	existing.AgentContexts = scoped.AgentContexts
+	existing.GeneralSubAgents = scoped.GeneralSubAgents
+	existing.SubAgents = scoped.SubAgents
+	existing.DefaultImageAgentID = scoped.DefaultImageAgentID
+	existing.AgentToolParallelism = scoped.AgentToolParallelism
+	existing.AgentSubAgentParallelism = scoped.AgentSubAgentParallelism
+	return existing
+}
+
+// workspaceAgentSettings defines the narrow workspace configuration boundary.
+// Native model selection and general Settings remain user-scoped. External
+// runtime preferences are Agent configuration and may have workspace overrides.
+func workspaceAgentSettings(settings Settings) Settings {
+	return Settings{
+		AgentRuntimes:            settings.AgentRuntimes,
+		AgentTools:               settings.AgentTools,
+		AgentPrompts:             settings.AgentPrompts,
+		AgentSkills:              settings.AgentSkills,
+		AgentContexts:            settings.AgentContexts,
+		GeneralSubAgents:         settings.GeneralSubAgents,
+		SubAgents:                settings.SubAgents,
+		DefaultImageAgentID:      settings.DefaultImageAgentID,
+		AgentToolParallelism:     settings.AgentToolParallelism,
+		AgentSubAgentParallelism: settings.AgentSubAgentParallelism,
+	}
+}
+
+func sanitizeEditableSettings(s Settings) Settings {
+	s, _ = migrateModelEndpointSettings(s)
+	s, _ = migrateImageAPIEndpointSettings(s)
+	// denova_dir/nova_dir 是启动级定位参数，不能由用户级/工作区级配置反向修改自身位置。
+	s.DenovaDir = ""
+	s.NovaDir = ""
+	s.BackendPort = normalizePort(s.BackendPort)
+	s.FrontendPort = normalizePort(s.FrontendPort)
+	s.RemoteAccessUsername = strings.TrimSpace(s.RemoteAccessUsername)
+	s.RemoteAccessPassword = ""
+	s.RemoteAccessPasswordSet = s.RemoteAccessPasswordHash != ""
+	s.Language = normalizeLanguage(s.Language)
+	s.Theme = normalizeTheme(s.Theme)
+	s.MotionIntensity = normalizeMotionIntensity(s.MotionIntensity)
+	s.IDEStoryTellerID = strings.TrimSpace(s.IDEStoryTellerID)
+	s.InteractiveStoryTellerID = strings.TrimSpace(s.InteractiveStoryTellerID)
+	s.IDEImagePresetID = strings.TrimSpace(s.IDEImagePresetID)
+	s.AgentQuickPrompts = normalizeAgentQuickPrompts(s.AgentQuickPrompts)
+	s.OpenAIContextWindowTokens = normalizeContextWindowTokens(s.OpenAIContextWindowTokens)
+	s.DefaultImageAPIProfileID = strings.TrimSpace(s.DefaultImageAPIProfileID)
+	s.AgentIdleTimeoutSeconds = normalizeAgentIdleTimeoutSeconds(s.AgentIdleTimeoutSeconds)
+	s.AgentToolResultLimitKB = normalizeAgentToolResultLimitKB(s.AgentToolResultLimitKB)
+	s.AgentToolParallelism = normalizeAgentToolParallelism(s.AgentToolParallelism)
+	s.AgentSubAgentParallelism = normalizeAgentSubAgentParallelism(s.AgentSubAgentParallelism)
+	s.AgentScriptTimeoutSeconds = normalizeAgentScriptTimeoutSeconds(s.AgentScriptTimeoutSeconds)
+	s.ProjectFileTreeEntryLimit = normalizeProjectFileTreeEntryLimit(s.ProjectFileTreeEntryLimit)
+	if s.AgentApprovalMode != "" {
+		s.AgentApprovalMode = NormalizeAgentApprovalMode(s.AgentApprovalMode)
+	}
+	if s.ShellEnvironmentMode != "" {
+		s.ShellEnvironmentMode = normalizeShellEnvironmentMode(s.ShellEnvironmentMode)
+	}
+	s.ShellEnvironmentShell = strings.TrimSpace(s.ShellEnvironmentShell)
+	s.AgentBashPath = strings.TrimSpace(s.AgentBashPath)
+	s.WebAccess = sanitizeWebAccessSettings(s.WebAccess)
+	s.ModelEndpoints = sanitizeModelEndpoints(s.ModelEndpoints)
+	s.ModelProfiles = sanitizeModelProfiles(s.ModelProfiles)
+	s.ImageAPIEndpoints = sanitizeImageAPIEndpoints(s.ImageAPIEndpoints)
+	s.ImageAPIProfiles = sanitizeImageAPIProfiles(s.ImageAPIProfiles)
+	s.AgentPrompts = sanitizeAgentPromptSettings(s.AgentPrompts)
+	s.AgentContexts = sanitizeAgentContextSettings(s.AgentContexts)
+	s.SubAgents = SanitizeSubAgents(s.SubAgents)
+	s.CustomAgents = SanitizeCustomAgents(s.CustomAgents)
+	if s.DefaultImageAgentID != nil {
+		value := NormalizeCustomAgentID(*s.DefaultImageAgentID)
+		s.DefaultImageAgentID = &value
+	}
+	return s
+}
+
+func normalizeAgentIdleTimeoutSeconds(seconds *int) *int {
+	if seconds == nil {
+		return nil
+	}
+	if *seconds < 0 {
+		return nil
+	}
+	return seconds
+}
+
+func normalizeAgentToolResultLimitKB(limit *int) *int {
+	if limit == nil {
+		return nil
+	}
+	if *limit < 0 {
+		return nil
+	}
+	if *limit == 0 {
+		return intPtr(DefaultAgentToolResultLimitKB)
+	}
+	return limit
+}
+
+func normalizeAgentToolParallelism(value *int) *int {
+	if value == nil {
+		return nil
+	}
+	if *value <= 0 {
+		return intPtr(DefaultAgentToolParallelism)
+	}
+	if *value > MaxAgentToolParallelism {
+		return intPtr(MaxAgentToolParallelism)
+	}
+	return value
+}
+
+func normalizeAgentSubAgentParallelism(value *int) *int {
+	if value == nil {
+		return nil
+	}
+	if *value <= 0 {
+		return intPtr(DefaultAgentSubAgentParallelism)
+	}
+	if *value > MaxAgentSubAgentParallelism {
+		return intPtr(MaxAgentSubAgentParallelism)
+	}
+	return value
+}
+
+func normalizeAgentScriptTimeoutSeconds(value *int) *int {
+	if value == nil || *value >= 0 {
+		return value
+	}
+	return nil
+}
+
+func normalizeProjectFileTreeEntryLimit(value *int) *int {
+	if value == nil {
+		return nil
+	}
+	if *value <= 0 {
+		return intPtr(DefaultProjectFileTreeEntryLimit)
+	}
+	if *value > MaxProjectFileTreeEntryLimit {
+		return intPtr(MaxProjectFileTreeEntryLimit)
+	}
+	return value
+}
+
+
+func normalizeContextWindowTokens(tokens *int) *int {
+	if tokens == nil {
+		return nil
+	}
+	if *tokens <= 0 {
+		return nil
+	}
+	if *tokens > MaxContextWindowTokens {
+		*tokens = MaxContextWindowTokens
+	}
+	return tokens
+}
+
+func normalizePort(port *int) *int {
+	if port == nil {
+		return nil
+	}
+	if *port < 1 || *port > 65535 {
+		return nil
+	}
+	return port
+}
+
+func normalizeLanguage(language string) string {
+	switch language {
+	case "", "auto", "zh-CN", "en-US":
+		return language
+	default:
+		return ""
+	}
+}
+
+func normalizeTheme(theme string) string {
+	switch theme {
+	case "", "system", "dark", "light":
+		return theme
+	default:
+		return ""
+	}
+}
+
+func normalizeMotionIntensity(intensity string) string {
+	switch intensity {
+	case "", "system", "full", "reduced", "off":
+		return intensity
+	default:
+		return ""
+	}
+}

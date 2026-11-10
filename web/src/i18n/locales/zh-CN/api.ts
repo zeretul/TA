@@ -1,0 +1,46 @@
+// Keys the backend still returns for Skill operations the game surfaces.
+// The Skills library interface was retired with the rest of the writing
+// product, so its own copy is gone.
+const skills = {
+  'api.storyPack.invalidWorldPresentation': "世界用语须使用支持的语言，填写单行、长度适当的名称。",
+  'api.gameSaves.loadFailed': "读取存档失败，请重试。",
+
+  'api.characterWindow.radioUnavailable': '当前无法无线电联络：需要实际持有通讯设备，并有已建立且当前可达的联络频道。',
+  'api.attention.unavailable': '未能读取或保存关注，请重试。',
+  'api.attention.unknown': '只能关注本故事中已经认识的人物或已经知晓的事项。',
+  'api.attention.limit': '最多各关注32名人物和32项事项，请先取消一项关注。',
+  'api.attention.conflict': '保存时故事已有变化，请刷新后重试。',
+  'api.adventure.unavailable': '当前故事没有可读取的交战状态。',
+  'api.adventure.rejected': '行动未被接受，请重新读取状态后检查技能、资源与当前回合。',
+	'api.storyPack.gameplayNotConfirmed': '请先确认这世界的状态、数值、成长、战斗和开局安排。',
+	'api.storyPack.unsupportedGameplay': '这组玩法目前还不能完整运行。草稿已保留，请选择已有方案或继续编辑。',
+	'api.storyPack.invalidStateFieldCount': '调查状态需要至少一项、最多八项数值。',
+	'api.storyPack.invalidStateField': '“{{field}}”的名称、范围或初始值不合要求，请检查后再保存。',
+	'api.storyPack.invalidCheckBinding': '“{{field}}”没有绑定到可用的调查检定，或作用参数超出了范围。',
+	'api.storyPack.invalidLetterDeliveryDays': '书信送达时间需在一至三十天之间。',
+	'api.interactive.invalidLetter': '书信内容或收件人无效，请重新填写。',
+	'api.interactive.letterNotSupported': '这个世界没有采用书信联络。',
+	'api.interactive.letterRecipientUnavailable': '收件人尚未在这段故事中登场。',
+	'api.combatWindow.playerIntentInvalid': '这一击的意图无效，请重新选择。',
+	'api.combatWindow.takeLifeActionRequired': '取命需要选择对一名对手发动的攻击。',
+	'api.combatWindow.takeLifeTargetInvalid': '取命必须指向仍在交战的对手。',
+	'api.combatWindow.unavailableForWorld': "当前世界不使用此战斗界面。",
+	'api.characterWindow.letterRequiresStoryTurn': '书信要通过主线故事寄出，不能即时聊天。',
+	'api.characterWindow.notPresent': '对方眼下不在场，无法当面交谈。',
+  'api.skills.preferenceFailed': '无法保存 Skill 设置，请刷新后重试。',
+  'api.skills.updateFailed': '无法检查或更新 Skill，请稍后重试。',
+  'api.skills.sourceRequired': '此 Skill 没有远程来源记录，请从远程重新安装。',
+  'api.history.busy': "本局仍有一项事务正在处理，请等待或取消后再试。",
+  'api.history.conflict': "存档已有更新，已重新读取。请根据当前局势重新确认操作。",
+  'api.history.notFound': "找不到这个历史存档，请切换或建立新局。",
+  'api.history.invalidRequest': "这项安排暂不能执行，请检查对象、钱粮和前后条件。",
+  'api.history.modelFailed': "模型未能完成本次推演，原文已保留。请检查系统模型设置后重试。",
+  'api.history.invalidModelOutput': "模型的拟议结果不完整，未采纳这次结果。可以重试。",
+  'api.history.cancelled': "这次推演已取消。",
+  'api.history.wrongProject': "历史案卷不属于当前历史项目，请重新打开历史推演。",
+  'api.history.commandConflict': "这次操作与已有记录不一致，请重新读取后再作决定。",
+  'api.history.unavailable': "历史推演暂时不可用，请重试。",
+  'api.history.modelOutputBudget': '模型的单次输出额度已耗尽，本季尚未保存。请在游戏模型设置中降低思考档位或提高输出额度后重试。',
+} as const
+
+export default skills

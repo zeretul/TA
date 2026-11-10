@@ -1,0 +1,11 @@
+{
+  "id": "sequence.north-road",
+  "version": "1.0",
+  "origin_location_id": "north.gate",
+  "destination_location_id": "high.camp",
+  "segments": [
+    {"id": "gate-to-wood", "from_location_id": "north.gate", "to_location_id": "pine.wood", "duration_minutes": 8, "movement_method_id": "walk", "zero_time_connection": false},
+    {"id": "wood-threshold", "from_location_id": "pine.wood", "to_location_id": "ridge.foot", "duration_minutes": 0, "movement_method_id": "pass-through", "zero_time_connection": true},
+    {"id": "ridge-to-camp", "from_location_id": "ridge.foot", "to_location_id": "high.camp", "duration_minutes": 12, "movement_method_id": "walk", "zero_time_connection": false}
+  ]
+}

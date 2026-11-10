@@ -1,0 +1,49 @@
+package app
+
+import (
+	"testing"
+
+	booklore "ta/internal/book/lore"
+	"ta/internal/interactive"
+)
+
+func TestStoryProtagonistSnapshotFromLoreItem(t *testing.T) {
+	snapshot, err := storyProtagonistSnapshotFromLoreItem(booklore.Item{
+		ID: "hero", Enabled: true, Type: "character", Name: "林川",
+		BriefDescription: "失忆的领航员", Content: "熟悉旧港的每一条水道。",
+		UpdatedAt: "2026-08-31T00:00:00Z",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if snapshot.Mode != interactive.StoryProtagonistModeLore || snapshot.Name != "林川" || snapshot.Profile != "熟悉旧港的每一条水道。" || snapshot.SourceLoreItemID != "hero" || snapshot.SourceLoreUpdatedAt == "" {
+		t.Fatalf("unexpected protagonist snapshot: %#v", snapshot)
+	}
+}
+
+func TestStoryProtagonistSnapshotRejectsUnavailableLore(t *testing.T) {
+	for _, item := range []booklore.Item{
+		{ID: "disabled", Enabled: false, Type: "character", Name: "林川"},
+		{ID: "place", Enabled: true, Type: "location", Name: "雾港"},
+	} {
+		if _, err := storyProtagonistSnapshotFromLoreItem(item); err == nil {
+			t.Fatalf("expected unavailable Lore item to be rejected: %#v", item)
+		}
+	}
+}
+
+func TestDefaultTaggedLoreProtagonistUsesTagOnlyAsRecommendation(t *testing.T) {
+	items := []booklore.Item{
+		{ID: "companion", Enabled: true, Type: "character", Name: "顾岚", Tags: []string{"同伴"}},
+		{ID: "hero", Enabled: true, Type: "character", Name: "林川", Tags: []string{"Protagonist"}},
+		{ID: "place", Enabled: true, Type: "location", Name: "雾港", Tags: []string{"主角"}},
+	}
+	selected, ok := defaultTaggedLoreProtagonist(items)
+	if !ok || selected.ID != "hero" {
+		t.Fatalf("tagged character should be the default recommendation: ok=%t selected=%#v", ok, selected)
+	}
+
+	if _, ok := defaultTaggedLoreProtagonist([]booklore.Item{items[0]}); ok {
+		t.Fatal("an untagged character should remain selectable without becoming the default")
+	}
+}

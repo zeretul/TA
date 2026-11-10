@@ -1,0 +1,305 @@
+package interactive
+
+import (
+	"errors"
+	"fmt"
+	"sort"
+	"strings"
+	"ta/internal/cultivation"
+	interactivestate "ta/internal/interactive/state"
+)
+
+// collectTurnStateUpdateValidationErrors runs only after the atomic compiler
+// rejects a module. It validates each operation against a cloned working state
+// so independent failures can be returned together without staging partial
+// results. A successful operation is applied only to the private clone so later
+// operations can still reference valid Actors created earlier in the same call.
+// Paths depending on a failed operation are skipped to avoid cascading errors,
+// while overlap checks are retained across successfully compiled operations.
+func collectTurnStateUpdateValidationErrors(system StoryDirectorActorStateSystem, currentState map[string]any, updates []interactivestate.Update, options TurnStateUpdateCompileOptions) []*StateUpdateValidationError {
+	workingState := cloneActorStateRoot(currentState)
+	if intents, err := planActorLifecycleUpdates(normalizeActorStateSystem(system), currentState, interactivestate.NormalizeUpdates(updates)); err == nil {
+		options.actorLifecycleIntents = intents
+	}
+	validationErrors := make([]*StateUpdateValidationError, 0)
+	canonicalPaths := make([][]string, 0, len(updates))
+	failedPaths := make([][]string, 0)
+	for index, update := range updates {
+		inputPath, inputPathValid := stateUpdateDiagnosticSegmentsForUpdate(update)
+		if inputPathValid && interactivestate.OverlappingPath(failedPaths, inputPath) != "" {
+			continue
+		}
+		if inputPathValid {
+			if overlap := interactivestate.OverlappingPath(canonicalPaths, inputPath); overlap != "" {
+				validationErrors = append(validationErrors, stateUpdateOverlapValidationError(index, update.Path, overlap))
+				failedPaths = append(failedPaths, inputPath)
+				if len(validationErrors) > maxTurnSubmissionDiagnostics {
+					return validationErrors
+				}
+				continue
+			}
+		}
+		compiled, err := CompileTurnStateUpdates(system, workingState, []interactivestate.Update{update}, options)
+		if err != nil {
+			for _, item := range flattenStateUpdateValidationErrors(err) {
+				cloned := *item
+				cloned.Index = index
+				validationErrors = append(validationErrors, &cloned)
+				if len(validationErrors) > maxTurnSubmissionDiagnostics {
+					return validationErrors
+				}
+			}
+			if inputPathValid {
+				failedPaths = append(failedPaths, inputPath)
+			}
+			continue
+		}
+		compiledPaths := make([][]string, 0, len(compiled.Updates))
+		overlap := ""
+		for _, compiledUpdate := range compiled.Updates {
+			compiledPath, ok := stateUpdateDiagnosticSegmentsForUpdate(compiledUpdate)
+			if !ok {
+				continue
+			}
+			if conflict := interactivestate.OverlappingPath(canonicalPaths, compiledPath); conflict != "" {
+				overlap = conflict
+				break
+			}
+			compiledPaths = append(compiledPaths, compiledPath)
+		}
+		if overlap != "" {
+			validationErrors = append(validationErrors, stateUpdateOverlapValidationError(index, update.Path, overlap))
+			if inputPathValid {
+				failedPaths = append(failedPaths, inputPath)
+			}
+			if len(validationErrors) > maxTurnSubmissionDiagnostics {
+				return validationErrors
+			}
+			continue
+		}
+		for _, op := range compiled.Ops {
+			applyStateOp(workingState, op)
+		}
+		for _, op := range compiled.ActorOps {
+			applyActorStateOp(workingState, op)
+		}
+		canonicalPaths = append(canonicalPaths, compiledPaths...)
+	}
+	return validationErrors
+}
+
+func diagnosticsForStateUpdateError(err error) []TurnSubmissionDiagnostic {
+	var validationErrors *StateUpdateValidationErrors
+	if errors.As(err, &validationErrors) && len(validationErrors.Items) > 0 {
+		diagnostics := make([]TurnSubmissionDiagnostic, 0, len(validationErrors.Items))
+		for _, validationError := range validationErrors.Items {
+			if validationError != nil {
+				diagnostics = append(diagnostics, diagnosticForStateUpdateValidationError(validationError))
+			}
+		}
+		return diagnostics
+	}
+	var validationError *StateUpdateValidationError
+	if !errors.As(err, &validationError) {
+		return []TurnSubmissionDiagnostic{*newTurnSubmissionDiagnostic(TurnSubmissionModuleStateChanges, nil, "state_changes_invalid", "/state_changes", "valid atomic state_changes list", "invalid", "The state_changes module is invalid.")}
+	}
+	return []TurnSubmissionDiagnostic{diagnosticForStateUpdateValidationError(validationError)}
+}
+
+func diagnosticForStateUpdateValidationError(validationError *StateUpdateValidationError) TurnSubmissionDiagnostic {
+	path := fmt.Sprintf("/state_changes/%d", validationError.Index)
+	if detail := strings.TrimSpace(validationError.DiagnosticPath); detail != "" {
+		if !strings.HasPrefix(detail, "/") {
+			path += "/"
+		}
+		path += detail
+	}
+	return *newTurnSubmissionDiagnostic(
+		TurnSubmissionModuleStateChanges,
+		intPointer(validationError.Index),
+		validationError.Code,
+		path,
+		validationError.Expected,
+		validationError.Actual,
+		stateUpdateDiagnosticEnglishForError(validationError),
+	)
+}
+
+func stateUpdateDiagnosticEnglishForError(validationError *StateUpdateValidationError) string {
+	if validationError == nil {
+		return "The state change failed frozen-schema validation."
+	}
+	typeMismatch := validationError.Expected == "number" || validationError.Expected == "bool" || validationError.Expected == "object" || validationError.Expected == "list"
+	if typeMismatch {
+		switch validationError.Code {
+		case "actor_create_invalid", "actor_state_invalid", "state_value_invalid":
+			return fmt.Sprintf("Expected JSON %s but received %s. Use native JSON values such as 0, false, {}, or [] instead of quoted encodings.", validationError.Expected, validationError.Actual)
+		}
+	}
+	return stateUpdateDiagnosticEnglish(validationError.Code)
+}
+
+func stateUpdateDiagnosticEnglish(code string) string {
+	switch code {
+	case "invalid_state_path":
+		return "The structured actor_id, field_id, or subpath is invalid."
+	case "invalid_actor_id":
+		return "actor_id must be a normalized state-panel Actor ID."
+	case "actor_not_found":
+		return "The referenced Actor ID does not exist in the current state."
+	case "actor_archived":
+		return "The referenced Actor is archived and read-only until the same atomic state_changes module explicitly restores it."
+	case "actor_already_exists":
+		return "The Actor already exists. Restore an archived Actor instead of creating it again."
+	case "actor_already_archived":
+		return "The Actor is already archived."
+	case "actor_not_archived":
+		return "The Actor is active and does not need to be restored."
+	case "protected_actor_archive":
+		return "System Actors story, protagonist, and world cannot be archived or restored."
+	case "duplicate_actor_lifecycle", "actor_lifecycle_conflict":
+		return "Each Actor may have only one compatible archive or restore operation in an atomic state_changes module."
+	case "invalid_actor_lifecycle_path", "invalid_actor_lifecycle_reason":
+		return "archive and restore require only an existing actor_id and a non-empty reason."
+	case "actor_name_id_mismatch":
+		return "A newly created Actor must use its story-language name unchanged as both actor_id and name."
+	case "state_field_not_found":
+		return "The state field does not exist in the Actor's frozen schema."
+	case "delta_target_not_number":
+		return "delta requires an existing numeric target and never treats a missing value as zero."
+	case "duplicate_rule_state_update":
+		return "RuleResolution already consumes this field in the current turn."
+	case "rest_owned_state_update":
+		return "The rest module already settles this pool for the current turn. Omit the restored pool from state_changes; describe the injury or expenditure in prose instead."
+	case "pool_restore_not_prose_owned":
+		return "生命 and 灵力 may only be raised by the rules' rest interval, never by state_changes. Submit the rest module with the interval the player asked for and let the rules restore the pool; a wound or an expenditure may still be written because it lowers the pool."
+	case "scene_location_not_world_settled":
+		return "当前详细地点 may only move to a registered place through a world action. Submit the journey or realm module that really moves the character, or rewrite the turn so the attempt fails where it started; a scene may still refine the place it already names."
+	case "overlapping_state_path":
+		return "State changes in one atomic module must not duplicate or overlap."
+	case "state_value_too_large":
+		return "The state change value exceeds the bounded payload limit."
+	default:
+		return "The state change failed frozen-schema validation."
+	}
+}
+
+func stateUpdateDiagnosticSegments(path string) ([]string, bool) {
+	segments, err := interactivestate.ParsePath(strings.TrimSpace(path))
+	return segments, err == nil
+}
+
+func stateUpdateDiagnosticSegmentsForUpdate(update interactivestate.Update) ([]string, bool) {
+	segments, ok := stateUpdateDiagnosticSegments(update.Path)
+	if !ok || (update.Op != interactivestate.Archive && update.Op != interactivestate.Restore) || len(segments) != 1 {
+		return segments, ok
+	}
+	return []string{actorArchiveRoot, segments[0]}, true
+}
+
+func stateUpdateOverlapValidationError(index int, path, overlap string) *StateUpdateValidationError {
+	return stateUpdateError(
+		index,
+		"overlapping_state_path",
+		path,
+		"non-overlapping paths",
+		overlap,
+		fmt.Errorf("同一次提交不能包含重复或相互覆盖的状态路径: %s", overlap),
+	)
+}
+
+func mergeStateUpdateValidationErrors(primary, additional []*StateUpdateValidationError) []*StateUpdateValidationError {
+	merged := make([]*StateUpdateValidationError, 0, len(primary)+len(additional))
+	seen := map[string]bool{}
+	appendUnique := func(items []*StateUpdateValidationError) {
+		for _, item := range items {
+			if item == nil {
+				continue
+			}
+			key := fmt.Sprintf("%d\x00%s\x00%s", item.Index, item.Code, item.DiagnosticPath)
+			if seen[key] {
+				continue
+			}
+			seen[key] = true
+			merged = append(merged, item)
+		}
+	}
+	appendUnique(primary)
+	appendUnique(additional)
+	return merged
+}
+
+func flattenStateUpdateValidationErrors(err error) []*StateUpdateValidationError {
+	var multiple *StateUpdateValidationErrors
+	if errors.As(err, &multiple) && len(multiple.Items) > 0 {
+		return multiple.Items
+	}
+	var single *StateUpdateValidationError
+	if errors.As(err, &single) {
+		return []*StateUpdateValidationError{single}
+	}
+	return nil
+}
+
+// validateTurnSubmissionActorInitialState reports every independently invalid
+// explicit field before Actor creation reaches the fail-fast state builder.
+// Defaults are intentionally omitted because the builder remains authoritative
+// for resolving them after this preflight succeeds.
+func validateTurnSubmissionActorInitialState(index int, updatePath string, template ActorStateTemplate, state map[string]any, profiles ...*cultivation.Rules) []*StateUpdateValidationError {
+	if len(state) == 0 || template.ID == "" {
+		return nil
+	}
+	fieldsByReference := actorStateFieldsByReference(template)
+	keys := make([]string, 0, len(state))
+	for key := range state {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	validationErrors := make([]*StateUpdateValidationError, 0)
+	for _, rawKey := range keys {
+		if len(validationErrors) > maxTurnSubmissionDiagnostics {
+			return validationErrors
+		}
+		value := state[rawKey]
+		if value == nil {
+			continue
+		}
+		diagnosticPath := interactivestate.FormatPath([]string{"initial_state", rawKey})
+		field, found := fieldsByReference[actorStateFieldNameKey(rawKey)]
+		if !found {
+			err := stateUpdateError(
+				index,
+				"actor_create_invalid",
+				updatePath,
+				strings.Join(turnSubmissionAllowedFields(template), ", "),
+				rawKey,
+				fmt.Errorf("Actor 状态字段不在模板中: template=%s field=%s", template.ID, rawKey),
+			)
+			err.DiagnosticPath = diagnosticPath
+			validationErrors = append(validationErrors, err)
+			continue
+		}
+		_, err := normalizeActorStateValue(field, value)
+		if err != nil {
+			validationError := stateUpdateError(index, "actor_create_invalid", updatePath, field.Type, stateUpdateActual(value), err)
+			validationError.DiagnosticPath = diagnosticPath
+			validationErrors = append(validationErrors, validationError)
+			continue
+		}
+		// A new Actor states where they stand, not the numbers that follow from it.
+		// Under the cultivation rules the six attributes are derived from the stage
+		// key, so an initial_state that authors them is refused here for the same
+		// reason a later write to them is: the settlement is what produces them.
+		if actorStateTemplateIsXiuxian(template, profiles...) && xiuxianDerivedFields()[actorStateFieldID(field)] {
+			validationError := stateUpdateError(
+				index, "cultivation_owned_state_update", updatePath,
+				"a field the cultivation rules derive, not author", rawKey,
+				fmt.Errorf("该字段由境界阶段表结算得出，不能在新角色初始状态中直接指定: %s", rawKey),
+			)
+			validationError.DiagnosticPath = diagnosticPath
+			validationErrors = append(validationErrors, validationError)
+			continue
+		}
+	}
+	return validationErrors
+}

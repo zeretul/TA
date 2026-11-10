@@ -1,0 +1,26 @@
+{
+  "quest.spirit_rift_review": {
+    "title": "Have Qiao examine the vein sample",
+    "brief": "The camp notice offers 25,000 spirit stones for one in-person examination of a genuinely recovered vein sample. The collector keeps it. There is no deadline or obligation to explore further.",
+    "objectives": {
+      "quest.spirit_rift_review.recover": "Recover the actual object from this place, then return for an in-person examination."
+    },
+    "completion_reaction": "I have recorded the fine lines of that sample. If I see the same surges again, I will know what to examine first."
+  },
+  "quest.spirit_array_review": {
+    "title": "Bring back the watch-array record",
+    "brief": "Lu offers 36,000 spirit stones to examine a genuine watch-array record in person. Dismantling and preserving both yield useful evidence. The choice remains yours and you retain the record.",
+    "objectives": {
+      "quest.spirit_array_review.recover": "Recover the actual object from this place, then return for an in-person examination."
+    },
+    "completion_reaction": "I understand the path you chose. I will not add an imagined result from the alternative to your record."
+  },
+  "quest.spirit_archive_review": {
+    "title": "Compare the old rubbing with Ning",
+    "brief": "Ning offers 49,000 spirit stones for one in-person review of a complete old rubbing, which you retain. You may delay or decline. Neither discipleship nor another breakthrough is required.",
+    "objectives": {
+      "quest.spirit_archive_review.recover": "Recover the actual object from this place, then return for an in-person examination."
+    },
+    "completion_reaction": "I have revised a few readings and kept your interpretation beside them, without turning uncertainty into a settled answer."
+  }
+}

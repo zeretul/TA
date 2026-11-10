@@ -1,0 +1,154 @@
+import { expect, test } from '../support/fixtures'
+import { createAndOpenBook, createStartedStory, getStoryBranches, getStorySnapshot } from '../support/api'
+import { submitAgentChatMessage } from '../support/agent-chat'
+import { allowGameRegeneration, getModelStatus, releaseDelayedRequest } from '../support/model'
+
+const gameOpeningNarrative = '暮色落在旧车站外，石门后的轨道传来遥远的回声。'
+const gameFollowUpDelayMarker = 'E2E_GAME_FOLLOW_UP_DELAY'
+const gameFollowUpMarker = 'E2E_GAME_FOLLOW_UP_STEER'
+const gameFollowUpNarrative = '你立即改变方向，沿着新发现的脚印进入旧车站。'
+const gameBranchPlanMarker = 'E2E_GAME_BRANCH_PLAN'
+
+test('submits, streams, and persists a complete Game turn', async ({ page, request }) => {
+  await createAndOpenBook(request, 'Game E2E Book')
+  const story = await createStartedStory(request, 'Game E2E Story')
+
+  await page.goto('/')
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  const composer = page.getByPlaceholder(/你要做什么/)
+  await expect(composer).toBeVisible()
+  await submitAgentChatMessage(page, composer, '推开石门')
+
+  await expect(page.getByText('石门缓缓开启，暖色灯光照亮了前方的旧车站。')).toBeVisible()
+  await page.getByRole('button', { name: '获取行动选择' }).click()
+  await expect(page.getByText('走进旧车站', { exact: true })).toBeVisible()
+  await expect(page.getByText('留在门外观察', { exact: true })).toBeVisible()
+
+  await expect.poll(async () => {
+    return (await getStorySnapshot(request, story.id)).turns
+  }).toContainEqual(expect.objectContaining({ user: '推开石门', narrative: expect.stringContaining('石门缓缓开启') }))
+
+  await page.reload()
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  await expect(page.getByText('石门缓缓开启，暖色灯光照亮了前方的旧车站。')).toHaveCount(1)
+  await page.getByRole('button', { name: '获取行动选择' }).click()
+  await page.getByText('走进旧车站', { exact: true }).click()
+  await expect(page.locator('[data-action="send"]').filter({ visible: true })).toBeEnabled()
+  await composer.press('Enter')
+
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toHaveLength(3)
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns[2]?.user).toBe('走进旧车站')
+})
+
+test('creates and switches to a branch from a persisted Game turn', async ({ page, request }) => {
+  await createAndOpenBook(request, 'Game Branch E2E Book')
+  const story = await createStartedStory(request, 'Game Branch E2E Story')
+
+  await page.goto('/')
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  const composer = page.getByPlaceholder(/你要做什么/)
+  await submitAgentChatMessage(page, composer, '推开石门')
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toHaveLength(2)
+
+  await page.getByRole('button', { name: '从此处创建分支' }).last().click()
+  const dialog = page.getByRole('dialog')
+  await dialog.getByLabel('剧情线名称').fill('E2E 支线')
+  await dialog.getByRole('button', { name: '创建并切换', exact: true }).click()
+
+  await expect.poll(async () => getStoryBranches(request, story.id)).toContainEqual(
+    expect.objectContaining({ title: 'E2E 支线', current: true }),
+  )
+})
+
+test('lets the Game Agent maintain a branch plan and keeps planning user-controllable', async ({ page, request }) => {
+  await createAndOpenBook(request, 'Game Planning E2E Book')
+  const story = await createStartedStory(request, 'Game Planning E2E Story', { planningMode: 'enabled' })
+
+  await page.goto('/')
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  const composer = page.getByPlaceholder(/你要做什么/)
+  await submitAgentChatMessage(page, composer, `查看站台地图 ${gameBranchPlanMarker}`)
+
+  await expect(page.getByText('你在站台地图上发现一条通往钟楼的维护通道。', { exact: true })).toBeVisible()
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).branch_plan?.markdown).toContain('保留玩家离开车站的自由')
+
+  const sidebar = page.getByLabel('工作台侧边栏')
+  await sidebar.getByRole('button', { name: '游戏设置', exact: true }).click()
+  const planningSwitch = page.getByRole('switch', { name: '游戏规划', exact: true })
+  await expect(planningSwitch).toBeChecked()
+  await planningSwitch.click()
+  await expect(planningSwitch).not.toBeChecked()
+  await page.reload()
+  await sidebar.getByRole('button', { name: '游戏设置', exact: true }).click()
+  await expect(planningSwitch).not.toBeChecked()
+  // Turning planning off preserves the last settled plan for later recovery.
+  expect((await getStorySnapshot(request, story.id)).branch_plan?.markdown).toContain('保留玩家离开车站的自由')
+
+})
+
+test('preserves the settled turn after a failed regeneration and replaces it on retry', async ({ page, request }) => {
+  await createAndOpenBook(request, 'Game Regeneration E2E Book')
+  const story = await createStartedStory(request, 'Game Regeneration E2E Story')
+
+  await page.goto('/')
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  const composer = page.getByPlaceholder(/你要做什么/)
+  await submitAgentChatMessage(page, composer, '聆听旧车站的广播 E2E_GAME_REGENERATE_FAILURE')
+  await expect(page.getByText('第一次生成的钟声从旧车站深处传来。', { exact: true })).toBeVisible()
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toHaveLength(2)
+
+  await page.getByRole('button', { name: '重新生成这一轮' }).last().click()
+  await expect.poll(async () => (await getModelStatus(request)).game_regeneration_failure_requests, { timeout: 20_000 })
+    .toBeGreaterThan(0)
+  await expect(page.getByRole('alert')).toBeVisible({ timeout: 20_000 })
+  await expect(composer).toBeEnabled()
+  const failedSnapshot = await getStorySnapshot(request, story.id)
+  expect(failedSnapshot.turns).toHaveLength(2)
+  expect(failedSnapshot.turns[1]?.narrative).toContain('第一次生成的钟声')
+
+  await allowGameRegeneration(request)
+  await page.getByRole('button', { name: '重新生成这一轮' }).last().click()
+  await expect(page.getByText('重试后，月台广播给出了全新的撤离路线。', { exact: true })).toBeVisible()
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toEqual([
+    expect.objectContaining({ narrative: expect.stringContaining(gameOpeningNarrative) }),
+    expect.objectContaining({
+      user: '聆听旧车站的广播 E2E_GAME_REGENERATE_FAILURE',
+      narrative: expect.stringContaining('重试后，月台广播给出了全新的撤离路线'),
+    }),
+  ])
+})
+
+test('queues a Game Follow Up and steers the active turn through the real runtime', async ({ page, request }) => {
+  await createAndOpenBook(request, 'Game Follow Up E2E Book')
+  const story = await createStartedStory(request, 'Game Follow Up E2E Story')
+
+  await page.goto('/')
+  await page.getByLabel('工作台侧边栏').getByRole('button', { name: '游戏', exact: true }).click()
+  const composer = page.getByPlaceholder(/你要做什么/)
+  try {
+    await submitAgentChatMessage(page, composer, `先观察石门，等待下一步。${gameFollowUpDelayMarker}`)
+    await expect.poll(async () => (await getModelStatus(request)).delayed_waiting_by_marker[gameFollowUpDelayMarker] ?? 0)
+      .toBe(1)
+
+    const followUp = `改为跟随脚印进入车站。${gameFollowUpMarker}`
+    await submitAgentChatMessage(page, composer, followUp)
+    const queue = page.getByRole('region', { name: '排队中的指令' }).filter({ visible: true })
+    await expect(queue).toContainText(gameFollowUpMarker)
+    await queue.getByRole('button', { name: '立即转向', exact: true }).click()
+    await releaseDelayedRequest(request, gameFollowUpDelayMarker)
+
+    await expect(page.getByText(gameFollowUpNarrative, { exact: true })).toBeVisible()
+    await expect.poll(async () => (await getModelStatus(request)).request_counts[gameFollowUpMarker] ?? 0).toBe(1)
+    await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toEqual([
+      expect.objectContaining({ narrative: expect.stringContaining(gameOpeningNarrative) }),
+      expect.objectContaining({
+        // Same-turn native steering retains the accepted original player
+        // input; the additional instruction lives in that turn's journal.
+        user: process.env.TA_TEST_CODEX_EXE ? `先观察石门，等待下一步。${gameFollowUpDelayMarker}` : followUp,
+        narrative: expect.stringContaining(gameFollowUpNarrative),
+      }),
+    ])
+  } finally {
+    await releaseDelayedRequest(request, gameFollowUpDelayMarker)
+  }
+})

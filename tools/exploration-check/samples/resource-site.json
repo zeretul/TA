@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "saltgrass-terrace",
+  "version": "2.1.0",
+  "package_id": "sample-world",
+  "package_version": "1",
+  "ruleset_id": "sample-rules",
+  "ruleset_version": "1",
+  "theme": "A terraced marsh where safe gathering and observation lead to the goal.",
+  "objectives": [{"id":"collect-reed","description":"Locate the marked saltgrass patch and its sample source."}],
+  "areas": [
+    {"id":"south-bank","name":"South bank","description":"A firm approach from the low road."},
+    {"id":"reed-bed","name":"Reed bed","description":"Shallow water surrounds the saltgrass."},
+    {"id":"bird-blind","name":"Bird blind","description":"A raised shelter for observation."}
+  ],
+  "connections": [
+    {"id":"bank-to-reeds","from_area_id":"south-bank","to_area_id":"reed-bed","bidirectional":true,"player_visible":true},
+    {"id":"reeds-to-blind","from_area_id":"reed-bed","to_area_id":"bird-blind","bidirectional":true,"player_visible":true}
+  ],
+  "entry_location_ids": [],
+  "entry_area_ids": ["south-bank"],
+  "exit_area_ids": ["bird-blind"],
+  "challenges": [],
+  "content_refs": [{"id":"saltgrass-patch","area_id":"reed-bed","kind":"resource","reference_id":"resource.saltgrass","quantity":3}],
+  "completion_paths": [
+    {"id":"careful-gathering","objective_ids":["collect-reed"],"challenge_ids":[],"required_ability_ids":["ability.fieldcraft"]},
+    {"id":"observation-only","objective_ids":["collect-reed"],"challenge_ids":[],"required_ability_ids":["ability.naturalist"]}
+  ]
+}

@@ -1,0 +1,46 @@
+// Keys the backend still returns for Skill operations the game surfaces.
+// The Skills library interface was retired with the rest of the writing
+// product, so its own copy is gone.
+const skills = {
+  'api.storyPack.invalidWorldPresentation': "World terminology must use supported languages and short, single-line names.",
+  'api.gameSaves.loadFailed': "Could not load saves. Please retry.",
+
+  'api.characterWindow.radioUnavailable': 'Radio is unavailable: an owned device and an established, reachable contact channel are required.',
+  'api.attention.unavailable': 'Could not load or save your followed people and matters. Please try again.',
+  'api.attention.unknown': 'You can only follow people and matters already known in this story.',
+  'api.attention.limit': 'You can follow up to 32 people and 32 matters. Unfollow one first.',
+  'api.attention.conflict': 'The story changed while saving. Refresh and try again.',
+  'api.adventure.unavailable': 'No encounter state is available for this story.',
+  'api.adventure.rejected': 'The action was not accepted. Refresh and check your skills, resources and current round.',
+	'api.storyPack.gameplayNotConfirmed': "Confirm the world's state, scale, growth, combat and opening choices first.",
+	'api.storyPack.unsupportedGameplay': 'This combination cannot run yet. Your draft is kept; choose a supported plan or keep editing.',
+	'api.storyPack.invalidStateFieldCount': 'Investigation state needs between one and eight numeric fields.',
+	'api.storyPack.invalidStateField': 'Check the name, range and starting value for “{{field}}” before saving.',
+	'api.storyPack.invalidCheckBinding': '“{{field}}” is not bound to a supported investigation check, or its effect is outside the allowed range.',
+	'api.storyPack.invalidLetterDeliveryDays': 'Letters must take between one and thirty days to arrive.',
+	'api.interactive.invalidLetter': 'The letter or recipient is invalid. Review it and try again.',
+	'api.interactive.letterNotSupported': 'This story does not use letters for contact.',
+	'api.interactive.letterRecipientUnavailable': 'The recipient has not appeared in this story.',
+	'api.combatWindow.playerIntentInvalid': 'Choose a valid intent for this strike.',
+	'api.combatWindow.takeLifeActionRequired': 'Choose an attack against one opponent to authorize a killing blow.',
+	'api.combatWindow.takeLifeTargetInvalid': 'The target must be an opponent still in this fight.',
+	'api.combatWindow.unavailableForWorld': "This combat interface is not available for the current world.",
+	'api.characterWindow.letterRequiresStoryTurn': 'Send the letter through the main story; it cannot be delivered as an instant chat.',
+	'api.characterWindow.notPresent': 'This person is not here for an in-person conversation.',
+  'api.skills.preferenceFailed': 'Could not save Skill preferences. Refresh and try again.',
+  'api.skills.updateFailed': 'Could not check or update the Skill. Try again later.',
+  'api.skills.sourceRequired': 'This Skill has no recorded remote source. Reinstall it from the remote source.',
+  'api.history.busy': "An operation is still running in this game. Wait or cancel it before retrying.",
+  'api.history.conflict': "This save has changed and was reloaded. Review the current situation before trying again.",
+  'api.history.notFound': "This historical save was not found. Switch saves or create a new game.",
+  'api.history.invalidRequest': "This arrangement cannot be executed. Check the target, resources and dependencies.",
+  'api.history.modelFailed': "The model could not complete this operation. Your wording is preserved. Check the system model settings and retry.",
+  'api.history.invalidModelOutput': "The proposed result was incomplete and was not applied. You can retry.",
+  'api.history.cancelled': "This simulation was cancelled.",
+  'api.history.wrongProject': "These records do not belong to this history project. Reopen historical simulation.",
+  'api.history.commandConflict': "This operation conflicts with an existing record. Reload before deciding again.",
+  'api.history.unavailable': "Historical simulation is temporarily unavailable. Please retry.",
+  'api.history.modelOutputBudget': 'The model exhausted its response budget. This season was not saved. Lower the thinking level or raise the output budget in game model settings, then retry.',
+} as const
+
+export default skills

@@ -1,0 +1,26 @@
+{
+  "quest.huangfeng_member_market_visit": {
+    "title": "A Member’s Visit to the Market",
+    "brief": "Zhong Lingdao asks a formal Huangfeng Valley member to visit Yue Public Market and become familiar with a place used on later trips. This agreement covers arrival only, with no purchase, delivery or guarantee of safety.",
+    "objectives": {
+      "quest.huangfeng_member_market_visit.visit": "After accepting, personally arrive at Yue Public Market."
+    },
+    "choices": {}
+  },
+  "quest.canglang_member_ferry_visit": {
+    "title": "Learn the Route to Hedu Town",
+    "brief": "Ge Changgao asks a formal Surging Wave Boat Gang member to travel from Duckweed Anchorage to Hedu Town and learn this route. The agreement covers arrival only, not a completed safety inspection or a guarantee on anyone’s behalf.",
+    "objectives": {
+      "quest.canglang_member_ferry_visit.visit": "After accepting, personally arrive at Hedu Town."
+    },
+    "choices": {}
+  },
+  "quest.blackstar_member_office_visit": {
+    "title": "Find the Mercenary Office",
+    "brief": "Han Xiao asks a formal Black Star Mercenary Group member to go from Dock Three to the Interstellar Mercenary Guild Juberly Office and learn where it is. This agreement covers arrival only. It does not submit paperwork, grant access or accept a new contract.",
+    "objectives": {
+      "quest.blackstar_member_office_visit.visit": "After accepting, personally arrive at the Interstellar Mercenary Guild Juberly Office."
+    },
+    "choices": {}
+  }
+}

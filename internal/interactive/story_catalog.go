@@ -1,0 +1,703 @@
+package interactive
+
+import (
+	"context"
+	"fmt"
+	"log/slog"
+	"os"
+	"path/filepath"
+	"strings"
+	"ta/internal/character"
+	interactivestate "ta/internal/interactive/state"
+	"time"
+
+	"ta/config"
+	"ta/internal/agents/conversationconfig"
+	"ta/internal/agents/conversationjournal"
+	"ta/internal/style"
+)
+
+func (s *Store) Index() (Index, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.readIndexLocked()
+}
+
+// SelectStory persists the workspace-wide story selection. The index is the
+// shared source of truth used by every browser connected to this workspace.
+func (s *Store) SelectStory(storyID string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	storyID = strings.TrimSpace(storyID)
+	index, err := s.readIndexLocked()
+	if err != nil {
+		return err
+	}
+	for _, story := range index.Stories {
+		if story.ID != storyID {
+			continue
+		}
+		if index.CurrentStoryID == storyID {
+			return nil
+		}
+		if previousID := strings.TrimSpace(index.CurrentStoryID); previousID != "" {
+			if closeErr := s.evictStoryJournalLocked(previousID); closeErr != nil {
+				slog.ErrorContext(context.Background(), fmt.Sprintf("[interactive-story] flush index on story switch failed story_id=%s error=%v", previousID, closeErr))
+			}
+		}
+		index.CurrentStoryID = storyID
+		return s.writeIndexLocked(index)
+	}
+	return fmt.Errorf("故事不存在 / Story not found: %s", storyID)
+}
+
+func (s *Store) CreateStory(req CreateStoryRequest) (StorySummary, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	if err := os.MkdirAll(s.storyDir(), 0o755); err != nil {
+		return StorySummary{}, fmt.Errorf("创建互动故事目录失败: %w", err)
+	}
+	index, err := s.readIndexLocked()
+	if err != nil {
+		return StorySummary{}, err
+	}
+	title := strings.TrimSpace(req.Title)
+	titleSource := StoryTitleSourceUser
+	if title == "" {
+		title = defaultStoryTitle(index.Stories)
+		titleSource = StoryTitleSourcePending
+	}
+	planningMode := strings.ToLower(strings.TrimSpace(req.PlanningMode))
+	if planningMode != "" {
+		if err := validateStoryPlanningMode(planningMode); err != nil {
+			return StorySummary{}, err
+		}
+	}
+	if err := validateStorySpeechSettings(req.SpeechSettings); err != nil {
+		return StorySummary{}, err
+	}
+	if err := validateStoryIntimacySettings(req.IntimacySettings); err != nil {
+		return StorySummary{}, err
+	}
+	if err := validateStoryCheckSettings(req.CheckSettings); err != nil {
+		return StorySummary{}, err
+	}
+	if err := validateStoryNarrativeRequirements(req.NarrativeRequirements); err != nil {
+		return StorySummary{}, err
+	}
+	if err := validateNewStoryOpeningConfig(req.Opening); err != nil {
+		return StorySummary{}, err
+	}
+	// A calendar is frozen once and read back by every lifespan question, so an
+	// invalid one is refused here rather than stored and quietly treated as
+	// unknown later: a story that asked for a calendar and silently got none
+	// would look like one whose pack never stated an age.
+	if req.Calendar != nil {
+		if err := req.Calendar.Validate(); err != nil {
+			return StorySummary{}, err
+		}
+	}
+	protagonist := normalizeStoryProtagonist(req.Protagonist)
+	if err := validateStoryProtagonist(protagonist); err != nil {
+		return StorySummary{}, err
+	}
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	stateSchemaPolicy := cloneStoryStateSchemaPolicy(req.StateSchemaPolicy)
+	story := StorySummary{
+		ID:                    newID("st"),
+		Title:                 title,
+		TitleSource:           titleSource,
+		Origin:                strings.TrimSpace(req.Origin),
+		Protagonist:           protagonist,
+		StoryTellerID:         strings.TrimSpace(req.StoryTellerID),
+		PlanningTemplateID:    NormalizeGamePlanningTemplateID(req.PlanningTemplateID),
+		PlanningMode:          normalizeStoryPlanningMode(planningMode),
+		ModuleRefs:            cloneStoryDirectorModuleRefs(req.ModuleRefs),
+		ReplyTargetChars:      normalizeStoryReplyTargetChars(req.ReplyTargetChars),
+		ChoiceCount:           normalizeStoryChoiceCount(req.ChoiceCount),
+		Opening:               normalizeStoryOpeningConfig(req.Opening),
+		ImageSettings:         normalizeStoryImageSettings(req.ImageSettings),
+		CheckSettings:         normalizeStoryCheckSettings(req.CheckSettings),
+		SpeechSettings:        normalizeStorySpeechSettings(req.SpeechSettings),
+		IntimacySettings:      normalizeStoryIntimacySettings(req.IntimacySettings),
+		StylePurposes:         req.StylePurposes.Normalize(),
+		NarrativeRequirements: normalizeStoryNarrativeRequirements(req.NarrativeRequirements),
+		StateSchemaPolicy:     cloneStoryStateSchemaPolicy(stateSchemaPolicy),
+		PackBinding:           cloneStoryPackBinding(req.PackBinding),
+		IdentityConfirmed:     req.IdentityConfirmed,
+		CreatedAt:             now,
+		UpdatedAt:             now,
+		Branches:              1,
+	}
+	if err := validateStoryChoiceCount(story.ChoiceCount); err != nil {
+		return StorySummary{}, err
+	}
+	if story.StoryTellerID == "" {
+		story.StoryTellerID = style.DefaultID
+	}
+	if story.PlanningTemplateID == "" {
+		story.PlanningTemplateID = DefaultGamePlanningTemplateID
+	}
+	if story.ModuleRefs == nil {
+		refs := DefaultStoryDirectorModuleRefs()
+		story.ModuleRefs = &refs
+	}
+	// A new story is the moment a forged pairing can be caught. A rule system
+	// that declares its actor-state system cannot run on another one, and the
+	// failure is silent at play time, so it is refused before anything is
+	// written rather than discovered a turn later.
+	if err := ValidateStoryModuleCompatibility(s.novaDir, *story.ModuleRefs); err != nil {
+		return StorySummary{}, err
+	}
+
+	meta := StoryMeta{
+		V:                     schemaVersion,
+		Type:                  StoryEventTypeMeta,
+		StoryID:               story.ID,
+		Title:                 story.Title,
+		TitleSource:           story.TitleSource,
+		Origin:                story.Origin,
+		Protagonist:           story.Protagonist,
+		StoryTellerID:         story.StoryTellerID,
+		PlanningTemplateID:    story.PlanningTemplateID,
+		PlanningMode:          story.PlanningMode,
+		ModuleRefs:            cloneStoryDirectorModuleRefs(story.ModuleRefs),
+		FrozenModules:         cloneStoryDirectorResolvedSnapshot(req.FrozenModules),
+		ReplyTargetChars:      story.ReplyTargetChars,
+		ChoiceCount:           story.ChoiceCount,
+		Opening:               story.Opening,
+		ImageSettings:         story.ImageSettings,
+		CheckSettings:         story.CheckSettings,
+		SpeechSettings:        story.SpeechSettings,
+		IntimacySettings:      story.IntimacySettings,
+		StylePurposes:         story.StylePurposes,
+		NarrativeRequirements: story.NarrativeRequirements,
+		StateSchemaPolicy:     cloneStoryStateSchemaPolicy(stateSchemaPolicy),
+		PackBinding:           cloneStoryPackBinding(story.PackBinding),
+		PackCatalog:           ClonePackCatalogSnapshot(req.PackCatalog),
+		Calendar:              cloneStoryCalendar(req.Calendar),
+		ProtagonistAge:        max(req.ProtagonistAge, 0),
+		ProtagonistGender:     req.ProtagonistGender,
+		IdentityConfirmed:     req.IdentityConfirmed,
+		InitialTraitRolls:     append([]InitialActorTraitRoll(nil), req.InitialTraitRolls...),
+		CurrentBranch:         "main",
+		Branches: map[string]BranchMeta{
+			"main": {CreatedAt: now},
+		},
+		CreatedAt: now,
+		UpdatedAt: now,
+	}
+	if req.RuntimeConfig != nil {
+		if err := conversationconfig.ValidateShape(*req.RuntimeConfig, config.AgentKindInteractiveStory); err != nil {
+			return StorySummary{}, err
+		}
+		branch := meta.Branches["main"]
+		value := *req.RuntimeConfig
+		branch.RuntimeConfig = &value
+		branch.RuntimeConfigRevision = 1
+		meta.Branches["main"] = branch
+	}
+	if req.StateSchemaInitialization != nil {
+		initialization := *req.StateSchemaInitialization
+		initialization.UpdatedAt = now
+		if initialization.Status == StateSchemaInitializationReady {
+			initialization.CompletedAt = now
+		}
+		meta.StateSchemaInitialization = &initialization
+	} else if storyStateSchemaPolicyRequiresOpeningDraft(stateSchemaPolicy) {
+		meta.StateSchemaInitialization = &StateSchemaInitializationStatus{
+			Mode:         stateSchemaPolicy.Mode,
+			Status:       StateSchemaInitializationWaitingOpening,
+			BaseRevision: 1,
+			UpdatedAt:    now,
+		}
+	} else {
+		meta.StateSchemaInitialization = &StateSchemaInitializationStatus{
+			Mode:           StoryStateSchemaModeFixedTemplate,
+			Status:         StateSchemaInitializationReady,
+			Outcome:        "fixed",
+			BaseRevision:   1,
+			TargetRevision: 1,
+			CompletedAt:    now,
+			UpdatedAt:      now,
+		}
+	}
+	actorState := StoryDirectorActorStateSystem{}
+	trpgSystem := StoryDirectorTRPGSystem{}
+	if req.ActorState != nil {
+		actorState = *req.ActorState
+	} else if strings.TrimSpace(s.novaDir) != "" {
+		director := s.storyDirectorForMeta(meta)
+		actorState = director.ActorState
+		trpgSystem = director.TRPGSystem
+	}
+	if req.TRPGSystem != nil {
+		trpgSystem = *req.TRPGSystem
+	}
+	if !actorStateEmpty(actorState) {
+		actorState = applyStoryProtagonistToActorState(actorState, protagonist)
+		if err := validateActorStateSystem(actorState); err != nil {
+			return StorySummary{}, fmt.Errorf("创建故事的状态系统无效 / Invalid state system for story creation: %w", err)
+		}
+		if actorState.WorldContent != nil && meta.PackBinding != nil && actorState.WorldContent.PackID != meta.PackBinding.PackID {
+			return StorySummary{}, fmt.Errorf("world content does not match the selected pack")
+		}
+		meta.ActorStateSchema = FreezeActorStateSchemaWithRules(actorState, trpgSystem, len(req.InitialStateOps) > 0)
+		if meta.ActorStateSchema != nil && req.ActorStateAdaptation != nil {
+			record := *req.ActorStateAdaptation
+			meta.ActorStateSchema.Adaptation = &record
+		}
+	}
+	if storyStateSchemaPolicyRequiresOpeningDraft(stateSchemaPolicy) && meta.ActorStateSchema == nil {
+		return StorySummary{}, fmt.Errorf("状态结构初始化策略缺少可冻结的基础状态系统 / State schema policy requires a freezable base state system")
+	}
+	initialStateOps := normalizeStateOps(req.InitialStateOps)
+	generatedOps := []interactivestate.Op(nil)
+	initialActorOps := []ActorStateOp(nil)
+	if meta.ActorStateSchema != nil && !storyStateSchemaPolicyRequiresOpeningDraft(stateSchemaPolicy) {
+		generatedOps, initialActorOps, err = BuildActorStateInitialChanges(meta.ActorStateSchema.System, req.InitialTraitRolls)
+		if err != nil {
+			return StorySummary{}, err
+		}
+	}
+	initialStateOps = normalizeStateOps(append(initialStateOps, generatedOps...))
+	initialActorOps = normalizeActorStateOps(initialActorOps)
+	if meta.ActorStateSchema != nil {
+		initialActorOps = append(initialActorOps, settleXiuxianCreationState(meta.ActorStateSchema.System, initialStateOps, initialActorOps)...)
+		initialActorOps = normalizeActorStateOps(initialActorOps)
+	}
+	if len(initialStateOps) > 0 || len(initialActorOps) > 0 {
+		for _, op := range initialStateOps {
+			if err := validateStateOp(op); err != nil {
+				return StorySummary{}, err
+			}
+		}
+		initialDeltaID := newID("sd")
+		branch := meta.Branches["main"]
+		branch.Head = initialDeltaID
+		meta.Branches["main"] = branch
+		story.Events = 1
+	}
+	// Store callers that predate story-level policies create a fixed-schema
+	// story, including stories that intentionally have no Actor State module.
+	// Product entry points opt into dynamic opening modes explicitly.
+	if stateSchemaPolicy == nil {
+		stateSchemaPolicy = fixedStoryStateSchemaPolicy()
+		story.StateSchemaPolicy = cloneStoryStateSchemaPolicy(stateSchemaPolicy)
+		meta.StateSchemaPolicy = cloneStoryStateSchemaPolicy(stateSchemaPolicy)
+	}
+	normalizeFixedStoryStateSchemaInitialization(&meta)
+	if err := validateStoryMeta(meta); err != nil {
+		return StorySummary{}, err
+	}
+	initialStateHead := meta.Branches["main"].Head
+	var initialMembership *CharacterRecordEvent
+	if req.InitialFactionMembership != nil {
+		if !req.IdentityConfirmed {
+			return StorySummary{}, fmt.Errorf("initial faction membership requires confirmed character creation")
+		}
+		m := req.InitialFactionMembership.Normalize()
+		eventID := newID("chr")
+		m.ID, m.Status, m.SourceKind = newID("mem"), "formal", "identity"
+		m.AuthorityID, m.SourceExchangeID, m.TurnID = "", "", ""
+		m.SourceEventID, m.WorldTime, m.ClockSeconds = eventID, "开局", 0
+		branch := meta.Branches["main"]
+		initialMembership = &CharacterRecordEvent{V: schemaVersion, Type: StoryEventTypeCharacterRecord, ID: eventID, ParentID: branch.Head, BranchID: "main", Ts: now, Cursor: eventID, FactionMemberships: []character.FactionMembership{m}}
+		if err := validateCharacterRecordEvent(*initialMembership); err != nil {
+			return StorySummary{}, err
+		}
+		branch.Head = eventID
+		meta.Branches["main"] = branch
+		story.Events++
+	}
+	events := []any{meta}
+	if len(initialStateOps) > 0 || len(initialActorOps) > 0 {
+		events = append(events, newStateDeltaEventWithActorOps(initialStateHead, "", "main", now, initialStateOps, initialActorOps))
+	}
+	if initialMembership != nil {
+		events = append(events, *initialMembership)
+	}
+	if err := writeJSONL(s.storyPath(story.ID), events); err != nil {
+		return StorySummary{}, err
+	}
+	index.CurrentStoryID = story.ID
+	index.Stories = append(index.Stories, story)
+	if err := s.writeIndexLocked(index); err != nil {
+		return StorySummary{}, err
+	}
+	return story, nil
+}
+
+func (s *Store) UpdateStory(storyID string, req UpdateStoryRequest) (StorySummary, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	releaseStory, err := s.acquireStoryMutationLeaseLocked(storyID)
+	if err != nil {
+		return StorySummary{}, err
+	}
+	defer releaseStory()
+
+	meta, snapshot, err := s.boundedStorySnapshotWithLimitLocked(storyID, "", 1)
+	if err != nil {
+		return StorySummary{}, err
+	}
+	now := time.Now().UTC().Format(time.RFC3339Nano)
+	updatedFields := storyConfigUpdatedFields(req)
+	protagonistStateOps := []interactivestate.Op(nil)
+	if title := strings.TrimSpace(req.Title); title != "" {
+		meta.Title = title
+		meta.TitleSource = StoryTitleSourceUser
+	}
+	if req.Origin != nil {
+		meta.Origin = strings.TrimSpace(*req.Origin)
+	}
+	if req.Protagonist != nil {
+		if snapshot.TurnCount > 0 {
+			return StorySummary{}, fmt.Errorf("首回合提交后不能修改主角 / The protagonist cannot be changed after the first turn")
+		}
+		protagonist := normalizeStoryProtagonist(*req.Protagonist)
+		if err := validateStoryProtagonist(protagonist); err != nil {
+			return StorySummary{}, err
+		}
+		meta.Protagonist = protagonist
+		if meta.ActorStateSchema != nil {
+			meta.ActorStateSchema = normalizeActorStateSchemaSnapshot(meta.ActorStateSchema)
+			meta.ActorStateSchema.System = applyStoryProtagonistToActorState(meta.ActorStateSchema.System, protagonist)
+		}
+		if req.StateSchemaPolicy == nil && protagonist.Name != "" && getPath(snapshot.State, actorStateActorPath(DefaultActorID, "id")) != nil {
+			protagonistStateOps = []interactivestate.Op{{
+				Op: "set", Path: actorStateActorPath(DefaultActorID, "name"), Value: trimBytes(protagonist.Name, 128), Reason: "story protagonist selected",
+			}}
+		}
+	}
+	if tellerID := strings.TrimSpace(req.StoryTellerID); tellerID != "" {
+		meta.StoryTellerID = tellerID
+	}
+	if req.StylePurposes != nil {
+		// A purpose update replaces only what the request names. The pointer is
+		// the switch: an omitted field means "leave this purpose as it is", and an
+		// explicitly empty dialogue or combat means "follow the main narrative
+		// again". Without that distinction a single-purpose change would silently
+		// reset the other two, which is the failure the design forbids.
+		next := meta.StylePurposes
+		if req.StylePurposes.Main != nil {
+			next.Main = *req.StylePurposes.Main
+		}
+		if req.StylePurposes.Dialogue != nil {
+			next.Dialogue = *req.StylePurposes.Dialogue
+		}
+		if req.StylePurposes.Combat != nil {
+			next.Combat = *req.StylePurposes.Combat
+		}
+		meta.StylePurposes = next.Normalize()
+	}
+	if templateID := NormalizeGamePlanningTemplateID(req.PlanningTemplateID); templateID != "" {
+		meta.PlanningTemplateID = templateID
+	}
+	if req.ModuleRefs != nil {
+		// A story that already started keeps whatever pairing it recorded: the
+		// player is not asked to re-declare it on every unrelated save, and an
+		// old story must not become unsavable because a preset changed under
+		// it. A save that actually repoints the rule system or the state system
+		// is a deliberate new pairing and has to be compatible.
+		if meta.ModuleRefs == nil || StoryModulePairChanged(*meta.ModuleRefs, *req.ModuleRefs) {
+			if err := ValidateStoryModuleCompatibility(s.novaDir, *req.ModuleRefs); err != nil {
+				return StorySummary{}, err
+			}
+		}
+		// Changing a selector must also update the frozen checks consumed by turns.
+		// Preserve every state definition and value; never rebuild an existing game.
+		if meta.ActorStateSchema != nil && s.novaDir != "" &&
+			(meta.ModuleRefs == nil || meta.ModuleRefs.RuleSystemID != req.ModuleRefs.RuleSystemID) {
+			selected, err := NewRuleSystemLibrary(s.novaDir).Get(req.ModuleRefs.RuleSystemID)
+			if err != nil {
+				return StorySummary{}, fmt.Errorf("load selected rule system: %w", err)
+			}
+			checks := resolveRuleStateFieldIDs(meta.ActorStateSchema.System, selected.TRPGSystem)
+			if err := validateActorStateTRPGReferences(meta.ActorStateSchema.System, checks); err != nil {
+				return StorySummary{}, fmt.Errorf("selected checks cannot read the story state: %w", err)
+			}
+			next := *meta.ActorStateSchema
+			next.TRPGSystem = normalizeFrozenTRPGSystem(checks)
+			meta.ActorStateSchema = &next
+		}
+		meta.ModuleRefs = cloneStoryDirectorModuleRefs(req.ModuleRefs)
+		// An explicit module change is a deliberate repoint of the story, so the
+		// frozen graph is dropped and the next turn re-resolves from the live
+		// catalog. This is the only path that re-adopts a preset for a running
+		// story; an edit to a preset file alone never does.
+		meta.FrozenModules = nil
+	}
+	if req.PlanningMode != nil {
+		mode := strings.ToLower(strings.TrimSpace(*req.PlanningMode))
+		if err := validateStoryPlanningMode(mode); err != nil {
+			return StorySummary{}, err
+		}
+		meta.PlanningMode = mode
+	}
+	if req.ReplyTargetChars != nil {
+		if *req.ReplyTargetChars <= 0 {
+			return StorySummary{}, fmt.Errorf("互动故事单轮目标字数必须大于 0")
+		}
+		meta.ReplyTargetChars = *req.ReplyTargetChars
+	}
+	if req.ChoiceCount != nil {
+		if err := validateStoryChoiceCount(*req.ChoiceCount); err != nil {
+			return StorySummary{}, err
+		}
+		meta.ChoiceCount = *req.ChoiceCount
+	}
+	if req.Opening != nil {
+		if err := validateStoryOpeningUpdate(meta.Opening, *req.Opening); err != nil {
+			return StorySummary{}, err
+		}
+		meta.Opening = normalizeStoryOpeningConfig(*req.Opening)
+	}
+	if req.ImageSettings != nil {
+		meta.ImageSettings = normalizeStoryImageSettings(*req.ImageSettings)
+	}
+	if req.SpeechSettings != nil {
+		if err := validateStorySpeechSettings(*req.SpeechSettings); err != nil {
+			return StorySummary{}, err
+		}
+		meta.SpeechSettings = normalizeStorySpeechSettings(*req.SpeechSettings)
+	}
+	if req.IntimacySettings != nil {
+		if err := validateStoryIntimacySettings(*req.IntimacySettings); err != nil {
+			return StorySummary{}, err
+		}
+		meta.IntimacySettings = normalizeStoryIntimacySettings(*req.IntimacySettings)
+	}
+	if req.CheckSettings != nil {
+		if err := validateStoryCheckSettings(*req.CheckSettings); err != nil {
+			return StorySummary{}, err
+		}
+		meta.CheckSettings = normalizeStoryCheckSettings(*req.CheckSettings)
+	}
+	if req.NarrativeRequirements != nil {
+		// The pointer is the switch: nil leaves this story's direction alone, an
+		// empty string drops the override so the story reads the workspace default
+		// again, and any other value replaces it. Without that distinction a client
+		// that only sends the field it edited would erase the others.
+		if err := validateStoryNarrativeRequirements(*req.NarrativeRequirements); err != nil {
+			return StorySummary{}, err
+		}
+		meta.NarrativeRequirements = normalizeStoryNarrativeRequirements(*req.NarrativeRequirements)
+	}
+	if req.LocalEntitySettings != nil {
+		// A whole-map replace, because the page always sends what it is showing.
+		// Merging would resurrect a record the player just cleared, and there is
+		// no per-entity revision to merge against.
+		settings, err := normalizeLocalEntitySettingsMap(req.LocalEntitySettings)
+		if err != nil {
+			return StorySummary{}, err
+		}
+		meta.LocalEntitySettings = settings
+	}
+	appendedEvents := []any(nil)
+	if len(protagonistStateOps) > 0 {
+		branch := meta.Branches[meta.CurrentBranch]
+		previousHead := branch.Head
+		deltaID := newID("sd")
+		branch.Head = deltaID
+		meta.Branches[meta.CurrentBranch] = branch
+		appendedEvents = append(appendedEvents, newStateDeltaEvent(deltaID, previousHead, meta.CurrentBranch, now, protagonistStateOps))
+	}
+	if req.StateSchemaPolicy != nil {
+		if snapshot.TurnCount > 0 {
+			return StorySummary{}, fmt.Errorf("首回合提交后不能修改状态结构初始化策略")
+		}
+		if len(meta.Branches) != 1 {
+			return StorySummary{}, fmt.Errorf("故事已有多个分支，不能重建开局状态结构")
+		}
+		policy := NormalizeStoryStateSchemaPolicy(*req.StateSchemaPolicy)
+		if (req.ActorState == nil || actorStateEmpty(*req.ActorState)) && storyStateSchemaPolicyRequiresOpeningDraft(&policy) {
+			return StorySummary{}, fmt.Errorf("状态结构初始化策略缺少可冻结的基础状态系统")
+		}
+		meta.StateSchemaPolicy = &policy
+		trpgSystem := StoryDirectorTRPGSystem{}
+		if req.TRPGSystem != nil {
+			trpgSystem = *req.TRPGSystem
+		}
+		if req.ActorState == nil || actorStateEmpty(*req.ActorState) {
+			meta.ActorStateSchema = nil
+		} else {
+			if err := validateActorStateSystem(*req.ActorState); err != nil {
+				return StorySummary{}, fmt.Errorf("更新故事的状态系统无效 / Invalid state system for story update: %w", err)
+			}
+			actorState := applyStoryProtagonistToActorState(*req.ActorState, meta.Protagonist)
+			meta.ActorStateSchema = FreezeActorStateSchemaWithRules(actorState, trpgSystem, false)
+		}
+		if req.StateSchemaInitialization != nil {
+			initialization := *req.StateSchemaInitialization
+			initialization.UpdatedAt = now
+			if initialization.Status == StateSchemaInitializationReady {
+				initialization.CompletedAt = now
+			}
+			meta.StateSchemaInitialization = &initialization
+		} else if storyStateSchemaPolicyRequiresOpeningDraft(&policy) {
+			meta.StateSchemaInitialization = &StateSchemaInitializationStatus{Mode: policy.Mode, Status: StateSchemaInitializationWaitingOpening, BaseRevision: 1, UpdatedAt: now}
+		} else {
+			meta.StateSchemaInitialization = &StateSchemaInitializationStatus{Mode: policy.Mode, Status: StateSchemaInitializationReady, Outcome: "fixed", BaseRevision: 1, TargetRevision: 1, CompletedAt: now, UpdatedAt: now}
+		}
+		branch := meta.Branches[meta.CurrentBranch]
+		previousHead := branch.Head
+		branch.Head = ""
+		meta.Branches[meta.CurrentBranch] = branch
+		headMoved := BranchHeadMovedEvent{
+			V: schemaVersion, Type: StoryEventTypeBranchHeadMoved, ID: newID("bhm"),
+			BranchID: meta.CurrentBranch, Ts: now, PreviousHead: previousHead,
+			StateCheckpoint: initialStoryState(), Reason: "state_schema_reinitialized",
+		}
+		appendedEvents = append(appendedEvents, headMoved)
+		if meta.ActorStateSchema != nil && !storyStateSchemaPolicyRequiresOpeningDraft(&policy) {
+			initialOps, initialActorOps, err := BuildActorStateInitialChanges(meta.ActorStateSchema.System, meta.InitialTraitRolls)
+			if err != nil {
+				return StorySummary{}, err
+			}
+			initialOps = normalizeStateOps(initialOps)
+			initialActorOps = normalizeActorStateOps(initialActorOps)
+			if len(initialOps) > 0 || len(initialActorOps) > 0 {
+				deltaID := newID("sd")
+				branch.Head = deltaID
+				meta.Branches[meta.CurrentBranch] = branch
+				appendedEvents = append(appendedEvents, newStateDeltaEventWithActorOps(deltaID, "", meta.CurrentBranch, now, initialOps, initialActorOps))
+			}
+		}
+	}
+	meta.UpdatedAt = now
+	configEvent := StoryConfigUpdatedEvent{
+		V: schemaVersion, Type: StoryEventTypeStoryConfigUpdated, ID: newID("scu"),
+		ParentID: meta.Branches[meta.CurrentBranch].Head, BranchID: meta.CurrentBranch, Ts: now,
+		Fields: updatedFields,
+	}
+	appendedEvents = append([]any{configEvent}, appendedEvents...)
+	if err := s.appendStoryTransactionLocked(storyID, meta, appendedEvents...); err != nil {
+		return StorySummary{}, err
+	}
+	return s.publishStorySummaryLocked(storyID)
+}
+
+func storyConfigUpdatedFields(req UpdateStoryRequest) []string {
+	fields := make([]string, 0, 13)
+	if strings.TrimSpace(req.Title) != "" {
+		fields = append(fields, "title", "title_source")
+	}
+	if req.Origin != nil {
+		fields = append(fields, "origin")
+	}
+	if req.Protagonist != nil {
+		fields = append(fields, "protagonist")
+	}
+	if strings.TrimSpace(req.StoryTellerID) != "" {
+		fields = append(fields, "story_teller_id")
+	}
+	if NormalizeGamePlanningTemplateID(req.PlanningTemplateID) != "" {
+		fields = append(fields, "planning_template_id")
+	}
+	if req.PlanningMode != nil {
+		fields = append(fields, "planning_mode")
+	}
+	if req.ModuleRefs != nil {
+		fields = append(fields, "module_refs")
+	}
+	if req.ReplyTargetChars != nil {
+		fields = append(fields, "reply_target_chars")
+	}
+	if req.ChoiceCount != nil {
+		fields = append(fields, "choice_count")
+	}
+	if req.Opening != nil {
+		fields = append(fields, "opening")
+	}
+	if req.ImageSettings != nil {
+		fields = append(fields, "image_settings")
+	}
+	if req.SpeechSettings != nil {
+		fields = append(fields, "speech_settings")
+	}
+	if req.IntimacySettings != nil {
+		fields = append(fields, "intimacy_settings")
+	}
+	if req.StylePurposes != nil {
+		fields = append(fields, "style_purposes")
+	}
+	if req.NarrativeRequirements != nil {
+		fields = append(fields, "narrative_requirements")
+	}
+	if req.LocalEntitySettings != nil {
+		fields = append(fields, "local_entity_settings")
+	}
+	if req.CheckSettings != nil {
+		fields = append(fields, "check_settings")
+	}
+	if req.StateSchemaPolicy != nil {
+		fields = append(fields, "state_schema_policy", "actor_state_schema", "state_schema_initialization")
+	}
+	return fields
+}
+
+func (s *Store) DeleteStory(storyID string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	releaseStory, err := s.acquireStoryMutationLeaseLocked(storyID)
+	if err != nil {
+		return err
+	}
+	defer releaseStory()
+
+	index, err := s.readIndexLocked()
+	if err != nil {
+		return err
+	}
+	next := index.Stories[:0]
+	removed := false
+	for _, story := range index.Stories {
+		if story.ID == storyID {
+			removed = true
+			continue
+		}
+		next = append(next, story)
+	}
+	if !removed {
+		return fmt.Errorf("故事不存在: %s", storyID)
+	}
+	index.Stories = next
+	if index.CurrentStoryID == storyID {
+		index.CurrentStoryID = ""
+		if len(index.Stories) > 0 {
+			index.CurrentStoryID = index.Stories[0].ID
+		}
+	}
+	if closeErr := s.evictStoryJournalLocked(storyID); closeErr != nil {
+		slog.ErrorContext(context.Background(), fmt.Sprintf("[interactive-story] flush index before story delete failed story_id=%s error=%v", storyID, closeErr))
+	}
+	if err := os.Remove(s.storyPath(storyID)); err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	if err := os.Remove(conversationjournal.SidecarPath(s.storyPath(storyID))); err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	if err := os.Remove(s.actorStateSchemaPath(storyID)); err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	if err := os.Remove(s.usagePath(storyID)); err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	if err := os.RemoveAll(filepath.Join(s.root, "interactive", "stories", storyID)); err != nil {
+		return err
+	}
+	if err := s.writeIndexLocked(index); err != nil {
+		return err
+	}
+	// Artifact removal is post-commit garbage collection. Canonical story and
+	// index references must become unreachable first; otherwise a filesystem
+	// sync failure could leave a live story whose recovery paths were deleted.
+	// A GC failure must not turn an already-committed delete into a false error.
+	if err := s.removeStoryToolArtifacts(storyID); err != nil {
+		slog.ErrorContext(context.Background(), fmt.Sprintf("[interactive-story] remove deleted story tool artifacts failed story_id=%s error=%v", storyID, err))
+	}
+	return nil
+}

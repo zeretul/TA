@@ -1,0 +1,257 @@
+import { spawn, spawnSync } from 'node:child_process'
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
+import { runtimeRoot, webRoot } from './e2e-paths.mjs'
+
+const repositoryRoot = path.resolve(webRoot, '..')
+
+if (existsSync(runtimeRoot)) rmSync(runtimeRoot, { recursive: true, force: true })
+const taDir = path.join(runtimeRoot, 'ta')
+const binaryDir = path.join(runtimeRoot, 'bin')
+mkdirSync(taDir, { recursive: true })
+mkdirSync(binaryDir, { recursive: true })
+
+const backendPort = process.env.TA_E2E_BACKEND_PORT || '18080'
+const modelPort = process.env.TA_E2E_MODEL_PORT || '18081'
+// Opt-in product acceptance uses an installed CLI and an isolated home. Native
+// remains the default, and no test reads or changes the user's CLI credentials.
+const codexExecutable = process.env.TA_TEST_CODEX_EXE
+const codexHome = path.join(runtimeRoot, 'codex')
+if (codexExecutable) {
+  if (!path.isAbsolute(codexExecutable) || !existsSync(codexExecutable)) throw new Error('TA_TEST_CODEX_EXE must name an installed executable')
+  mkdirSync(codexHome, { recursive: true })
+  writeFileSync(path.join(codexHome, 'config.toml'), 'model_context_window = 100000\nmodel_auto_compact_token_limit = 80000\n[features]\nenable_request_compression = false\n', 'utf8')
+}
+// Release smoke tests use the extracted distribution, including its own assets.
+const packageDir = process.env.TA_E2E_PACKAGE_DIR
+  ? path.resolve(process.env.TA_E2E_PACKAGE_DIR)
+  : undefined
+const binaryPath = packageDir
+  ? path.join(packageDir, process.platform === 'win32' ? 'TA.exe' : 'TA')
+  : path.join(binaryDir, process.platform === 'win32' ? 'TA-e2e.exe' : 'TA-e2e')
+let config = `language = "zh-CN"
+update_check_enabled = false
+model_max_retries = 1
+
+[[model_endpoints]]
+id = "e2e"
+name = "E2E deterministic model"
+provider = "openai-compatible"
+protocol = "openai-chat-completions"
+api_key = "e2e-test-key"
+base_url = "http://127.0.0.1:${modelPort}/v1"
+
+[[model_profiles]]
+id = "e2e"
+name = "E2E deterministic model"
+endpoint_id = "e2e"
+model = "TA-e2e"
+context_window_tokens = 100000
+
+[agent_models.default]
+profile_id = "e2e"
+thinking_level = "off"
+
+[agent_models.ide]
+profile_id = "e2e"
+thinking_level = "off"
+
+[agent_models.interactive_story]
+profile_id = "e2e"
+thinking_level = "off"
+`
+if (codexExecutable) config += `
+[[model_endpoints]]
+id = "e2e-responses"
+name = "E2E Responses model"
+provider = "openai-compatible"
+protocol = "openai-responses"
+api_key = "e2e-test-key"
+base_url = "http://127.0.0.1:${modelPort}/v1"
+
+[[model_profiles]]
+id = "e2e-codex"
+name = "E2E Codex model"
+endpoint_id = "e2e-responses"
+model = "gpt-5.5"
+context_window_tokens = 100000
+
+${['ide', 'general', 'interactive_story'].map(kind => `[agent_runtimes.${kind}]
+selected = "codex"
+[agent_runtimes.${kind}.codex]
+profile_id = "e2e-codex"
+`).join('\n')}`
+writeFileSync(path.join(taDir, 'config.toml'), config, 'utf8')
+
+const legacyWorkspace = path.join(taDir, 'projects', 'Legacy E2E Book')
+const legacyLorePath = path.join(legacyWorkspace, '.nova', 'lore', 'items.json')
+const legacySessionsDir = path.join(legacyWorkspace, '.nova', 'sessions')
+const legacyWritingSessionID = 'v033-writing-main-e2e'
+const legacyStoryDir = path.join(legacyWorkspace, 'interactive', 'story')
+const legacyStoryID = 'st_legacy_v033_e2e'
+const legacyStoryTimestamp = '2026-01-01T00:00:00Z'
+mkdirSync(path.join(legacyWorkspace, 'chapters'), { recursive: true })
+mkdirSync(path.dirname(legacyLorePath), { recursive: true })
+mkdirSync(legacySessionsDir, { recursive: true })
+mkdirSync(legacyStoryDir, { recursive: true })
+writeFileSync(path.join(legacyWorkspace, 'book.json'), JSON.stringify({
+  title: 'Legacy E2E Book',
+  author: 'Denova v0.3.3',
+  description: 'Seeded released-version compatibility fixture.',
+  created_at: '2026-01-01T00:00:00Z',
+  updated_at: '2026-01-01T00:00:00Z',
+}, null, 2), 'utf8')
+writeFileSync(path.join(legacyWorkspace, 'chapters', 'legacy-chapter.md'), '# 旧章节\n\n这是 v0.3.3 保留的正文。\n', 'utf8')
+writeFileSync(legacyLorePath, JSON.stringify({
+  version: 1,
+  items: [{
+    id: 'hero',
+    enabled: true,
+    type: 'character',
+    name: '林川',
+    importance: 'major',
+    content: '旧资料库正文',
+  }],
+}, null, 2), 'utf8')
+const legacyWritingRows = [{
+  type: 'session',
+  id: legacyWritingSessionID,
+  title: 'v0.3.3 写作会话',
+  created_at: '2026-01-01T00:00:00Z',
+  updated_at: '2026-01-01T00:02:00Z',
+}, {
+  type: 'message',
+  created_at: '2026-01-01T00:01:00Z',
+  message: { role: 'user', content: '旧会话问题：第一章保留了什么？' },
+}, {
+  type: 'message',
+  created_at: '2026-01-01T00:02:00Z',
+  message: { role: 'assistant', content: '第一章保留了 v0.3.3 的正文。' },
+}]
+const legacySecondaryWritingRows = [{
+  type: 'session',
+  id: 'v033-writing-secondary-e2e',
+  title: 'v0.3.3 备用会话',
+  created_at: '2025-12-31T00:00:00Z',
+  updated_at: '2025-12-31T00:01:00Z',
+}, {
+  type: 'message',
+  created_at: '2025-12-31T00:01:00Z',
+  message: { role: 'user', content: '备用旧会话仍然存在。' },
+}]
+writeFileSync(
+  path.join(legacySessionsDir, `${legacyWritingSessionID}.jsonl`),
+  `${legacyWritingRows.map((row) => JSON.stringify(row)).join('\n')}\n`,
+  'utf8',
+)
+writeFileSync(
+  path.join(legacySessionsDir, 'v033-writing-secondary-e2e.jsonl'),
+  `${legacySecondaryWritingRows.map((row) => JSON.stringify(row)).join('\n')}\n`,
+  'utf8',
+)
+writeFileSync(
+  path.join(legacySessionsDir, 'active.json'),
+  JSON.stringify({ active_id: legacyWritingSessionID }, null, 2),
+  'utf8',
+)
+writeFileSync(path.join(legacyStoryDir, 'index.json'), JSON.stringify({
+  current_story_id: legacyStoryID,
+  stories: [{
+    id: legacyStoryID,
+    title: 'Legacy v0.3.3 Story',
+    origin: '旧车站仍在等待下一位访客。',
+    story_teller_id: 'classic',
+    story_director_id: 'default',
+    director_run_policy: { mode: 'manual' },
+    reply_target_chars: 2000,
+    choice_count: 2,
+    opening: { mode: 'custom', custom_text: '旧车站仍在等待下一位访客。' },
+    image_settings: { mode: 'manual', interval_turns: 3, preset_id: 'game-cg' },
+    state_schema_policy: { mode: 'fixed_template' },
+    created_at: legacyStoryTimestamp,
+    updated_at: legacyStoryTimestamp,
+    branches: 1,
+    events: 1,
+  }],
+}, null, 2), 'utf8')
+const legacyStoryRows = [{
+  v: 1,
+  type: 'meta',
+  story_id: legacyStoryID,
+  title: 'Legacy v0.3.3 Story',
+  origin: '旧车站仍在等待下一位访客。',
+  story_teller_id: 'classic',
+  story_director_id: 'default',
+  director_run_policy: { mode: 'manual' },
+  reply_target_chars: 2000,
+  choice_count: 2,
+  opening: { mode: 'custom', custom_text: '旧车站仍在等待下一位访客。' },
+  image_settings: { mode: 'manual', interval_turns: 3, preset_id: 'game-cg' },
+  state_schema_policy: { mode: 'fixed_template' },
+  current_branch: 'main',
+  branches: {
+    main: { head: 'turn_legacy_v033_e2e', created_at: legacyStoryTimestamp, title: '主线' },
+  },
+  created_at: legacyStoryTimestamp,
+  updated_at: legacyStoryTimestamp,
+}, {
+  v: 1,
+  type: 'turn',
+  id: 'turn_legacy_v033_e2e',
+  parent_id: null,
+  branch_id: 'main',
+  ts: legacyStoryTimestamp,
+  user: '查看旧车站',
+  narrative: '这是 v0.3.3 保存的游戏正文。',
+  state_status: 'ready',
+}]
+writeFileSync(
+  path.join(legacyStoryDir, `story-${legacyStoryID}.jsonl`),
+  `${legacyStoryRows.map((row) => JSON.stringify(row)).join('\n')}\n`,
+  'utf8',
+)
+writeFileSync(path.join(taDir, 'books.json'), JSON.stringify({
+  current: legacyWorkspace,
+  books: [{
+    name: 'Legacy E2E Book',
+    path: legacyWorkspace,
+    last_opened_at: '2026-01-01T00:00:00Z',
+  }],
+  sort_mode: 'recent',
+  order: [legacyWorkspace],
+  hidden: [],
+}, null, 2), 'utf8')
+
+if (!packageDir) {
+  const build = spawnSync('go', ['build', '-o', binaryPath, './cmd/ta'], {
+    cwd: repositoryRoot,
+    env: process.env,
+    stdio: 'inherit',
+  })
+  if (build.error) throw build.error
+  if (build.status !== 0) process.exit(build.status ?? 1)
+}
+
+const backend = spawn(binaryPath, ['--no-open', `--port=${backendPort}`], {
+  cwd: runtimeRoot,
+  env: {
+    ...process.env,
+    TA_DIR: taDir,
+    TA_SKILLS_DIR: path.join(packageDir || repositoryRoot, 'skills'),
+    ...(codexExecutable ? { CODEX_HOME: codexHome, PATH: `${path.dirname(codexExecutable)}${path.delimiter}${process.env.PATH ?? ''}` } : {}),
+    ...(packageDir ? { TA_WEB_DIR: path.join(packageDir, 'web') } : {}),
+  },
+  stdio: 'inherit',
+})
+
+function forwardSignal(signal) {
+  if (!backend.killed) backend.kill(signal)
+}
+process.once('SIGINT', () => forwardSignal('SIGINT'))
+process.once('SIGTERM', () => forwardSignal('SIGTERM'))
+backend.once('error', (error) => {
+  console.error('[e2e-backend] failed to start', error)
+  process.exitCode = 1
+})
+backend.once('exit', (code) => process.exit(code ?? 0))

@@ -1,0 +1,77 @@
+package config
+
+import "strings"
+
+// AgentSkillSettings stores per-agent skill availability overrides.
+type AgentSkillSettings struct {
+	Default          AgentSkillOverride `toml:"default,omitempty" json:"default,omitempty"`
+	General          AgentSkillOverride `toml:"general,omitempty" json:"general,omitempty"`
+	IDE              AgentSkillOverride `toml:"ide,omitempty" json:"ide,omitempty"`
+	InteractiveStory AgentSkillOverride `toml:"interactive_story,omitempty" json:"interactive_story,omitempty"`
+	// ConfigManager preserves retired v0.3.3 settings during unrelated writes.
+	ConfigManager  AgentSkillOverride `toml:"config_manager,omitempty" json:"config_manager,omitempty"`
+	VersionSummary AgentSkillOverride `toml:"version_summary,omitempty" json:"version_summary,omitempty"`
+	ToolAgent      AgentSkillOverride `toml:"tool_agent,omitempty" json:"tool_agent,omitempty"`
+	Image          AgentSkillOverride `toml:"image,omitempty" json:"image,omitempty"`
+}
+
+// AgentSkillOverride maps skill name to an explicit availability override.
+type AgentSkillOverride map[string]bool
+
+func MergeAgentSkillSettings(parent, child AgentSkillSettings) AgentSkillSettings {
+	return AgentSkillSettings{
+		Default:          mergeAgentSkillOverride(parent.Default, child.Default),
+		General:          mergeAgentSkillOverride(parent.General, child.General),
+		IDE:              mergeAgentSkillOverride(parent.IDE, child.IDE),
+		InteractiveStory: mergeAgentSkillOverride(parent.InteractiveStory, child.InteractiveStory),
+		ConfigManager:    mergeAgentSkillOverride(parent.ConfigManager, child.ConfigManager),
+		VersionSummary:   mergeAgentSkillOverride(parent.VersionSummary, child.VersionSummary),
+		ToolAgent:        mergeAgentSkillOverride(parent.ToolAgent, child.ToolAgent),
+		Image:            mergeAgentSkillOverride(parent.Image, child.Image),
+	}
+}
+
+func ResolveAgentSkillOverrides(cfg *Config, agentKind string) map[string]bool {
+	settings := AgentSkillSettings{}
+	if cfg != nil {
+		settings = cfg.AgentSkills
+	}
+	override := mergeAgentSkillOverride(settings.Default, agentSkillOverrideFor(settings, agentKind))
+	result := make(map[string]bool, len(override))
+	for name, enabled := range override {
+		name = normalizeSkillName(name)
+		if name != "" {
+			result[name] = enabled
+		}
+	}
+	return result
+}
+
+func mergeAgentSkillOverride(parent, child AgentSkillOverride) AgentSkillOverride {
+	if len(parent) == 0 && len(child) == 0 {
+		return nil
+	}
+	out := make(AgentSkillOverride, len(parent)+len(child))
+	for name, enabled := range parent {
+		if normalized := normalizeSkillName(name); normalized != "" {
+			out[normalized] = enabled
+		}
+	}
+	for name, enabled := range child {
+		if normalized := normalizeSkillName(name); normalized != "" {
+			out[normalized] = enabled
+		}
+	}
+	return out
+}
+
+func agentSkillOverrideFor(settings AgentSkillSettings, agentKind string) AgentSkillOverride {
+	if definition, ok := LookupAgentKind(agentKind); ok && definition.SkillOverride != nil {
+		return definition.SkillOverride(settings)
+	}
+	return nil
+}
+
+func normalizeSkillName(name string) string {
+	return strings.TrimSpace(name)
+}

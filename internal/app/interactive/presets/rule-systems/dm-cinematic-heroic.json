@@ -1,0 +1,33 @@
+{
+  "version": 6,
+  "id": "dm-cinematic-heroic",
+  "name": "电影英雄型 DM：高光优先",
+  "description": "优先保护角色高光和类型片节奏；检定决定高光是否完美以及是否付出代价。",
+  "trpg_system": {
+    "rule_templates": [
+      {
+        "id": "dm-cinematic-heroic",
+        "label": "电影英雄型 DM：高光优先",
+        "dice": "1d20",
+        "modifier": -1,
+        "failure_policy": "success_at_cost",
+        "difficulty_guidance": "默认 easy 或 normal。符合角色专长、场面高光、前文铺垫充分时降一档；挑战远超能力或连续冒险时升一档。",
+        "state_effect_guidance": "代价偏叙事化：装备受损、体力消耗、暴露身份、欠下人情、留下伤痕或引出更强敌人。避免轻易阻断高光。",
+        "trigger": "当玩家行动符合角色高光、类型片节奏或英雄幻想时使用。检定重点不是惩罚失败，而是决定高光是否完美、是否付出代价。",
+        "must_check_examples": [
+          "主角从爆炸边缘跃出并救下同伴。",
+          "主角在众目睽睽下完成逆转式发言。",
+          "主角以冒险方式突破强敌封锁。"
+        ],
+        "skip_check_examples": [
+          "普通移动、普通对话或没有戏剧张力的动作。",
+          "角色能力明显足够且失败不会产生戏剧价值。",
+          "只是补充帅气描述，不改变局势。"
+        ],
+        "success_hint": "成功时放大角色魅力和场面反馈，让玩家感到行动确实改变局势。",
+        "failure_hint": "失败时也允许完成部分目标，但附带明显代价或新的危机。"
+      }
+    ]
+  },
+  "custom": false
+}

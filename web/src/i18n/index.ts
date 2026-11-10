@@ -1,0 +1,160 @@
+import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import zhCN from './locales/zh-CN'
+import enUS from './locales/en-US'
+
+export type LocaleCode = 'auto' | 'zh-CN' | 'en-US'
+export type ResolvedLocale = Exclude<LocaleCode, 'auto'>
+
+export const LOCALE_OPTIONS: Array<{ value: LocaleCode; labelKey: string }> = [
+  { value: 'auto', labelKey: 'locale.auto' },
+  { value: 'zh-CN', labelKey: 'locale.zh-CN' },
+  { value: 'en-US', labelKey: 'locale.en-US' },
+]
+
+const CONFIGURED_LOCALE_STORAGE_KEY = 'ta.locale.configured'
+
+// A key with no entry in either locale used to reach the screen as itself, so a
+// player could be shown "settings.narrative.extra" in the middle of a sentence.
+// Nothing is shown instead, and each key is named once in the console so the
+// gap stays findable without the console filling up on every render.
+const reportedMissingKeys = new Set<string>()
+
+function reportMissingKey(key: string, defaultValue?: string): string {
+  if (defaultValue !== undefined) return defaultValue
+  if (!reportedMissingKeys.has(key)) {
+    reportedMissingKeys.add(key)
+    console.warn('[i18n] Missing translation key', key)
+  }
+  return ''
+}
+
+let configuredLocale: LocaleCode = readStoredConfiguredLocale()
+let fetchHeadersInstalled = false
+
+export function resolveLocale(locale: string | undefined | null, browserLanguage = browserLocaleSource()): ResolvedLocale {
+  const value = (locale || 'auto').trim()
+  if (value === 'zh-CN' || value.toLowerCase().startsWith('zh')) return 'zh-CN'
+  if (value === 'en-US' || value.toLowerCase().startsWith('en')) return 'en-US'
+  return browserLanguage.toLowerCase().startsWith('zh') ? 'zh-CN' : 'en-US'
+}
+
+export function setConfiguredLocale(locale: string | undefined | null) {
+  configuredLocale = normalizeLocaleCode(locale)
+  writeStoredConfiguredLocale(configuredLocale)
+  const resolved = resolveLocale(configuredLocale)
+  if (i18next.language !== resolved) {
+    void i18next.changeLanguage(resolved)
+  }
+  applyDocumentLocale(resolved)
+}
+
+export function getConfiguredLocale(): LocaleCode {
+  return configuredLocale
+}
+
+export function getResolvedLocale(): ResolvedLocale {
+  return resolveLocale(configuredLocale)
+}
+
+function localeRequestHeader(): string {
+  return getResolvedLocale()
+}
+
+export function formatDateTime(value: string | Date | number | undefined | null): string {
+  if (!value) return ''
+  const date = value instanceof Date ? value : new Date(value)
+  if (Number.isNaN(date.getTime())) return ''
+  return new Intl.DateTimeFormat(getResolvedLocale(), {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).format(date)
+}
+
+export function formatLocaleNumber(value: number): string {
+  return new Intl.NumberFormat(getResolvedLocale()).format(value)
+}
+
+function installLocaleFetchHeaders() {
+  if (fetchHeadersInstalled || typeof window === 'undefined') return
+  const nativeFetch = window.fetch.bind(window)
+  window.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
+    if (!shouldAttachLocaleHeader(input)) {
+      return nativeFetch(input, init)
+    }
+    const nextInit: RequestInit = { ...init }
+    const headers = new Headers(init?.headers)
+    if (!headers.has('X-TA-Locale') && !headers.has('X-Denova-Locale') && !headers.has('X-Nova-Locale')) {
+      headers.set('X-TA-Locale', localeRequestHeader())
+    }
+    nextInit.headers = headers
+    return nativeFetch(input, nextInit)
+  }
+  fetchHeadersInstalled = true
+}
+
+function normalizeLocaleCode(locale: string | undefined | null): LocaleCode {
+  if (locale === 'zh-CN' || locale === 'en-US') return locale
+  return 'auto'
+}
+
+function readStoredConfiguredLocale(): LocaleCode {
+  if (typeof window === 'undefined') return 'auto'
+  try {
+    return normalizeLocaleCode(window.localStorage.getItem(CONFIGURED_LOCALE_STORAGE_KEY))
+  } catch (error) {
+    console.warn('[i18n] Failed to read the stored locale', error)
+    return 'auto'
+  }
+}
+
+function writeStoredConfiguredLocale(locale: LocaleCode) {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.setItem(CONFIGURED_LOCALE_STORAGE_KEY, locale)
+  } catch (error) {
+    console.warn('[i18n] Failed to store the locale', error)
+  }
+}
+
+function applyDocumentLocale(locale: ResolvedLocale) {
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = locale
+  }
+}
+
+function browserLocaleSource(): string {
+  if (typeof navigator === 'undefined') return 'zh-CN'
+  return navigator.languages?.[0] || navigator.language || 'zh-CN'
+}
+
+function shouldAttachLocaleHeader(input: RequestInfo | URL): boolean {
+  if (typeof input === 'string') return input.startsWith('/') || input.startsWith(window.location.origin)
+  if (input instanceof URL) return input.origin === window.location.origin
+  return input.url.startsWith('/') || input.url.startsWith(window.location.origin)
+}
+
+i18next
+  .use(initReactI18next)
+  .init({
+    resources: {
+      'zh-CN': { translation: zhCN },
+      'en-US': { translation: enUS },
+    },
+    lng: getResolvedLocale(),
+    fallbackLng: 'zh-CN',
+    keySeparator: false,
+    parseMissingKeyHandler: reportMissingKey,
+    interpolation: { escapeValue: false },
+  })
+  .catch((error) => {
+    console.error('[i18n] Initialization failed', error)
+  })
+
+setConfiguredLocale(configuredLocale)
+installLocaleFetchHeaders()
+
+export default i18next

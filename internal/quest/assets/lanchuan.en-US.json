@@ -1,0 +1,2305 @@
+{
+  "lanchuan-a01": {
+    "title": "The Ferryman's Old Umbrella",
+    "brief": "Under the eaves of the old thatched hut at Tidewatch Ferry, an oiled-paper umbrella with two broken bamboo ribs hangs tilted year-round, its handle bearing a faint, carved character \"Qing\". If curious wayfarers ask about it, Song Laolu merely taps his tobacco pipe against a wooden piling: \"It's hung there for nineteen years. Only when someone comes to fetch it can this old man close his eyes in peace.\"",
+    "objectives": {
+      "lanchuan-a01.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a01.c1": {
+        "title": "Travel downriver to Embroidery Lane in Qinghe City to find Song Qing, telling her the truth of her aging father keeping solitary vigil at the ferry",
+        "description": "Travel downriver to Embroidery Lane in Qinghe City to find Song Qing, telling her the truth of her aging father keeping solitary vigil at the ferry",
+        "success": "Song Qing hears her father's news and hands you a bundle of padded cloth.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Song Qing considers writing to her father; no reconciliation has happened yet.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a01.c2": {
+        "title": "Collect the padded cloth from Song Qing for delivery to her father.",
+        "description": "Collect the padded cloth from Song Qing for delivery to her father.",
+        "success": "Song Qing entrusts you with the cloth. It has not yet reached her father.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The cloth still needs delivering. Song Qing's message remains yours to pass on.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a01.c3": {
+        "title": "Steer clear of past rights and wrongs, simply keeping the old man company on the gangplank on a stormy night over a pipe of dry tobacco, listening to him recount the tides of nineteen years ago three times over.",
+        "description": "Steer clear of past rights and wrongs, simply keeping the old man company on the gangplank on a stormy night over a pipe of dry tobacco, listening to him recount the tides of nineteen years ago three times over.",
+        "success": "The ferryman finishes his story and gives you the old inscribed umbrella.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The umbrella no longer hangs under the eaves. The ferryman welcomes another conversation.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a02": {
+    "title": "Dispute on the Mudflats",
+    "brief": "At the entrance to Egret Fishing Village, Lan Ali stands with water-parting bone knives in hand, glaring in confrontation against seven or eight blade-wielding salt guards from Azure Salt Flats. Several deep tidal channels where ancestors cast their nets have all been staked off with black wooden pilings by the Salt Gang.",
+    "objectives": {
+      "lanchuan-a02.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a02.c1": {
+        "title": "Commercial Mediation: Rely on your standing with Fan Shouzhuo or Su Xiaoman of the Azure Cowrie Guild to have the money house subsidize the price difference, striking a compromise over the boundary lines",
+        "description": "Commercial Mediation: Rely on your standing with Fan Shouzhuo or Su Xiaoman of the Azure Cowrie Guild to have the money house subsidize the price difference, striking a compromise over the boundary lines",
+        "success": "The guild funds a compromise and both sides step back from the disputed shore.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Both communities observe the new boundary, though resentment remains.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach.",
+        "success_reaction": "I checked the boundary stones after the tide and spoke with the people who cast their nets. You let both sides speak, so I am willing to review this boundary payment with you. I do not speak for the salt workers or the money house.",
+        "failure_reaction": "That attempt did not work. I will not credit a result that never happened. Another discussion needs better preparation; you may also leave it for now."
+      },
+      "lanchuan-a02.c2": {
+        "title": "Chart New Flats: Follow the exceptionally skilled diver Lan Ali into the offshore Black Reefs to scout an entirely new trench sheltered from the wind for casting nets, though clearing hidden boulders together will be required",
+        "description": "Chart New Flats: Follow the exceptionally skilled diver Lan Ali into the offshore Black Reefs to scout an entirely new trench sheltered from the wind for casting nets, though clearing hidden boulders together will be required",
+        "success": "You and Lan Ali clear the reef channel, opening another fishing ground.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Fishing boats begin using the cleared channel; Lan Ali wants to check the reef markers.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach.",
+        "success_reaction": "We have tested the new channel, though its current still needs care. You helped open another livelihood. I will discuss marking the reef with you; each person still decides whether to dive again.",
+        "failure_reaction": "That attempt did not work. I will not credit a result that never happened. Another discussion needs better preparation; you may also leave it for now."
+      },
+      "lanchuan-a02.c3": {
+        "title": "Forceful Suppression: Side with the fishermen to fight tooth and nail on the mudflats to beat back the salt guards, an act that will directly enrage Gu Huaiyuan (triggering early combat with formidable foe B1).",
+        "description": "Forceful Suppression: Side with the fishermen to fight tooth and nail on the mudflats to beat back the salt guards, an act that will directly enrage Gu Huaiyuan (triggering early combat with formidable foe B1).",
+        "success": "The salt guards retreat and the fishermen recover the disputed shore.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The Salt Gang learns of its defeat and prepares for further trouble.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach.",
+        "success_reaction": "The salt guards were driven off, but injuries and resentment remain. I remember your help, yet I will not repay it by promising another fight. I will discuss the injured people and the boundary stakes.",
+        "failure_reaction": "That attempt did not work. I will not credit a result that never happened. Another discussion needs better preparation; you may also leave it for now."
+      }
+    }
+  },
+  "lanchuan-a03": {
+    "title": "Three Missing Bags of Salt",
+    "brief": "A scene of chaos erupts outside the shed at Azure Salt Flats. Little Liu, a young salt worker, kneels weeping on the ground while the overseer bellows: \"Three sacks of top-grade azure salt are unaccounted for in the warehouse! If the tally isn't clear by tonight, you'll take twenty lashes and be cast off the flats!\"",
+    "objectives": {
+      "lanchuan-a03.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a03.c1": {
+        "title": "Investigate the Mudflats: Ask Lan Ali for guidance on low tide timing, dredging the deep mud pit to recover shredded burlap fragments rotted by brine, bringing the truth to light",
+        "description": "Investigate the Mudflats: Ask Lan Ali for guidance on low tide timing, dredging the deep mud pit to recover shredded burlap fragments rotted by brine, bringing the truth to light",
+        "success": "The damaged salt sack proves an accident, sparing Xiao Liu a whipping.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Xiao Liu resumes work and the accusation against the fishing village fades.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a03.c2": {
+        "title": "Private Restitution: Cover the deficit secretly out of your own pocket with three taels of broken silver, sparing Little Liu the whipping",
+        "description": "Private Restitution: Cover the deficit secretly out of your own pocket with three taels of broken silver, sparing Little Liu the whipping",
+        "success": "Your payment closes the warehouse shortfall and spares Xiao Liu a beating.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Xiao Liu remembers who helped him and stops to greet you.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a03.c3": {
+        "title": "Report Honestly: Disclose the actual situation privately to Gu Huaiyuan. Gu Huaiyuan maintains strict discipline but respects honest men; he will waive Little Liu's banishment, sentencing him instead to carry mud for half a month.",
+        "description": "Report Honestly: Disclose the actual situation privately to Gu Huaiyuan. Gu Huaiyuan maintains strict discipline but respects honest men; he will waive Little Liu's banishment, sentencing him instead to carry mud for half a month.",
+        "success": "Gu Huaiyuan accepts the truthful account and assigns work instead of expulsion and a beating.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Gu Huaiyuan's work sentence is underway; Xiao Liu keeps his livelihood.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a04": {
+    "title": "Three Days on the Arena Stage",
+    "brief": "A towering arena stage has been raised before the grand docks of Lankou City. A bold placard on red cloth reads plainly: \"Iron-Arm Xie of the Shandong External-Style Iron Arm Sect holds the arena for three days, testing martial masters of the world, wounds and deaths notwithstanding!\"",
+    "objectives": {
+      "lanchuan-a04.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a04.c1": {
+        "title": "Take the Stage Yourself: Leap onto the stage to counter Xie's three sequences of Monument-Smashing Iron-Arm Fist, subduing him with measured restraint",
+        "description": "Take the Stage Yourself: Leap onto the stage to counter Xie's three sequences of Monument-Smashing Iron-Arm Fist, subduing him with measured restraint",
+        "success": "Xie Tiebi is driven from the platform; the martial hall honors its promised payment.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The martial hall discusses the bout and invites you to return.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a04.c2": {
+        "title": "Defuse It Offstage: Secretly uncover the banknotes showing he was bought out by the Eldest Grand Protector of Mount Song, confronting him openly in a restaurant and urging him to retreat in the face of exposure",
+        "description": "Defuse It Offstage: Secretly uncover the banknotes showing he was bought out by the Eldest Grand Protector of Mount Song, confronting him openly in a restaurant and urging him to retreat in the face of exposure",
+        "success": "The bribery evidence forces Xie Tiebi to withdraw his challenge.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The arena is dismantled; Guan Shanhai respects the bloodless settlement.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a04.c3": {
+        "title": "Train Your Martial Kin: Remain in the martial hall to break down the elbow vulnerability of the Monument-Smashing Fist for Zheng Tieniu, allowing Zheng Tieniu to personally mount the stage three days later and seize the laurel.",
+        "description": "Train Your Martial Kin: Remain in the martial hall to break down the elbow vulnerability of the Monument-Smashing Fist for Zheng Tieniu, allowing Zheng Tieniu to personally mount the stage three days later and seize the laurel.",
+        "success": "Zheng Tieniu uses the weakness you explained and wins the challenge.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Zheng Tieniu reviews the weakness with his fellow students.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a05": {
+    "title": "A Crate of Celadon",
+    "brief": "Taverns across Hedu Town buzz with rumors that the Wild Goose Escort Agency smashed the palace celadon they were hired to protect into pieces. Yet in the back hall, Chief Escort Huo Qianli has accepted a secret, urgent consignment bearing a red wax seal: transport the truly undamaged replacement imperial porcelain to Qinghe City in the Huai-Yangtze region within twelve days without fail.",
+    "objectives": {
+      "lanchuan-a05.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a05.c1": {
+        "title": "Reconcile the overland cargo documents in Qinghe and complete the handover.",
+        "description": "Reconcile the overland cargo documents in Qinghe and complete the handover.",
+        "success": "The porcelain merchant verifies the overland documents and pays the agreed delivery fee.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The delivered cargo is entered in the merchant's accounts; the escort agency remembers your work.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a05.c2": {
+        "title": "After arriving by river, verify the cargo and seals with the Qinghe merchant.",
+        "description": "After arriving by river, verify the cargo and seals with the Qinghe merchant.",
+        "success": "The merchant verifies the river cargo and seals, signs the receipt and pays.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "River merchants hear that the delivery was honored.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a05.c3": {
+        "title": "Reconcile the divided escort records with Yan Xiaowu and complete the handover.",
+        "description": "Reconcile the divided escort records with Yan Xiaowu and complete the handover.",
+        "success": "You and Yan Xiaowu reconcile the divided escort records; the merchant signs and pays.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Yan Xiaowu and Huo Qianli recognize your part in the divided escort.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a06": {
+    "title": "The Steersmen's Feud",
+    "brief": "Outside the Loyalty Hall of Duckweed Dock Water Stronghold on Lake Qingping, boatmen young and old gather in a crowd. Young Steersman Ge Qing stands at the prow clutching an iron boat pole, reading new bylaws aloud, while Old Steersman Ge Changgao sits inside the cabin, slamming his dry pipe against the timber, both sides arguing red in the face.",
+    "objectives": {
+      "lanchuan-a06.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a06.c1": {
+        "title": "Trial Compromise: Propose a middle ground of \"testing the scheme on three tributaries for one season\", with merchant vessels backed by Xiang Danian of Master Liu's lineage under the Mount Heng Sect standing surety against risks",
+        "description": "Trial Compromise: Propose a middle ground of \"testing the scheme on three tributaries for one season\", with merchant vessels backed by Xiang Danian of Master Liu's lineage under the Mount Heng Sect standing surety against risks",
+        "success": "The boatmen agree to a trial on three tributaries; Ge Qing gives you a boat whistle.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The tributary trial opens a different river route.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a06.c2": {
+        "title": "Uphold the Old Ways: Help the old steersman inspect the flaws of small skiffs in braving heavy waves and repelling river bandits, advising Ge Qing to postpone the rollout",
+        "description": "Uphold the Old Ways: Help the old steersman inspect the flaws of small skiffs in braving heavy waves and repelling river bandits, advising Ge Qing to postpone the rollout",
+        "success": "Ge Qing agrees to delay the proposal; the established convoy policy remains.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The old consolidated convoy policy continues.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a06.c3": {
+        "title": "Call External Aid: Partner with Huo Qianli of the Wild Goose Escort Agency, having escort guards board the small craft to cover the defensive shortcomings of independent boatmen.",
+        "description": "Call External Aid: Partner with Huo Qianli of the Wild Goose Escort Agency, having escort guards board the small craft to cover the defensive shortcomings of independent boatmen.",
+        "success": "The escort agency and boatmen agree to cooperate; Ge Qing gives you a boat whistle.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Small boats and escort banners begin using the tributaries together.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a07": {
+    "title": "The Non-Paying Guest",
+    "brief": "Beside the hearth at Three Willows Inn, Auntie Zhong chops pork ribs while cursing loudly: \"That down-and-out painter in the tattered robe! Living and eating off me for three whole months, painting that blasted lake water every single day, owing me four taels and seven qian of silver!\"",
+    "objectives": {
+      "lanchuan-a07.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a07.c1": {
+        "title": "Seek Malachite Azurite: Head to the Cangwu Ridge herbal market to search for the rare natural mineral \"peacock stone green\" required to paint sublime mist, helping him complete the scroll",
+        "description": "Seek Malachite Azurite: Head to the Cangwu Ridge herbal market to search for the rare natural mineral \"peacock stone green\" required to paint sublime mist, helping him complete the scroll",
+        "success": "The pigment lets Shi Bugui finish his painting; he gives you the lake chart.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The painting dries and the inn dispute subsides.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a07.c2": {
+        "title": "Pay His Tab: Settle the four taels and seven qian out of your own pouch; deeply ashamed, Shi Bugui presents his personal self-defense dagger in return",
+        "description": "Pay His Tab: Settle the four taels and seven qian out of your own pouch; deeply ashamed, Shi Bugui presents his personal self-defense dagger in return",
+        "success": "The 4,700-cash payment settles the inn dispute; Shi Bugui gives you his reef chart.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Shi Bugui paints in peace; the chart remains a clue to the lake's hidden approaches.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a07.c3": {
+        "title": "Expose His Sword Intent: Point out the hidden opening stance of the \"Mount Heng Hundred Transformations Cloud and Mist Sword\" veiled within his brushstrokes, stirring his dormant chivalric spirit.",
+        "description": "Expose His Sword Intent: Point out the hidden opening stance of the \"Mount Heng Hundred Transformations Cloud and Mist Sword\" veiled within his brushstrokes, stirring his dormant chivalric spirit.",
+        "success": "You recognize the sword technique in his brushwork; Shi Bugui gives his chart to a kindred spirit.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Shi Bugui returns to his sword practice, while the chart points toward the manor.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a08": {
+    "title": "Midnight Guqin",
+    "brief": "Lately, when fishermen of Lingge Village cast their nets in the dead of night, they often hear the intermittent notes of a guqin drifting from deep within the mist-shrouded lake. The melody is mournful and broken, devoid of tune. An old boatman claims it is the drowned ghost of Mist Manor from twenty years ago haunting the waters.",
+    "objectives": {
+      "lanchuan-a08.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a08.c1": {
+        "title": "Knock with Music: Play the flute or sing Auntie Lian's caltrop ditty outside the watergate, prompting Rong Jiugao to cease playing and open the gate for an audience",
+        "description": "Knock with Music: Play the flute or sing Auntie Lian's caltrop ditty outside the watergate, prompting Rong Jiugao to cease playing and open the gate for an audience",
+        "success": "The familiar melody opens the water gate; Rong Jiugao receives you and hands over a keepsake.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Rong Jiugao is willing to speak of his son over tea.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a08.c2": {
+        "title": "Relay via Goods: Through Auntie Zhong of Sanliu Inn, pass a bundle of premium seven-string old-silkworm silk strings as a gift into the manor",
+        "description": "Relay via Goods: Through Auntie Zhong of Sanliu Inn, pass a bundle of premium seven-string old-silkworm silk strings as a gift into the manor",
+        "success": "The strings reach the music room; Rong Jiugao allows a visit and sends a gift.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The household permits a later visit to the outer hall.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a08.c3": {
+        "title": "Forced Challenge: Scale the black rock water steps in the middle of the lake at midnight, taking Rong Jiugao's protective sword intent head-on (directly triggers the formidable foe B6 duel).",
+        "description": "Forced Challenge: Scale the black rock water steps in the middle of the lake at midnight, taking Rong Jiugao's protective sword intent head-on (directly triggers the formidable foe B6 duel).",
+        "success": "Rong Jiugao acknowledges your strength and allows you to take the offered gift before leaving.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The forced entry leaves distrust; Rong Jiugao still avoids discussing his son.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a09": {
+    "title": "A False Rumor",
+    "brief": "Inside the Tingyu Tower storytelling hall in Qinghe City, storyteller Qiao Buduan snaps his folding fan shut: \"Gentlemen! Word has it that the authentic *Yijin Jing* handwritten by Bodhidharma in the Shaolin Sutra Depository was bought out of the back mountain gate for three hundred taels of gold!\" The teahouse patrons are in an uproar, and the rumor sweeps across the river within half a day.",
+    "objectives": {
+      "lanchuan-a09.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a09.c1": {
+        "title": "Caught Red-Handed: Intercept the dishonest bookseller at Caokou Market docks and publicly prove the paper is newly made Jiangnan tender bamboo paper",
+        "description": "Caught Red-Handed: Intercept the dishonest bookseller at Caokou Market docks and publicly prove the paper is newly made Jiangnan tender bamboo paper",
+        "success": "Fresh bamboo paper exposes the forged scripture; the intelligence broker delivers the bamboo token.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "News of the forgery spreads among the market's scripture buyers.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a09.c2": {
+        "title": "Shaolin Verification: Ride swiftly to the Temple Front Street at Mount Shaoshi, requesting Ji Wenmo of the Scriptorium to provide genuine Shaolin archival seal impressions for comparison",
+        "description": "Shaolin Verification: Ride swiftly to the Temple Front Street at Mount Shaoshi, requesting Ji Wenmo of the Scriptorium to provide genuine Shaolin archival seal impressions for comparison",
+        "success": "Ji Wenmo verifies the false seal and writes a statement; the bamboo token is delivered.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Ji Wenmo posts the verification and tension near the monastery eases.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a09.c3": {
+        "title": "Public Confrontation: Rebuke Fei Bin before the martial heroes at the foot of Mount Shaoshi for his insidious intent to bully the ancestral Zen temple using street gossip.",
+        "description": "Public Confrontation: Rebuke Fei Bin before the martial heroes at the foot of Mount Shaoshi for his insidious intent to bully the ancestral Zen temple using street gossip.",
+        "success": "Your public challenge forces a pause in the blockade; a broker passes you the bamboo token.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The blockade has not vanished, but its enforcers act less openly.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a10": {
+    "title": "An Old Bowl and New Beggar Sect Rules",
+    "brief": "In a filthy corner of Lianghuai's Caokou Market, a white-haired, white-bearded old beggar sits day after day, cradling a coarse earthenware bowl with three large chips along its rim. Every time Eight-Bag Elder Chen Youliang rides past on his tall steed, the gaze he casts upon that broken bowl carries wary apprehension and grim malice.",
+    "objectives": {
+      "lanchuan-a10.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a10.c1": {
+        "title": "Escort the Alms Bowl: Covertly escort the old beggar and his bowl into Old Locust Dock, presenting the relic before Sect Leader Lu Youjiao and all sect elders",
+        "description": "Escort the Alms Bowl: Covertly escort the old beggar and his bowl into Old Locust Dock, presenting the relic before Sect Leader Lu Youjiao and all sect elders",
+        "success": "You escort the old beggar to the headquarters; Lu Youjiao gives you the three-knot pouch.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The old bowl is back at the headquarters; a message points toward Mount Taihe.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a10.c2": {
+        "title": "Mediate the Dispute: Assist Lu Youjiao in logically refuting Chen Youliang's radical proposal, establishing a new rule that \"earning a living through manual labor does not violate ancestral precepts\"",
+        "description": "Mediate the Dispute: Assist Lu Youjiao in logically refuting Chen Youliang's radical proposal, establishing a new rule that \"earning a living through manual labor does not violate ancestral precepts\"",
+        "success": "Lu Youjiao wins support for the livelihood reform and gives you the three-knot pouch.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Working members of the sect welcome the new livelihood rule.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a10.c3": {
+        "title": "Trace the Secret Inscription: Rub and copy the incomplete palm technique pattern discreetly carved into the bottom of the old earthenware bowl (a key chart for the last six palms of the Eighteen Dragon-Subduing Palms).",
+        "description": "Trace the Secret Inscription: Rub and copy the incomplete palm technique pattern discreetly carved into the bottom of the old earthenware bowl (a key chart for the last six palms of the Eighteen Dragon-Subduing Palms).",
+        "success": "The rubbing reveals the bowl's palm diagram; the old beggar delivers the promised pouch.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The dried rubbing offers a clue to the missing palm techniques.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a11": {
+    "title": "A Corner Missing from the Stage",
+    "brief": "On the main street of Sangma Town in Sihuai, the northwest main pillar of the century-old timber opera stage has been hollowed out by termites. Bai Henian, leader of the Lichun Troupe, is covered in fever blisters from anxiety. The grand opening performance is only five days away; without funds to replace the pillar, the stage could collapse at any moment.",
+    "objectives": {
+      "lanchuan-a11.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a11.c1": {
+        "title": "Find Timber and Replace: Visit the Ten-Mile Levee to locate levee maintenance craftsmen, obtain a suitable seasoned yellow willow log, and work to replace the rotted pillar",
+        "description": "Find Timber and Replace: Visit the Ten-Mile Levee to locate levee maintenance craftsmen, obtain a suitable seasoned yellow willow log, and work to replace the rotted pillar",
+        "success": "The rotten pillar is replaced and the stage stands firm; Bai Henian gives you an old script.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Performers test the repaired stage and announce another show.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a11.c2": {
+        "title": "Borrow Relief Funds: Use personal rapport to persuade Jiang Qinghe of Qinghe Pharmacy to lend ten taels of emergency silver, solving the pressing crisis",
+        "description": "Borrow Relief Funds: Use personal rapport to persuade Jiang Qinghe of Qinghe Pharmacy to lend ten taels of emergency silver, solving the pressing crisis",
+        "success": "Jiang Qinghe agrees to lend repair money; Bai Henian thanks you with an old script.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Carpenters arrive with tools funded by the loan.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a11.c3": {
+        "title": "Step Onto the Stage: Volunteer to take the place of an injured acrobat in the troupe's grand play *The Siege of Hongzhou*, using acrobatic fighting skills to intimidate local ruffians coming to extort protection fees.",
+        "description": "Step Onto the Stage: Volunteer to take the place of an injured acrobat in the troupe's grand play *The Siege of Hongzhou*, using acrobatic fighting skills to intimidate local ruffians coming to extort protection fees.",
+        "success": "Your performance deters the extortionists; Bai Henian gives you the promised script.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The extortionists keep their distance; the performers remember your help.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a12": {
+    "title": "Sutra Copying for Lodging",
+    "brief": "In front of Ji Wenmo's Scriptoria on the Temple Front Street at the foot of Mount Shaolin, a blue cloth banner hangs: \"Seeking an upright copyist to transcribe the *Vimalakirti Sutra*. Coarse tea and three meals daily, night lodging in the west firewood shed.\"",
+    "objectives": {
+      "lanchuan-a12.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a12.c1": {
+        "title": "Fulfill the Duty: Faithfully transcribe three scrolls of scriptures daily in neat regular script, earning steady food, lodging, and connections on Temple Front Street",
+        "description": "Fulfill the Duty: Faithfully transcribe three scrolls of scriptures daily in neat regular script, earning steady food, lodging, and connections on Temple Front Street",
+        "success": "After ten days of copying and corrections, Ji Wenmo pays and hands over the boxing manuscript.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The monastery notices your patient work at the copying shop.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a12.c2": {
+        "title": "Analyze Fragmented Sutras: Piece together an old transcribed scroll untouched for fifty years from among disordered remnants—a Buddhist verse written by former Beggar Sect Leader Qi Wujiu during his youth as a secular Shaolin disciple",
+        "description": "Analyze Fragmented Sutras: Piece together an old transcribed scroll untouched for fifty years from among disordered remnants—a Buddhist verse written by former Beggar Sect Leader Qi Wujiu during his youth as a secular Shaolin disciple",
+        "success": "You assemble the damaged verse; Ji Wenmo pays and gives you a copy of the Arhat Boxing manual.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The restored verse draws readers to the workshop.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a12.c3": {
+        "title": "Deliver Bound Scrolls: Help the young monk Xuzhu carry the bound Dharma scrolls up Mount Shaoshi to the Guest Reception Lodge, becoming acquainted with inner-temple ordained monks.",
+        "description": "Deliver Bound Scrolls: Help the young monk Xuzhu carry the bound Dharma scrolls up Mount Shaoshi to the Guest Reception Lodge, becoming acquainted with inner-temple ordained monks.",
+        "success": "The scrolls reach the monastery; Ji Wenmo pays two hundred cash and gives you the manual.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The scrolls are distributed and the receiving monks remember the delivery.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a13": {
+    "title": "Broken Plank Road and the Incense Fair",
+    "brief": "Xuzhu rushes down the mountain from the Sky-Crack Precipice in sheer panic: the suspended plank path leading to the Frost Ridge Ancient Road collapsed in last night's torrential storm. Three weight-bearing iron spikes came loose, and several planks plunged into the bottomless abyss. A large convoy of northern pilgrims is due to cross in seven days.",
+    "objectives": {
+      "lanchuan-a13.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a13.c1": {
+        "title": "Brave the Repairs: Tie a raw hemp rope around your waist, lower yourself over the abyss cliff, brave the gale, drive in thickened wrought-iron bolts, and lay new planks",
+        "description": "Brave the Repairs: Tie a raw hemp rope around your waist, lower yourself over the abyss cliff, brave the gale, drive in thickened wrought-iron bolts, and lay new planks",
+        "success": "New anchors and planks reconnect the broken cliff path.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "A monk checks the reopened walkway and reports back.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a13.c2": {
+        "title": "Guide the Detour: Help Chang Xiaoqiu survey a gentler, winding mountain trail behind Maihuang Village—though it adds a day of travel—and guide elderly and weak pilgrims along it",
+        "description": "Guide the Detour: Help Chang Xiaoqiu survey a gentler, winding mountain trail behind Maihuang Village—though it adds a day of travel—and guide elderly and weak pilgrims along it",
+        "success": "A marked mountain detour lets pilgrims avoid the broken walkway.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Pilgrims follow the marked detour.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a13.c3": {
+        "title": "Ambush the Culprit: Lie in wait for two nights near the broken plank road, capturing alive the Songshan outer disciple trying to pry out the hidden pins again.",
+        "description": "Ambush the Culprit: Lie in wait for two nights near the broken plank road, capturing alive the Songshan outer disciple trying to pry out the hidden pins again.",
+        "success": "You catch the saboteur and confiscate his tools.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The monastery takes custody of the captured saboteur.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a14": {
+    "title": "Temple Field Rents",
+    "brief": "Beneath the large jujube tree at the entrance of Maihuang Village, old village chief Chang Shoutian sits on the ground with a dozen calloused tenant farmers, all looking dead-eyed. Chang Xiaoqiu wipes away tears in fury: \"It's clearly a gravel wasteland washed out by the flood three years ago! The temple's new accountant insists on collecting two piculs of grain rent at the rate of prime paddy fields!\"",
+    "objectives": {
+      "lanchuan-a14.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a14.c1": {
+        "title": "Hard Evidence Boundary Check: Unearth the weathered stele carved with \"Boundary of Great Wei Chang Family Ancestral Graves\" and present its rubbing directly to Abbot Xuanci as irrefutable proof",
+        "description": "Hard Evidence Boundary Check: Unearth the weathered stele carved with \"Boundary of Great Wei Chang Family Ancestral Graves\" and present its rubbing directly to Abbot Xuanci as irrefutable proof",
+        "success": "The boundary-stone rubbing persuades the abbot to correct the land account.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Villagers receive the corrected papers with relief.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a14.c2": {
+        "title": "Private Advance: If on good terms with Chang Xiaoqiu, advance the silver equivalent of two piculs of grain rent for the village to temporarily calm the mountain dispute (treats symptoms, not the root cause)",
+        "description": "Private Advance: If on good terms with Chang Xiaoqiu, advance the silver equivalent of two piculs of grain rent for the village to temporarily calm the mountain dispute (treats symptoms, not the root cause)",
+        "success": "Your payment temporarily sends the rent collectors away; the mistaken land record remains.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Collection pauses, but the old error in the land register remains.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a14.c3": {
+        "title": "Argue in the Hall: Stand firm before Xuanji in the Disciplinary Hall, stating candidly: \"Buddhism builds ties of benevolence; it must not seize the barren sand fields poor peasants rely on for food,\" prompting Xuanji to inspect the land in person.",
+        "description": "Argue in the Hall: Stand firm before Xuanji in the Disciplinary Hall, stating candidly: \"Buddhism builds ties of benevolence; it must not seize the barren sand fields poor peasants rely on for food,\" prompting Xuanji to inspect the land in person.",
+        "success": "Xuanji agrees to inspect and measure the fields himself.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Xuanji's party begins measuring the disputed fields.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a15": {
+    "title": "The External Martial Arts Challenger",
+    "brief": "Beneath the stone archway of Yingxian Town at the foot of Mount Taihe, tea patrons crowd together. A burly northern saber fighter named Xie Tiezhang, with chains wrapped around his hands, slams a thick-backed saber into the stone steps, declaring: \"Everyone says Wudang Taiji uses softness to overcome hardness! Today, I'll see whether your Taoist robes are softer or my broadsword is harder!\"",
+    "objectives": {
+      "lanchuan-a15.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a15.c1": {
+        "title": "Savor Tea to Defuse Force: Invite him into the tea shop for a bowl of boiling Cloud-Mist bitter tea, using words to dissect the principle that \"extreme hardness snaps easily,\" extinguishing his fiery arrogance",
+        "description": "Savor Tea to Defuse Force: Invite him into the tea shop for a bowl of boiling Cloud-Mist bitter tea, using words to dissect the principle that \"extreme hardness snaps easily,\" extinguishing his fiery arrogance",
+        "success": "The conversation over tea persuades Xie Tiezhang to put away his blade.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The challenger leaves and the tea shops resume their conversations.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a15.c2": {
+        "title": "Step Up and Instruct: Take the field with a wooden sword or bare hands to withstand thirty rounds of his fierce rolling saber, deflecting his attacks without harming his tendons, winning his genuine respect",
+        "description": "Step Up and Instruct: Take the field with a wooden sword or bare hands to withstand thirty rounds of his fierce rolling saber, deflecting his attacks without harming his tendons, winning his genuine respect",
+        "success": "You withstand his attacks and he acknowledges defeat.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The crowd discusses the bout; the challenger concedes.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a15.c3": {
+        "title": "Guide to Lone Pine: Guide him up the Hundred-Step Stair to fight Shen Guhe at the Lone Pine Pavilion—Shen Guhe, pondering ways to counter hard assaults against Taiji, sends his saber flying within three strikes.",
+        "description": "Guide to Lone Pine: Guide him up the Hundred-Step Stair to fight Shen Guhe at the Lone Pine Pavilion—Shen Guhe, pondering ways to counter hard assaults against Taiji, sends his saber flying within three strikes.",
+        "success": "Shen Guhe disarms the challenger, settling the dispute.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The defeated challenger descends the mountain and the street quiets.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a16": {
+    "title": "The Withered Mother Tree",
+    "brief": "At the summit of Cloud-Mist Tea Slope, tea-picker Qu Aqiao weeps before a thousand-year-old tea tree whose canopy spans half a mu. Revering it as the \"Old Mother Tree,\" tea farmers watch in despair as its autumn shoots turn scorched and black, exuding a foul, rotting muddy stench.",
+    "objectives": {
+      "lanchuan-a16.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a16.c1": {
+        "title": "Divert Sewage, Restore Springs: Scale the ridge to trace the hidden conduits, use an iron pick to break through the impermeable stone layer, and redirect clean spring water back to the mother tree's roots",
+        "description": "Divert Sewage, Restore Springs: Scale the ridge to trace the hidden conduits, use an iron pick to break through the impermeable stone layer, and redirect clean spring water back to the mother tree's roots",
+        "success": "The cleared channel brings clean spring water to the old tea tree.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Qu Aqiao watches the restored watercourse and discusses care of the roots.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a16.c2": {
+        "title": "Apply Medicine to Heal Roots: Head to Lianghuai to obtain Jiang Qinghe's secret \"Impurity-Clearing Hundred-Herb Ash,\" boiling it with bletilla harvested during the late autumn Frost's Descent to drench the roots",
+        "description": "Apply Medicine to Heal Roots: Head to Lianghuai to obtain Jiang Qinghe's secret \"Impurity-Clearing Hundred-Herb Ash,\" boiling it with bletilla harvested during the late autumn Frost's Descent to drench the roots",
+        "success": "The medicinal treatment checks the rot around the roots.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The growers monitor the treated soil.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a16.c3": {
+        "title": "Seek the Hermit's Counsel: Consult Old Woodcutter Tao at Heart-Cleansing Stream on the back mountain—the old man once compared internal energy backlash to old trees and deeply understands root channel regulation.",
+        "description": "Seek the Hermit's Counsel: Consult Old Woodcutter Tao at Heart-Cleansing Stream on the back mountain—the old man once compared internal energy backlash to old trees and deeply understands root channel regulation.",
+        "success": "Following the woodcutter's advice, you clear the blocked drainage around the roots.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The tree shows moisture again and the growers follow the woodcutter's advice.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a17": {
+    "title": "Medicine Prices and Shortages",
+    "brief": "Chaos erupts at the herbal market in Jinxi Town, Qinchuan. Dozens of herb farmers with baskets surround the Huichun Hall warehouse, shouting protests against market guildmaster Luo Banxia for maliciously depressing purchasing prices for angelica and notoginseng. Meanwhile, Zhou Zhiruo of the Emei Sect leads her peers to buy trauma medicine, only to be turned away by managers claiming \"out of stock.\"",
+    "objectives": {
+      "lanchuan-a17.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a17.c1": {
+        "title": "Balance the Market: Use your reputation to mediate a face-to-face confrontation between Du Ruo and Luo Banxia, exposing the outside hoarders' schemes and restoring fair-price trade scales",
+        "description": "Balance the Market: Use your reputation to mediate a face-to-face confrontation between Du Ruo and Luo Banxia, exposing the outside hoarders' schemes and restoring fair-price trade scales",
+        "success": "The price-fixing accounts force Luo Banxia to reopen trading at fair prices.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The herb market trades at fair prices again.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a17.c2": {
+        "title": "Secret Bypass: Help Emei's Zhou Zhiruo bypass market spotters and head straight to Granny Tianqi at Hundred-Herb Hollow to secure an ample supply of renowned wound salves",
+        "description": "Secret Bypass: Help Emei's Zhou Zhiruo bypass market spotters and head straight to Granny Tianqi at Hundred-Herb Hollow to secure an ample supply of renowned wound salves",
+        "success": "You guide the Emei party to buy urgently needed herbs directly.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The Emei party departs with its medicines and remembers your guidance.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a17.c3": {
+        "title": "Inspect for Truth: Assist Bai Qian in inspecting counterfeit and subpar herbs inside the medicine storehouse, forcing Luo Banxia to back down and release the hoarded supplies.",
+        "description": "Inspect for Truth: Assist Bai Qian in inspecting counterfeit and subpar herbs inside the medicine storehouse, forcing Luo Banxia to back down and release the hoarded supplies.",
+        "success": "The hidden stock and adulterated supplies force the hoarder to release medicine.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The warehouse releases hoarded stock and checks its supplies more carefully.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a18": {
+    "title": "Three Herbs",
+    "brief": "Outside the Huichun Valley apothecary at Cangwu Ridge, young medicine apprentice A'ling runs out crying for help: \"Senior Brother Cheng, Uncle Liu who gathers herbs got stung by a five-colored scorpion in Mist-Locked Gully! His entire arm is pitch black! Master says we must gather Night-Dew Ginseng, Mist-Peak Ganoderma, and Frost Root within seven days, or his whole arm will have to be amputated!\"",
+    "objectives": {
+      "lanchuan-a18.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a18.c1": {
+        "title": "Brave the Harvest: Consume a Miasma-Ward Pill and force your way onto the outer cliffs of Mist-Locked Gully, evading Mo Wensheng's venomous scorpions and vicious hounds to personally scale the cliff and harvest the ganoderma",
+        "description": "Brave the Harvest: Consume a Miasma-Ward Pill and force your way onto the outer cliffs of Mist-Locked Gully, evading Mo Wensheng's venomous scorpions and vicious hounds to personally scale the cliff and harvest the ganoderma",
+        "success": "You gather the cliff fungus and return it for treatment.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The fungus is used in treatment; Cheng Zhiwei continues watching the patient.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a18.c2": {
+        "title": "Token of Reconciliation: Enter the gully with a plain white old handkerchief kept by Du Ruo but never delivered, meeting Mo Wensheng to trade past sentiment for the spirit fungus",
+        "description": "Token of Reconciliation: Enter the gully with a plain white old handkerchief kept by Du Ruo but never delivered, meeting Mo Wensheng to trade past sentiment for the spirit fungus",
+        "success": "Mo Wensheng recognizes the old keepsake and parts with the fungus.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The patient's arm warms; Du Ruo quietly reflects on Mo Wensheng's response.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a18.c3": {
+        "title": "Barter Trade: Use your own precious detoxification pills to trade with veteran herbalist Granny Tianqi of Hundred-Herb Hollow for an aged ganoderma kept at the bottom of her chest.",
+        "description": "Barter Trade: Use your own precious detoxification pills to trade with veteran herbalist Granny Tianqi of Hundred-Herb Hollow for an aged ganoderma kept at the bottom of her chest.",
+        "success": "Tian Qipo accepts the antidote exchange and provides aged fungus.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The medicine stabilizes the patient; Tian Qipo asks how the treatment went.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a19": {
+    "title": "The Missing Cargo",
+    "brief": "Inside the Luoyan Pass branch of the Wild Goose Escort Agency in the northern frontier, Grand Manager Zhong Xia slams the desk: \"Ten crates of first-grade snow-sable furs from beyond the Pass vanished in broad daylight outside Black Stone Post's boulder ridge! The merchant demands compensation of three thousand taels of silver within ten days, or he'll have the authorities seal our branch gates shut!\"",
+    "objectives": {
+      "lanchuan-a19.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a19.c1": {
+        "title": "Follow the Water: Trace Chai Feng's \"bitter well water\" lead, pry open the cast-iron plate over the cellar at Severed Beacon Terrace, and seize all the concealed pelts on the spot",
+        "description": "Follow the Water: Trace Chai Feng's \"bitter well water\" lead, pry open the cast-iron plate over the cellar at Severed Beacon Terrace, and seize all the concealed pelts on the spot",
+        "success": "You open the concealed cellar and recover the missing pelts.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The escort agency checks the recovered cargo and the residents begin cleaning the well.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a19.c2": {
+        "title": "Clash of Steel: Head straight to Black Stone Post to demand answers from Li Changfeng, prove your mettle through a three-bout duel against his Cloud-Cleaving Spear, and have him assist in hunting down the crooked merchant's scouts",
+        "description": "Clash of Steel: Head straight to Black Stone Post to demand answers from Li Changfeng, prove your mettle through a three-bout duel against his Cloud-Cleaving Spear, and have him assist in hunting down the crooked merchant's scouts",
+        "success": "Li Changfeng agrees to help and his people seize the cargo thieves.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The recovered shipment eases the agency's immediate crisis.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a19.c3": {
+        "title": "Confrontation at the Gate: Produce the cargo bills retrieved from the cellar before Commandant Sun at the Luoyan Pass city gate, publicly stripping the crooked merchant of his facade.",
+        "description": "Confrontation at the Gate: Produce the cargo bills retrieved from the cellar before Commandant Sun at the Luoyan Pass city gate, publicly stripping the crooked merchant of his facade.",
+        "success": "The documents expose the false claim before the garrison and the merchant is detained.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The accusation is cleared and the agency reorganizes its routes.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a20": {
+    "title": "The Unfinished Sword",
+    "brief": "Beside the iron-smelting furnace at Red Furnace Manor on the far northern Frost Ridge, the granddaughter Yan Ji waits until Manor Lord Yan Hanlu departs on an inspection, then quietly leads the player to the iron door sealed shut behind the manor: \"Grandfather sighs into that room night after night. Inside is a half-forged sword blank, locked away for nineteen years. He lets no one touch it.\"",
+    "objectives": {
+      "lanchuan-a20.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "lanchuan-a20.c1": {
+        "title": "Rekindle the Forge: Help Yan Ji haul ten thousand catties of coke to reignite the sealed furnace, urging Yan Hanlu to take up his hammer once more and transform nineteen years of remorse into an iron-cleaving edge",
+        "description": "Rekindle the Forge: Help Yan Ji haul ten thousand catties of coke to reignite the sealed furnace, urging Yan Hanlu to take up his hammer once more and transform nineteen years of remorse into an iron-cleaving edge",
+        "success": "The forge burns again; Yan Hanlu completes and hands over the promised blade.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Hammering is heard at the forge again.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a20.c2": {
+        "title": "Return Unblemished: Obtain Master Yan's consent, borrow the unsharpened icy sword blank, and journey south to place it upon Rong Jiugao's desk at Yanbo Manor by Qingping Lake as the first blood-and-tear token toward dissolving old vendettas",
+        "description": "Return Unblemished: Obtain Master Yan's consent, borrow the unsharpened icy sword blank, and journey south to place it upon Rong Jiugao's desk at Yanbo Manor by Qingping Lake as the first blood-and-tear token toward dissolving old vendettas",
+        "success": "The sword blank reaches Rong Jiugao, who recognizes its old marks.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "A letter confirms the sword blank arrived; Yan Hanlu reads it in silence.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-a20.c3": {
+        "title": "Return to the Snow Cottage: Brave the blizzard to deliver the sword blank to Liu Chenzhou's thatched hut at Snow-Listening Cottage, allowing the white-haired elder who has sat in isolation for nineteen years to touch the keepsake he commissioned long ago.",
+        "description": "Return to the Snow Cottage: Brave the blizzard to deliver the sword blank to Liu Chenzhou's thatched hut at Snow-Listening Cottage, allowing the white-haired elder who has sat in isolation for nineteen years to touch the keepsake he commissioned long ago.",
+        "success": "Liu Chenzhou accepts the sword blank at Snow-Listening Cottage.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The cottage lamp burns longer; Liu Chenzhou says little about the past.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q01": {
+    "title": "Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+    "brief": "The Eighteen Dragon-Subduing Palms, the supreme martial art of the Beggars' Sect—the realm's greatest faction—has only been passed down through its first twelve stances across generations in the Lanchuan martial world. Where the final six stances vanished remains a subject of endless dispute. Some claim they were lost during the Song-Jin wars; others say their unyielding fury defied heaven and invited divine retribution; still, old beggars mutter in drunken stupors that the old sect master himself swore an oath and sealed them away in the deep mountains.",
+    "objectives": {
+      "lanchuan-q01.stage1": "Markings on the Caokou Fair Bowl (A10): The hidden half-dragon-scale palm-flipping pattern carved into the bottom of the old beggar's clay bowl.",
+      "lanchuan-q01.stage2": "Marginalia in Ji Wenmo's Old Manuscript (A12): Small regular script notes beside the Shaolin workshop's old scroll: \"Proud dragon repents, fullness cannot last; should it reach the wild battle, blood stains the azure sky.\" The calligraphy matches the carvings on the brushwood gate at Heart-Cleansing Ravine down to every stroke.",
+      "lanchuan-q01.stage3": "Severed Palm Print at Old Locust Dock: Palm impressions three inches deep on the headquarters' training boulder that terminate abruptly at the twelfth stance, with dark-red bloodstains preserved in the rock fissures from Qi Wujiu violently reining in his internal force.",
+      "lanchuan-q01.stage4": "Niu Bushi's Breakdown: If presented with the clay bowl and the manuscript, stubborn Elder Niu breaks down in tears, revealing three loose pages of remnant mental methods (I43) kept because \"the old sect master wished to protect future generations from being consumed by demonic force.\"",
+      "lanchuan-q01.stage5": "Trial of Heart with the Ravine Woodcutter: Bring the rubbing, old bowl, and manuscript to meet Old Woodcutter Tao. The old man sighs deeply, finally tracing out the true energetic pivots of the final six stances on the sand.",
+      "lanchuan-q01.ending": "Decide how to conclude this affair."
+    },
+    "choices": {
+      "lanchuan-q01.c1": {
+        "title": "Markings on the Caokou Fair Bowl (A10)",
+        "description": "Markings on the Caokou Fair Bowl (A10): The hidden half-dragon-scale palm-flipping pattern carved into the bottom of the old beggar's clay bowl.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.c2": {
+        "title": "Marginalia in Ji Wenmo's Old Manuscript (A12)",
+        "description": "Marginalia in Ji Wenmo's Old Manuscript (A12): Small regular script notes beside the Shaolin workshop's old scroll: \"Proud dragon repents, fullness cannot last; should it reach the wild battle, blood stains the azure sky.\" The calligraphy matches the carvings on the brushwood gate at Heart-Cleansing Ravine down to every stroke.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.c3": {
+        "title": "Severed Palm Print at Old Locust Dock",
+        "description": "Severed Palm Print at Old Locust Dock: Palm impressions three inches deep on the headquarters' training boulder that terminate abruptly at the twelfth stance, with dark-red bloodstains preserved in the rock fissures from Qi Wujiu violently reining in his internal force.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.c4": {
+        "title": "Niu Bushi's Breakdown",
+        "description": "Niu Bushi's Breakdown: If presented with the clay bowl and the manuscript, stubborn Elder Niu breaks down in tears, revealing three loose pages of remnant mental methods (I43) kept because \"the old sect master wished to protect future generations from being consumed by demonic force.\"",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.c5": {
+        "title": "Trial of Heart with the Ravine Woodcutter",
+        "description": "Trial of Heart with the Ravine Woodcutter: Bring the rubbing, old bowl, and manuscript to meet Old Woodcutter Tao. The old man sighs deeply, finally tracing out the true energetic pivots of the final six stances on the sand.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.ending1": {
+        "title": "Reconstruct the Missing Palms · Endure the Backlash",
+        "description": "If the player possesses profound internal cultivation (Initiated or above), reconstruct the complete Eighteen Palms under Old Woodcutter Tao's guidance. However, due to its ferocious nature, unleashing the fifteenth stance causes a slight tremor to your own qi and blood",
+        "success": "You choose: Reconstruct the Missing Palms · Endure the Backlash.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "If the player possesses profound internal cultivation (Initiated or above), reconstruct the complete Eighteen Palms under Old Woodcutter Tao's guidance. However, due to its ferocious nature, unleashing the fifteenth stance causes a slight tremor to your own qi and blood",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.ending2": {
+        "title": "Return to the Beggars' Sect · Proclaim to the World",
+        "description": "Present the recovered formulas to Old Locust Dock. Lu Youjiao inherits the orthodox lineage, the sect's prestige surges, and Chen Youliang's ambitions of usurpation are utterly crushed",
+        "success": "You choose: Return to the Beggars' Sect · Proclaim to the World.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Present the recovered formulas to Old Locust Dock. Lu Youjiao inherits the orthodox lineage, the sect's prestige surges, and Chen Youliang's ambitions of usurpation are utterly crushed",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.ending3": {
+        "title": "Honor the Ancient Vow · Bury in Green Hills",
+        "description": "Sympathizing with Qi Wujiu's profound compassion, the player burns the loose pages, letting the final six stances vanish from the Jianghu forever. Old Woodcutter Tao laughs with relief, gifting his past Dog-Beating notes to the player",
+        "success": "You choose: Honor the Ancient Vow · Bury in Green Hills.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Sympathizing with Qi Wujiu's profound compassion, the player burns the loose pages, letting the final six stances vanish from the Jianghu forever. Old Woodcutter Tao laughs with relief, gifting his past Dog-Beating notes to the player",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q01.ending4": {
+        "title": "Internalize into One's Own Path",
+        "description": "Refuse to be bound by the original forms; integrate the heavy might of the first twelve stances into your own sabers, swords, or unarmed strikes, forging an original, profound internal art.",
+        "success": "You choose: Internalize into One's Own Path.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Refuse to be bound by the original forms; integrate the heavy might of the first twelve stances into your own sabers, swords, or unarmed strikes, forging an original, profound internal art.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q02": {
+    "title": "\"Tale of the Seven Friends\" — The Double Ninth Night Nineteen Years Ago and the Sunken Ship Chang Geng",
+    "brief": "Nineteen years ago (the fourth year of Ninghe), on the night of the Double Ninth Festival (the ninth day of the ninth lunar month), an earth-shattering tragedy struck Mist-Wave Manor in the heart of Qingping Lake. The \"Seven Friends of Lanchuan,\" who once shared deep bonds and took martial oaths as sworn brothers, shattered and went their separate ways that very night. One perished in a sea of flames, while the rest scattered into the miasmal wastes of the northern frontiers; for twenty years, none have dared speak a single word of those events in front of others.",
+    "objectives": {
+      "lanchuan-q02.stage1": "Scored Hull Timber (I55): Proves the Chang Geng encountered disaster due to overloaded cargo, with sailors frantically chopping mooring lines, rather than navigational negligence.",
+      "lanchuan-q02.stage2": "Scorched Corner of an Account Book (I53): Bears official vermilion secret marks indicating the state authorities' covert smuggling of black iron.",
+      "lanchuan-q02.stage3": "Unopened Letter Kept by Xu Zhu: A letter written by Rong Huaijin to Tingyu Pavilion, stating clearly: \"My elder brothers possess boundless loyalty; if framed, this younger brother shall bear all blame.\"",
+      "lanchuan-q02.stage4": "Half-Inch Frost Sword Blank (I06): Commissioned by Liu Chenzhou from Yan Hanlu using his own hard-won savings, meant as a twenty-fourth birthday coming-of-age gift for Rong Huaijin.",
+      "lanchuan-q02.stage5": "Rong Huaijin's Green Jade Pendant (I52): A personal jade pendant hurled out of the inferno before his death, stained with soot and scorch marks.",
+      "lanchuan-q02.ending": "Decide how to conclude this affair."
+    },
+    "choices": {
+      "lanchuan-q02.c1": {
+        "title": "Scored Hull Timber (I55)",
+        "description": "Scored Hull Timber (I55): Proves the Chang Geng encountered disaster due to overloaded cargo, with sailors frantically chopping mooring lines, rather than navigational negligence.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.c2": {
+        "title": "Scorched Corner of an Account Book (I53)",
+        "description": "Scorched Corner of an Account Book (I53): Bears official vermilion secret marks indicating the state authorities' covert smuggling of black iron.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.c3": {
+        "title": "Unopened Letter Kept by Xu Zhu",
+        "description": "Unopened Letter Kept by Xu Zhu: A letter written by Rong Huaijin to Tingyu Pavilion, stating clearly: \"My elder brothers possess boundless loyalty; if framed, this younger brother shall bear all blame.\"",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.c4": {
+        "title": "Half-Inch Frost Sword Blank (I06)",
+        "description": "Half-Inch Frost Sword Blank (I06): Commissioned by Liu Chenzhou from Yan Hanlu using his own hard-won savings, meant as a twenty-fourth birthday coming-of-age gift for Rong Huaijin.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.c5": {
+        "title": "Rong Huaijin's Green Jade Pendant (I52)",
+        "description": "Rong Huaijin's Green Jade Pendant (I52): A personal jade pendant hurled out of the inferno before his death, stained with soot and scorch marks.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.ending1": {
+        "title": "Quiet Closure · Disturb Not the Departed",
+        "description": "Hand over only the green jade pendant and Half-Inch Frost sword blank to Rong Jiugao, concealing the government framing behind the shipwreck, so the old man knows his son died heroically saving his sworn brothers. Rong Jiugao enjoys peace in his twilight years",
+        "success": "You choose: Quiet Closure · Disturb Not the Departed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Hand over only the green jade pendant and Half-Inch Frost sword blank to Rong Jiugao, concealing the government framing behind the shipwreck, so the old man knows his son died heroically saving his sworn brothers. Rong Jiugao enjoys peace in his twilight years",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q02.ending2": {
+        "title": "Avenging Wrath · Striking the Corrupt Lair",
+        "description": "Track down the surviving corrupt officials who orchestrated the shipwreck, join forces with Li Changfeng of Rocky Mound and Huo Qianli of Yanxing Escort Agency to bring them to justice, and offer the culprits' heads in sacrifice to the lost souls of the Chang Geng.",
+        "success": "You choose: Avenging Wrath · Striking the Corrupt Lair.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Track down the surviving corrupt officials who orchestrated the shipwreck, join forces with Li Changfeng of Rocky Mound and Huo Qianli of Yanxing Escort Agency to bring them to justice, and offer the culprits' heads in sacrifice to the lost souls of the Chang Geng.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q03": {
+    "title": "\"Lantern of the Returning Sail\" — Lighting a Lamp for Yourself in the Humble Jianghu",
+    "brief": "Wandering through the jianghu for decades, where does my soul find rest? No matter how illustrious the disciples of renowned sects become, what they strive for is but the pedigree of masters and elders. A true warrior must ultimately carve out a sanctuary in the mud-and-water market towns across the land—a place to shelter from wind and rain, where destitute brothers can step inside to drink a bowl of hot soup. A single roof, a bond of good faith, and a family craft make for an ever-burning \"Lantern of the Returning Sail.\"",
+    "objectives": {
+      "lanchuan-q03.stage1": "A House (Root of Survival): Secure one of six available ruined urban properties—South Bank \"Returning Sail Inn\" at Tidewatch Ferry, a vacant lakeside bamboo stilt-house in Lingge Village, an old oil press on Shaolin Front Street, a disused tea warehouse in Sangma Town, a deserted tea stall in Yingxian Town at Mount Taihe, or an abandoned stone hut at the iron-chain bridge of Cangwu Ridge.",
+      "lanchuan-q03.stage2": "Good Faith (Reputation and Oaths): Resolve at least three local public livelihood crises (Category A affairs) to earn personal endorsement letters from local elders (such as Song Laolu, Aunt Zhong, Tu Dahu, Lei Baishan), establishing upright repute across prefectural archives and greenwood circles alike.",
+      "lanchuan-q03.stage3": "A Trade (A Calling and Craft): Hang a shingle outside the door dedicated to an acquired trade or intermediate-or-higher martial art (medicine, blacksmithing, boatmanship, Tai Chi Quan, Five Mountains Swordplay), practicing medicine to heal the world or escorting lone wayfarers.",
+      "lanchuan-q03.stage4": "A Brotherhood (Uniting the Four Seas): Amidst realm-wide turmoil, stalwarts of the jianghu who once received great kindness from the player (such as the destitute painter Shi Bugui, tea-picker maiden Qu Aqiao, escort youth Yan Xiaowu, herbalist apprentice A'Ling, divine beggar Pu Xiaoqi) come to offer allegiance, forming an independent market-town alliance unbound by major sects."
+    },
+    "choices": {
+      "lanchuan-q03.c1": {
+        "title": "A House (Root of Survival)",
+        "description": "A House (Root of Survival): Secure one of six available ruined urban properties—South Bank \"Returning Sail Inn\" at Tidewatch Ferry, a vacant lakeside bamboo stilt-house in Lingge Village, an old oil press on Shaolin Front Street, a disused tea warehouse in Sangma Town, a deserted tea stall in Yingxian Town at Mount Taihe, or an abandoned stone hut at the iron-chain bridge of Cangwu Ridge.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q03.c2": {
+        "title": "Good Faith (Reputation and Oaths)",
+        "description": "Good Faith (Reputation and Oaths): Resolve at least three local public livelihood crises (Category A affairs) to earn personal endorsement letters from local elders (such as Song Laolu, Aunt Zhong, Tu Dahu, Lei Baishan), establishing upright repute across prefectural archives and greenwood circles alike.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q03.c3": {
+        "title": "A Trade (A Calling and Craft)",
+        "description": "A Trade (A Calling and Craft): Hang a shingle outside the door dedicated to an acquired trade or intermediate-or-higher martial art (medicine, blacksmithing, boatmanship, Tai Chi Quan, Five Mountains Swordplay), practicing medicine to heal the world or escorting lone wayfarers.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-q03.c4": {
+        "title": "A Brotherhood (Uniting the Four Seas)",
+        "description": "A Brotherhood (Uniting the Four Seas): Amidst realm-wide turmoil, stalwarts of the jianghu who once received great kindness from the player (such as the destitute painter Shi Bugui, tea-picker maiden Qu Aqiao, escort youth Yan Xiaowu, herbalist apprentice A'Ling, divine beggar Pu Xiaoqi) come to offer allegiance, forming an independent market-town alliance unbound by major sects.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r01-success": {
+    "title": "Lankou: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r01-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r01-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r01-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r01-failure": {
+    "title": "Lankou: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r01-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r01-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r01-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r02-success": {
+    "title": "Qingping Lake: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r02-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r02-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r02-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r02-failure": {
+    "title": "Qingping Lake: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r02-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r02-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r02-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r03-success": {
+    "title": "Sihuai: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r03-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r03-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r03-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r03-failure": {
+    "title": "Sihuai: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r03-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r03-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r03-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r04-success": {
+    "title": "Mount Shaoshi: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r04-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r04-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r04-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r04-failure": {
+    "title": "Mount Shaoshi: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r04-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r04-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r04-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r05-success": {
+    "title": "Mount Taihe: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r05-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r05-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r05-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r05-failure": {
+    "title": "Mount Taihe: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r05-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r05-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r05-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r06-success": {
+    "title": "Cangwu Ridge: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r06-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r06-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r06-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r06-failure": {
+    "title": "Cangwu Ridge: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r06-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r06-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r06-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r07-success": {
+    "title": "Yanbei: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r07-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r07-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r07-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r07-failure": {
+    "title": "Yanbei: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r07-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r07-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r07-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r08-success": {
+    "title": "Frost Ridge: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "lanchuan-continuation-r08-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r08-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r08-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-continuation-r08-failure": {
+    "title": "Frost Ridge: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "lanchuan-continuation-r08-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "lanchuan-continuation-r08-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "lanchuan-continuation-r08-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a01-echo-1": {
+    "title": "Song Qing's new letter",
+    "brief": "Someone returns after your earlier involvement in the ferryman's family affair.",
+    "objectives": {
+      "lanchuan-a01-echo-1.followup": "Someone returns after your earlier involvement in the ferryman's family affair."
+    },
+    "choices": {
+      "lanchuan-a01-echo-1.c1": {
+        "title": "Song Qing's new letter",
+        "description": "Someone returns after your earlier involvement in the ferryman's family affair.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a01-echo-2": {
+    "title": "An answer to the padded cloth",
+    "brief": "Return to Tidewatch Ferry, give Song Laolu his daughter's cloth and convey her message.",
+    "objectives": {
+      "lanchuan-a01-echo-2.followup": "Return to Tidewatch Ferry, give Song Laolu his daughter's cloth and convey her message."
+    },
+    "choices": {
+      "lanchuan-a01-echo-2.c1": {
+        "title": "Deliver the cloth to Song Laolu",
+        "description": "Return to Tidewatch Ferry, give Song Laolu his daughter's cloth and convey her message.",
+        "success": "Song Laolu accepts his daughter's hand-sewn cloth and falls silent.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The ferryman asks you to carry word that he is well. Father and daughter have a reason to exchange another message.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a01-echo-3": {
+    "title": "The ferry's night lamp",
+    "brief": "Someone returns after your earlier conversation at the ferry.",
+    "objectives": {
+      "lanchuan-a01-echo-3.followup": "Someone returns after your earlier conversation at the ferry."
+    },
+    "choices": {
+      "lanchuan-a01-echo-3.c1": {
+        "title": "The ferry's night lamp",
+        "description": "Someone returns after your earlier conversation at the ferry.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-origin-debt": {
+    "title": "Settle the old inn bill",
+    "brief": "The innkeeper presents an eight-tael bill. You may decide when to repay it.",
+    "objectives": {
+      "lanchuan-origin-debt.pay": "The innkeeper presents an eight-tael bill. You may decide when to repay it."
+    },
+    "choices": {
+      "lanchuan-origin-debt.pay": {
+        "title": "Settle the old inn bill",
+        "description": "The innkeeper presents an eight-tael bill. You may decide when to repay it.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s01": {
+    "title": "Instruction: Nine Yang Divine Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to direct personal teaching by Zhang Wuji of the Ming Cult or a serendipitous glimpse of handwritten remnant scrolls; it is exceedingly difficult to obtain through ordinary worldly transmission.",
+    "objectives": {
+      "lanchuan-training-s01.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s01.qualify": {
+        "title": "Assessment: Nine Yang Divine Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Nine Yang Divine Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s02": {
+    "title": "Instruction: Sinew-Changing Classic",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Shaolin Abbot Xuanci's approval after extensive character trials by the Disciplinary and Bodhidharma Courts; or pointers on Zen mysteries from the elderly monk Dingyan of the Pagoda Forest.",
+    "objectives": {
+      "lanchuan-training-s02.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s02.qualify": {
+        "title": "Assessment: Sinew-Changing Classic",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Sinew-Changing Classic. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s03": {
+    "title": "Instruction: Great Shift of Heaven and Earth Heart Method",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to direct teaching by Cult Leader Zhang Wuji of the Ming Cult, or being granted parchment remnants after rendering tremendous service.",
+    "objectives": {
+      "lanchuan-training-s03.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s03.qualify": {
+        "title": "Assessment: Great Shift of Heaven and Earth Heart Method",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Great Shift of Heaven and Earth Heart Method. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s04": {
+    "title": "Instruction: Nine Yin Manual: Inner Force Volume",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to extremely secretive cliffside carvings or iron tablet fragments concealed within the Heaven-Relying Sword of Mount Emei (by pure stroke of fortune).",
+    "objectives": {
+      "lanchuan-training-s04.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s04.qualify": {
+        "title": "Assessment: Nine Yin Manual: Inner Force Volume",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Nine Yin Manual: Inner Force Volume. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s05": {
+    "title": "Instruction: Zixia Secret Manual",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to direct instruction by Yue Buqun, sect leader of Mount Hua (one must be among Mount Hua's most loyal and steadfast disciples); it is strictly kept from leaking out.",
+    "objectives": {
+      "lanchuan-training-s05.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s05.qualify": {
+        "title": "Assessment: Zixia Secret Manual",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Zixia Secret Manual. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s06": {
+    "title": "Instruction: Pure Yang Boundless Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to personal instruction from the two great heroes of Wudang, Song Yuanqiao and Yu Lianzhou.",
+    "objectives": {
+      "lanchuan-training-s06.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s06.qualify": {
+        "title": "Assessment: Pure Yang Boundless Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Pure Yang Boundless Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s07": {
+    "title": "Instruction: Star Sucking Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to remnants carved on stone slabs beneath West Lake, or beast-skin fragment pages stumbled upon by chance in the underworld of Jianghuai.",
+    "objectives": {
+      "lanchuan-training-s07.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s07.qualify": {
+        "title": "Assessment: Star Sucking Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Star Sucking Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s08": {
+    "title": "Instruction: Emei Nine Yang Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Granny Tian of Baicao Hollow teaching introductory breathing exercises; and Zhou Zhiruo of Emei providing pointers on heat and progression while gathering herbs.",
+    "objectives": {
+      "lanchuan-training-s08.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s08.qualify": {
+        "title": "Assessment: Emei Nine Yang Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Emei Nine Yang Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s09": {
+    "title": "Instruction: Eighteen Subduing Dragon Palms",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Beggar Sect Chief Lu Youjiao and traditionalist Elder Niu Bushi (requires completing A10 to obtain the three-knot cloth pouch). Should the old case of the severed palms advance to the point of reforging the lineage, the complete palm intent will unleash even heavier offenses while subjecting the practitioner to backlash.",
+    "objectives": {
+      "lanchuan-training-s09.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s09.qualify": {
+        "title": "Assessment: Eighteen Subduing Dragon Palms",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Eighteen Subduing Dragon Palms. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s10": {
+    "title": "Instruction: Taiji Fist",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Song Yuanqiao and Yu Lianzhou of Wudang; Shen Guhe's manuscript \"Deconstructing Taiji\" (I40) serves as a stepping stone for reflective advancement.",
+    "objectives": {
+      "lanchuan-training-s10.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s10.qualify": {
+        "title": "Assessment: Taiji Fist",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Taiji Fist. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s11": {
+    "title": "Instruction: Seven Injurings Fist",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Old Canal Chief Qin of Shaquan Village in Yanbei (who teaches only the split force of the first three forward punches); or orthodox transmission from the Five Elders of Kongtong Terrace in Pingliang.",
+    "objectives": {
+      "lanchuan-training-s11.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s11.qualify": {
+        "title": "Assessment: Seven Injurings Fist",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Seven Injurings Fist. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s12": {
+    "title": "Instruction: Great Vajra Finger",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to transmission by eminent monks of Shaolin's Bodhidharma Court; or pointers from warrior monk incense societies on Temple Front Street.",
+    "objectives": {
+      "lanchuan-training-s12.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s12.qualify": {
+        "title": "Assessment: Great Vajra Finger",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Great Vajra Finger. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s13": {
+    "title": "Instruction: Dark Nether Divine Palm",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to secret grottos with broken steles in the frontier underworld beyond the pass, or traded instruction from surviving masters of beyond-the-border princely estates.",
+    "objectives": {
+      "lanchuan-training-s13.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s13.qualify": {
+        "title": "Assessment: Dark Nether Divine Palm",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Dark Nether Divine Palm. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s14": {
+    "title": "Instruction: Empty Bright Fist",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to tea merchant Tu Dahu of Yingxian Town, who acquired and imparts a Quanzhen handwritten remnant copy.",
+    "objectives": {
+      "lanchuan-training-s14.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s14.qualify": {
+        "title": "Assessment: Empty Bright Fist",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Empty Bright Fist. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s15": {
+    "title": "Instruction: Thousand Hands Tathagata Palm",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to transmission by Abbot Xuanci or Master Xuanji of the Disciplinary Court after passing their evaluation.",
+    "objectives": {
+      "lanchuan-training-s15.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s15.qualify": {
+        "title": "Assessment: Thousand Hands Tathagata Palm",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Thousand Hands Tathagata Palm. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s16": {
+    "title": "Instruction: Nine Swords of Dugu",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to secretly befriending Linghu Chong on Mount Hua's Siguo Cliff and receiving instruction in the essential principles of the General Formula.",
+    "objectives": {
+      "lanchuan-training-s16.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s16.qualify": {
+        "title": "Assessment: Nine Swords of Dugu",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Nine Swords of Dugu. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s17": {
+    "title": "Instruction: Five Sacred Mountains Swordplay",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Fei Bin of Songshan / an old acquaintance on Temple Front Street, Guan Shanhai of Taishan, Lao Denuo / Linghu Chong of Huashan, Shi Bugui / Xiang Danian of Hengshan, and Yilin / Ma Sanbao of Mount Heng. Each person imparts only their own school's branch.",
+    "objectives": {
+      "lanchuan-training-s17.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s17.qualify": {
+        "title": "Assessment: Five Sacred Mountains Swordplay",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Five Sacred Mountains Swordplay. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s18": {
+    "title": "Instruction: Taiji Swordplay",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to personal instruction from the two heroes Song Yuanqiao and Yu Lianzhou, or insights and pointers from Shen Guhe at Lone Pine Pavilion.",
+    "objectives": {
+      "lanchuan-training-s18.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s18.qualify": {
+        "title": "Assessment: Taiji Swordplay",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Taiji Swordplay. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s19": {
+    "title": "Instruction: Dog Beating Staff Technique",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Beggar Sect Chief Lu Youjiao (requires taking on major sect duties); non-chiefs are only taught the foundational first sixteen forms.",
+    "objectives": {
+      "lanchuan-training-s19.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s19.qualify": {
+        "title": "Assessment: Dog Beating Staff Technique",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Dog Beating Staff Technique. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s20": {
+    "title": "Instruction: Holy Flame Tablet Divine Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to borrowing and reading rubbings of the Holy Flame iron tablets from Zhang Wuji of the Ming Cult.",
+    "objectives": {
+      "lanchuan-training-s20.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s20.qualify": {
+        "title": "Assessment: Holy Flame Tablet Divine Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Holy Flame Tablet Divine Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s21": {
+    "title": "Instruction: Evil Warding Swordplay",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to secret scrolls in the Lianghuai black market or clues from Songshan hidden agents (this game includes only the body-preserving inner remnant forms of the fast sword style).",
+    "objectives": {
+      "lanchuan-training-s21.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s21.qualify": {
+        "title": "Assessment: Evil Warding Swordplay",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Evil Warding Swordplay. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s22": {
+    "title": "Instruction: Demon Subduing Staff Technique",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to examination and transmission by Master Xuanji, head of Shaolin's Disciplinary Court.",
+    "objectives": {
+      "lanchuan-training-s22.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s22.qualify": {
+        "title": "Assessment: Demon Subduing Staff Technique",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Demon Subduing Staff Technique. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s23": {
+    "title": "Instruction: Gale Fast Saber",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Linghu Chong recounting broken-down forms while drunk on Siguo Cliff, or severed scrolls recovered from slaying bandits during an escort run in Yanbei.",
+    "objectives": {
+      "lanchuan-training-s23.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s23.qualify": {
+        "title": "Assessment: Gale Fast Saber",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Gale Fast Saber. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s24": {
+    "title": "Instruction: Vajra Pestle Technique",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to direct personal instruction from the elderly monk Dingyan of the Pagoda Forest (requires completing A13 or fulfilling the vow of pine-planting).",
+    "objectives": {
+      "lanchuan-training-s24.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s24.qualify": {
+        "title": "Assessment: Vajra Pestle Technique",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Vajra Pestle Technique. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s25": {
+    "title": "Instruction: Counter-Liangyi Saberplay",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to the hidden alcove in Mount Hua Sect's Hall of Upright Qi, or instruction from old swordsman Ke Qiaotou in Jinxi Herb Town.",
+    "objectives": {
+      "lanchuan-training-s25.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s25.qualify": {
+        "title": "Assessment: Counter-Liangyi Saberplay",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Counter-Liangyi Saberplay. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s26": {
+    "title": "Instruction: Cloud Ladder Step",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Daoist Nun Yunshu and Hero Yu Lianzhou of Wudang; the Hundred Steps Stair is an ideal practice ground.",
+    "objectives": {
+      "lanchuan-training-s26.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s26.qualify": {
+        "title": "Assessment: Cloud Ladder Step",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Cloud Ladder Step. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s27": {
+    "title": "Instruction: One Reed Crossing the River",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to an opportunity of personal enlightenment granted by Abbot Xuanci of Shaolin.",
+    "objectives": {
+      "lanchuan-training-s27.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s27.qualify": {
+        "title": "Assessment: One Reed Crossing the River",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study One Reed Crossing the River. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s28": {
+    "title": "Instruction: Bat Wing Skill",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to surviving scrolls from the Ming Cult altar on Bright Peak in the Western Regions, or instruction from Zhang Wuji on his martial uncle's behalf.",
+    "objectives": {
+      "lanchuan-training-s28.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s28.qualify": {
+        "title": "Assessment: Bat Wing Skill",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Bat Wing Skill. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s29": {
+    "title": "Instruction: Divine Stride of a Hundred Shifts",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to roving outlaws in Lianghuai or instruction from hidden alcoves within the Tingyu Pavilion.",
+    "objectives": {
+      "lanchuan-training-s29.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s29.qualify": {
+        "title": "Assessment: Divine Stride of a Hundred Shifts",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Divine Stride of a Hundred Shifts. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s30": {
+    "title": "Instruction: Listening to the Wind for Position",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Song Laolu at Tidewatch Ferry and Xu Zhu at Wangchao Inn.",
+    "objectives": {
+      "lanchuan-training-s30.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s30.qualify": {
+        "title": "Assessment: Listening to the Wind for Position",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Listening to the Wind for Position. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s31": {
+    "title": "Instruction: Meridian Acupuncture Classic",
+    "brief": "Treatment requires a set of silver acupuncture needles.",
+    "objectives": {
+      "lanchuan-training-s31.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s31.qualify": {
+        "title": "Assessment: Meridian Acupuncture Classic",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Meridian Acupuncture Classic. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s32": {
+    "title": "Instruction: Herb Discerning and Toxin Identification",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Bai Qian of Huichun Valley, Granny Tian of Baicao Hollow, Jiang Qinghe of Sangma Town, and the \"Ode to Medicinal Properties Manuscript\" (I44).",
+    "objectives": {
+      "lanchuan-training-s32.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s32.qualify": {
+        "title": "Assessment: Herb Discerning and Toxin Identification",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Herb Discerning and Toxin Identification. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s33": {
+    "title": "Instruction: Northern Frontier Horsemanship",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Ma Sanbao at Camel Bell Fair and Zhong Xia at Luoyan Pass.",
+    "objectives": {
+      "lanchuan-training-s33.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s33.qualify": {
+        "title": "Assessment: Northern Frontier Horsemanship",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Northern Frontier Horsemanship. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s34": {
+    "title": "Instruction: Boatmanship and Water Combat",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to old ferryman Song Laolu, young helmsman Ge Qing, and fishergirl Lan Ali.",
+    "objectives": {
+      "lanchuan-training-s34.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s34.qualify": {
+        "title": "Assessment: Boatmanship and Water Combat",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Boatmanship and Water Combat. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s35": {
+    "title": "Instruction: Jianghu Cants and Jargon",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Qiao Buduan in Qinghe City, Pu Xiaoqi at Caokou Market, and Niu Bushi at Old Locust Dock.",
+    "objectives": {
+      "lanchuan-training-s35.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s35.qualify": {
+        "title": "Assessment: Jianghu Cants and Jargon",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Jianghu Cants and Jargon. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-training-s36": {
+    "title": "Instruction: Forging and Weapon Tempering",
+    "brief": "You must first receive instruction or study manuscript notes, then spend time practicing, before you truly master it. Transmission leads point to Red Furnace Manor Master Yan Hanlu and female instructor Yan Ji (Affair A20).",
+    "objectives": {
+      "lanchuan-training-s36.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "lanchuan-training-s36.qualify": {
+        "title": "Assessment: Forging and Weapon Tempering",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Forging and Weapon Tempering. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i04": {
+    "title": "A blade after the salt dispute",
+    "brief": "Bring the Salt Gang accounts to Gu Huaiyuan, explain the old debts and show that another fishing ground has been opened.",
+    "objectives": {
+      "lanchuan-source-i04.handover": "Bring the Salt Gang accounts to Gu Huaiyuan, explain the old debts and show that another fishing ground has been opened."
+    },
+    "choices": {
+      "lanchuan-source-i04.work": {
+        "title": "A blade after the salt dispute",
+        "description": "Bring the Salt Gang accounts to Gu Huaiyuan, explain the old debts and show that another fishing ground has been opened.",
+        "success": "The handover is complete. You receive Tide-Severing Saber.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i38": {
+    "title": "Copy the wanderer's breathing verse",
+    "brief": "Pay twenty cash at the Yingxian bookstall and check the copied verse with the seller.",
+    "objectives": {
+      "lanchuan-source-i38.handover": "Pay twenty cash at the Yingxian bookstall and check the copied verse with the seller."
+    },
+    "choices": {
+      "lanchuan-source-i38.work": {
+        "title": "Copy the wanderer's breathing verse",
+        "description": "Pay twenty cash at the Yingxian bookstall and check the copied verse with the seller.",
+        "success": "The handover is complete. You receive Song of Pure Yang Respiration.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i40": {
+    "title": "Shen Guhe's notes on countering Tai Chi",
+    "brief": "Demonstrate practiced Tai Chi softness and discuss weaknesses in external styles to earn Shen Guhe's notes.",
+    "objectives": {
+      "lanchuan-source-i40.handover": "Demonstrate practiced Tai Chi softness and discuss weaknesses in external styles to earn Shen Guhe's notes."
+    },
+    "choices": {
+      "lanchuan-source-i40.work": {
+        "title": "Shen Guhe's notes on countering Tai Chi",
+        "description": "Demonstrate practiced Tai Chi softness and discuss weaknesses in external styles to earn Shen Guhe's notes.",
+        "success": "The handover is complete. You receive Dismantling Taiji.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i41": {
+    "title": "Mo Wensheng's poison notes",
+    "brief": "Bring the treatment records and identify the appropriate antidotes case by case to earn his notes.",
+    "objectives": {
+      "lanchuan-source-i41.handover": "Bring the treatment records and identify the appropriate antidotes case by case to earn his notes."
+    },
+    "choices": {
+      "lanchuan-source-i41.work": {
+        "title": "Mo Wensheng's poison notes",
+        "description": "Bring the treatment records and identify the appropriate antidotes case by case to earn his notes.",
+        "success": "The handover is complete. You receive Poison Scripture Remnant.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i44": {
+    "title": "The herbal apprentice's first lesson",
+    "brief": "Sort common herbs for the valley and pass the apprentice's identification test before copying the textbook.",
+    "objectives": {
+      "lanchuan-source-i44.handover": "Sort common herbs for the valley and pass the apprentice's identification test before copying the textbook."
+    },
+    "choices": {
+      "lanchuan-source-i44.work": {
+        "title": "The herbal apprentice's first lesson",
+        "description": "Sort common herbs for the valley and pass the apprentice's identification test before copying the textbook.",
+        "success": "The handover is complete. You receive Medicinal Properties Rhyme Transcript.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i51": {
+    "title": "A safe spear demonstration",
+    "brief": "Show Li Changfeng controlled staff fundamentals and agree on passage rules to receive a Blackstone banner.",
+    "objectives": {
+      "lanchuan-source-i51.handover": "Show Li Changfeng controlled staff fundamentals and agree on passage rules to receive a Blackstone banner."
+    },
+    "choices": {
+      "lanchuan-source-i51.work": {
+        "title": "A safe spear demonstration",
+        "description": "Show Li Changfeng controlled staff fundamentals and agree on passage rules to receive a Blackstone banner.",
+        "success": "The handover is complete. You receive Rocky Mound Black Stone Command Flag.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i56": {
+    "title": "The old pact above the guest room",
+    "brief": "After resolving the Yan family affair, explain your inquiry and obtain the innkeeper's permission to retrieve the sealed pact.",
+    "objectives": {
+      "lanchuan-source-i56.handover": "After resolving the Yan family affair, explain your inquiry and obtain the innkeeper's permission to retrieve the sealed pact."
+    },
+    "choices": {
+      "lanchuan-source-i56.work": {
+        "title": "The old pact above the guest room",
+        "description": "After resolving the Yan family affair, explain your inquiry and obtain the innkeeper's permission to retrieve the sealed pact.",
+        "success": "The handover is complete. You receive Red Oath Slip of the Seven Friends.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-source-i57": {
+    "title": "The medical casebook in the hidden drawer",
+    "brief": "Resolve the broken bridge's medicine-transport problem, then confront Mo Wensheng with the patients' testimony.",
+    "objectives": {
+      "lanchuan-source-i57.handover": "Resolve the broken bridge's medicine-transport problem, then confront Mo Wensheng with the patients' testimony."
+    },
+    "choices": {
+      "lanchuan-source-i57.work": {
+        "title": "The medical casebook in the hidden drawer",
+        "description": "Resolve the broken bridge's medicine-transport problem, then confront Mo Wensheng with the patients' testimony.",
+        "success": "The handover is complete. You receive Mist-Locked Gully Medicine-Trial Records.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q01-after-1": {
+    "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q01-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q01-after-1.work": {
+        "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q01-after-2": {
+    "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q01-after-2.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q01-after-2.work": {
+        "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q01-after-3": {
+    "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q01-after-3.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q01-after-3.work": {
+        "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q01-after-4": {
+    "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q01-after-4.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q01-after-4.work": {
+        "title": "After Severed Palms: The Broken Eighteen Dragon-Subduing Palms and the Sealed Stances Case",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q02-after-1": {
+    "title": "After \"Tale of the Seven Friends\" — The Double Ninth Night Nineteen Years Ago and the Sunken Ship Chang Geng",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q02-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q02-after-1.work": {
+        "title": "After \"Tale of the Seven Friends\" — The Double Ninth Night Nineteen Years Ago and the Sunken Ship Chang Geng",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q02-after-2": {
+    "title": "After \"Tale of the Seven Friends\" — The Double Ninth Night Nineteen Years Ago and the Sunken Ship Chang Geng",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q02-after-2.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q02-after-2.work": {
+        "title": "After \"Tale of the Seven Friends\" — The Double Ninth Night Nineteen Years Ago and the Sunken Ship Chang Geng",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-q03-after-1": {
+    "title": "After \"Lantern of the Returning Sail\" — Lighting a Lamp for Yourself in the Humble Jianghu",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "lanchuan-q03-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "lanchuan-q03-after-1.work": {
+        "title": "After \"Lantern of the Returning Sail\" — Lighting a Lamp for Yourself in the Humble Jianghu",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "lanchuan-a02-echo-1": {
+    "title": "The Boundary and Its Remaining Accounts",
+    "brief": "After checking the mediated boundary, Lan Ali will compare the payments received and the remaining disagreement. Mediation did not erase every difference.",
+    "objectives": {
+      "lanchuan-a02-echo-1.work": "Check this one subsidy with its recipients"
+    },
+    "choices": {
+      "lanchuan-a02-echo-1.work": {
+        "title": "Check this one subsidy with its recipients",
+        "description": "Compare actual payments in White-Egret Village without opening unrelated private accounts.",
+        "success": "Recipients and unpaid amounts are separated. A stake-moving fee had been counted as a subsidy; the source is now clear. Any further payment still requires agreement.",
+        "failure": "Accounts conflict. Both statements are retained without fabricating signatures.",
+        "success_echo": "This discrepancy now has a specific source instead of becoming a rumor that the whole village was cheated. Further negotiation is optional.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "lanchuan-a02-echo-2": {
+    "title": "Marking the New Channel's Backflow",
+    "brief": "After several trial catches, Lan Ali confirms the channel is usable but a backflow drags shallow boats off line. She will discuss visible markers.",
+    "objectives": {
+      "lanchuan-a02-echo-2.work": "Mark the backflow from two shore points"
+    },
+    "choices": {
+      "lanchuan-a02-echo-2.work": {
+        "title": "Mark the backflow from two shore points",
+        "description": "Use actual boating skill to place two visible marks beside the opened channel. Do not move the same boulder or claim the old gift again.",
+        "success": "The marks remain visible at low water. Boats can test the channel, but rough weather still calls for stopping.",
+        "failure": "The backflow prevents stable placement. A warning to suspend passage is all that can be established.",
+        "success_echo": "The two marks remain recognizable. Weather still governs use; the channel does not guarantee endless catches.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "lanchuan-a02-failure": {
+    "title": "Establishing the Old Tide Line",
+    "brief": "After failed mediation, Lan Ali will start from a verifiable tide line. She asks for neither a guarantee on behalf of the money house nor a promise of reconciliation.",
+    "objectives": {
+      "lanchuan-a02-failure.work": "Compare stake bases and the low-water line"
+    },
+    "choices": {
+      "lanchuan-a02-failure.work": {
+        "title": "Compare stake bases and the low-water line",
+        "description": "Distinguish observations from villagers' accounts while examining the old stakes.",
+        "success": "Not every stake was moved overnight. One fell in a rotten socket; two others show fresh digging. The dispute now has specific questions.",
+        "failure": "Water still hides the difference between old sockets and fresh holes. Neither side's full account is confirmed.",
+        "success_echo": "The fresh holes can be questioned or the fallen stake repaired. An inspection is not a new agreement between the parties.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "lanchuan-tide-lamp": {
+    "title": "The Lamp Ahead of the Tide",
+    "brief": "Boatmen find Tidewatch Cliff's lamp appears before safe low water. Compare shore traces with the keeper's timing before deciding how to handle this discrepancy.",
+    "objectives": {
+      "lanchuan-tide-lamp.shore": "Establish the current tide line at the salt flats.",
+      "lanchuan-tide-lamp.clock": "Check the keeper's timer and physical traces at Tidewatch Cliff.",
+      "lanchuan-tide-lamp.resolve": "Correct the signal or leave a safe detour notice at the cliff."
+    },
+    "choices": {
+      "lanchuan-tide-lamp.survey": {
+        "title": "Measure the water with your rope",
+        "description": "Use learned boating skill and a hooked rope, spending 6 inner energy.",
+        "success": "A side current remains after water passes the old mark. Two clear mud-line marks establish the comparison.",
+        "failure": "The current keeps the rope unstable; this does not establish safe night passage.",
+        "success_echo": "These two traces support this comparison, not a permanent seasonal prediction.",
+        "failure_echo": "Preparation is still needed; spent time remains real."
+      },
+      "lanchuan-tide-lamp.watch": {
+        "title": "Pay for a guided tide watch",
+        "description": "Pay 80 copper for a boatman's explanation and observe from shore for three hours. This buys one guided observation, not boating mastery.",
+        "success": "You see the old line exposed before the reef approach is safe. The complaint now has observable evidence.",
+        "failure": "Breaking waves hide the necessary mark; no reliable comparison is established.",
+        "success_echo": "The guided watch is paid once and does not refresh its record or reward.",
+        "failure_echo": "Preparation is still needed; spent time and fees remain real."
+      },
+      "lanchuan-tide-lamp.compare": {
+        "title": "Compare the water clock and tide board",
+        "description": "At the cliff, compare your shore record with the keeper's clock, plug and handover marks.",
+        "success": "The replacement plug leaks too quickly while the keeper uses the old scale. Tide traces, flow and handover date agree: this fault is not deliberate wrecking.",
+        "failure": "The handover record is missing and the clock has not been measured long enough. Suspicion is not proof.",
+        "success_echo": "The answer explains this lamp's timing, not every harbor rumor.",
+        "failure_echo": "Preparation is still needed; spent time remains real."
+      },
+      "lanchuan-tide-lamp.repair": {
+        "title": "Repair the plug and recalibrate",
+        "description": "Use one forging-iron unit and learned weapon-repair skill, spending 6 inner energy, to repair this lamp's timer.",
+        "success": "The repaired timer matches this measured tide. The keeper accepts the calibration record, not a promise of eternal accuracy.",
+        "failure": "The plug still leaks. Used material is gone; a warning against night passage remains.",
+        "success_echo": "The repair and calibration have a traceable record. This is not a refreshed mystery.",
+        "failure_echo": "Preparation is still needed; time and used material remain spent."
+      },
+      "lanchuan-tide-lamp.mark": {
+        "title": "Leave a warning and a known shoreline detour",
+        "description": "Pay 40 copper for the keeper's sign materials. State the verified error without dismantling the timer or claiming it repaired.",
+        "success": "The sign explains the early lamp and side current. Arrivals may choose the daytime shore route; the keeper still has a timer to repair.",
+        "failure": "The sign cannot be secured, so its warning has not reached arriving boats.",
+        "success_echo": "Notice and a detour settle your part. You receive no repair payment and need not pursue it further.",
+        "failure_echo": "Preparation is still needed; time and fees remain spent."
+      }
+    }
+  }
+}

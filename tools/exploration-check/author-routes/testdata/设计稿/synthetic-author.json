@@ -1,0 +1,43 @@
+{
+  "author_version": "1.0",
+  "places": [
+    {
+      "id": "place-a",
+      "kind": "regional_hub"
+    },
+    {
+      "id": "place-b",
+      "kind": "travel_junction"
+    },
+    {
+      "id": "place-c",
+      "kind": "authored_place"
+    }
+  ],
+  "routes": [
+    {
+      "id": "synthetic-regional",
+      "from": "place-a",
+      "to": "place-b",
+      "bidirectional": true,
+      "baseline_elapsed_minutes": 4320,
+      "baseline_method": "ordinary_low_tier_travel_with_normal_rests",
+      "scale": "regional",
+      "access_condition": "public_only",
+      "disclosure": "known_route",
+      "status": "synthetic_test_only"
+    },
+    {
+      "id": "synthetic-internal",
+      "from": "place-b",
+      "to": "place-c",
+      "bidirectional": false,
+      "baseline_elapsed_minutes": 30,
+      "baseline_method": "ordinary_low_tier_travel_with_normal_rests",
+      "scale": "internal",
+      "access_condition": "public_only",
+      "disclosure": "known_route",
+      "status": "synthetic_test_only"
+    }
+  ]
+}

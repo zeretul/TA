@@ -1,0 +1,126 @@
+[
+  {
+    "schema_version": 1,
+    "id": "quest.spirit_rift_review",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "kind": "personal",
+    "title": "请乔砚复验裂脉样石",
+    "brief": "营地告示：乔砚愿以二万五千灵石，请来者带一次实际勘取的裂脉样石当面复验。样石仍归采集者，只约本次，没有限期，也不要求继续探险。",
+    "giver": "spirit_qiao_yan",
+    "public_location_ids": [
+      "spirit.border.camp"
+    ],
+    "objectives": [
+      {
+        "id": "quest.spirit_rift_review.recover",
+        "description": "取得这处探索实际留下的实物，并回来当面复验。",
+        "evidence": [
+          {
+            "kind": "realm_reward",
+            "ref_id": "realm.spirit_rift.reward_sample"
+          }
+        ]
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "ref_id": "灵石",
+        "quantity": 25000
+      }
+    ],
+    "completion_echo": {
+      "after_seconds": 86400,
+      "reaction": {
+        "character_source_key": "spirit_qiao_yan",
+        "statement": "昨日看过的样石，细纹已记下。以后若再遇同样的灵潮，我会知道该先看什么。"
+      }
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "quest.spirit_array_review",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "kind": "personal",
+    "title": "带回旧哨阵的测记",
+    "brief": "陆时衡愿出三万六千灵石当面复验一次真实处理旧哨阵留下的测记。拆取与保留都能留下可复核的痕迹；不以他人的偏好替你选路，记录仍由你留存。",
+    "giver": "spirit_lu_shiheng",
+    "public_location_ids": [
+      "spirit.tianyuan.market"
+    ],
+    "objectives": [
+      {
+        "id": "quest.spirit_array_review.recover",
+        "description": "取得这处探索实际留下的实物，并回来当面复验。",
+        "evidence": [
+          {
+            "kind": "realm_reward",
+            "ref_id": "realm.spirit_array.reward_strip_record"
+          },
+          {
+            "kind": "realm_reward",
+            "ref_id": "realm.spirit_array.reward_preserve_record"
+          }
+        ]
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "ref_id": "灵石",
+        "quantity": 36000
+      }
+    ],
+    "completion_echo": {
+      "after_seconds": 86400,
+      "reaction": {
+        "character_source_key": "spirit_lu_shiheng",
+        "statement": "你选过的那条路我已看明白；另一种做法的结果，不能凭想象补在你的测记里。"
+      }
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "quest.spirit_archive_review",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "kind": "personal",
+    "title": "与宁疏桐校读旧拓片",
+    "brief": "宁疏桐出四万九千灵石，约一次完整旧经拓片的当面复核，拓片仍由你留存。可以先办自己的事，也可以不接；她不要求你拜师或继续突破。",
+    "giver": "spirit_ning_shutong",
+    "public_location_ids": [
+      "spirit.quiet.valley"
+    ],
+    "objectives": [
+      {
+        "id": "quest.spirit_archive_review.recover",
+        "description": "取得这处探索实际留下的实物，并回来当面复验。",
+        "evidence": [
+          {
+            "kind": "realm_reward",
+            "ref_id": "realm.spirit_archive.reward_rubbing"
+          }
+        ]
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "ref_id": "灵石",
+        "quantity": 49000
+      }
+    ],
+    "completion_echo": {
+      "after_seconds": 86400,
+      "reaction": {
+        "character_source_key": "spirit_ning_shutong",
+        "statement": "有几处旧字我换了一个读法。你的解释我留在旁边，没有把未定处硬改成定论。"
+      }
+    }
+  }
+]

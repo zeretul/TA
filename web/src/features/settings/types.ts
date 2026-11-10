@@ -1,0 +1,668 @@
+import type { AgentApprovalMode } from '@/features/agent-approval/modes'
+import type { ToolPresentationKind } from '@/lib/api-client/types'
+
+export type { AgentApprovalMode } from '@/features/agent-approval/modes'
+
+export interface SpeechSettings {
+  endpoint: string
+  api_key: string
+  model: string
+  voice: string
+}
+
+export interface Settings {
+  speech?: SpeechSettings
+  agent_runtimes?: Partial<Record<'ide' | 'general' | 'interactive_story', import('@/features/agent-runtime/types').RuntimePreferences>>
+  openai_api_key?: string
+  openai_base_url?: string
+  openai_model?: string
+  openai_context_window_tokens?: number | null
+  model_endpoints?: ModelEndpointSettings[]
+  model_profiles?: ModelProfileSettings[]
+  default_image_api_profile_id?: string
+  image_api_endpoints?: ImageAPIEndpointSettings[]
+  image_api_profiles?: ImageAPIProfileSettings[]
+  agent_models?: AgentModelSettings
+  agent_tools?: AgentToolSettings
+  agent_prompts?: AgentPromptSettings
+  agent_skills?: AgentSkillSettings
+  agent_context?: AgentContextSettings
+  general_sub_agents?: AgentGeneralSubAgentSettings
+  sub_agents?: SubAgentConfig[]
+  custom_agents?: CustomAgentConfig[]
+  default_image_agent_id?: string
+  web_access?: WebAccessSettings
+  labs?: LabSettings
+  skills_dir?: string
+  backend_port?: number | null
+  frontend_port?: number | null
+  allow_lan_access?: boolean | null
+  remote_access_username?: string
+  remote_access_password?: string
+  remote_access_password_set?: boolean
+  auto_save_enabled?: boolean | null
+  auto_save_interval_ms?: number | null
+  chapter_filename_format?: string
+  volume_dir_format?: string
+  max_open_tabs?: number | null
+  project_file_tree_entry_limit?: number | null
+  chapter_group_min?: number | null
+  chapter_group_max?: number | null
+  version_timed_enabled?: boolean | null
+  version_timed_interval_minutes?: number | null
+  ui_font_family?: string
+  ui_font_size?: number | null
+  reading_font_family?: string
+  reading_font_size?: number | null
+  source_editor_font_family?: string
+  language?: string
+  theme?: string
+  motion_intensity?: string
+  clips_enabled?: boolean | null
+  update_check_enabled?: boolean | null
+  max_iteration?: number | null
+  model_max_retries?: number | null
+  agent_idle_timeout_seconds?: number | null
+  agent_tool_result_limit_kb?: number | null
+  agent_tool_parallelism?: number | null
+  agent_subagent_parallelism?: number | null
+  agent_script_timeout_seconds?: number | null
+  agent_approval_mode?: AgentApprovalMode
+  agent_approval_rules?: AgentApprovalRule[]
+  shell_environment_mode?: ShellEnvironmentMode
+  shell_environment_shell?: string
+  agent_bash_path?: string
+  llm_input_log_enabled?: boolean | null
+  trace_capture_level?: string
+  trace_exporter?: string
+  trace_retention_runs?: number | null
+  ide_story_teller_id?: string
+  interactive_story_teller_id?: string
+  ide_image_preset_id?: string
+  agent_quick_prompts?: AgentQuickPromptRegistry
+  agent_quick_prompts_in_commands?: boolean | null
+  interactive_stage_font_size?: number | null
+  interactive_stage_line_height?: number | null
+}
+
+export interface LabSettings {
+  developer_mode?: boolean | null
+}
+
+export type ShellEnvironmentMode = 'auto' | 'process'
+
+export interface AgentApprovalRule {
+  id: string
+  scope: 'workspace'
+  project_id?: string
+  workspace?: string
+  tool_name: string
+  matcher: 'shell_command' | 'filesystem_read_root' | string
+  matcher_version: number
+  match_key: string
+  display_pattern: string
+  approved_args_hash: string
+  approved_input: string
+  approved_context?: string
+  source_rule_id?: string
+  created_at: string
+}
+
+export interface WebAccessSettings {
+  searxng_base_url?: string
+  search_max_results?: number | null
+  search_provider_timeout_seconds?: number | null
+  fetch_max_response_kb?: number | null
+  fetch_max_content_chars?: number | null
+}
+
+export interface ModelProfileSettings {
+  id?: string
+  name?: string
+  endpoint_id?: string
+  model?: string
+  temperature?: number | null
+  context_window_tokens?: number | null
+  max_tokens?: number | null
+}
+
+export type AgentQuickPromptBehavior = 'fill' | 'send'
+
+export interface AgentQuickPromptSettings {
+  id: string
+  name: string
+  prompt: string
+  behavior: AgentQuickPromptBehavior
+  enabled: boolean
+}
+
+export type AgentQuickPromptRegistry = Record<string, AgentQuickPromptSettings[]>
+
+export interface ModelEndpointSettings {
+  id?: string
+  name?: string
+  provider?: string
+  protocol?: string
+  api_key?: string
+  base_url?: string
+  headers?: Record<string, string>
+  protocol_options?: Record<string, unknown>
+  session_key_mapping?: ModelSessionKeyMapping
+}
+
+export interface ModelSessionKeyMapping {
+  location: 'none' | 'header' | 'body'
+  name?: string
+}
+
+export interface ModelEndpointPreset {
+  base_url?: string
+}
+
+export interface ModelProviderPreset {
+  id: string
+  name: string
+  default_protocol: string
+  endpoints: Record<string, ModelEndpointPreset>
+}
+
+export interface ModelCatalog {
+  providers: ModelProviderPreset[]
+  protocols: string[]
+}
+
+export interface ModelPingResult {
+  ok: boolean
+  latency_ms: number
+  provider: string
+  protocol: string
+  base_url: string
+  model: string
+}
+
+export interface ModelInfo {
+  id: string
+  display_name?: string
+  owned_by?: string
+}
+
+export interface ModelDiscoveryResult {
+  models: ModelInfo[]
+  provider: string
+  protocol: string
+  base_url: string
+}
+
+export interface ImageAPIProfileSettings {
+  id?: string
+  name?: string
+  endpoint_id?: string
+  model?: string
+  prompt_guide?: string
+  default_size?: string
+  default_aspect_ratio?: string
+  default_resolution?: string
+  default_quality?: string
+  default_output_format?: string
+  comfyui?: ComfyUIProfileSettings
+}
+
+export interface ImageAPIEndpointSettings {
+  id?: string
+  name?: string
+  provider?: string
+  protocol?: string
+  api_key?: string
+  base_url?: string
+  headers?: Record<string, string>
+}
+
+export interface ComfyUIProfileSettings {
+  workflow_mode?: 'api' | 'remote'
+  workflow?: string
+  workflow_name?: string
+  workflow_id?: string
+  workflow_path?: string
+  workflow_modified?: number
+  workflow_job_id?: string
+  workflow_job_time?: number
+  bindings?: ComfyUIBindings
+}
+
+export interface ComfyUIInputBinding {
+  node_id: string
+  input_name: string
+}
+
+export interface ComfyUIBindings {
+  prompt?: ComfyUIInputBinding
+  count?: ComfyUIInputBinding
+  width?: ComfyUIInputBinding
+  height?: ComfyUIInputBinding
+}
+
+export interface ComfyUIInputCandidate extends ComfyUIInputBinding {
+  label: string
+}
+
+export interface ComfyUIBindingCandidates {
+  prompt?: ComfyUIInputCandidate[]
+  count?: ComfyUIInputCandidate[]
+  width?: ComfyUIInputCandidate[]
+  height?: ComfyUIInputCandidate[]
+}
+
+export type ComfyUIWorkflowStatus = 'ready' | 'stale' | 'not_run' | 'invalid'
+
+export interface ComfyUIWorkflowSummary {
+  name: string
+  path: string
+  workflow_id?: string
+  modified: number
+  status: ComfyUIWorkflowStatus
+  job_id?: string
+  job_time?: number
+  detail?: string
+}
+
+export interface ComfyUIWorkflowCatalog {
+  workflows: ComfyUIWorkflowSummary[]
+}
+
+export interface ComfyUIWorkflowSnapshot extends ComfyUIWorkflowSummary {
+  workflow: string
+  bindings?: ComfyUIBindings
+  candidates: ComfyUIBindingCandidates
+}
+
+export interface ImagePingResult {
+  ok: boolean
+  latency_ms: number
+  profile_id: string
+  provider: string
+  base_url: string
+  model: string
+}
+
+export interface AgentModelSettings {
+  default?: AgentModelOverride
+  general?: AgentModelOverride
+  ide?: AgentModelOverride
+  interactive_story?: AgentModelOverride
+  image?: AgentModelOverride
+  config_manager?: AgentModelOverride
+  version_summary?: AgentModelOverride
+  tool_agent?: AgentModelOverride
+  /**
+   * The model purpose behind a person's private conversation and a small
+   * group's round. It is a purpose bound to an existing profile, not an Agent
+   * runtime: no session, tool manifest or prompt contract runs here.
+   */
+  character_chat?: AgentModelOverride
+}
+
+export interface AgentModelOverride {
+  profile_id?: string
+  temperature?: number | null
+  thinking_level?: string
+}
+
+export interface AgentToolSettings {
+  default?: AgentToolOverride
+  general?: AgentToolOverride
+  ide?: AgentToolOverride
+  interactive_story?: AgentToolOverride
+  image?: AgentToolOverride
+  config_manager?: AgentToolOverride
+  version_summary?: AgentToolOverride
+  tool_agent?: AgentToolOverride
+}
+
+export interface AgentSkillSettings {
+  default?: AgentSkillOverride
+  general?: AgentSkillOverride
+  ide?: AgentSkillOverride
+  interactive_story?: AgentSkillOverride
+  image?: AgentSkillOverride
+  config_manager?: AgentSkillOverride
+  version_summary?: AgentSkillOverride
+  tool_agent?: AgentSkillOverride
+}
+
+export type AgentSkillOverride = Record<string, boolean>
+
+interface AgentContextSettings {
+  default?: AgentContextOverride
+  general?: AgentContextOverride
+  ide?: AgentContextOverride
+  interactive_story?: AgentContextOverride
+  image?: AgentContextOverride
+  config_manager?: AgentContextOverride
+  version_summary?: AgentContextOverride
+  tool_agent?: AgentContextOverride
+}
+
+export interface AgentContextOverride {
+  compaction_enabled?: boolean | null
+  compaction_threshold?: number | null
+  checkpoint_guidance?: string | null
+  tool_result_context_enabled?: boolean | null
+  max_fragment_bytes?: number | null
+  max_total_injected_bytes?: number | null
+  max_fragments?: number | null
+  max_metadata_field_bytes?: number | null
+  max_provider_input_bytes?: number | null
+}
+
+export interface ResolvedAgentContextSettings {
+  compaction_enabled: boolean
+  compaction_threshold: number
+  checkpoint_guidance?: string
+  tool_result_context_enabled: boolean
+  max_fragment_bytes: number
+  max_total_injected_bytes: number
+  max_fragments: number
+  max_metadata_field_bytes: number
+  max_provider_input_bytes: number
+}
+
+interface AgentGeneralSubAgentSettings {
+  default?: boolean | null
+  general?: boolean | null
+  ide?: boolean | null
+  interactive_story?: boolean | null
+  config_manager?: boolean | null
+}
+
+export type AgentToolCapability =
+  | 'filesystem_read'
+  | 'workspace_write'
+  | 'shell'
+  | 'web_search'
+  | 'web_fetch'
+  | 'browser'
+  | 'ask'
+  | 'todo'
+  | 'skills'
+  | 'delegation'
+  | 'script'
+  | 'trajectory'
+  | 'config_read'
+  | 'config_apply'
+  | 'event_read'
+  | 'lore_read'
+  | 'lore_write'
+  | 'image_generation'
+
+export type AgentToolOverride = Partial<Record<AgentToolCapability, boolean>>
+
+export interface AgentToolDescriptorSummary {
+  source: string
+  execution: string
+  mutation_scope: string
+  post_check: string
+  recovery: string
+  result_recovery_kind?: string
+  result_projection: string
+  result_retention: string
+  steering: string
+  max_result_bytes: number
+  call_presentation: ToolPresentationKind
+  result_presentation: ToolPresentationKind
+}
+
+export interface AgentToolCapabilityCatalogEntry {
+  capability: AgentToolCapability
+  title_key: string
+  description_key: string
+  tool_names: string[]
+  descriptor: AgentToolDescriptorSummary
+  tool_descriptors: Record<string, AgentToolDescriptorSummary>
+  available_to_subagents: boolean
+}
+
+export type AgentToolAvailability = 'available' | 'runtime_check' | 'unavailable'
+
+export interface ResolvedAgentToolCapability extends AgentToolCapabilityCatalogEntry {
+  allowed: boolean
+  availability: AgentToolAvailability
+  unavailable_reason_key?: string
+}
+
+export interface SubAgentConfig {
+  id?: string
+  name?: string
+  description?: string
+  system_prompt?: string
+  enabled?: boolean | null
+  parents?: string[]
+  model?: AgentModelOverride
+  tools?: AgentToolOverride
+}
+
+/** Complete user-owned Agent definition inside one stable runtime contract. */
+export interface CustomAgentConfig {
+  runtime?: import('@/features/agent-runtime/types').RuntimePreferences
+  id?: string
+  name?: string
+  description?: string
+  contract?: AgentContractID
+  enabled?: boolean | null
+  instructions?: string
+  model?: AgentModelOverride
+  tools?: AgentToolOverride
+  tool_guidance?: Record<string, string>
+  skill_policy?: AgentSkillPolicy
+  runtime_context?: AgentContextOverride
+  context_bindings?: AgentContextBinding[]
+  delegation?: AgentDelegationPolicy
+  image_api_profile_id?: string
+}
+
+export type AgentRuntimeKind = 'general' | 'ide' | 'interactive_story' | 'image'
+export type AgentContractID = 'project.general.v1' | 'writing.primary.v1' | 'game.narrator.v1' | 'image.creator.v1'
+export type AgentSkillPolicyMode = 'managed' | 'explicit'
+export type AgentContextSlot = 'stable' | 'session' | 'turn'
+export type AgentDelegationMode = 'compatible' | 'selected' | 'disabled'
+
+export interface AgentContractDefinition {
+  id: AgentContractID
+  runtime_kind: AgentRuntimeKind
+  title_key: string
+  description_key: string
+}
+
+export interface AgentSkillPolicy {
+  mode?: AgentSkillPolicyMode
+  pinned?: string[]
+  blocked?: string[]
+}
+
+export interface AgentContextBinding {
+  id: string
+  name?: string
+  purpose?: string
+  slot?: AgentContextSlot
+  content: string
+  hard_limit_bytes?: number
+}
+
+export interface AgentDelegationPolicy {
+  mode?: AgentDelegationMode
+  agent_ids?: string[]
+}
+
+export interface ResolvedAgentDefinition {
+  id: string
+  name?: string
+  contract: AgentContractID
+  runtime_kind: AgentRuntimeKind
+  revision?: string
+  instructions?: string
+  tool_guidance?: Record<string, string>
+  skill_policy: AgentSkillPolicy
+  context_bindings?: AgentContextBinding[]
+  delegation: AgentDelegationPolicy
+}
+
+interface AgentPromptSettings {
+  default?: AgentPromptOverride
+  general?: AgentPromptOverride
+  ide?: AgentPromptOverride
+  interactive_story?: AgentPromptOverride
+  image?: AgentPromptOverride
+  config_manager?: AgentPromptOverride
+  version_summary?: AgentPromptOverride
+  tool_agent?: AgentPromptOverride
+}
+
+export interface AgentPromptOverride {
+  flow_prompt?: string
+  system_prompt?: string
+}
+
+export interface AgentPromptSource {
+  id: string
+  title: string
+  source: string
+  content?: string
+  editable?: boolean
+  field?: 'flow_prompt' | 'system_prompt'
+}
+
+interface AgentPromptSourceList {
+  sources?: AgentPromptSource[]
+}
+
+interface AgentPromptSourceSettings {
+  default?: AgentPromptSourceList
+  general?: AgentPromptSourceList
+  ide?: AgentPromptSourceList
+  interactive_story?: AgentPromptSourceList
+  image?: AgentPromptSourceList
+  config_manager?: AgentPromptSourceList
+  version_summary?: AgentPromptSourceList
+  tool_agent?: AgentPromptSourceList
+}
+
+export interface AgentPromptBlocks {
+  runtime_contract?: string
+  output_protocol?: string
+  editable_system_prompt?: string
+}
+
+interface AgentPromptBlockSettings {
+  default?: AgentPromptBlocks
+  general?: AgentPromptBlocks
+  ide?: AgentPromptBlocks
+  interactive_story?: AgentPromptBlocks
+  image?: AgentPromptBlocks
+  config_manager?: AgentPromptBlocks
+  version_summary?: AgentPromptBlocks
+  tool_agent?: AgentPromptBlocks
+}
+
+interface SettingsPaths {
+  denova_dir: string
+  nova_dir: string
+  user_config: string
+  workspace_config: string
+}
+
+interface SettingsAccess {
+  local_url: string
+  lan_url: string
+}
+
+interface SettingsRuntime {
+  goos: string
+  dev_mode?: boolean
+  story_model_ready?: boolean
+}
+
+interface SettingsRevisions {
+  user?: string
+  workspace?: string
+}
+
+export interface LayeredSettings {
+  agent_configuration?: Record<string, import('@/features/agent-runtime/types').AgentConfiguration>
+  default: Settings
+  global: Settings
+  user: Settings
+  workspace: Settings
+  inherited?: Record<SettingsLayer, Settings>
+  effective: Settings
+  paths: SettingsPaths
+  access?: SettingsAccess
+  runtime?: SettingsRuntime
+  revisions?: SettingsRevisions
+  builtin_agent_prompts?: AgentPromptSettings
+  builtin_agent_prompt_blocks?: AgentPromptBlockSettings
+  builtin_agent_prompt_sources?: AgentPromptSourceSettings
+  builtin_agent_compaction_sources?: AgentPromptSourceSettings
+  agent_contracts?: AgentContractDefinition[]
+  agent_tool_capabilities?: AgentToolCapabilityCatalogEntry[]
+  resolved_agent_tool_manifests: Record<string, ResolvedAgentToolCapability[] | undefined>
+  resolved_agent_contexts: Record<string, ResolvedAgentContextSettings | undefined>
+  resolved_agent_definitions?: Record<string, ResolvedAgentDefinition | undefined>
+}
+
+export type SettingsLayer = 'user' | 'workspace'
+
+interface UpdateAsset {
+  name: string
+  size: number
+  download_url: string
+  browser_download_url: string
+}
+
+export interface UpdateCheckResult {
+  channel_configured: boolean
+  current_version: string
+  latest_version: string
+  update_available: boolean
+  can_install: boolean
+  platform: string
+  release_url: string
+  published_at: string
+  release_notes?: string
+  asset?: UpdateAsset
+}
+
+export interface UpdateInstallResult {
+  previous_version: string
+  installed_version: string
+  status?: 'staged' | 'installed' | string
+  installed: boolean
+  staged?: boolean
+  apply_ready?: boolean
+  restart_required: boolean
+  backup_path?: string
+  staged_path?: string
+  apply_log_path?: string
+}
+
+export interface UpdateApplyResult {
+  status: 'restarting' | string
+  version: string
+  log_path?: string
+}
+
+export interface UpdateStatusResult {
+  current_version?: string
+  channel_configured?: boolean
+  staged?: boolean
+  apply_ready?: boolean
+  installed_version?: string
+  restarting?: boolean
+}
+
+export interface UpdateInstallProgress {
+  phase: 'checking' | 'downloading' | 'verifying' | 'extracting' | 'replacing' | 'staging' | 'staged' | 'installed' | string
+  asset_name?: string
+  archive_path?: string
+  downloaded_bytes?: number
+  total_bytes?: number
+  percent?: number
+}

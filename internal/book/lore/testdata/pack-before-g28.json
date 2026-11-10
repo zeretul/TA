@@ -1,0 +1,1694 @@
+{
+ "note": "Pre-G28 pack (ff799107f, content_version 6) reduced to the fields the lore index reads. The tag rewrite is measured against this fixed baseline so the comparison stays a real before/after even when run from a clean checkout or an exported tree without git.",
+ "baseline_commit": "ff799107f78664555577854ffc3ca02f11c9f99a",
+ "content_version": 6,
+ "world": [
+  {
+   "id": "fanren-world-geography",
+   "name": "越国与邻国势力分布",
+   "type": "setting",
+   "importance": "high",
+   "tags": [
+    "世界",
+    "地理",
+    "势力",
+    "行路"
+   ],
+   "keywords": [
+    "越国",
+    "元武国",
+    "紫金国",
+    "坊市",
+    "宗门",
+    "行路",
+    "境界",
+    "灵根"
+   ],
+   "load_mode": "resident",
+   "brief_description": "本界的国家、势力分布与常规行路尺度。"
+  },
+  {
+   "id": "identity-daily-conduct",
+   "name": "身份适配与日常往来",
+   "type": "setting",
+   "importance": "high",
+   "tags": [
+    "身份",
+    "日常",
+    "角色卡"
+   ],
+   "keywords": [
+    "角色卡",
+    "身份",
+    "灵根",
+    "悟性",
+    "日常",
+    "家人",
+    "交易",
+    "承诺"
+   ],
+   "load_mode": "resident",
+   "brief_description": "按最终角色卡适配身份，并自然处理日常往来与实际结算。"
+  },
+  {
+   "id": "world-life-organization",
+   "name": "宗门与家族往来",
+   "type": "setting",
+   "importance": "medium",
+   "tags": [
+    "组织往来",
+    "职责",
+    "师承",
+    "同门",
+    "家族"
+   ],
+   "keywords": [
+    "求教",
+    "同门协作",
+    "差事",
+    "职责安排",
+    "家族商议",
+    "族人选择",
+    "授权",
+    "传讯",
+    "送达"
+   ],
+   "load_mode": "auto",
+   "brief_description": "按真实身份、关系、岗位、权限、意愿和时间处理求教、协作与家族事务。"
+  },
+  {
+   "id": "world-life-cultivation-craft",
+   "name": "修仙技艺与制作",
+   "type": "setting",
+   "importance": "medium",
+   "tags": [
+    "技艺",
+    "学习",
+    "炼丹",
+    "炼器",
+    "制符",
+    "阵法",
+    "制作"
+   ],
+   "keywords": [
+    "炼丹",
+    "炼器",
+    "制符",
+    "阵法",
+    "配方",
+    "方法",
+    "材料",
+    "工具",
+    "工坊",
+    "修理",
+    "观摩",
+    "试法",
+    "制作"
+   ],
+   "load_mode": "auto",
+   "brief_description": "把学习、观摩与实际制作区分；成品和消耗须由已有方法及物品规则支持。"
+  },
+  {
+   "id": "world-life-beast-companionship",
+   "name": "灵兽相处与同行",
+   "type": "setting",
+   "importance": "medium",
+   "tags": [
+    "灵兽",
+    "妖兽",
+    "相处",
+    "照料",
+    "同行",
+    "动物"
+   ],
+   "keywords": [
+    "灵兽",
+    "妖兽",
+    "灵宠",
+    "观察",
+    "接近",
+    "照料",
+    "同行",
+    "跟随",
+    "分别",
+    "御兽"
+   ],
+   "load_mode": "auto",
+   "brief_description": "按真实物种、灵智、经历、身体与位置呈现观察、照料、合作和分别。"
+  },
+  {
+   "id": "world-life-time-and-consequences",
+   "name": "长时见闻与局势后果",
+   "type": "setting",
+   "importance": "medium",
+   "tags": [
+    "长时见闻",
+    "消息",
+    "传闻",
+    "承诺",
+    "局势",
+    "时间"
+   ],
+   "keywords": [
+    "经过时间",
+    "长时",
+    "消息",
+    "传闻",
+    "局势变化",
+    "旧承诺",
+    "回响",
+    "求证",
+    "传讯",
+    "等待"
+   ],
+   "load_mode": "auto",
+   "brief_description": "只呈现经过时间和已成立事项能够支持、且有明确知情来源的见闻与后果。"
+  },
+  {
+   "id": "fanren-char-canon_chen_qiaoqian",
+   "name": "陈巧倩",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "陈巧倩",
+    "家族出身弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "家族出身弟子（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_chen_qiaotian",
+   "name": "陈巧天",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "陈巧天",
+    "家族出身修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "家族出身修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_dong_xuaner",
+   "name": "董萱儿",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "董萱儿",
+    "受长辈照拂的弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "受长辈照拂的弟子（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_fairy_nichang",
+   "name": "霓裳仙子",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "霓裳仙子",
+    "资深结丹修士、正式对外代表之一"
+   ],
+   "load_mode": "auto",
+   "brief_description": "资深结丹修士、正式对外代表之一（越国，掩月宗一带）"
+  },
+  {
+   "id": "fanren-char-canon_feng_yue",
+   "name": "封岳",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "封岳",
+    "有历练经验的低阶弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有历练经验的低阶弟子（越国，天阙堡一带）"
+  },
+  {
+   "id": "fanren-char-canon_han_yunzhi",
+   "name": "菡云芝",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "御兽"
+   ],
+   "keywords": [
+    "菡云芝",
+    "早期御兽弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "早期御兽弟子（越国，灵兽山一带）"
+  },
+  {
+   "id": "fanren-char-canon_hong_fu",
+   "name": "红拂",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "红拂",
+    "结丹长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "结丹长老（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_lei_wanhe",
+   "name": "雷万鹤",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "雷万鹤",
+    "结丹长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "结丹长老（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_linghu",
+   "name": "令狐老祖",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "令狐老祖",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_liu_jing",
+   "name": "刘靖",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "刘靖",
+    "李化元门下修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "李化元门下修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_martial_ma",
+   "name": "马师伯",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "药材药园"
+   ],
+   "keywords": [
+    "马师伯",
+    "百药园管事修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "百药园管事修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_nie_ying",
+   "name": "聂盈",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "聂盈",
+    "本门年轻弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "本门年轻弟子（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_qi_yunxiao",
+   "name": "齐云霄",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "器物",
+    "阵法"
+   ],
+   "keywords": [
+    "齐云霄",
+    "阵器同道"
+   ],
+   "load_mode": "auto",
+   "brief_description": "阵器同道（元武国，元武国一带）"
+  },
+  {
+   "id": "fanren-char-canon_qiong",
+   "name": "穹老怪",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "穹老怪",
+    "资深结丹修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "资深结丹修士（越国，掩月宗一带）"
+  },
+  {
+   "id": "fanren-char-canon_song_meng",
+   "name": "宋蒙",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "宋蒙",
+    "李化元门下修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "李化元门下修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_wu_feng",
+   "name": "吴风",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "吴风",
+    "本门修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "本门修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_wu_xuan",
+   "name": "武炫",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "武炫",
+    "李化元门下修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "李化元门下修士（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-canon_xiao_zhen",
+   "name": "萧振",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "萧振",
+    "萧翠儿长辈、低阶散修"
+   ],
+   "load_mode": "auto",
+   "brief_description": "萧翠儿长辈、低阶散修（越国，越国一带）"
+  },
+  {
+   "id": "fanren-char-canon_xin_ruyin",
+   "name": "辛如音",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "阵法"
+   ],
+   "keywords": [
+    "辛如音",
+    "阵法同道"
+   ],
+   "load_mode": "auto",
+   "brief_description": "阵法同道（元武国，元武国一带）"
+  },
+  {
+   "id": "fanren-char-canon_yan_ancestor",
+   "name": "燕家老祖",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "燕家老祖",
+    "家族高阶决策者"
+   ],
+   "load_mode": "auto",
+   "brief_description": "家族高阶决策者（越国，燕家一带）"
+  },
+  {
+   "id": "fanren-char-canon_yan_ruyan",
+   "name": "燕如嫣",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "燕如嫣",
+    "受重视的家族晚辈"
+   ],
+   "load_mode": "auto",
+   "brief_description": "受重视的家族晚辈（越国，燕家一带）"
+  },
+  {
+   "id": "fanren-char-canon_zhong_weiniang",
+   "name": "钟卫娘",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "钟卫娘",
+    "李化元门下年轻弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "李化元门下年轻弟子（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-leader_du_hanzhang",
+   "name": "杜含章",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "杜含章",
+    "掩月宗掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掩月宗掌门（越国，掩月宗一带）"
+  },
+  {
+   "id": "fanren-char-leader_gu_zheng",
+   "name": "顾铮",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "剑术",
+    "势力正式事务"
+   ],
+   "keywords": [
+    "顾铮",
+    "巨剑门掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "巨剑门掌门（越国，巨剑门一带）"
+  },
+  {
+   "id": "fanren-char-leader_lu_shouheng",
+   "name": "陆守衡",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "陆守衡",
+    "天阙堡掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "天阙堡掌门（越国，天阙堡一带）"
+  },
+  {
+   "id": "fanren-char-leader_shen_lixing",
+   "name": "沈厉行",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "沈厉行",
+    "化刀坞掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "化刀坞掌门（越国，化刀坞一带）"
+  },
+  {
+   "id": "fanren-char-leader_wen_shouyi",
+   "name": "温守一",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "温守一",
+    "清虚门掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "清虚门掌门（越国，清虚门一带）"
+  },
+  {
+   "id": "fanren-char-leader_xu_chengyue",
+   "name": "许承岳",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "许承岳",
+    "灵兽山掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "灵兽山掌门（越国，灵兽山一带）"
+  },
+  {
+   "id": "fanren-char-leader_zhong_lingdao",
+   "name": "钟灵道",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "钟灵道",
+    "黄枫谷掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "黄枫谷掌门（越国，黄枫谷一带）"
+  },
+  {
+   "id": "fanren-char-npc_b_cj_tn_yaopu",
+   "name": "白术",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "凡俗生活",
+    "医药"
+   ],
+   "keywords": [
+    "白术",
+    "坐堂医师"
+   ],
+   "load_mode": "auto",
+   "brief_description": "坐堂医师（越国，越国坊市医馆）"
+  },
+  {
+   "id": "fanren-char-npc_b_fs_hf_zhanggui",
+   "name": "钱守信",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "丹药",
+    "坊市问询"
+   ],
+   "keywords": [
+    "钱守信",
+    "丹药铺掌柜"
+   ],
+   "load_mode": "auto",
+   "brief_description": "丹药铺掌柜（越国，越国坊市丹铺）"
+  },
+  {
+   "id": "fanren-char-npc_b_fs_tn_tanzhu",
+   "name": "王婆子",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "坊市问询",
+    "符箓"
+   ],
+   "keywords": [
+    "王婆子",
+    "符箓摊主"
+   ],
+   "load_mode": "auto",
+   "brief_description": "符箓摊主（越国，越国坊市符摊）"
+  },
+  {
+   "id": "fanren-char-npc_b_zm_hfg_shoumen",
+   "name": "卢守山",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "卢守山",
+    "守门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "守门弟子（越国，黄枫谷山门）"
+  },
+  {
+   "id": "fanren-char-npc_b_zm_lss_shoumen",
+   "name": "虎子",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "虎子",
+    "守山弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "守山弟子（越国，灵兽山山门）"
+  },
+  {
+   "id": "fanren-char-npc_b_zm_yy_shoumen",
+   "name": "冷霜",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "冷霜",
+    "山门执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "山门执事（越国，掩月宗山门）"
+  },
+  {
+   "id": "fanren-char-npc_chen_yanzhi",
+   "name": "陈砚之",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "陈砚之",
+    "外门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "外门弟子（越国，黄枫谷外门居所）"
+  },
+  {
+   "id": "fanren-char-npc_fan_jingmei",
+   "name": "范静梅",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "范静梅",
+    "商号礼聘的独立结丹修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "商号礼聘的独立结丹修士（元武国，坊市商号联络处）"
+  },
+  {
+   "id": "fanren-char-npc_fu_yunzi",
+   "name": "浮云子",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "浮云子",
+    "清虚门结丹修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "清虚门结丹修士（越国，清虚门及七派共同事务现场）"
+  },
+  {
+   "id": "fanren-char-npc_gu_xiaoman",
+   "name": "顾小满",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "游历见闻"
+   ],
+   "keywords": [
+    "顾小满",
+    "越国出身的游历散修"
+   ],
+   "load_mode": "auto",
+   "brief_description": "越国出身的游历散修（越国，西境散修聚落及往来坊市）"
+  },
+  {
+   "id": "fanren-char-npc_gui_wujiu",
+   "name": "鬼无咎",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "鬼无咎",
+    "有鬼灵门背景的外务修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有鬼灵门背景的外务修士（越国，越国边境外来商旅落脚处）"
+  },
+  {
+   "id": "fanren-char-npc_han_li",
+   "name": "韩立",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "韩立",
+    "新入谷弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "新入谷弟子（越国，黄枫谷新入门居所）"
+  },
+  {
+   "id": "fanren-char-npc_han_tianya",
+   "name": "寒天涯",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "寒天涯",
+    "手段危险的化刀坞弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "手段危险的化刀坞弟子（越国，化刀坞弟子活动区）"
+  },
+  {
+   "id": "fanren-char-npc_han_xuanji",
+   "name": "韩玄机",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "韩玄机",
+    "与黄枫谷有来往的结丹客卿"
+   ],
+   "load_mode": "auto",
+   "brief_description": "与黄枫谷有来往的结丹客卿（越国，越国太岳外围静居）"
+  },
+  {
+   "id": "fanren-char-npc_hou_xiaoqi",
+   "name": "侯小七",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "侯小七",
+    "杂役出身的外门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "杂役出身的外门弟子（越国，黄枫谷外门与附近坊市）"
+  },
+  {
+   "id": "fanren-char-npc_lei_zhenchuan",
+   "name": "雷震川",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "游历见闻"
+   ],
+   "keywords": [
+    "雷震川",
+    "有外出经验的师兄"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有外出经验的师兄（越国，黄枫谷外出队伍集结处）"
+  },
+  {
+   "id": "fanren-char-npc_li_huayuan",
+   "name": "李化元",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "李化元",
+    "结丹长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "结丹长老（越国，黄枫谷长老洞府及正式事务场合）"
+  },
+  {
+   "id": "fanren-char-npc_liu_yu",
+   "name": "柳玉",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "御兽"
+   ],
+   "keywords": [
+    "柳玉",
+    "御兽客卿"
+   ],
+   "load_mode": "auto",
+   "brief_description": "御兽客卿（越国，灵兽山客卿居处）"
+  },
+  {
+   "id": "fanren-char-npc_lss_lu_qinghe",
+   "name": "陆青禾",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "御兽",
+    "药材药园"
+   ],
+   "keywords": [
+    "陆青禾",
+    "药兽与传讯弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "药兽与传讯弟子（越国，灵兽山药兽照料处）"
+  },
+  {
+   "id": "fanren-char-npc_lss_luo_tianxiao",
+   "name": "罗天啸",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "御兽"
+   ],
+   "keywords": [
+    "罗天啸",
+    "驯兽堂长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "驯兽堂长老（越国，灵兽山驯兽堂）"
+  },
+  {
+   "id": "fanren-char-npc_lu_jingming",
+   "name": "陆景明",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "陆景明",
+    "火系内门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "火系内门弟子（越国，黄枫谷内门修行区）"
+  },
+  {
+   "id": "fanren-char-npc_miao_xixi",
+   "name": "苗细细",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "丹药",
+    "药材药园"
+   ],
+   "keywords": [
+    "苗细细",
+    "药材学徒弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "药材学徒弟子（越国，黄枫谷药材分拣处）"
+  },
+  {
+   "id": "fanren-char-npc_mo_caihuan",
+   "name": "墨彩环",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "凡俗生活"
+   ],
+   "keywords": [
+    "墨彩环",
+    "凡俗墨家女儿"
+   ],
+   "load_mode": "auto",
+   "brief_description": "凡俗墨家女儿（越国，嘉元城墨家旧居周边）"
+  },
+  {
+   "id": "fanren-char-npc_mu_peiling",
+   "name": "慕沛灵",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "药材药园"
+   ],
+   "keywords": [
+    "慕沛灵",
+    "药园管事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "药园管事（越国，黄枫谷药园）"
+  },
+  {
+   "id": "fanren-char-npc_nan_gongwan",
+   "name": "南宫婉",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "南宫婉",
+    "掩月宗结丹修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掩月宗结丹修士（越国，掩月宗修行驻处及跨派活动）"
+  },
+  {
+   "id": "fanren-char-npc_ning_fuling",
+   "name": "宁茯苓",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "医药"
+   ],
+   "keywords": [
+    "宁茯苓",
+    "独立医修"
+   ],
+   "load_mode": "auto",
+   "brief_description": "独立医修（越国，西境坊市医馆）"
+  },
+  {
+   "id": "fanren-char-npc_pei_shixiong",
+   "name": "裴世雄",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "裴世雄",
+    "有独立利益的外务修士"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有独立利益的外务修士（越国，黄枫谷外务队伍）"
+  },
+  {
+   "id": "fanren-char-npc_pei_yuanlang",
+   "name": "裴元朗",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "裴元朗",
+    "修仙家族出身弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "修仙家族出身弟子（越国，黄枫谷弟子居所）"
+  },
+  {
+   "id": "fanren-char-npc_qin_shouzheng",
+   "name": "秦守正",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "执法"
+   ],
+   "keywords": [
+    "秦守正",
+    "执法执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "执法执事（越国，黄枫谷执法办事处）"
+  },
+  {
+   "id": "fanren-char-npc_qingxia_zhenren",
+   "name": "青霞真人",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "丹药"
+   ],
+   "keywords": [
+    "青霞真人",
+    "丹房执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "丹房执事（越国，黄枫谷丹房）"
+  },
+  {
+   "id": "fanren-char-npc_shi_jian",
+   "name": "石坚",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "石坚",
+    "有异乡经历的外门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有异乡经历的外门弟子（越国，黄枫谷外门往来处）"
+  },
+  {
+   "id": "fanren-char-npc_shi_zhongjian",
+   "name": "石中坚",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "石中坚",
+    "苦修弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "苦修弟子（越国，黄枫谷外门修行区）"
+  },
+  {
+   "id": "fanren-char-npc_song_guanlan",
+   "name": "宋观澜",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "阵法"
+   ],
+   "keywords": [
+    "宋观澜",
+    "钻研阵法的弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "钻研阵法的弟子（越国，黄枫谷阵务学习处）"
+  },
+  {
+   "id": "fanren-char-npc_song_hanyi",
+   "name": "宋寒衣",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "剑术"
+   ],
+   "keywords": [
+    "宋寒衣",
+    "剑修弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "剑修弟子（越国，掩月宗弟子活动区）"
+  },
+  {
+   "id": "fanren-char-npc_song_yu",
+   "name": "宋玉",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "宋玉",
+    "受邀交流的结丹客卿"
+   ],
+   "load_mode": "auto",
+   "brief_description": "受邀交流的结丹客卿（越国，清虚门客居院）"
+  },
+  {
+   "id": "fanren-char-npc_su_qian",
+   "name": "苏浅",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "丹药"
+   ],
+   "keywords": [
+    "苏浅",
+    "丹修弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "丹修弟子（越国，黄枫谷丹房）"
+  },
+  {
+   "id": "fanren-char-npc_sun_shi",
+   "name": "孙氏",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "凡俗生活",
+    "药材药园"
+   ],
+   "keywords": [
+    "孙氏",
+    "药农与药材经手人"
+   ],
+   "load_mode": "auto",
+   "brief_description": "药农与药材经手人（越国，越国凡俗山镇药圃）"
+  },
+  {
+   "id": "fanren-char-npc_tianque_tili_zhanglao",
+   "name": "护堡执事",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "护堡执事",
+    "护堡执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "护堡执事（越国，天阙堡对外事务处）"
+  },
+  {
+   "id": "fanren-char-npc_wang_shishu",
+   "name": "王师叔",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "王师叔",
+    "筑基接引执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "筑基接引执事（越国，黄枫谷入门登记与接引处）"
+  },
+  {
+   "id": "fanren-char-npc_wen_wenyan",
+   "name": "温文彦",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "温文彦",
+    "善交际的外门弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "善交际的外门弟子（越国，黄枫谷外务接洽处）"
+  },
+  {
+   "id": "fanren-char-npc_wuming_jianke",
+   "name": "无名剑客",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "剑术"
+   ],
+   "keywords": [
+    "无名剑客",
+    "少言的剑修执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "少言的剑修执事（越国，巨剑门外务来往处）"
+  },
+  {
+   "id": "fanren-char-npc_xiao_cuier",
+   "name": "萧翠儿",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "萧翠儿",
+    "随长辈生活的散修晚辈"
+   ],
+   "load_mode": "auto",
+   "brief_description": "随长辈生活的散修晚辈（越国，越京外围散修居处）"
+  },
+  {
+   "id": "fanren-char-npc_xie_qingdai",
+   "name": "谢青黛",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "御兽"
+   ],
+   "keywords": [
+    "谢青黛",
+    "御兽弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "御兽弟子（越国，灵兽山弟子活动区）"
+  },
+  {
+   "id": "fanren-char-npc_xue_ya",
+   "name": "血鸦",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "血鸦",
+    "来历复杂的外来经纪"
+   ],
+   "load_mode": "auto",
+   "brief_description": "来历复杂的外来经纪（越国，越国与外地往来的坊市）"
+  },
+  {
+   "id": "fanren-char-npc_yin_nishang",
+   "name": "殷霓裳",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "殷霓裳",
+    "有合欢宗背景的游历女修"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有合欢宗背景的游历女修（元武国，坊市外静居）"
+  },
+  {
+   "id": "fanren-char-npc_yinxi",
+   "name": "银汐",
+   "type": "character",
+   "importance": "high",
+   "tags": [
+    "音律"
+   ],
+   "keywords": [
+    "银汐",
+    "琴修"
+   ],
+   "load_mode": "auto",
+   "brief_description": "琴修（越国，掩月宗外围静居）"
+  },
+  {
+   "id": "fanren-char-npc_yy_gu_wanqing",
+   "name": "顾婉晴",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "执法"
+   ],
+   "keywords": [
+    "顾婉晴",
+    "执法副执事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "执法副执事（越国，掩月宗执法事务处）"
+  },
+  {
+   "id": "fanren-char-npc_yy_shen_ningxue",
+   "name": "沈凝雪",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "药材药园"
+   ],
+   "keywords": [
+    "沈凝雪",
+    "药园管事弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "药园管事弟子（越国，掩月宗药园）"
+  },
+  {
+   "id": "fanren-char-npc_zhang_laotou",
+   "name": "张老头",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "张老头",
+    "旧伤后转做接引的老弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "旧伤后转做接引的老弟子（越国，黄枫谷山门轮值处）"
+  },
+  {
+   "id": "fanren-char-npc_zhao_chengan",
+   "name": "赵承安",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "人物交往"
+   ],
+   "keywords": [
+    "赵承安",
+    "外门管事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "外门管事（越国，黄枫谷外门事务处）"
+  },
+  {
+   "id": "fanren-char-npc_zhao_ling",
+   "name": "赵灵",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "弟子日常"
+   ],
+   "keywords": [
+    "赵灵",
+    "散修之女与初学者"
+   ],
+   "load_mode": "auto",
+   "brief_description": "散修之女与初学者（越国，越国坊市外围散修家庭）"
+  },
+  {
+   "id": "fanren-char-npc_zhong_wu",
+   "name": "钟吾",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "御兽"
+   ],
+   "keywords": [
+    "钟吾",
+    "有经验的御兽弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "有经验的御兽弟子（越国，灵兽山弟子活动区）"
+  },
+  {
+   "id": "fanren-char-parallel_chen_dingyue",
+   "name": "陈定岳",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "陈定岳",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，天阙堡一带）"
+  },
+  {
+   "id": "fanren-char-parallel_cheng_xingheng",
+   "name": "程星衡",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "程星衡",
+    "掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掌门（元武国，天星宗山门）"
+  },
+  {
+   "id": "fanren-char-parallel_gu_beiheng",
+   "name": "顾北衡",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "剑术",
+    "势力正式事务"
+   ],
+   "keywords": [
+    "顾北衡",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，巨剑门一带）"
+  },
+  {
+   "id": "fanren-char-parallel_jiang_yunxiu",
+   "name": "姜云岫",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "姜云岫",
+    "资深长老、地方习称老祖"
+   ],
+   "load_mode": "auto",
+   "brief_description": "资深长老、地方习称老祖（紫金国，云岫门静修处）"
+  },
+  {
+   "id": "fanren-char-parallel_jingheng",
+   "name": "静衡道人",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "静衡道人",
+    "掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掌门（元武国，万妙观山门）"
+  },
+  {
+   "id": "fanren-char-parallel_lu_huaizhang",
+   "name": "陆怀章",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "陆怀章",
+    "族长与对外主事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "族长与对外主事（紫金国，地方陆氏居处）"
+  },
+  {
+   "id": "fanren-char-parallel_lu_songnian",
+   "name": "陆松年",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "家族来往"
+   ],
+   "keywords": [
+    "陆松年",
+    "资深族老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "资深族老（紫金国，地方陆氏居处）"
+  },
+  {
+   "id": "fanren-char-parallel_may_yingqiu",
+   "name": "梅映秋",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "梅映秋",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，掩月宗一带）"
+  },
+  {
+   "id": "fanren-char-parallel_shen_huaizhen",
+   "name": "沈怀真",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "沈怀真",
+    "掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掌门（紫金国，云岫门山门）"
+  },
+  {
+   "id": "fanren-char-parallel_shen_tianshu",
+   "name": "沈天枢",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "沈天枢",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（元武国，天星宗静修处）"
+  },
+  {
+   "id": "fanren-char-parallel_shen_xuanzhao",
+   "name": "沈玄照",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "沈玄照",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，化刀坞一带）"
+  },
+  {
+   "id": "fanren-char-parallel_shen_zhaowei",
+   "name": "沈照微",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "接引"
+   ],
+   "keywords": [
+    "沈照微",
+    "外务弟子"
+   ],
+   "load_mode": "auto",
+   "brief_description": "外务弟子（紫金国，云岫门外务往来处）"
+  },
+  {
+   "id": "fanren-char-parallel_tao_lingjun",
+   "name": "陶灵均",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "陶灵均",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，灵兽山一带）"
+  },
+  {
+   "id": "fanren-char-parallel_tao_zhiyuan",
+   "name": "陶知远",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "坊市问询"
+   ],
+   "keywords": [
+    "陶知远",
+    "坊市主事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "坊市主事（元武国，天星宗坊市）"
+  },
+  {
+   "id": "fanren-char-parallel_wen_bailian",
+   "name": "闻百炼",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务",
+    "器物"
+   ],
+   "keywords": [
+    "闻百炼",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（元武国，神兵门静修处）"
+  },
+  {
+   "id": "fanren-char-parallel_xu_xingzhou",
+   "name": "许行舟",
+   "type": "character",
+   "importance": "low",
+   "tags": [
+    "游历见闻"
+   ],
+   "keywords": [
+    "许行舟",
+    "行商与向导"
+   ],
+   "load_mode": "auto",
+   "brief_description": "行商与向导（紫金国，南河坊市）"
+  },
+  {
+   "id": "fanren-char-parallel_xuanjing",
+   "name": "玄静子",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "玄静子",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（越国，清虚门一带）"
+  },
+  {
+   "id": "fanren-char-parallel_xuanzhao",
+   "name": "玄照子",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务"
+   ],
+   "keywords": [
+    "玄照子",
+    "太上长老"
+   ],
+   "load_mode": "auto",
+   "brief_description": "太上长老（元武国，万妙观静修处）"
+  },
+  {
+   "id": "fanren-char-parallel_yue_zhuchuan",
+   "name": "岳铸川",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "势力正式事务",
+    "器物"
+   ],
+   "keywords": [
+    "岳铸川",
+    "掌门"
+   ],
+   "load_mode": "auto",
+   "brief_description": "掌门（元武国，神兵门山门）"
+  },
+  {
+   "id": "fanren-char-parallel_zhou_shouan",
+   "name": "周守安",
+   "type": "character",
+   "importance": "medium",
+   "tags": [
+    "坊市问询"
+   ],
+   "keywords": [
+    "周守安",
+    "坊市主事"
+   ],
+   "load_mode": "auto",
+   "brief_description": "坊市主事（紫金国，南河坊市）"
+  }
+ ]
+}

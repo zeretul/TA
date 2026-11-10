@@ -1,0 +1,4532 @@
+{
+  "version": 6,
+  "id": "xiuxian-state",
+  "name": "修仙状态系统",
+  "description": "面向境界、灵根与特殊体质、功法法宝、宗门关系和天地异变；境界与六属性按《自制-修仙数值规则》V0.3 由规则结算，不由叙述改写。",
+  "actor_state": {
+    "cultivation_rules": {
+      "skill_templates": [
+        {
+          "Definition": {
+            "quality_grade": "white",
+            "id": "fire_bolt",
+            "version": 1,
+            "name_key": "skill.fire_bolt.name",
+            "power": 1.2,
+            "mana_fraction": 0.05,
+            "burden": 6,
+            "targets": 1,
+            "execution_actions": 1,
+            "element": "fire",
+            "variant_base": "burn"
+          },
+          "Quality": "ordinary",
+          "Rarity": "common"
+        },
+        {
+          "Definition": {
+            "quality_grade": "blue",
+            "id": "condensed_blade",
+            "version": 1,
+            "name_key": "skill.condensed_blade.name",
+            "power": 1.6,
+            "mana_fraction": 0.12,
+            "burden": 22,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "good",
+          "Rarity": "uncommon"
+        },
+        {
+          "Definition": {
+            "quality_grade": "purple",
+            "id": "heavy_thunder",
+            "version": 1,
+            "name_key": "skill.heavy_thunder.name",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1,
+            "element": "thunder",
+            "variant_base": "slow"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "quality_grade": "blue",
+            "id": "flame_wave",
+            "version": 1,
+            "name_key": "skill.flame_wave.name",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "good",
+          "Rarity": "uncommon"
+        },
+        {
+          "Definition": {
+            "quality_grade": "green",
+            "id": "shield",
+            "version": 1,
+            "name_key": "skill.shield.name",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "ordinary",
+          "Rarity": "common"
+        },
+        {
+          "Definition": {
+            "quality_grade": "purple",
+            "id": "meridian_secret_blade",
+            "version": 1,
+            "name_key": "skill.meridian_secret_blade.name",
+            "power": 3.2,
+            "mana_fraction": 0.4,
+            "burden": 85,
+            "targets": 1,
+            "hit_offset": -0.05,
+            "execution_actions": 2,
+            "ignore_defense": 0.2,
+            "requires_focus": true,
+            "residual_burden_floor": 60,
+            "leaves_residual": true,
+            "safe_recovery_minutes": 30,
+            "recovery_min_health": 0.6,
+            "recovery_min_mana": 0.2
+          },
+          "Quality": "advanced",
+          "Rarity": "precious"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "foundation_early",
+            "quality_grade": "blue",
+            "id": "foundation_pierce",
+            "version": 1,
+            "name_key": "skill.foundation_pierce.name",
+            "name": "凝元贯锋",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "foundation_early",
+            "quality_grade": "blue",
+            "id": "foundation_wave",
+            "version": 1,
+            "name_key": "skill.foundation_wave.name",
+            "name": "三才灵焰",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "foundation_early",
+            "quality_grade": "blue",
+            "id": "foundation_ward",
+            "version": 1,
+            "name_key": "skill.foundation_ward.name",
+            "name": "青罡护身",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "core_early",
+            "quality_grade": "blue",
+            "id": "core_pierce",
+            "version": 1,
+            "name_key": "skill.core_pierce.name",
+            "name": "丹火贯锋",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "core_early",
+            "quality_grade": "blue",
+            "id": "core_wave",
+            "version": 1,
+            "name_key": "skill.core_wave.name",
+            "name": "离火散华",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "core_early",
+            "quality_grade": "blue",
+            "id": "core_ward",
+            "version": 1,
+            "name_key": "skill.core_ward.name",
+            "name": "金丹护元",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "nascent_early",
+            "quality_grade": "purple",
+            "id": "nascent_pierce",
+            "version": 1,
+            "name_key": "skill.nascent_pierce.name",
+            "name": "婴元雷击",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "nascent_early",
+            "quality_grade": "purple",
+            "id": "nascent_wave",
+            "version": 1,
+            "name_key": "skill.nascent_wave.name",
+            "name": "紫焰分流",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "nascent_early",
+            "quality_grade": "purple",
+            "id": "nascent_ward",
+            "version": 1,
+            "name_key": "skill.nascent_ward.name",
+            "name": "婴光护体",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "spirit_early",
+            "quality_grade": "purple",
+            "id": "spirit_pierce",
+            "version": 1,
+            "name_key": "skill.spirit_pierce.name",
+            "name": "凝神雷击",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "spirit_early",
+            "quality_grade": "purple",
+            "id": "spirit_wave",
+            "version": 1,
+            "name_key": "skill.spirit_wave.name",
+            "name": "五焰散华",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "applicable_stage": "spirit_early",
+            "quality_grade": "purple",
+            "id": "spirit_ward",
+            "version": 1,
+            "name_key": "skill.spirit_ward.name",
+            "name": "神元灵罩",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.void",
+            "applicable_stage": "void_early",
+            "quality_grade": "orange",
+            "id": "void_pierce",
+            "version": 1,
+            "name_key": "skill.void_pierce.name",
+            "name": "五行贯锋",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.void",
+            "applicable_stage": "void_early",
+            "quality_grade": "orange",
+            "id": "void_wave",
+            "version": 1,
+            "name_key": "skill.void_wave.name",
+            "name": "五色焰潮",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.void",
+            "applicable_stage": "void_early",
+            "quality_grade": "orange",
+            "id": "void_ward",
+            "version": 1,
+            "name_key": "skill.void_ward.name",
+            "name": "炼虚灵罩",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.integration",
+            "applicable_stage": "integration_early",
+            "quality_grade": "orange",
+            "id": "integration_pierce",
+            "version": 1,
+            "name_key": "skill.integration_pierce.name",
+            "name": "合元雷击",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.integration",
+            "applicable_stage": "integration_early",
+            "quality_grade": "orange",
+            "id": "integration_wave",
+            "version": 1,
+            "name_key": "skill.integration_wave.name",
+            "name": "合元炎浪",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.integration",
+            "applicable_stage": "integration_early",
+            "quality_grade": "orange",
+            "id": "integration_ward",
+            "version": 1,
+            "name_key": "skill.integration_ward.name",
+            "name": "合元护体",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.mahayana",
+            "applicable_stage": "mahayana_early",
+            "quality_grade": "red",
+            "id": "mahayana_pierce",
+            "version": 1,
+            "name_key": "skill.mahayana_pierce.name",
+            "name": "玄元贯锋",
+            "power": 1.85,
+            "mana_fraction": 0.22,
+            "burden": 42,
+            "targets": 1,
+            "execution_actions": 1
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.mahayana",
+            "applicable_stage": "mahayana_early",
+            "quality_grade": "red",
+            "id": "mahayana_wave",
+            "version": 1,
+            "name_key": "skill.mahayana_wave.name",
+            "name": "玄焰散华",
+            "power": 0.75,
+            "mana_fraction": 0.22,
+            "burden": 30,
+            "targets": 3,
+            "execution_actions": 1,
+            "element": "fire"
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        },
+        {
+          "Definition": {
+            "required_manual_id": "manual.spirit.mahayana",
+            "applicable_stage": "mahayana_early",
+            "quality_grade": "red",
+            "id": "mahayana_ward",
+            "version": 1,
+            "name_key": "skill.mahayana_ward.name",
+            "name": "玄元灵罩",
+            "mana_fraction": 0.1,
+            "burden": 18,
+            "targets": 1,
+            "execution_actions": 1,
+            "shield_base_health_fraction": 0.2,
+            "duration_exchanges": 2
+          },
+          "Quality": "advanced",
+          "Rarity": "rare"
+        }
+      ],
+      "economy": {
+        "candidate": {
+          "schema_version": 1,
+          "id": "denova.first_version.xiuxian_market",
+          "design_version": "自制-灵石经济与简单交易 V0.1",
+          "status": "candidate_not_installed",
+          "source": "internal/cultivation first-version item catalogue",
+          "currency_id": "low_grade_spirit_stone",
+          "amount_limit": 1000000000000,
+          "quantity_limit": 1000000000,
+          "wealth_benchmark": 100,
+          "market_factor_permille": {
+            "min": 800,
+            "max": 1200
+          },
+          "buyback_factor_permille": {
+            "min": 500,
+            "max": 700
+          },
+          "maturity_factor_permille": {
+            "min": 500,
+            "max": 2000
+          },
+          "condition_factor_permille": {
+            "min": 0,
+            "max": 1000
+          },
+          "price_bands": null,
+          "wealth_reference_bands": [
+            {
+              "id": "shop.small",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 300,
+              "max": 2000
+            },
+            {
+              "id": "family.minor",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 2000,
+              "max": 10000
+            },
+            {
+              "id": "clan.local",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 20000,
+              "max": 100000
+            },
+            {
+              "id": "sect.seven",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 200000,
+              "max": 800000
+            }
+          ],
+          "reward_reference_bands": [
+            {
+              "id": "service.ordinary",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 1,
+              "max": 5
+            },
+            {
+              "id": "material.ordinary",
+              "currency_id": "low_grade_spirit_stone",
+              "unit_id": "piece",
+              "min": 3,
+              "max": 15
+            }
+          ]
+        },
+        "currency_label": "下品灵石",
+        "unit_id": "piece",
+        "market_permille": 1000,
+        "merchant_cash": 600,
+        "merchant_buyback_permille": 600
+      },
+      "recovery_seconds": {
+        "health_rest": 1728000,
+        "safe_meditation": 36000
+      },
+      "stages": {
+        "core_early": {
+          "base": {
+            "health_max": 5000,
+            "health": 5000,
+            "mana_max": 4000,
+            "mana": 4000,
+            "attack": 1000,
+            "defense": 500,
+            "agility": 500,
+            "perception": 500
+          },
+          "progress_required": 100000,
+          "monthly_progress": 500,
+          "next": "core_middle",
+          "lifespan": {
+            "Years": 500,
+            "NoFixedLimit": false
+          }
+        },
+        "core_late": {
+          "base": {
+            "health_max": 9500,
+            "health": 9500,
+            "mana_max": 7600,
+            "mana": 7600,
+            "attack": 1900,
+            "defense": 950,
+            "agility": 950,
+            "perception": 950
+          },
+          "progress_required": 400000,
+          "monthly_progress": 950,
+          "lifespan": {
+            "Years": 500,
+            "NoFixedLimit": false
+          }
+        },
+        "core_middle": {
+          "base": {
+            "health_max": 7000,
+            "health": 7000,
+            "mana_max": 5600,
+            "mana": 5600,
+            "attack": 1400,
+            "defense": 700,
+            "agility": 700,
+            "perception": 700
+          },
+          "progress_required": 200000,
+          "monthly_progress": 700,
+          "next": "core_late",
+          "lifespan": {
+            "Years": 500,
+            "NoFixedLimit": false
+          }
+        },
+        "foundation_early": {
+          "base": {
+            "health_max": 1000,
+            "health": 1000,
+            "mana_max": 800,
+            "mana": 800,
+            "attack": 200,
+            "defense": 100,
+            "agility": 100,
+            "perception": 100
+          },
+          "progress_required": 10000,
+          "monthly_progress": 100,
+          "next": "foundation_middle",
+          "lifespan": {
+            "Years": 200,
+            "NoFixedLimit": false
+          }
+        },
+        "foundation_late": {
+          "base": {
+            "health_max": 1900,
+            "health": 1900,
+            "mana_max": 1520,
+            "mana": 1520,
+            "attack": 380,
+            "defense": 190,
+            "agility": 190,
+            "perception": 190
+          },
+          "progress_required": 40000,
+          "monthly_progress": 190,
+          "lifespan": {
+            "Years": 200,
+            "NoFixedLimit": false
+          }
+        },
+        "foundation_middle": {
+          "base": {
+            "health_max": 1400,
+            "health": 1400,
+            "mana_max": 1120,
+            "mana": 1120,
+            "attack": 280,
+            "defense": 140,
+            "agility": 140,
+            "perception": 140
+          },
+          "progress_required": 20000,
+          "monthly_progress": 140,
+          "next": "foundation_late",
+          "lifespan": {
+            "Years": 200,
+            "NoFixedLimit": false
+          }
+        },
+        "integration_early": {
+          "base": {
+            "health_max": 3125000,
+            "health": 3125000,
+            "mana_max": 2500000,
+            "mana": 2500000,
+            "attack": 625000,
+            "defense": 312500,
+            "agility": 312500,
+            "perception": 312500
+          },
+          "progress_required": 1000000000,
+          "monthly_progress": 312500,
+          "next": "integration_middle",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "integration_late": {
+          "base": {
+            "health_max": 5937500,
+            "health": 5937500,
+            "mana_max": 4750000,
+            "mana": 4750000,
+            "attack": 1187500,
+            "defense": 593750,
+            "agility": 593750,
+            "perception": 593750
+          },
+          "progress_required": 4000000000,
+          "monthly_progress": 593750,
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "integration_middle": {
+          "base": {
+            "health_max": 4375000,
+            "health": 4375000,
+            "mana_max": 3500000,
+            "mana": 3500000,
+            "attack": 875000,
+            "defense": 437500,
+            "agility": 437500,
+            "perception": 437500
+          },
+          "progress_required": 2000000000,
+          "monthly_progress": 437500,
+          "next": "integration_late",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "mahayana_early": {
+          "base": {
+            "health_max": 15625000,
+            "health": 15625000,
+            "mana_max": 12500000,
+            "mana": 12500000,
+            "attack": 3125000,
+            "defense": 1562500,
+            "agility": 1562500,
+            "perception": 1562500
+          },
+          "progress_required": 10000000000,
+          "monthly_progress": 1562500,
+          "next": "mahayana_middle",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "mahayana_late": {
+          "base": {
+            "health_max": 29687500,
+            "health": 29687500,
+            "mana_max": 23750000,
+            "mana": 23750000,
+            "attack": 5937500,
+            "defense": 2968750,
+            "agility": 2968750,
+            "perception": 2968750
+          },
+          "progress_required": 40000000000,
+          "monthly_progress": 2968750,
+          "terminal": true,
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "mahayana_middle": {
+          "base": {
+            "health_max": 21875000,
+            "health": 21875000,
+            "mana_max": 17500000,
+            "mana": 17500000,
+            "attack": 4375000,
+            "defense": 2187500,
+            "agility": 2187500,
+            "perception": 2187500
+          },
+          "progress_required": 20000000000,
+          "monthly_progress": 2187500,
+          "next": "mahayana_late",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "mortal": {
+          "base": {
+            "health_max": 80,
+            "health": 80,
+            "mana_max": 0,
+            "mana": 0,
+            "attack": 10,
+            "defense": 5,
+            "agility": 8,
+            "perception": 0
+          },
+          "progress_required": 0,
+          "monthly_progress": 0,
+          "lifespan": {
+            "Years": 100,
+            "NoFixedLimit": false
+          }
+        },
+        "nascent_early": {
+          "base": {
+            "health_max": 25000,
+            "health": 25000,
+            "mana_max": 20000,
+            "mana": 20000,
+            "attack": 5000,
+            "defense": 2500,
+            "agility": 2500,
+            "perception": 2500
+          },
+          "progress_required": 1000000,
+          "monthly_progress": 2500,
+          "next": "nascent_middle",
+          "lifespan": {
+            "Years": 1000,
+            "NoFixedLimit": false
+          }
+        },
+        "nascent_late": {
+          "base": {
+            "health_max": 47500,
+            "health": 47500,
+            "mana_max": 38000,
+            "mana": 38000,
+            "attack": 9500,
+            "defense": 4750,
+            "agility": 4750,
+            "perception": 4750
+          },
+          "progress_required": 4000000,
+          "monthly_progress": 4750,
+          "lifespan": {
+            "Years": 1000,
+            "NoFixedLimit": false
+          }
+        },
+        "nascent_middle": {
+          "base": {
+            "health_max": 35000,
+            "health": 35000,
+            "mana_max": 28000,
+            "mana": 28000,
+            "attack": 7000,
+            "defense": 3500,
+            "agility": 3500,
+            "perception": 3500
+          },
+          "progress_required": 2000000,
+          "monthly_progress": 3500,
+          "next": "nascent_late",
+          "lifespan": {
+            "Years": 1000,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_1": {
+          "base": {
+            "health_max": 100,
+            "health": 100,
+            "mana_max": 80,
+            "mana": 80,
+            "attack": 20,
+            "defense": 10,
+            "agility": 10,
+            "perception": 10
+          },
+          "progress_required": 100,
+          "monthly_progress": 20,
+          "next": "qi_2",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_10": {
+          "base": {
+            "health_max": 280,
+            "health": 280,
+            "mana_max": 224,
+            "mana": 224,
+            "attack": 56,
+            "defense": 28,
+            "agility": 28,
+            "perception": 28
+          },
+          "progress_required": 10000,
+          "monthly_progress": 200,
+          "next": "qi_11",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_11": {
+          "base": {
+            "health_max": 300,
+            "health": 300,
+            "mana_max": 240,
+            "mana": 240,
+            "attack": 60,
+            "defense": 30,
+            "agility": 30,
+            "perception": 30
+          },
+          "progress_required": 12100,
+          "monthly_progress": 220,
+          "next": "qi_12",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_12": {
+          "base": {
+            "health_max": 320,
+            "health": 320,
+            "mana_max": 256,
+            "mana": 256,
+            "attack": 64,
+            "defense": 32,
+            "agility": 32,
+            "perception": 32
+          },
+          "progress_required": 14400,
+          "monthly_progress": 240,
+          "next": "qi_13",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_13": {
+          "base": {
+            "health_max": 340,
+            "health": 340,
+            "mana_max": 272,
+            "mana": 272,
+            "attack": 68,
+            "defense": 34,
+            "agility": 34,
+            "perception": 34
+          },
+          "progress_required": 16900,
+          "monthly_progress": 260,
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_2": {
+          "base": {
+            "health_max": 120,
+            "health": 120,
+            "mana_max": 96,
+            "mana": 96,
+            "attack": 24,
+            "defense": 12,
+            "agility": 12,
+            "perception": 12
+          },
+          "progress_required": 400,
+          "monthly_progress": 40,
+          "next": "qi_3",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_3": {
+          "base": {
+            "health_max": 140,
+            "health": 140,
+            "mana_max": 112,
+            "mana": 112,
+            "attack": 28,
+            "defense": 14,
+            "agility": 14,
+            "perception": 14
+          },
+          "progress_required": 900,
+          "monthly_progress": 60,
+          "next": "qi_4",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_4": {
+          "base": {
+            "health_max": 160,
+            "health": 160,
+            "mana_max": 128,
+            "mana": 128,
+            "attack": 32,
+            "defense": 16,
+            "agility": 16,
+            "perception": 16
+          },
+          "progress_required": 1600,
+          "monthly_progress": 80,
+          "next": "qi_5",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_5": {
+          "base": {
+            "health_max": 180,
+            "health": 180,
+            "mana_max": 144,
+            "mana": 144,
+            "attack": 36,
+            "defense": 18,
+            "agility": 18,
+            "perception": 18
+          },
+          "progress_required": 2500,
+          "monthly_progress": 100,
+          "next": "qi_6",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_6": {
+          "base": {
+            "health_max": 200,
+            "health": 200,
+            "mana_max": 160,
+            "mana": 160,
+            "attack": 40,
+            "defense": 20,
+            "agility": 20,
+            "perception": 20
+          },
+          "progress_required": 3600,
+          "monthly_progress": 120,
+          "next": "qi_7",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_7": {
+          "base": {
+            "health_max": 220,
+            "health": 220,
+            "mana_max": 176,
+            "mana": 176,
+            "attack": 44,
+            "defense": 22,
+            "agility": 22,
+            "perception": 22
+          },
+          "progress_required": 4900,
+          "monthly_progress": 140,
+          "next": "qi_8",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_8": {
+          "base": {
+            "health_max": 240,
+            "health": 240,
+            "mana_max": 192,
+            "mana": 192,
+            "attack": 48,
+            "defense": 24,
+            "agility": 24,
+            "perception": 24
+          },
+          "progress_required": 6400,
+          "monthly_progress": 160,
+          "next": "qi_9",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "qi_9": {
+          "base": {
+            "health_max": 260,
+            "health": 260,
+            "mana_max": 208,
+            "mana": 208,
+            "attack": 52,
+            "defense": 26,
+            "agility": 26,
+            "perception": 26
+          },
+          "progress_required": 8100,
+          "monthly_progress": 180,
+          "next": "qi_10",
+          "lifespan": {
+            "Years": 120,
+            "NoFixedLimit": false
+          }
+        },
+        "spirit_early": {
+          "base": {
+            "health_max": 125000,
+            "health": 125000,
+            "mana_max": 100000,
+            "mana": 100000,
+            "attack": 25000,
+            "defense": 12500,
+            "agility": 12500,
+            "perception": 12500
+          },
+          "progress_required": 10000000,
+          "monthly_progress": 12500,
+          "next": "spirit_middle",
+          "lifespan": {
+            "Years": 2000,
+            "NoFixedLimit": false
+          }
+        },
+        "spirit_late": {
+          "base": {
+            "health_max": 237500,
+            "health": 237500,
+            "mana_max": 190000,
+            "mana": 190000,
+            "attack": 47500,
+            "defense": 23750,
+            "agility": 23750,
+            "perception": 23750
+          },
+          "progress_required": 40000000,
+          "monthly_progress": 23750,
+          "lifespan": {
+            "Years": 2000,
+            "NoFixedLimit": false
+          }
+        },
+        "spirit_middle": {
+          "base": {
+            "health_max": 175000,
+            "health": 175000,
+            "mana_max": 140000,
+            "mana": 140000,
+            "attack": 35000,
+            "defense": 17500,
+            "agility": 17500,
+            "perception": 17500
+          },
+          "progress_required": 20000000,
+          "monthly_progress": 17500,
+          "next": "spirit_late",
+          "lifespan": {
+            "Years": 2000,
+            "NoFixedLimit": false
+          }
+        },
+        "void_early": {
+          "base": {
+            "health_max": 625000,
+            "health": 625000,
+            "mana_max": 500000,
+            "mana": 500000,
+            "attack": 125000,
+            "defense": 62500,
+            "agility": 62500,
+            "perception": 62500
+          },
+          "progress_required": 100000000,
+          "monthly_progress": 62500,
+          "next": "void_middle",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "void_late": {
+          "base": {
+            "health_max": 1187500,
+            "health": 1187500,
+            "mana_max": 950000,
+            "mana": 950000,
+            "attack": 237500,
+            "defense": 118750,
+            "agility": 118750,
+            "perception": 118750
+          },
+          "progress_required": 400000000,
+          "monthly_progress": 118750,
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        },
+        "void_middle": {
+          "base": {
+            "health_max": 875000,
+            "health": 875000,
+            "mana_max": 700000,
+            "mana": 700000,
+            "attack": 175000,
+            "defense": 87500,
+            "agility": 87500,
+            "perception": 87500
+          },
+          "progress_required": 200000000,
+          "monthly_progress": 87500,
+          "next": "void_late",
+          "lifespan": {
+            "Years": 0,
+            "NoFixedLimit": true
+          }
+        }
+      },
+      "stage_order": [
+        "mortal",
+        "qi_1",
+        "qi_2",
+        "qi_3",
+        "qi_4",
+        "qi_5",
+        "qi_6",
+        "qi_7",
+        "qi_8",
+        "qi_9",
+        "qi_10",
+        "qi_11",
+        "qi_12",
+        "qi_13",
+        "foundation_early",
+        "foundation_middle",
+        "foundation_late",
+        "core_early",
+        "core_middle",
+        "core_late",
+        "nascent_early",
+        "nascent_middle",
+        "nascent_late",
+        "spirit_early",
+        "spirit_middle",
+        "spirit_late",
+        "void_early",
+        "void_middle",
+        "void_late",
+        "integration_early",
+        "integration_middle",
+        "integration_late",
+        "mahayana_early",
+        "mahayana_middle",
+        "mahayana_late"
+      ],
+      "training": {
+        "days_per_month": 30,
+        "talent": {
+          "excellent": 1.6,
+          "exceptional": 2,
+          "good": 1.3,
+          "normal": 1,
+          "poor": 0.5
+        },
+        "quality": {
+          "advanced": 1.3,
+          "good": 1.15,
+          "ordinary": 1
+        },
+        "environment": {
+          "ordinary": 1,
+          "poor": 0.7,
+          "stable_spiritual_site": 1.25
+        },
+        "resource": {
+          "none": 1,
+          "normal_support": 1.2,
+          "strong_support": 1.4
+        },
+        "health": [
+          {
+            "minimum": 0.9,
+            "scale": 1
+          },
+          {
+            "minimum": 0.6,
+            "scale": 0.8
+          },
+          {
+            "minimum": 0.3,
+            "scale": 0.4
+          }
+        ],
+        "minimum_scale": 0.2,
+        "maximum_scale": 4
+      },
+      "breakthrough": {
+        "targets": {
+          "core": {
+            "from": "foundation_late",
+            "to": "core_early",
+            "base_chance": 0.2,
+            "medicine_bonus": 0.2,
+            "days": 30,
+            "failure_recovery_days": 30
+          },
+          "foundation": {
+            "from": "qi_13",
+            "to": "foundation_early",
+            "base_chance": 0.3,
+            "medicine_bonus": 0.25,
+            "days": 7,
+            "failure_recovery_days": 7
+          },
+          "integration": {
+            "from": "void_late",
+            "to": "integration_early",
+            "base_chance": 0.05,
+            "medicine_bonus": 0.1,
+            "days": 720,
+            "failure_recovery_days": 720
+          },
+          "mahayana": {
+            "from": "integration_late",
+            "to": "mahayana_early",
+            "base_chance": 0.05,
+            "medicine_bonus": 0.08,
+            "days": 1080,
+            "failure_recovery_days": 1080
+          },
+          "nascent": {
+            "from": "core_late",
+            "to": "nascent_early",
+            "base_chance": 0.12,
+            "medicine_bonus": 0.2,
+            "days": 90,
+            "failure_recovery_days": 90
+          },
+          "spirit": {
+            "from": "nascent_late",
+            "to": "spirit_early",
+            "base_chance": 0.08,
+            "medicine_bonus": 0.15,
+            "days": 180,
+            "failure_recovery_days": 180
+          },
+          "void": {
+            "from": "spirit_late",
+            "to": "void_early",
+            "base_chance": 0.06,
+            "medicine_bonus": 0.12,
+            "days": 360,
+            "failure_recovery_days": 360
+          }
+        },
+        "talent_bonus": {
+          "excellent": 0.15,
+          "exceptional": 0.2,
+          "good": 0.08,
+          "normal": 0,
+          "poor": -0.1
+        },
+        "quality_bonus": {
+          "advanced": 0.1,
+          "good": 0.05,
+          "ordinary": 0
+        },
+        "site_bonus": 0.05,
+        "guardian_bonus": 0.05,
+        "minimum_chance": 0.05,
+        "maximum_chance": 0.9,
+        "minimum_health": 0.9,
+        "minimum_mana": 0.8,
+        "mana_cost": 0.8,
+        "failure_health_loss": 0.1,
+        "failure_progress_loss": 0.1
+      },
+      "items": [
+        {
+          "quality_grade": "white",
+          "id": "implement.lower.common",
+          "name_key": "item.implement.lower_common.name",
+          "kind": "implement",
+          "grade": "lower",
+          "rarity": "common",
+          "applicable_stage": "qi_1",
+          "base_price": 20,
+          "implement": {
+            "attack_bonus": 0.05
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "implement.middle.rare",
+          "name_key": "item.implement.middle_rare.name",
+          "kind": "implement",
+          "grade": "middle",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.05,
+          "applicable_stage": "qi_4",
+          "base_price": 60,
+          "implement": {
+            "attack_bonus": 0.15
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "implement.top.unique",
+          "name_key": "item.implement.top_unique.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "unique",
+          "rarity_spent_on_main_stat": 0.1,
+          "applicable_stage": "foundation_early",
+          "base_price": 500,
+          "implement": {
+            "attack_bonus": 0.35
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "implement.upper.rare.effect",
+          "name_key": "item.implement.upper_rare_effect.name",
+          "kind": "implement",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "qi_7",
+          "base_price": 150,
+          "implement": {
+            "attack_bonus": 0.18,
+            "special_effect": "item.effect.implement.meridian_throughput",
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "armor.middle.rare",
+          "name_key": "item.armor.middle_rare.name",
+          "kind": "armor",
+          "grade": "middle",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.05,
+          "applicable_stage": "qi_4",
+          "base_price": 60,
+          "armor": {
+            "defense_bonus": 0.15
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "pill.restore.health.lower",
+          "name_key": "item.pill.restore_health_lower.name",
+          "kind": "pill",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 3,
+          "pill": {
+            "grade": "lower",
+            "purpose": "restore_health",
+            "registered_stage": {
+              "realm": "qi",
+              "layer": 6
+            }
+          }
+        },
+        {
+          "quality_grade": "green",
+          "id": "pill.boost.attack.middle",
+          "name_key": "item.pill.boost_attack_middle.name",
+          "kind": "pill",
+          "grade": "middle",
+          "rarity": "common",
+          "base_price": 8,
+          "pill": {
+            "grade": "middle",
+            "purpose": "boost_attack",
+            "registered_stage": {
+              "realm": ""
+            },
+            "duration_exchanges": 3
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "pill.support.cultivation.lower",
+          "name_key": "item.pill.support_cultivation_lower.name",
+          "kind": "pill",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 5,
+          "pill": {
+            "grade": "lower",
+            "purpose": "support_cultivation",
+            "registered_stage": {
+              "realm": ""
+            },
+            "support_strength": "normal_support",
+            "support_days": 30
+          }
+        },
+        {
+          "quality_grade": "green",
+          "id": "formation.attack.middle",
+          "name_key": "item.formation.attack_middle.name",
+          "kind": "formation",
+          "grade": "middle",
+          "rarity": "common",
+          "applicable_stage": "qi_4",
+          "base_price": 50,
+          "formation": {
+            "id": "",
+            "grade": "middle",
+            "attack_bonus": 0.08
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "talisman.ward.lower",
+          "name_key": "item.talisman.ward_lower.name",
+          "kind": "talisman",
+          "grade": "lower",
+          "rarity": "common",
+          "applicable_stage": "qi_1",
+          "base_price": 12,
+          "talisman": {
+            "registered_stage": {
+              "realm": "qi",
+              "layer": 1
+            },
+            "shield_fraction": 0.2,
+            "duration_exchanges": 3
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "material.talisman.paper",
+          "name_key": "item.material.talisman_paper.name",
+          "kind": "material",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 2,
+          "material": {
+            "UnitKey": "item.unit.portion"
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "material.talisman.ink",
+          "name_key": "item.material.talisman_ink.name",
+          "kind": "material",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 3,
+          "material": {
+            "UnitKey": "item.unit.portion"
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "material.herb.green_vine",
+          "name_key": "item.material.herb_green_vine.name",
+          "kind": "material",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 2,
+          "material": {
+            "UnitKey": "item.unit.portion"
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "material.ore.iron",
+          "name_key": "item.material.ore_iron.name",
+          "kind": "material",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 3,
+          "material": {
+            "UnitKey": "item.unit.block"
+          }
+        },
+        {
+          "quality_grade": "white",
+          "id": "material.stone.ward",
+          "name_key": "item.material.stone_ward.name",
+          "kind": "material",
+          "grade": "lower",
+          "rarity": "common",
+          "base_price": 6,
+          "material": {
+            "UnitKey": "item.unit.block"
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "treasure.attack.middle",
+          "name_key": "item.treasure.attack_middle.name",
+          "kind": "attack_treasure",
+          "grade": "middle",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.05,
+          "applicable_stage": "qi_4",
+          "base_price": 80,
+          "treasure": {
+            "bonus_attribute": "attack",
+            "bonus": 0.15,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "treasure.defense.middle",
+          "name_key": "item.treasure.defense_middle.name",
+          "kind": "defense_treasure",
+          "grade": "middle",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.05,
+          "applicable_stage": "qi_4",
+          "base_price": 80,
+          "treasure": {
+            "bonus_attribute": "defense",
+            "bonus": 0.15,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "treasure.support.upper.effect",
+          "name_key": "item.treasure.support_upper_effect.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "qi_7",
+          "base_price": 150,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.foundation_blade",
+          "name_key": "item.foundation_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "foundation_late",
+          "applicable_stage": "foundation_early",
+          "base_price": 500,
+          "implement": {
+            "attack_bonus": 0.25,
+            "defense_pierce": 95,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.foundation_robe",
+          "name_key": "item.foundation_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "foundation_late",
+          "applicable_stage": "foundation_early",
+          "base_price": 500,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.foundation_mirror",
+          "name_key": "item.foundation_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "foundation_early",
+          "base_price": 500,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.core_blade",
+          "name_key": "item.core_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.01,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "core_late",
+          "applicable_stage": "core_early",
+          "base_price": 2000,
+          "implement": {
+            "attack_bonus": 0.26,
+            "defense_pierce": 475,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.core_robe",
+          "name_key": "item.core_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "core_late",
+          "applicable_stage": "core_early",
+          "base_price": 2000,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "blue",
+          "id": "equipment.core_mirror",
+          "name_key": "item.core_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "core_early",
+          "base_price": 2000,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.nascent_blade",
+          "name_key": "item.nascent_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_main_stat": 0.02,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "nascent_late",
+          "applicable_stage": "nascent_early",
+          "base_price": 4500,
+          "implement": {
+            "attack_bonus": 0.27,
+            "defense_pierce": 2375,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.nascent_robe",
+          "name_key": "item.nascent_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "nascent_late",
+          "applicable_stage": "nascent_early",
+          "base_price": 4500,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.nascent_mirror",
+          "name_key": "item.nascent_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "nascent_early",
+          "base_price": 4500,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.spirit_blade",
+          "name_key": "item.spirit_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "precious",
+          "rarity_spent_on_main_stat": 0.03,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "spirit_late",
+          "applicable_stage": "spirit_early",
+          "base_price": 8000,
+          "implement": {
+            "attack_bonus": 0.28,
+            "defense_pierce": 11875,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.spirit_robe",
+          "name_key": "item.spirit_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "spirit_late",
+          "applicable_stage": "spirit_early",
+          "base_price": 8000,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "equipment.spirit_mirror",
+          "name_key": "item.spirit_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "spirit_early",
+          "base_price": 8000,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.void_blade",
+          "name_key": "item.void_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "precious",
+          "rarity_spent_on_main_stat": 0.04,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "void_late",
+          "applicable_stage": "void_early",
+          "base_price": 12500,
+          "implement": {
+            "attack_bonus": 0.29,
+            "defense_pierce": 59375,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.void_robe",
+          "name_key": "item.void_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "void_late",
+          "applicable_stage": "void_early",
+          "base_price": 12500,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.void_mirror",
+          "name_key": "item.void_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "void_early",
+          "base_price": 12500,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.integration_blade",
+          "name_key": "item.integration_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "precious",
+          "rarity_spent_on_main_stat": 0.05,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "integration_late",
+          "applicable_stage": "integration_early",
+          "base_price": 18000,
+          "implement": {
+            "attack_bonus": 0.3,
+            "defense_pierce": 296875,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.integration_robe",
+          "name_key": "item.integration_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "integration_late",
+          "applicable_stage": "integration_early",
+          "base_price": 18000,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "equipment.integration_mirror",
+          "name_key": "item.integration_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "integration_early",
+          "base_price": 18000,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "red",
+          "id": "equipment.mahayana_blade",
+          "name_key": "item.mahayana_blade.name",
+          "kind": "implement",
+          "grade": "top",
+          "rarity": "precious",
+          "rarity_spent_on_main_stat": 0.05,
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "mahayana_late",
+          "applicable_stage": "mahayana_early",
+          "base_price": 24500,
+          "implement": {
+            "attack_bonus": 0.3,
+            "defense_pierce": 1484375,
+            "special_effect": "item.effect.implement.rated_piercing",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "red",
+          "id": "equipment.mahayana_robe",
+          "name_key": "item.mahayana_robe.name",
+          "kind": "armor",
+          "grade": "top",
+          "rarity": "rare",
+          "rarity_spent_on_special_effect": 0.03,
+          "effect_stage": "mahayana_late",
+          "applicable_stage": "mahayana_early",
+          "base_price": 24500,
+          "armor": {
+            "defense_bonus": 0.25,
+            "strain_reduction": 0.15,
+            "special_effect": "item.effect.armor.rated_stability",
+            "operating_mana_fraction": 0.03
+          }
+        },
+        {
+          "quality_grade": "red",
+          "id": "equipment.mahayana_mirror",
+          "name_key": "item.mahayana_mirror.name",
+          "kind": "support_treasure",
+          "grade": "upper",
+          "rarity": "rare",
+          "applicable_stage": "mahayana_early",
+          "base_price": 24500,
+          "treasure": {
+            "bonus_attribute": "perception",
+            "bonus": 0.18,
+            "operating_mana_fraction": 0.02
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "material.spirit.boundary_anchor",
+          "name_key": "item.spirit.boundary_anchor.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        },
+        {
+          "quality_grade": "purple",
+          "id": "material.spirit.boundary_jade",
+          "name_key": "item.spirit.boundary_jade.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "base_price": 8000,
+          "material": {
+            "UnitKey": "item.unit.block"
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "manual.spirit.void",
+          "name_key": "item.spirit.void_manual.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "base_price": 12500,
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "manual.spirit.integration",
+          "name_key": "item.spirit.integration_manual.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "base_price": 18000,
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        },
+        {
+          "quality_grade": "red",
+          "id": "manual.spirit.mahayana",
+          "name_key": "item.spirit.mahayana_manual.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "precious",
+          "base_price": 24500,
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "material.spirit.rift_sample",
+          "name_key": "item.spirit.rift_sample.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "material": {
+            "UnitKey": "item.unit.block"
+          }
+        },
+        {
+          "quality_grade": "orange",
+          "id": "material.spirit.formation_record",
+          "name_key": "item.spirit.formation_record.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "rare",
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        },
+        {
+          "quality_grade": "red",
+          "id": "material.spirit.ancient_rubbing",
+          "name_key": "item.spirit.ancient_rubbing.name",
+          "kind": "material",
+          "grade": "top",
+          "rarity": "precious",
+          "material": {
+            "UnitKey": "item.unit.piece"
+          }
+        }
+      ],
+      "skills": [
+        {
+          "quality_grade": "white",
+          "id": "strike",
+          "version": 1,
+          "name_key": "skill.strike.name",
+          "power": 1,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "quality_grade": "white",
+          "id": "fire_bolt",
+          "version": 1,
+          "name_key": "skill.fire_bolt.name",
+          "power": 1.2,
+          "mana_fraction": 0.05,
+          "burden": 6,
+          "targets": 1,
+          "execution_actions": 1,
+          "element": "fire",
+          "variant_base": "burn"
+        },
+        {
+          "quality_grade": "blue",
+          "id": "condensed_blade",
+          "version": 1,
+          "name_key": "skill.condensed_blade.name",
+          "power": 1.6,
+          "mana_fraction": 0.12,
+          "burden": 22,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "quality_grade": "purple",
+          "id": "heavy_thunder",
+          "version": 1,
+          "name_key": "skill.heavy_thunder.name",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1,
+          "element": "thunder",
+          "variant_base": "slow"
+        },
+        {
+          "quality_grade": "blue",
+          "id": "flame_wave",
+          "version": 1,
+          "name_key": "skill.flame_wave.name",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "quality_grade": "green",
+          "id": "shield",
+          "version": 1,
+          "name_key": "skill.shield.name",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "quality_grade": "purple",
+          "id": "meridian_secret_blade",
+          "version": 1,
+          "name_key": "skill.meridian_secret_blade.name",
+          "power": 3.2,
+          "mana_fraction": 0.4,
+          "burden": 85,
+          "targets": 1,
+          "hit_offset": -0.05,
+          "execution_actions": 2,
+          "ignore_defense": 0.2,
+          "requires_focus": true,
+          "residual_burden_floor": 60,
+          "leaves_residual": true,
+          "safe_recovery_minutes": 30,
+          "recovery_min_health": 0.6,
+          "recovery_min_mana": 0.2
+        },
+        {
+          "applicable_stage": "foundation_early",
+          "quality_grade": "blue",
+          "id": "foundation_pierce",
+          "version": 1,
+          "name_key": "skill.foundation_pierce.name",
+          "name": "凝元贯锋",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "applicable_stage": "foundation_early",
+          "quality_grade": "blue",
+          "id": "foundation_wave",
+          "version": 1,
+          "name_key": "skill.foundation_wave.name",
+          "name": "三才灵焰",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "applicable_stage": "foundation_early",
+          "quality_grade": "blue",
+          "id": "foundation_ward",
+          "version": 1,
+          "name_key": "skill.foundation_ward.name",
+          "name": "青罡护身",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "applicable_stage": "core_early",
+          "quality_grade": "blue",
+          "id": "core_pierce",
+          "version": 1,
+          "name_key": "skill.core_pierce.name",
+          "name": "丹火贯锋",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "applicable_stage": "core_early",
+          "quality_grade": "blue",
+          "id": "core_wave",
+          "version": 1,
+          "name_key": "skill.core_wave.name",
+          "name": "离火散华",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "applicable_stage": "core_early",
+          "quality_grade": "blue",
+          "id": "core_ward",
+          "version": 1,
+          "name_key": "skill.core_ward.name",
+          "name": "金丹护元",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "applicable_stage": "nascent_early",
+          "quality_grade": "purple",
+          "id": "nascent_pierce",
+          "version": 1,
+          "name_key": "skill.nascent_pierce.name",
+          "name": "婴元雷击",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "applicable_stage": "nascent_early",
+          "quality_grade": "purple",
+          "id": "nascent_wave",
+          "version": 1,
+          "name_key": "skill.nascent_wave.name",
+          "name": "紫焰分流",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "applicable_stage": "nascent_early",
+          "quality_grade": "purple",
+          "id": "nascent_ward",
+          "version": 1,
+          "name_key": "skill.nascent_ward.name",
+          "name": "婴光护体",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "applicable_stage": "spirit_early",
+          "quality_grade": "purple",
+          "id": "spirit_pierce",
+          "version": 1,
+          "name_key": "skill.spirit_pierce.name",
+          "name": "凝神雷击",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "applicable_stage": "spirit_early",
+          "quality_grade": "purple",
+          "id": "spirit_wave",
+          "version": 1,
+          "name_key": "skill.spirit_wave.name",
+          "name": "五焰散华",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "applicable_stage": "spirit_early",
+          "quality_grade": "purple",
+          "id": "spirit_ward",
+          "version": 1,
+          "name_key": "skill.spirit_ward.name",
+          "name": "神元灵罩",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "applicable_stage": "void_early",
+          "quality_grade": "orange",
+          "id": "void_pierce",
+          "version": 1,
+          "name_key": "skill.void_pierce.name",
+          "name": "五行贯锋",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "applicable_stage": "void_early",
+          "quality_grade": "orange",
+          "id": "void_wave",
+          "version": 1,
+          "name_key": "skill.void_wave.name",
+          "name": "五色焰潮",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "applicable_stage": "void_early",
+          "quality_grade": "orange",
+          "id": "void_ward",
+          "version": 1,
+          "name_key": "skill.void_ward.name",
+          "name": "炼虚灵罩",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "applicable_stage": "integration_early",
+          "quality_grade": "orange",
+          "id": "integration_pierce",
+          "version": 1,
+          "name_key": "skill.integration_pierce.name",
+          "name": "合元雷击",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "applicable_stage": "integration_early",
+          "quality_grade": "orange",
+          "id": "integration_wave",
+          "version": 1,
+          "name_key": "skill.integration_wave.name",
+          "name": "合元炎浪",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "applicable_stage": "integration_early",
+          "quality_grade": "orange",
+          "id": "integration_ward",
+          "version": 1,
+          "name_key": "skill.integration_ward.name",
+          "name": "合元护体",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "applicable_stage": "mahayana_early",
+          "quality_grade": "red",
+          "id": "mahayana_pierce",
+          "version": 1,
+          "name_key": "skill.mahayana_pierce.name",
+          "name": "玄元贯锋",
+          "power": 1.85,
+          "mana_fraction": 0.22,
+          "burden": 42,
+          "targets": 1,
+          "execution_actions": 1
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "applicable_stage": "mahayana_early",
+          "quality_grade": "red",
+          "id": "mahayana_wave",
+          "version": 1,
+          "name_key": "skill.mahayana_wave.name",
+          "name": "玄焰散华",
+          "power": 0.75,
+          "mana_fraction": 0.22,
+          "burden": 30,
+          "targets": 3,
+          "execution_actions": 1,
+          "element": "fire"
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "applicable_stage": "mahayana_early",
+          "quality_grade": "red",
+          "id": "mahayana_ward",
+          "version": 1,
+          "name_key": "skill.mahayana_ward.name",
+          "name": "玄元灵罩",
+          "mana_fraction": 0.1,
+          "burden": 18,
+          "targets": 1,
+          "execution_actions": 1,
+          "shield_base_health_fraction": 0.2,
+          "duration_exchanges": 2
+        }
+      ],
+      "techniques": [
+        {
+          "quality_grade": "white",
+          "id": "method.basic_breathing",
+          "version": 1,
+          "name": "基础吐纳法",
+          "quality": "ordinary",
+          "rarity": "common",
+          "circulation": "neutral",
+          "minimum_stage": "qi_1",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1,
+          "standard_learning_minutes": 4320
+        },
+        {
+          "quality_grade": "white",
+          "id": "method.spirit_beast_breathing",
+          "version": 1,
+          "name": "本能吐纳",
+          "quality": "ordinary",
+          "rarity": "common",
+          "circulation": "neutral",
+          "minimum_stage": "qi_1",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 0.6,
+          "standard_learning_minutes": 4320
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.warm_origin",
+          "version": 1,
+          "name": "温元诀",
+          "quality": "good",
+          "rarity": "uncommon",
+          "circulation": "warm",
+          "minimum_stage": "qi_3",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1.15,
+          "breakthrough_bonus": 0.05,
+          "specialty": {
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.05
+          },
+          "quality_attack": 0.05,
+          "standard_learning_minutes": 14400,
+          "learnable_skill_refs": [
+            "skill.fire_bolt",
+            "skill.fire_wave"
+          ]
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.cold_spring",
+          "version": 1,
+          "name": "寒泉行气诀",
+          "quality": "good",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "qi_3",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1.15,
+          "breakthrough_bonus": 0.05,
+          "quality_attack": 0.05,
+          "standard_learning_minutes": 14400
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.origin_guard",
+          "version": 1,
+          "name": "凝元护体法",
+          "quality": "good",
+          "rarity": "uncommon",
+          "circulation": "neutral",
+          "minimum_stage": "qi_3",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1.15,
+          "breakthrough_bonus": 0.05,
+          "specialty": {
+            "agility": -0.05,
+            "attack": -0.1,
+            "defense": 0.2,
+            "health_max": 0.1
+          },
+          "quality_attack": 0.05,
+          "standard_learning_minutes": 14400,
+          "learnable_skill_refs": [
+            "skill.body_shield"
+          ]
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.flowing_wind",
+          "version": 1,
+          "name": "流风行气法",
+          "quality": "good",
+          "rarity": "uncommon",
+          "circulation": "neutral",
+          "minimum_stage": "qi_3",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1.15,
+          "breakthrough_bonus": 0.05,
+          "specialty": {
+            "agility": 0.25,
+            "attack": -0.05,
+            "defense": -0.1
+          },
+          "quality_attack": 0.05,
+          "standard_learning_minutes": 14400
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.clear_mind",
+          "version": 1,
+          "name": "澄心观照诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "mind_focus",
+          "minimum_stage": "qi_6",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "attack": -0.05,
+            "defense": -0.05,
+            "mana_max": 0.1,
+            "perception": 0.3
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 43200
+        },
+        {
+          "quality_grade": "green",
+          "id": "method.body_cycle",
+          "version": 1,
+          "name": "锻体小周天",
+          "quality": "ordinary",
+          "rarity": "uncommon",
+          "circulation": "body_training",
+          "minimum_stage": "qi_1",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1,
+          "specialty": {
+            "agility": -0.05,
+            "defense": 0.05,
+            "health_max": 0.1
+          },
+          "standard_learning_minutes": 4320
+        },
+        {
+          "quality_grade": "green",
+          "id": "method.economical_breath",
+          "version": 1,
+          "name": "节息诀",
+          "quality": "ordinary",
+          "rarity": "rare",
+          "circulation": "neutral",
+          "minimum_stage": "qi_1",
+          "supports_through": "foundation_late",
+          "growth_coefficient": 1,
+          "mp_cost_reduction": 0.05,
+          "standard_learning_minutes": 4320
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.core_continuation",
+          "version": 1,
+          "name": "凝丹养元法",
+          "quality": "good",
+          "rarity": "uncommon",
+          "circulation": "neutral",
+          "minimum_stage": "foundation_late",
+          "supports_through": "core_late",
+          "growth_coefficient": 1.15,
+          "breakthrough_bonus": 0.05,
+          "specialty": {
+            "attack": -0.05,
+            "defense": 0.1
+          },
+          "quality_attack": 0.05,
+          "standard_learning_minutes": 43200
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.nascent_continuation",
+          "version": 1,
+          "name": "婴元观照法",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "mind_focus",
+          "minimum_stage": "core_late",
+          "supports_through": "nascent_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "attack": -0.05,
+            "defense": -0.05,
+            "mana_max": 0.1,
+            "perception": 0.3
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 86400
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.spirit_continuation",
+          "version": 1,
+          "name": "化神凝元法",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "neutral",
+          "minimum_stage": "nascent_late",
+          "supports_through": "spirit_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.05,
+            "attack": -0.1,
+            "defense": 0.2,
+            "health_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 129600
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "quality_grade": "orange",
+          "id": "method.void_unification",
+          "version": 1,
+          "name": "五行炼虚诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "neutral",
+          "minimum_stage": "spirit_late",
+          "supports_through": "void_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.05
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 259200
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "quality_grade": "orange",
+          "id": "method.integration_return",
+          "version": 1,
+          "name": "合元归真法",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "body_training",
+          "minimum_stage": "void_late",
+          "supports_through": "integration_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.05,
+            "attack": -0.1,
+            "defense": 0.2,
+            "health_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 518400
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "quality_grade": "red",
+          "id": "method.mahayana_insight",
+          "version": 1,
+          "name": "大乘参玄经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "mind_focus",
+          "minimum_stage": "integration_late",
+          "supports_through": "mahayana_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "attack": -0.05,
+            "defense": -0.05,
+            "mana_max": 0.1,
+            "perception": 0.3
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 1036800
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.core_wind_path",
+          "version": 1,
+          "name": "赤霄凝丹诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "foundation_late",
+          "supports_through": "core_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 43200
+        },
+        {
+          "quality_grade": "blue",
+          "id": "method.core_still_path",
+          "version": 1,
+          "name": "静湖养丹经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "foundation_late",
+          "supports_through": "core_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 43200
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.nascent_wind_path",
+          "version": 1,
+          "name": "逐电婴元诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "core_late",
+          "supports_through": "nascent_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 86400
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.nascent_still_path",
+          "version": 1,
+          "name": "涵虚养婴经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "core_late",
+          "supports_through": "nascent_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 86400
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.spirit_wind_path",
+          "version": 1,
+          "name": "凌风凝神诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "nascent_late",
+          "supports_through": "spirit_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 129600
+        },
+        {
+          "quality_grade": "purple",
+          "id": "method.spirit_still_path",
+          "version": 1,
+          "name": "静照归神经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "nascent_late",
+          "supports_through": "spirit_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 129600
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "quality_grade": "orange",
+          "id": "method.void_wind_path",
+          "version": 1,
+          "name": "流光炼虚诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "spirit_late",
+          "supports_through": "void_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 259200
+        },
+        {
+          "required_manual_id": "manual.spirit.void",
+          "quality_grade": "orange",
+          "id": "method.void_still_path",
+          "version": 1,
+          "name": "归息养虚经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "spirit_late",
+          "supports_through": "void_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 259200
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "quality_grade": "orange",
+          "id": "method.integration_wind_path",
+          "version": 1,
+          "name": "玄锋合元诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "void_late",
+          "supports_through": "integration_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 518400
+        },
+        {
+          "required_manual_id": "manual.spirit.integration",
+          "quality_grade": "orange",
+          "id": "method.integration_still_path",
+          "version": 1,
+          "name": "澄心合元经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "void_late",
+          "supports_through": "integration_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 518400
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "quality_grade": "red",
+          "id": "method.mahayana_wind_path",
+          "version": 1,
+          "name": "九霄乘风诀",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "warm",
+          "minimum_stage": "integration_late",
+          "supports_through": "mahayana_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": 0.25,
+            "attack": 0.1,
+            "defense": -0.2,
+            "health_max": -0.1
+          },
+          "quality_attack": 0.1,
+          "standard_learning_minutes": 1036800
+        },
+        {
+          "required_manual_id": "manual.spirit.mahayana",
+          "quality_grade": "red",
+          "id": "method.mahayana_still_path",
+          "version": 1,
+          "name": "太清养元经",
+          "quality": "advanced",
+          "rarity": "rare",
+          "circulation": "cold",
+          "minimum_stage": "integration_late",
+          "supports_through": "mahayana_late",
+          "growth_coefficient": 1.3,
+          "breakthrough_bonus": 0.1,
+          "specialty": {
+            "agility": -0.1,
+            "attack": -0.1,
+            "mana_max": 0.1
+          },
+          "quality_attack": 0.1,
+          "mp_cost_reduction": 0.15,
+          "strain_reduction": 0.1,
+          "standard_learning_minutes": 1036800
+        }
+      ],
+      "craft_methods": [
+        {
+          "id": "craft.talisman.ward",
+          "name_key": "craft.talisman.ward.name",
+          "version": 1,
+          "art": "talisman",
+          "minimum_stage": "qi_1",
+          "minutes_per_batch": 120,
+          "inputs": [
+            {
+              "def_id": "material.talisman.paper",
+              "quantity": 1
+            },
+            {
+              "def_id": "material.talisman.ink",
+              "quantity": 1
+            }
+          ],
+          "outputs": [
+            {
+              "def_id": "talisman.ward.lower",
+              "quantity": 1,
+              "chance": 1
+            }
+          ],
+          "loss_chance": 0.1,
+          "requires_learning": true
+        },
+        {
+          "id": "craft.alchemy.spring_return",
+          "name_key": "craft.alchemy.spring_return.name",
+          "version": 1,
+          "art": "alchemy",
+          "minimum_stage": "qi_1",
+          "minutes_per_batch": 360,
+          "inputs": [
+            {
+              "def_id": "material.herb.green_vine",
+              "quantity": 2
+            }
+          ],
+          "outputs": [
+            {
+              "def_id": "pill.restore.health.lower",
+              "quantity": 1,
+              "chance": 1
+            }
+          ],
+          "loss_chance": 0.1,
+          "requires_learning": true
+        },
+        {
+          "id": "craft.smithing.iron_sword",
+          "name_key": "craft.smithing.iron_sword.name",
+          "version": 1,
+          "art": "smithing",
+          "minimum_stage": "qi_1",
+          "minutes_per_batch": 720,
+          "inputs": [
+            {
+              "def_id": "material.ore.iron",
+              "quantity": 3
+            }
+          ],
+          "outputs": [
+            {
+              "def_id": "implement.lower.common",
+              "quantity": 1,
+              "chance": 1
+            }
+          ],
+          "loss_chance": 0.15,
+          "requires_learning": true
+        },
+        {
+          "id": "craft.formation.gathered_edge",
+          "name_key": "craft.formation.gathered_edge.name",
+          "version": 1,
+          "art": "formation",
+          "minimum_stage": "qi_4",
+          "minutes_per_batch": 1440,
+          "inputs": [
+            {
+              "def_id": "material.stone.ward",
+              "quantity": 2
+            }
+          ],
+          "outputs": [
+            {
+              "def_id": "formation.attack.middle",
+              "quantity": 1,
+              "chance": 1
+            }
+          ],
+          "loss_chance": 0.1,
+          "requires_learning": true
+        }
+      ],
+      "talents": [
+        {
+          "ID": "strong_body",
+          "Name": "体魄强健",
+          "Attribute": "health_max",
+          "Value": 0.05
+        },
+        {
+          "ID": "deep_breath",
+          "Name": "气脉绵长",
+          "Attribute": "mana_max",
+          "Value": 0.05
+        },
+        {
+          "ID": "keen_sense",
+          "Name": "眼明心细",
+          "Attribute": "perception",
+          "Value": 0.05
+        },
+        {
+          "ID": "light_step",
+          "Name": "身轻步快",
+          "Attribute": "agility",
+          "Value": 0.05
+        },
+        {
+          "ID": "sharp_strike",
+          "Name": "出手凌厉",
+          "Attribute": "attack",
+          "Value": 0.05
+        },
+        {
+          "ID": "tough_frame",
+          "Name": "筋骨坚实",
+          "Attribute": "defense",
+          "Value": 0.05
+        }
+      ],
+      "positive_caps": {
+        "agility": 0.6,
+        "attack": 0.6,
+        "defense": 0.6,
+        "health_max": 0.4,
+        "mana_max": 0.4,
+        "perception": 0.6
+      },
+      "negative_caps": {
+        "agility": 0.5,
+        "attack": 0.5,
+        "defense": 0.5,
+        "health_max": 0.5,
+        "mana_max": 0.5,
+        "perception": 0.5
+      }
+    },
+    "templates": [
+      {
+        "id": "protagonist",
+        "name": "主角状态表",
+        "description": "集中维护主角人物设定、检定面板、动态状态、技能、重要物品和有方向的关系；不假设 Lore 已包含完整角色资料。",
+        "fields": [
+          {
+            "name": "姓名",
+            "type": "string",
+            "description": "主角姓名；尚未确定时保持空白，确认后只在正式改名时更新。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、社会身份等当前故事确实使用的信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录有辨识度的外貌、衣着、装备外观和当前伪装；忽略无承接价值的临时描写。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录会持续影响选择的性格倾向与已确认背景，不复述回合经历。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "当前境界",
+            "type": "enum",
+            "default": "mortal",
+            "options": [
+              "mortal",
+              "qi_1",
+              "qi_2",
+              "qi_3",
+              "qi_4",
+              "qi_5",
+              "qi_6",
+              "qi_7",
+              "qi_8",
+              "qi_9",
+              "qi_10",
+              "qi_11",
+              "qi_12",
+              "qi_13",
+              "foundation_early",
+              "foundation_middle",
+              "foundation_late",
+              "core_early",
+              "core_middle",
+              "core_late",
+              "nascent_early",
+              "nascent_middle",
+              "nascent_late",
+              "spirit_early",
+              "spirit_middle",
+              "spirit_late",
+              "void_early",
+              "void_middle",
+              "void_late",
+              "integration_early",
+              "integration_middle",
+              "integration_late",
+              "mahayana_early",
+              "mahayana_middle",
+              "mahayana_late"
+            ],
+            "description": "角色在境界阶段表中的位置；取值即规则可结算的境界键，由修炼与突破结算写入，不由叙述改写。",
+            "update_instruction": "只由修炼推进、突破结算、跌境或封印等规则结果更新；取值必须是给定选项之一，不自行改写境界称谓，也不为未实现的境界取值。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private",
+            "value_format": "stage"
+          },
+          {
+            "name": "生命",
+            "type": "number",
+            "min": 0,
+            "description": "当前生命值；由受伤与治疗结算写入，结算时按实际生命上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "生命上限",
+            "visibility": "private"
+          },
+          {
+            "name": "生命上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的生命上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力",
+            "type": "number",
+            "min": 0,
+            "description": "当前灵力值；由消耗与调息结算写入，结算时按实际灵力上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "灵力上限",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的灵力上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "攻击",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的攻击值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "防御",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的防御值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "身法",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的身法值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "神识",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的神识值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "境界进度",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "当前阶段已积累的修炼进度，单位为规则进度值，门槛随阶段提高；不是百分比，也不等同于胜负或绝对战力。",
+            "update_instruction": "只有修炼、机缘、损伤或突破结算明确影响进度时更新；小阶段转换与突破后按新阶段门槛重置或结转。",
+            "group": "修为",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "经脉负担",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "当前经脉负担，0–100；由施展术法累加、按真实时间与轮次消解。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "余伤负担下限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "经脉余伤未愈时负担不能低于此值；未受伤时为 0。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "主法器",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要攻击的一件法器或法宝；未装备、不能操控、借出或损坏时留空。写成对象，键为“名称”“定义”“品级”“稀有度”：“定义”取已登记物品标识，“品级”写下品／中品／上品／顶品／极品之一，“稀有度”写常见／少见／稀有／珍稀／独特之一——两项分开放，不要合并成“中品·少见”这样的单键，合并后规则读不到，这件法器就不参与结算。",
+            "update_instruction": "新建 Actor 首次出场时手里就已经拿着的那一件，直接在 create 的初始状态里写入本字段，连同重要物品一起写：那不是本回合取得的，没有可结算的取得动作。会真正在交手中施展、且需要手持法器的功法，缺了本字段就会被战斗拒绝，所以首次出场就必须写全。此后对它的任何变动走物品模块：取得时用 items.acquire 把该物品记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“主法器”。规则会校验定义是否登记、角色是否真的持有该副本、是否达到适用阶段并满足操控要求，并把品级、稀有度、主要属性预算与操控成本按定义写入。适用阶段不是点击颜色就能越过，境界不足的宝物装备会被拒绝。本字段不随叙述改写。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "护具",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要防御的一件护具；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：装备用 items.equip 指定副本名称，卸下用 items.unequip 指定“护具”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算与操控成本。护具只增加防御，不把同一个百分比同时加到六属性。",
+            "group": "行囊"
+          },
+          {
+            "name": "布阵",
+            "type": "object",
+            "default": {},
+            "description": "当前由本人维持、仍在作用区域内的阵法；离开阵区、失去维持能力或阵盘被破坏后留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得阵盘时用 items.acquire 把阵盘记入重要物品，布阵时用 items.equip 指定阵盘名称，撤阵时用 items.unequip 指定“布阵”。规则按阵盘定义写入品级、稀有度、增益、启动耗灵与每轮维持，并从灵力中扣除启动消耗；灵力不足时布阵会被拒绝。每轮维持失败、离开阵区或阵盘被破坏后，用 items.unequip 撤去此阵。",
+            "group": "行囊"
+          },
+          {
+            "name": "攻击法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件攻击法宝，用于主动攻击、破防等已登记的攻击用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“攻击法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "防御法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件防御法宝，用于护盾、格挡等已登记的防御用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“防御法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "辅助法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件辅助法宝，用于探查、隐匿、束缚、脱身等已登记的用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“辅助法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "灵石",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "随身可支配的下品灵石枚数；只计整枚，零头不以灵石计。 数值区间：整数枚下品灵石。",
+            "update_instruction": "新建此人时，正文或设定已经交代他随身带多少灵石，就在 create 的 initial_state 里按实际枚数一次写足；这是叙述唯一一次给出持有量的机会，默认的 0 表示确实一文没有，不是“待定”。create 之后本项归规则，只由交易与明确的收支结算写入，叙述不再直接改写余额，也不因剧情需要凭空增加。",
+            "group": "行囊",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "功法与专精",
+            "type": "string",
+            "default": "未定",
+            "description": "记录当前主修功法及其专精方向（均衡／强攻／防护／轻身／神识）与品阶（普通／良好／高阶）；六属性按专精与品阶统一结算，不在此处手写加成数值。",
+            "update_instruction": "只在正式转修、功法进阶或设定被明确补充时更新；不因临场描写变化。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private"
+          },
+          {
+            "name": "持续状态",
+            "type": "list",
+            "default": [],
+            "description": "只列仍会影响修行或行动的伤势、封印、增益与异常。",
+            "update_instruction": "每项使用“名称｜影响｜解除条件或时长”；结束后移除，不记录已经结算的瞬时变化。会参与属性结算的增益（丹药、符箓、加持等）另用对象形式记录，键为“名称”“属性”“数值”“同类”“剩余轮次”：属性取 攻击／防御／身法／神识／生命上限／灵力上限，数值为百分点（增攻药下品 5、中品 8、上品 12、极品 15），同类为叠加分组（如 增攻药），剩余轮次为真实剩余轮数。同类取强不叠加，轮次归零即失效。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的功法、术法、神通或法宝。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "当前处境",
+            "type": "string",
+            "description": "记录当前优势、危险、限制和直接压力；具体地点由故事状态维护。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "灵根与特殊体质",
+            "type": "string",
+            "description": "记录灵根、血脉、特殊体质、道基等会决定修行路径的根本特征；没有对应设定时保持空白。",
+            "group": "修为",
+            "display": "block"
+          },
+          {
+            "name": "天赋特性",
+            "type": "string",
+            "description": "出生时带来的一项天赋特性，只记规则认可的名称；没有就是没有，不写“无”或“待定”。",
+            "update_instruction": "只在建角时由确认的身份写入，之后不由叙述改写；剧情不会凭空给出或更换天赋特性。",
+            "group": "修为",
+            "display": "inline"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 12 条。删除记录时 replace 整个 object。类型可使用功法、术法、神通、秘术、剑诀、身法或天赋；阶段与效果按正文设定表达，不换算成统一数值。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 16 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用法宝、法器、丹药、符箓、阵盘、灵材、灵石或传承物；记录品阶、认主、耐久或剩余次数等实际存在的状态。已登记物品只能经 items 模块入行囊：取得时用 items.acquire 写该定义的稳定标识与名称，规则据此写入“定义”“数量”“适用阶段”，不要在同一回合的 state_changes 里再手写一遍同一件物品，否则会被记成两份。取得时可在同一处另写“描述”与“来源”：描述写这件东西看上去、摸上去、闻起来是什么样，一两句，可带一点机锋；来源写从谁手里、从什么地方得来。两项只是记事，不进任何数值；不要借描述复述效果、消耗或数字。同一件物品只写一次，之后装备、卸下、再取出都沿用最初那两句，不会随叙述改写。一件实物只有一个持有者。若这件东西本来就在本故事某个已登记角色手里——馈赠、私下转让、从败者身上取下——取得时把 from 写成他的 Actor id，规则会在同一次提交里从他名下移出、记到你名下；不写 from 而此物已在别人手里会被拒绝。已经装备在身上的同一件东西不能再取得一次，要放回行囊请先 unequip。另取一把同名但确实是另一把的同类武器不受限制。实际制作的产物须由craft结算，不能再以items.acquire重复取得；先用skills登记craft_design可推导更高品级或不同受支持属性的正式产物及其真实材料和工时。新创作且从外界实际取得的装备或消耗品可在 items.acquire 用 template_id 选下列同类效果模板，填写 name、source、description，规则会登记本局新定义再记录持有。品级、效果、价格与使用条件沿用模板，名称和背景可自由创作；独特物品与材料不能复制。生成档案按ID取用，安全上限16384项及4MiB，满时保留旧记录并拒绝新登记；旧内容可用search_generated_definitions按名称、ID或分页读取。普通叙事物件仍可按正文记述。模板或既有定义取以下之一：implement.lower.common（下品·常见·攻击 +5%）；implement.middle.rare（中品·稀有·攻击 +15%）；implement.top.unique（顶品·独特·攻击 +35%）；implement.upper.rare.effect（上品·稀有·攻击 +18%）；armor.middle.rare（中品·稀有·防御 +15%）；pill.restore.health.lower（下品·常见·回复生命）；pill.boost.attack.middle（中品·常见·增攻 8%、持续 3 轮）；pill.support.cultivation.lower（下品·常见·普通辅助、每份可支撑 30 日修炼）；formation.attack.middle（中品·常见·增攻 8%）；talisman.ward.lower（下品·常见·护身符：消耗一张，护盾按炼气一层基础生命的 20% 固定，持续 3 轮，不叠加）；material.talisman.paper（下品·常见·炼制材料，本身无效果）；material.talisman.ink（下品·常见·炼制材料，本身无效果）；material.herb.green_vine（下品·常见·炼制材料，本身无效果）；material.ore.iron（下品·常见·炼制材料，本身无效果）；material.stone.ward（下品·常见·炼制材料，本身无效果）；treasure.attack.middle（中品·稀有·）；treasure.defense.middle（中品·稀有·）；treasure.support.upper.effect（上品·稀有·）；equipment.foundation_blade（顶品·稀有·攻击 +25%）；equipment.foundation_robe（顶品·稀有·防御 +25%）；equipment.foundation_mirror（上品·稀有·）；equipment.core_blade（顶品·稀有·攻击 +26%）；equipment.core_robe（顶品·稀有·防御 +25%）；equipment.core_mirror（上品·稀有·）；equipment.nascent_blade（顶品·稀有·攻击 +27%）；equipment.nascent_robe（顶品·稀有·防御 +25%）；equipment.nascent_mirror（上品·稀有·）；equipment.spirit_blade（顶品·珍稀·攻击 +28.000000000000004%）；equipment.spirit_robe（顶品·稀有·防御 +25%）；equipment.spirit_mirror（上品·稀有·）；equipment.void_blade（顶品·珍稀·攻击 +28.999999999999996%）；equipment.void_robe（顶品·稀有·防御 +25%）；equipment.void_mirror（上品·稀有·）；equipment.integration_blade（顶品·珍稀·攻击 +30%）；equipment.integration_robe（顶品·稀有·防御 +25%）；equipment.integration_mirror（上品·稀有·）；equipment.mahayana_blade（顶品·珍稀·攻击 +30%）；equipment.mahayana_robe（顶品·稀有·防御 +25%）；equipment.mahayana_mirror（上品·稀有·）；material.spirit.boundary_anchor（顶品·稀有·炼制材料，本身无效果）；material.spirit.boundary_jade（顶品·稀有·炼制材料，本身无效果）；manual.spirit.void（顶品·稀有·炼制材料，本身无效果）；manual.spirit.integration（顶品·稀有·炼制材料，本身无效果）；manual.spirit.mahayana（顶品·珍稀·炼制材料，本身无效果）；material.spirit.rift_sample（顶品·稀有·炼制材料，本身无效果）；material.spirit.formation_record（顶品·稀有·炼制材料，本身无效果）；material.spirit.ancient_rubbing（顶品·珍稀·炼制材料，本身无效果）。丹药与符箓会成为战斗中真正可消耗的一份；记在此处的法器、护具与阵盘不计入属性，也不因稀有度自动获得加成。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 12 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按师徒、同门、道侣、盟友、因果、恩怨、主从或敌对等修仙语义表达。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "已学功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中与已学会的术法、神通、秘术及已学会制作方法。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”，另有“描述”“来历”两项记事文字。技能经 skills 登记并按实际minutes累计学习，普通/良好/高阶标准1/3/7日再按资质调整；0分钟仅登记，标记“修习中”不能施展，足时才“已学会”。首次学习须有完整资料或有效传授的source。制作方法按实际掌握授业，不套技能天数。定义为已登记功法定义的稳定标识（如 strike／fire_bolt／condensed_blade／heavy_thunder／flame_wave／shield／meridian_secret_blade；制作方法如 craft.talisman.ward，仅授予制作资格，不是战斗招式），版本为该角色实际学会的版本号。“描述”写这门功法施展起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写从谁手里、从哪本册子或哪处遗迹得来。两项都在首次学会时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写威力、消耗或任何数值，那些一律由已登记定义决定。登记、修习进度和掌握程度均由学习结算写入；仅正文提到不授予能力，不能在state_changes里手写学习结果。定义不存在或版本未登记时不写，改由学习结算写入。新建 Actor 首次出场时就已经会、且定义已登记的功法，直接在 create 的初始状态里写入本字段，不必再走学习结算——这个人的过去不是本回合学到的。本故事自行造出的功法由学习结算按已批准模板登记，标识形如 gen.\u003c模板\u003e.\u003c名称\u003e，不要手写。\n本局生成技能：需要新造功法时用 template_id 选本局已批准模板，并用 name 写名称：fire_bolt（普通·常见）；condensed_blade（良好·少见）；heavy_thunder（高阶·稀有）；flame_wave（良好·少见）；shield（普通·常见）；meridian_secret_blade（高阶·珍稀）；foundation_pierce（高阶·稀有）；foundation_wave（高阶·稀有）；foundation_ward（高阶·稀有）；core_pierce（高阶·稀有）；core_wave（高阶·稀有）；core_ward（高阶·稀有）；nascent_pierce（高阶·稀有）；nascent_wave（高阶·稀有）；nascent_ward（高阶·稀有）；spirit_pierce（高阶·稀有）；spirit_wave（高阶·稀有）；spirit_ward（高阶·稀有）；void_pierce（高阶·稀有）；void_wave（高阶·稀有）；void_ward（高阶·稀有）；integration_pierce（高阶·稀有）；integration_wave（高阶·稀有）；integration_ward（高阶·稀有）；mahayana_pierce（高阶·稀有）；mahayana_wave（高阶·稀有）；mahayana_ward（高阶·稀有）。省略skill_design时沿用模板；提出设计变化时由既有结算核算实际耗灵、负担和研习时间。品级、适用阶段、资料与法器要求取自该模板，不从别的世界补齐。已登记技能用def_id与minutes继续学习，未完成不能施展；登记不等于取得物品，实物仍须有实际来源。",
+            "group": "修为",
+            "visibility": "private"
+          },
+          {
+            "name": "功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中、已掌握与当前运转的功法。功法由规则登记，属性加成由规则结算，不在此处写数值。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”“运转”，另有“描述”“来历”两项记事文字。定义为已登记功法定义的稳定标识（如 method.basic_breathing／method.warm_origin／method.cold_spring／method.origin_guard／method.flowing_wind／method.clear_mind／method.body_cycle／method.economical_breath），版本为该角色实际学会的版本号。掌握程度为“已掌握”或“修习中”；运转为“运转”或“停止”。“描述”写这门功法运转起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写师承、家传或得自何处。两项在首次修习时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写效果、消耗或任何数值，那些一律由已登记定义决定。新功法可用 techniques.learn 的template_id/name/source登记同效模板，本局生成定义上限512；学习结算保存名称、已修习分钟、修习中/已掌握，登记不等于掌握。普通调整一次10分钟，温寒换运一次安全调息60分钟且结束负担为0；使用既有恢复规则，不免费补满血蓝、不把同一准备重复提交rest，战斗中不能切换。数值、调息状态与时间均由规则记录。",
+            "group": "修为",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "story_context",
+        "name": "故事状态表",
+        "description": "集中维护当前场景、世界局势和当前任务；不保存纪要、总结、行动选项或幕后计划。",
+        "fields": [
+          {
+            "name": "当前时间",
+            "type": "string",
+            "description": "按世界观记录当前日期、时段或阶段；只保留对行动有意义的精度。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前详细地点",
+            "type": "string",
+            "description": "用一个字段表达当前具体地点及必要的上级范围，不再拆分大区、区域和房间。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前事件",
+            "type": "string",
+            "description": "合并记录正在发生的事件、直接压力和下一步必须面对的问题。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "在场角色",
+            "type": "list",
+            "default": [],
+            "description": "使用 Actor 状态中已有的精确 ID；新建 Actor 直接使用故事语言中的角色名称，Actor 名称即 ID。只保留当前可感知或正在互动的角色。",
+            "group": "当前场景",
+            "display": "list"
+          },
+          {
+            "name": "本次交战",
+            "type": "object",
+            "default": {},
+            "description": "记录当前实际交战的生灵，键为已存在 Actor 的精确 ID。敌方值可为简短依据，或 {basis,side:\"enemy\",lethal_intents}。本场自愿助战者用 {basis,side:\"player\",target_id,source_exchange_index}；target_id 必须是本场真实在场敌方，source_exchange_index 引用本回合 character_facts.exchanges 中本人向主角作出接受助战的回应（从1起，speaker=character、channel=scene、addressed_to=protagonist）。回应可为符合灵智的明确动作，不强求人类语言。本人回应须记录 participation_decision={kind:combat,target_id:该敌方ID,decision:accept}，引用本回合对此事最后一条本人决定，refuse或未作答不可参战。已登记者须确实同场；首次真实相遇可在同回合合法登记自己的Actor和profile再回应。目录、好感、关系、主角的命令不能代替本人同意，也不能把远处或归档者凭空召来。此意愿只覆盖本场，不建立常驻队伍。可选 lethal_intents 项仍为 {actor_id,target_id,source_exchange_index}，只声明真实公开杀意，不决定死亡。",
+            "update_instruction": "只有实际开始或继续交战才更新。敌意、低好感、敌对关系、敌人模板和持有兵器不等于开战。双方须真实在场，离场、收回、停战、投降或被制服者移出；交战结束清空对象。助战必须先有当事者本场的明确接受，不能把拒绝、模糊回应或普通承诺解释为参战；变更其迎击对象须重新取得回应。保留未变的本场记录时保留原始依据和引用，不伪造新的同意。每名生灵每回合按自身已学技能、资源和伤势行动，不能用长串命令增加出手机会。lethal_intents 仅引用本回合被接受的实际公开场景话语，exchange.addressed_to 必须与 target_id 一致，并明确表达已决定杀死目标或生死交战。不得依据旁人、转述、疑问、私念、假设、含糊措辞、切磋或制服意图推断杀意；玩家话语须是玩家本次输入实际包含的内容。不得重用旧杀意或在结算后补写。伤害、死亡和消耗由正式战斗规则决定。",
+            "group": "当前场景"
+          },
+          {
+            "name": "可承接钩子",
+            "type": "string",
+            "description": "保留一个下一段可以直接承接的未完成动作、对话、发现或迫近威胁；它不是剧情总结或选项列表。",
+            "update_instruction": "只写一个当前最直接的承接点。原钩子已经兑现、失效或被更强的新钩子替代时更新；使用具体对象与动作，不写泛泛的“继续探索”或多个备选项。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "世界局势",
+            "type": "string",
+            "description": "记眼下的世界概况和正在发生的主要事件。写清哪些地方或势力发生了什么，哪些变化仍在持续。",
+            "group": "世界状态",
+            "display": "block"
+          },
+          {
+            "name": "当前任务",
+            "type": "object",
+            "default": {},
+            "description": "记录已经成立且仍需推进的任务。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的任务名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、状态、目标与进度、时限、明确的奖惩和关联对象名称/ID，最多 8 条；关联对象引用已有状态面板名称/ID。任务结算且结果已进入正文后删除；删除记录时 replace 整个 object。任务类型可使用修炼、突破、宗门、历练、秘境、因果或主线。",
+            "group": "当前任务"
+          },
+          {
+            "name": "修行世界状态",
+            "type": "string",
+            "description": "合并记录天地灵气、天道或飞升规则、宗门秩序及正在影响多地的修行界异变。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "技能定义",
+            "type": "object",
+            "default": {},
+            "description": "记录本局按已有规则模板登记的功法、装备与制作方法；由学习或物品规则写入。",
+            "update_instruction": "键为生成定义的稳定标识；子值记录类别、定义、版本、模板、名称、品级、稀有度、来源和描述。数值与实际条件取自对应规则模板，名称和背景由故事创作。生成档案独立于每轮上下文，按稳定ID取用；档案安全上限16384项及4MiB。达到容量时保留已有记录并拒绝新登记，不截断旧记录。",
+            "group": "修为"
+          },
+          {
+            "name": "商贾",
+            "type": "object",
+            "default": {},
+            "description": "记录已经实际交易过的商家及其现银与回购率。由交易结算一次性写入，不由叙述改写。",
+            "update_instruction": "键为商家名称，子值使用“现银”（整枚下品灵石）与“回购率”（千分率，500–700）。现银是这家商铺自己能动用的钱，不是玩家的余额，也不等于它的全部家产。",
+            "group": "经济"
+          }
+        ]
+      },
+      {
+        "id": "important_character",
+        "name": "重要角色状态表",
+        "description": "每个反复登场的重要角色使用独立 Actor；重点维护当前状态、对主角好感与已知信息，以及自身技能、物品和其他关系。",
+        "fields": [
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、组织与公开身份等有用信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录辨识特征、常见装束、装备外观和当前伪装。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录稳定性格、关键来历和会持续影响行为的背景。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "出场与位置",
+            "type": "string",
+            "description": "用一句话记录在场、离场、失联、死亡等存续状态及当前位置或最后确认位置。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "已知位置",
+            "type": "object",
+            "default": {},
+            "description": "主角最后实际获知的位置及该条消息的来源、获知时刻和可信度。",
+            "update_instruction": "只在主角真正观察或获得新消息时更新；对象使用location、learned_at、source、nature、confidence及可选evidence_refs。location写这条消息的位置，不写后台实时位置；learned_at是获知时的世界时间，不是当前时刻或文件时间。source仅observation、conversation、public_record；nature仅experienced、told、hearsay、conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs仅引用主角可见的已提交exchange精确ID；没有证据就省略，不复制私人谈话、NPC私有状态或作者资料。信息缺失留空，不推断，不随着NPC后台移动更新。",
+            "group": "经历见闻"
+          },
+          {
+            "name": "当前境界",
+            "type": "enum",
+            "default": "mortal",
+            "options": [
+              "mortal",
+              "qi_1",
+              "qi_2",
+              "qi_3",
+              "qi_4",
+              "qi_5",
+              "qi_6",
+              "qi_7",
+              "qi_8",
+              "qi_9",
+              "qi_10",
+              "qi_11",
+              "qi_12",
+              "qi_13",
+              "foundation_early",
+              "foundation_middle",
+              "foundation_late",
+              "core_early",
+              "core_middle",
+              "core_late",
+              "nascent_early",
+              "nascent_middle",
+              "nascent_late",
+              "spirit_early",
+              "spirit_middle",
+              "spirit_late",
+              "void_early",
+              "void_middle",
+              "void_late",
+              "integration_early",
+              "integration_middle",
+              "integration_late",
+              "mahayana_early",
+              "mahayana_middle",
+              "mahayana_late"
+            ],
+            "description": "角色在境界阶段表中的位置；取值即规则可结算的境界键，由修炼与突破结算写入，不由叙述改写。",
+            "update_instruction": "只由修炼推进、突破结算、跌境或封印等规则结果更新；取值必须是给定选项之一，不自行改写境界称谓，也不为未实现的境界取值。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private",
+            "value_format": "stage"
+          },
+          {
+            "name": "生命",
+            "type": "number",
+            "min": 0,
+            "description": "当前生命值；由受伤与治疗结算写入，结算时按实际生命上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "生命上限",
+            "visibility": "private"
+          },
+          {
+            "name": "生命上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的生命上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力",
+            "type": "number",
+            "min": 0,
+            "description": "当前灵力值；由消耗与调息结算写入，结算时按实际灵力上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "灵力上限",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的灵力上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "攻击",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的攻击值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "防御",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的防御值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "身法",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的身法值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "神识",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的神识值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "境界进度",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "当前阶段已积累的修炼进度，单位为规则进度值，门槛随阶段提高；不是百分比，也不等同于胜负或绝对战力。",
+            "update_instruction": "只有修炼、机缘、损伤或突破结算明确影响进度时更新；小阶段转换与突破后按新阶段门槛重置或结转。",
+            "group": "修为",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "经脉负担",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "当前经脉负担，0–100；由施展术法累加、按真实时间与轮次消解。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "余伤负担下限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "经脉余伤未愈时负担不能低于此值；未受伤时为 0。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "主法器",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要攻击的一件法器或法宝；未装备、不能操控、借出或损坏时留空。写成对象，键为“名称”“定义”“品级”“稀有度”：“定义”取已登记物品标识，“品级”写下品／中品／上品／顶品／极品之一，“稀有度”写常见／少见／稀有／珍稀／独特之一——两项分开放，不要合并成“中品·少见”这样的单键，合并后规则读不到，这件法器就不参与结算。",
+            "update_instruction": "新建 Actor 首次出场时手里就已经拿着的那一件，直接在 create 的初始状态里写入本字段，连同重要物品一起写：那不是本回合取得的，没有可结算的取得动作。会真正在交手中施展、且需要手持法器的功法，缺了本字段就会被战斗拒绝，所以首次出场就必须写全。此后对它的任何变动走物品模块：取得时用 items.acquire 把该物品记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“主法器”。规则会校验定义是否登记、角色是否真的持有该副本、是否达到适用阶段并满足操控要求，并把品级、稀有度、主要属性预算与操控成本按定义写入。适用阶段不是点击颜色就能越过，境界不足的宝物装备会被拒绝。本字段不随叙述改写。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "护具",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要防御的一件护具；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：装备用 items.equip 指定副本名称，卸下用 items.unequip 指定“护具”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算与操控成本。护具只增加防御，不把同一个百分比同时加到六属性。",
+            "group": "行囊"
+          },
+          {
+            "name": "布阵",
+            "type": "object",
+            "default": {},
+            "description": "当前由本人维持、仍在作用区域内的阵法；离开阵区、失去维持能力或阵盘被破坏后留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得阵盘时用 items.acquire 把阵盘记入重要物品，布阵时用 items.equip 指定阵盘名称，撤阵时用 items.unequip 指定“布阵”。规则按阵盘定义写入品级、稀有度、增益、启动耗灵与每轮维持，并从灵力中扣除启动消耗；灵力不足时布阵会被拒绝。每轮维持失败、离开阵区或阵盘被破坏后，用 items.unequip 撤去此阵。",
+            "group": "行囊"
+          },
+          {
+            "name": "攻击法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件攻击法宝，用于主动攻击、破防等已登记的攻击用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“攻击法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "防御法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件防御法宝，用于护盾、格挡等已登记的防御用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“防御法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "辅助法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件辅助法宝，用于探查、隐匿、束缚、脱身等已登记的用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“辅助法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "灵石",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "随身可支配的下品灵石枚数；只计整枚，零头不以灵石计。 数值区间：整数枚下品灵石。",
+            "update_instruction": "新建此人时，正文或设定已经交代他随身带多少灵石，就在 create 的 initial_state 里按实际枚数一次写足；这是叙述唯一一次给出持有量的机会，默认的 0 表示确实一文没有，不是“待定”。create 之后本项归规则，只由交易与明确的收支结算写入，叙述不再直接改写余额，也不因剧情需要凭空增加。",
+            "group": "行囊",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "功法与专精",
+            "type": "string",
+            "default": "未定",
+            "description": "记录当前主修功法及其专精方向（均衡／强攻／防护／轻身／神识）与品阶（普通／良好／高阶）；六属性按专精与品阶统一结算，不在此处手写加成数值。",
+            "update_instruction": "只在正式转修、功法进阶或设定被明确补充时更新；不因临场描写变化。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private"
+          },
+          {
+            "name": "持续状态",
+            "type": "list",
+            "default": [],
+            "description": "只列仍会影响修行或行动的伤势、封印、增益与异常。",
+            "update_instruction": "每项使用“名称｜影响｜解除条件或时长”；结束后移除，不记录已经结算的瞬时变化。会参与属性结算的增益（丹药、符箓、加持等）另用对象形式记录，键为“名称”“属性”“数值”“同类”“剩余轮次”：属性取 攻击／防御／身法／神识／生命上限／灵力上限，数值为百分点（增攻药下品 5、中品 8、上品 12、极品 15），同类为叠加分组（如 增攻药），剩余轮次为真实剩余轮数。同类取强不叠加，轮次归零即失效。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的功法、术法、神通或法宝。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "当前目标与处境",
+            "type": "string",
+            "description": "记录已经由行为、对话或设定确认的近期目标、压力、优势与限制，不猜测幕后计划。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "与主角关系",
+            "type": "string",
+            "description": "记录关系类型、当前态度、关系阶段、重要承诺、边界和主要矛盾。",
+            "group": "关系",
+            "display": "block"
+          },
+          {
+            "name": "对主角好感度",
+            "type": "number",
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "description": "该角色对主角的总体情感倾向，不代表信任、服从或恋爱关系。 0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。",
+            "update_instruction": "该数值由好感结算写入，不要在 state_changes 中直接改写；会改变双方关系的有效互动或事件通过 character_facts.affinities 提交，并说明所依据的那一件事实。关系类型与关系阶段只随相应剧情事实更新，不根据好感度自动推导。",
+            "group": "关系",
+            "display": "stat"
+          },
+          {
+            "name": "已知人物关系",
+            "type": "object",
+            "default": {},
+            "description": "只记录主角已经获知的该人物对其他已知人物的有方向关系。",
+            "update_instruction": "键为已登记且主角已知的目标Actor精确ID；值用kind写有方向的关系，learned_at写实际获知的世界时刻。source仅observation、conversation或public_record；nature仅experienced、told、hearsay或conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs可列主角可见的已提交exchange精确ID，无引用就省略。只记亲眼见到或明确获知的关系，不从好感、同场、作者资料、NPC私有关系或私人谈话复制，不附自由证据原文。最多12项；不自动镜像，只有真正获知变化才更新。正式主角关系以character_facts.relationships为准。",
+            "group": "关系"
+          },
+          {
+            "name": "对主角的已知信息",
+            "type": "list",
+            "default": [],
+            "description": "只列会影响该角色判断或行动、且该角色确实已经得知的信息，最多 6 项。",
+            "group": "经历见闻",
+            "display": "list"
+          },
+          {
+            "name": "根基与传承",
+            "type": "string",
+            "description": "记录已知灵根、特殊体质和主要传承；境界、伤势与临时异常由对应分组字段维护，未知部分不估算。",
+            "group": "修为",
+            "display": "block"
+          },
+          {
+            "name": "修行安排",
+            "type": "enum",
+            "default": "未定",
+            "options": [
+              "未定",
+              "正常生活兼修行",
+              "专心闭关",
+              "外出历练",
+              "事务繁忙",
+              "养伤"
+            ],
+            "description": "该角色当前时段的修行安排，决定结算时投入修炼的有效比例；只写已经由剧情确立的安排，未确立时保持未定。",
+            "update_instruction": "只在剧情明确改变该角色的长期安排时更新：开始或结束闭关、外出、被事务占满、进入养伤。临时的一句话状态不写入；不改写境界、进度或属性。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private"
+          },
+          {
+            "name": "修炼间隙",
+            "type": "string",
+            "description": "外出期间确实存在的、可以安全调息修炼的时段与条件；没有这样的机会时留空。",
+            "update_instruction": "只记录已经确立的安全修炼机会，写清何时、何处、为何不被打扰；与修行安排一并更新，不写期待中的机会。",
+            "group": "修为",
+            "display": "block",
+            "visibility": "private"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型可使用功法、术法、神通、秘术、剑诀、身法或天赋；阶段与效果按正文设定表达，不换算成统一数值。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 6 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用法宝、法器、丹药、符箓、阵盘、灵材、灵石或传承物；记录品阶、认主、耐久或剩余次数等实际存在的状态。已登记物品只能经 items 模块入行囊：取得时用 items.acquire 写该定义的稳定标识与名称，规则据此写入“定义”“数量”“适用阶段”，不要在同一回合的 state_changes 里再手写一遍同一件物品，否则会被记成两份。取得时可在同一处另写“描述”与“来源”：描述写这件东西看上去、摸上去、闻起来是什么样，一两句，可带一点机锋；来源写从谁手里、从什么地方得来。两项只是记事，不进任何数值；不要借描述复述效果、消耗或数字。同一件物品只写一次，之后装备、卸下、再取出都沿用最初那两句，不会随叙述改写。一件实物只有一个持有者。若这件东西本来就在本故事某个已登记角色手里——馈赠、私下转让、从败者身上取下——取得时把 from 写成他的 Actor id，规则会在同一次提交里从他名下移出、记到你名下；不写 from 而此物已在别人手里会被拒绝。已经装备在身上的同一件东西不能再取得一次，要放回行囊请先 unequip。另取一把同名但确实是另一把的同类武器不受限制。实际制作的产物须由craft结算，不能再以items.acquire重复取得；先用skills登记craft_design可推导更高品级或不同受支持属性的正式产物及其真实材料和工时。新创作且从外界实际取得的装备或消耗品可在 items.acquire 用 template_id 选下列同类效果模板，填写 name、source、description，规则会登记本局新定义再记录持有。品级、效果、价格与使用条件沿用模板，名称和背景可自由创作；独特物品与材料不能复制。生成档案按ID取用，安全上限16384项及4MiB，满时保留旧记录并拒绝新登记；旧内容可用search_generated_definitions按名称、ID或分页读取。普通叙事物件仍可按正文记述。模板或既有定义取以下之一：implement.lower.common（下品·常见·攻击 +5%）；implement.middle.rare（中品·稀有·攻击 +15%）；implement.top.unique（顶品·独特·攻击 +35%）；implement.upper.rare.effect（上品·稀有·攻击 +18%）；armor.middle.rare（中品·稀有·防御 +15%）；pill.restore.health.lower（下品·常见·回复生命）；pill.boost.attack.middle（中品·常见·增攻 8%、持续 3 轮）；pill.support.cultivation.lower（下品·常见·普通辅助、每份可支撑 30 日修炼）；formation.attack.middle（中品·常见·增攻 8%）；talisman.ward.lower（下品·常见·护身符：消耗一张，护盾按炼气一层基础生命的 20% 固定，持续 3 轮，不叠加）；material.talisman.paper（下品·常见·炼制材料，本身无效果）；material.talisman.ink（下品·常见·炼制材料，本身无效果）；material.herb.green_vine（下品·常见·炼制材料，本身无效果）；material.ore.iron（下品·常见·炼制材料，本身无效果）；material.stone.ward（下品·常见·炼制材料，本身无效果）；treasure.attack.middle（中品·稀有·）；treasure.defense.middle（中品·稀有·）；treasure.support.upper.effect（上品·稀有·）；equipment.foundation_blade（顶品·稀有·攻击 +25%）；equipment.foundation_robe（顶品·稀有·防御 +25%）；equipment.foundation_mirror（上品·稀有·）；equipment.core_blade（顶品·稀有·攻击 +26%）；equipment.core_robe（顶品·稀有·防御 +25%）；equipment.core_mirror（上品·稀有·）；equipment.nascent_blade（顶品·稀有·攻击 +27%）；equipment.nascent_robe（顶品·稀有·防御 +25%）；equipment.nascent_mirror（上品·稀有·）；equipment.spirit_blade（顶品·珍稀·攻击 +28.000000000000004%）；equipment.spirit_robe（顶品·稀有·防御 +25%）；equipment.spirit_mirror（上品·稀有·）；equipment.void_blade（顶品·珍稀·攻击 +28.999999999999996%）；equipment.void_robe（顶品·稀有·防御 +25%）；equipment.void_mirror（上品·稀有·）；equipment.integration_blade（顶品·珍稀·攻击 +30%）；equipment.integration_robe（顶品·稀有·防御 +25%）；equipment.integration_mirror（上品·稀有·）；equipment.mahayana_blade（顶品·珍稀·攻击 +30%）；equipment.mahayana_robe（顶品·稀有·防御 +25%）；equipment.mahayana_mirror（上品·稀有·）；material.spirit.boundary_anchor（顶品·稀有·炼制材料，本身无效果）；material.spirit.boundary_jade（顶品·稀有·炼制材料，本身无效果）；manual.spirit.void（顶品·稀有·炼制材料，本身无效果）；manual.spirit.integration（顶品·稀有·炼制材料，本身无效果）；manual.spirit.mahayana（顶品·珍稀·炼制材料，本身无效果）；material.spirit.rift_sample（顶品·稀有·炼制材料，本身无效果）；material.spirit.formation_record（顶品·稀有·炼制材料，本身无效果）；material.spirit.ancient_rubbing（顶品·珍稀·炼制材料，本身无效果）。丹药与符箓会成为战斗中真正可消耗的一份；记在此处的法器、护具与阵盘不计入属性，也不因稀有度自动获得加成。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 6 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按师徒、同门、道侣、盟友、因果、恩怨、主从或敌对等修仙语义表达。 对主角的关系已由专用字段维护，此处只记录该角色对其他 Actor 或势力的关系。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "已学功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中与已学会的术法、神通、秘术及已学会制作方法。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”，另有“描述”“来历”两项记事文字。技能经 skills 登记并按实际minutes累计学习，普通/良好/高阶标准1/3/7日再按资质调整；0分钟仅登记，标记“修习中”不能施展，足时才“已学会”。首次学习须有完整资料或有效传授的source。制作方法按实际掌握授业，不套技能天数。定义为已登记功法定义的稳定标识（如 strike／fire_bolt／condensed_blade／heavy_thunder／flame_wave／shield／meridian_secret_blade；制作方法如 craft.talisman.ward，仅授予制作资格，不是战斗招式），版本为该角色实际学会的版本号。“描述”写这门功法施展起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写从谁手里、从哪本册子或哪处遗迹得来。两项都在首次学会时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写威力、消耗或任何数值，那些一律由已登记定义决定。登记、修习进度和掌握程度均由学习结算写入；仅正文提到不授予能力，不能在state_changes里手写学习结果。定义不存在或版本未登记时不写，改由学习结算写入。新建 Actor 首次出场时就已经会、且定义已登记的功法，直接在 create 的初始状态里写入本字段，不必再走学习结算——这个人的过去不是本回合学到的。本故事自行造出的功法由学习结算按已批准模板登记，标识形如 gen.\u003c模板\u003e.\u003c名称\u003e，不要手写。\n本局生成技能：需要新造功法时用 template_id 选本局已批准模板，并用 name 写名称：fire_bolt（普通·常见）；condensed_blade（良好·少见）；heavy_thunder（高阶·稀有）；flame_wave（良好·少见）；shield（普通·常见）；meridian_secret_blade（高阶·珍稀）；foundation_pierce（高阶·稀有）；foundation_wave（高阶·稀有）；foundation_ward（高阶·稀有）；core_pierce（高阶·稀有）；core_wave（高阶·稀有）；core_ward（高阶·稀有）；nascent_pierce（高阶·稀有）；nascent_wave（高阶·稀有）；nascent_ward（高阶·稀有）；spirit_pierce（高阶·稀有）；spirit_wave（高阶·稀有）；spirit_ward（高阶·稀有）；void_pierce（高阶·稀有）；void_wave（高阶·稀有）；void_ward（高阶·稀有）；integration_pierce（高阶·稀有）；integration_wave（高阶·稀有）；integration_ward（高阶·稀有）；mahayana_pierce（高阶·稀有）；mahayana_wave（高阶·稀有）；mahayana_ward（高阶·稀有）。省略skill_design时沿用模板；提出设计变化时由既有结算核算实际耗灵、负担和研习时间。品级、适用阶段、资料与法器要求取自该模板，不从别的世界补齐。已登记技能用def_id与minutes继续学习，未完成不能施展；登记不等于取得物品，实物仍须有实际来源。",
+            "group": "修为",
+            "visibility": "private"
+          },
+          {
+            "name": "功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中、已掌握与当前运转的功法。功法由规则登记，属性加成由规则结算，不在此处写数值。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”“运转”，另有“描述”“来历”两项记事文字。定义为已登记功法定义的稳定标识（如 method.basic_breathing／method.warm_origin／method.cold_spring／method.origin_guard／method.flowing_wind／method.clear_mind／method.body_cycle／method.economical_breath），版本为该角色实际学会的版本号。掌握程度为“已掌握”或“修习中”；运转为“运转”或“停止”。“描述”写这门功法运转起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写师承、家传或得自何处。两项在首次修习时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写效果、消耗或任何数值，那些一律由已登记定义决定。新功法可用 techniques.learn 的template_id/name/source登记同效模板，本局生成定义上限512；学习结算保存名称、已修习分钟、修习中/已掌握，登记不等于掌握。普通调整一次10分钟，温寒换运一次安全调息60分钟且结束负担为0；使用既有恢复规则，不免费补满血蓝、不把同一准备重复提交rest，战斗中不能切换。数值、调息状态与时间均由规则记录。",
+            "group": "修为",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "opponent",
+        "name": "敌对对象状态表",
+        "description": "每个需要持续追踪的敌人、怪物、Boss 或异常实体使用独立 Actor；相近威胁信息合并维护。",
+        "fields": [
+          {
+            "name": "类型与外观",
+            "type": "string",
+            "description": "合并记录敌人、怪物、Boss、陷阱或异常实体的类型、身份与辨识特征。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "存续与位置",
+            "type": "string",
+            "description": "用一句话记录活跃、撤退、被俘、失效、消灭等状态及所在或最后确认位置。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "威胁态势",
+            "type": "string",
+            "description": "合并记录威胁级别、警戒或追击状态和当前目标。",
+            "update_instruction": "使用低、中、高、致命四档：低=通常无需专门准备；中=会造成明确损失；高=需要资源、协作或针对性策略；致命=正面对抗很可能导致死亡或不可逆后果。只有能力、数量、环境或目标发生实质变化时调整。",
+            "group": "威胁",
+            "display": "block"
+          },
+          {
+            "name": "当前境界",
+            "type": "enum",
+            "default": "mortal",
+            "options": [
+              "mortal",
+              "qi_1",
+              "qi_2",
+              "qi_3",
+              "qi_4",
+              "qi_5",
+              "qi_6",
+              "qi_7",
+              "qi_8",
+              "qi_9",
+              "qi_10",
+              "qi_11",
+              "qi_12",
+              "qi_13",
+              "foundation_early",
+              "foundation_middle",
+              "foundation_late",
+              "core_early",
+              "core_middle",
+              "core_late",
+              "nascent_early",
+              "nascent_middle",
+              "nascent_late",
+              "spirit_early",
+              "spirit_middle",
+              "spirit_late",
+              "void_early",
+              "void_middle",
+              "void_late",
+              "integration_early",
+              "integration_middle",
+              "integration_late",
+              "mahayana_early",
+              "mahayana_middle",
+              "mahayana_late"
+            ],
+            "description": "角色在境界阶段表中的位置；取值即规则可结算的境界键，由修炼与突破结算写入，不由叙述改写。",
+            "update_instruction": "只由修炼推进、突破结算、跌境或封印等规则结果更新；取值必须是给定选项之一，不自行改写境界称谓，也不为未实现的境界取值。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private",
+            "value_format": "stage"
+          },
+          {
+            "name": "生命",
+            "type": "number",
+            "min": 0,
+            "description": "当前生命值；由受伤与治疗结算写入，结算时按实际生命上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "生命上限",
+            "visibility": "private"
+          },
+          {
+            "name": "生命上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的生命上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力",
+            "type": "number",
+            "min": 0,
+            "description": "当前灵力值；由消耗与调息结算写入，结算时按实际灵力上限截断。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "max_field": "灵力上限",
+            "visibility": "private"
+          },
+          {
+            "name": "灵力上限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的灵力上限。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "攻击",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的攻击值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "防御",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的防御值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "身法",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的身法值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "神识",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "由境界阶段表与有效加成结算的神识值。 由规则结算，叙述不得直接改写。",
+            "update_instruction": "由修炼、突破、受伤、治疗、装备、丹药、阵法与其余有效来源的结算写入；不按临场描写手动增减，也不把加成重复计入。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "境界进度",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "当前阶段已积累的修炼进度，单位为规则进度值，门槛随阶段提高；不是百分比，也不等同于胜负或绝对战力。",
+            "update_instruction": "只有修炼、机缘、损伤或突破结算明确影响进度时更新；小阶段转换与突破后按新阶段门槛重置或结转。",
+            "group": "修为",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "经脉负担",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "当前经脉负担，0–100；由施展术法累加、按真实时间与轮次消解。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "余伤负担下限",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 100,
+            "description": "经脉余伤未愈时负担不能低于此值；未受伤时为 0。",
+            "update_instruction": "由施展术法的负担结算、按轮次与真实时间消解、以及余伤的形成与痊愈更新；不在叙述中直接增减。",
+            "group": "战斗与状态",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "主法器",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要攻击的一件法器或法宝；未装备、不能操控、借出或损坏时留空。写成对象，键为“名称”“定义”“品级”“稀有度”：“定义”取已登记物品标识，“品级”写下品／中品／上品／顶品／极品之一，“稀有度”写常见／少见／稀有／珍稀／独特之一——两项分开放，不要合并成“中品·少见”这样的单键，合并后规则读不到，这件法器就不参与结算。",
+            "update_instruction": "新建 Actor 首次出场时手里就已经拿着的那一件，直接在 create 的初始状态里写入本字段，连同重要物品一起写：那不是本回合取得的，没有可结算的取得动作。会真正在交手中施展、且需要手持法器的功法，缺了本字段就会被战斗拒绝，所以首次出场就必须写全。此后对它的任何变动走物品模块：取得时用 items.acquire 把该物品记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“主法器”。规则会校验定义是否登记、角色是否真的持有该副本、是否达到适用阶段并满足操控要求，并把品级、稀有度、主要属性预算与操控成本按定义写入。适用阶段不是点击颜色就能越过，境界不足的宝物装备会被拒绝。本字段不随叙述改写。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "护具",
+            "type": "object",
+            "default": {},
+            "description": "当前参与主要防御的一件护具；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：装备用 items.equip 指定副本名称，卸下用 items.unequip 指定“护具”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算与操控成本。护具只增加防御，不把同一个百分比同时加到六属性。",
+            "group": "行囊"
+          },
+          {
+            "name": "布阵",
+            "type": "object",
+            "default": {},
+            "description": "当前由本人维持、仍在作用区域内的阵法；离开阵区、失去维持能力或阵盘被破坏后留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得阵盘时用 items.acquire 把阵盘记入重要物品，布阵时用 items.equip 指定阵盘名称，撤阵时用 items.unequip 指定“布阵”。规则按阵盘定义写入品级、稀有度、增益、启动耗灵与每轮维持，并从灵力中扣除启动消耗；灵力不足时布阵会被拒绝。每轮维持失败、离开阵区或阵盘被破坏后，用 items.unequip 撤去此阵。",
+            "group": "行囊"
+          },
+          {
+            "name": "攻击法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件攻击法宝，用于主动攻击、破防等已登记的攻击用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“攻击法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "防御法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件防御法宝，用于护盾、格挡等已登记的防御用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“防御法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "辅助法宝",
+            "type": "object",
+            "default": {},
+            "description": "当前御使的一件辅助法宝，用于探查、隐匿、束缚、脱身等已登记的用途；未装备、不能操控、借出或损坏时留空。本字段由物品规则写入，叙述只读不写。",
+            "update_instruction": "由物品模块写入，不要在 state_changes 中改写：取得时用 items.acquire 把该宝物记入重要物品，装备时用 items.equip 指定副本名称，卸下时用 items.unequip 指定“辅助法宝”。规则校验定义、持有副本与适用阶段后，按定义写入品级、稀有度、主要属性预算、增益属性与操控成本；境界不足时装备会被拒绝。三件法宝各自一个位置，互不顶替；同一件实物不能同时占武器与法宝位。装备不等于自动发动，主动效果仍要按定义支付行动与灵力。",
+            "group": "行囊"
+          },
+          {
+            "name": "灵石",
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "description": "随身可支配的下品灵石枚数；只计整枚，零头不以灵石计。 数值区间：整数枚下品灵石。",
+            "update_instruction": "新建此人时，正文或设定已经交代他随身带多少灵石，就在 create 的 initial_state 里按实际枚数一次写足；这是叙述唯一一次给出持有量的机会，默认的 0 表示确实一文没有，不是“待定”。create 之后本项归规则，只由交易与明确的收支结算写入，叙述不再直接改写余额，也不因剧情需要凭空增加。",
+            "group": "行囊",
+            "display": "stat",
+            "visibility": "private"
+          },
+          {
+            "name": "功法与专精",
+            "type": "string",
+            "default": "未定",
+            "description": "记录当前主修功法及其专精方向（均衡／强攻／防护／轻身／神识）与品阶（普通／良好／高阶）；六属性按专精与品阶统一结算，不在此处手写加成数值。",
+            "update_instruction": "只在正式转修、功法进阶或设定被明确补充时更新；不因临场描写变化。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private"
+          },
+          {
+            "name": "持续状态",
+            "type": "list",
+            "default": [],
+            "description": "只列仍会影响修行或行动的伤势、封印、增益与异常。",
+            "update_instruction": "每项使用“名称｜影响｜解除条件或时长”；结束后移除，不记录已经结算的瞬时变化。会参与属性结算的增益（丹药、符箓、加持等）另用对象形式记录，键为“名称”“属性”“数值”“同类”“剩余轮次”：属性取 攻击／防御／身法／神识／生命上限／灵力上限，数值为百分点（增攻药下品 5、中品 8、上品 12、极品 15），同类为叠加分组（如 增攻药），剩余轮次为真实剩余轮数。同类取强不叠加，轮次归零即失效。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "冷却状态",
+            "type": "list",
+            "default": [],
+            "description": "只列尚未恢复的功法、术法、神通或法宝。",
+            "update_instruction": "每项写名称与剩余时间、次数或恢复条件；恢复后移除。",
+            "group": "战斗与状态",
+            "display": "list"
+          },
+          {
+            "name": "行动模式",
+            "type": "string",
+            "description": "记录已经观察或可靠确认的攻击倾向、触发方式和行为规律。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "弱点与退场条件",
+            "type": "string",
+            "description": "合并记录已确认弱点，以及击败、驱散、封印、谈判或摆脱条件。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "本相与传承特征",
+            "type": "string",
+            "description": "记录已确认的妖身、法相、传承特征和境界压制方式。会真正在交手中施展、且已有登记定义的功法写入“已学功法”（首次出场时就已会的，一并在 create 的初始状态里写入）；规则没有登记定义的独门手段才记入“技能与能力”。",
+            "group": "修为",
+            "display": "block"
+          },
+          {
+            "name": "修行安排",
+            "type": "enum",
+            "default": "未定",
+            "options": [
+              "未定",
+              "正常生活兼修行",
+              "专心闭关",
+              "外出历练",
+              "事务繁忙",
+              "养伤"
+            ],
+            "description": "该角色当前时段的修行安排，决定结算时投入修炼的有效比例；只写已经由剧情确立的安排，未确立时保持未定。",
+            "update_instruction": "只在剧情明确改变该角色的长期安排时更新：开始或结束闭关、外出、被事务占满、进入养伤。临时的一句话状态不写入；不改写境界、进度或属性。",
+            "group": "修为",
+            "display": "inline",
+            "visibility": "private"
+          },
+          {
+            "name": "修炼间隙",
+            "type": "string",
+            "description": "外出期间确实存在的、可以安全调息修炼的时段与条件；没有这样的机会时留空。",
+            "update_instruction": "只记录已经确立的安全修炼机会，写清何时、何处、为何不被打扰；与修行安排一并更新，不写期待中的机会。",
+            "group": "修为",
+            "display": "block",
+            "visibility": "private"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型可使用功法、术法、神通、秘术、剑诀、身法或天赋；阶段与效果按正文设定表达，不换算成统一数值。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 4 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型可使用法宝、法器、丹药、符箓、阵盘、灵材、灵石或传承物；记录品阶、认主、耐久或剩余次数等实际存在的状态。已登记物品只能经 items 模块入行囊：取得时用 items.acquire 写该定义的稳定标识与名称，规则据此写入“定义”“数量”“适用阶段”，不要在同一回合的 state_changes 里再手写一遍同一件物品，否则会被记成两份。取得时可在同一处另写“描述”与“来源”：描述写这件东西看上去、摸上去、闻起来是什么样，一两句，可带一点机锋；来源写从谁手里、从什么地方得来。两项只是记事，不进任何数值；不要借描述复述效果、消耗或数字。同一件物品只写一次，之后装备、卸下、再取出都沿用最初那两句，不会随叙述改写。一件实物只有一个持有者。若这件东西本来就在本故事某个已登记角色手里——馈赠、私下转让、从败者身上取下——取得时把 from 写成他的 Actor id，规则会在同一次提交里从他名下移出、记到你名下；不写 from 而此物已在别人手里会被拒绝。已经装备在身上的同一件东西不能再取得一次，要放回行囊请先 unequip。另取一把同名但确实是另一把的同类武器不受限制。实际制作的产物须由craft结算，不能再以items.acquire重复取得；先用skills登记craft_design可推导更高品级或不同受支持属性的正式产物及其真实材料和工时。新创作且从外界实际取得的装备或消耗品可在 items.acquire 用 template_id 选下列同类效果模板，填写 name、source、description，规则会登记本局新定义再记录持有。品级、效果、价格与使用条件沿用模板，名称和背景可自由创作；独特物品与材料不能复制。生成档案按ID取用，安全上限16384项及4MiB，满时保留旧记录并拒绝新登记；旧内容可用search_generated_definitions按名称、ID或分页读取。普通叙事物件仍可按正文记述。模板或既有定义取以下之一：implement.lower.common（下品·常见·攻击 +5%）；implement.middle.rare（中品·稀有·攻击 +15%）；implement.top.unique（顶品·独特·攻击 +35%）；implement.upper.rare.effect（上品·稀有·攻击 +18%）；armor.middle.rare（中品·稀有·防御 +15%）；pill.restore.health.lower（下品·常见·回复生命）；pill.boost.attack.middle（中品·常见·增攻 8%、持续 3 轮）；pill.support.cultivation.lower（下品·常见·普通辅助、每份可支撑 30 日修炼）；formation.attack.middle（中品·常见·增攻 8%）；talisman.ward.lower（下品·常见·护身符：消耗一张，护盾按炼气一层基础生命的 20% 固定，持续 3 轮，不叠加）；material.talisman.paper（下品·常见·炼制材料，本身无效果）；material.talisman.ink（下品·常见·炼制材料，本身无效果）；material.herb.green_vine（下品·常见·炼制材料，本身无效果）；material.ore.iron（下品·常见·炼制材料，本身无效果）；material.stone.ward（下品·常见·炼制材料，本身无效果）；treasure.attack.middle（中品·稀有·）；treasure.defense.middle（中品·稀有·）；treasure.support.upper.effect（上品·稀有·）；equipment.foundation_blade（顶品·稀有·攻击 +25%）；equipment.foundation_robe（顶品·稀有·防御 +25%）；equipment.foundation_mirror（上品·稀有·）；equipment.core_blade（顶品·稀有·攻击 +26%）；equipment.core_robe（顶品·稀有·防御 +25%）；equipment.core_mirror（上品·稀有·）；equipment.nascent_blade（顶品·稀有·攻击 +27%）；equipment.nascent_robe（顶品·稀有·防御 +25%）；equipment.nascent_mirror（上品·稀有·）；equipment.spirit_blade（顶品·珍稀·攻击 +28.000000000000004%）；equipment.spirit_robe（顶品·稀有·防御 +25%）；equipment.spirit_mirror（上品·稀有·）；equipment.void_blade（顶品·珍稀·攻击 +28.999999999999996%）；equipment.void_robe（顶品·稀有·防御 +25%）；equipment.void_mirror（上品·稀有·）；equipment.integration_blade（顶品·珍稀·攻击 +30%）；equipment.integration_robe（顶品·稀有·防御 +25%）；equipment.integration_mirror（上品·稀有·）；equipment.mahayana_blade（顶品·珍稀·攻击 +30%）；equipment.mahayana_robe（顶品·稀有·防御 +25%）；equipment.mahayana_mirror（上品·稀有·）；material.spirit.boundary_anchor（顶品·稀有·炼制材料，本身无效果）；material.spirit.boundary_jade（顶品·稀有·炼制材料，本身无效果）；manual.spirit.void（顶品·稀有·炼制材料，本身无效果）；manual.spirit.integration（顶品·稀有·炼制材料，本身无效果）；manual.spirit.mahayana（顶品·珍稀·炼制材料，本身无效果）；material.spirit.rift_sample（顶品·稀有·炼制材料，本身无效果）；material.spirit.formation_record（顶品·稀有·炼制材料，本身无效果）；material.spirit.ancient_rubbing（顶品·珍稀·炼制材料，本身无效果）。丹药与符箓会成为战斗中真正可消耗的一份；记在此处的法器、护具与阵盘不计入属性，也不因稀有度自动获得加成。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 4 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系按师徒、同门、道侣、盟友、因果、恩怨、主从或敌对等修仙语义表达。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "已学功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中与已学会的术法、神通、秘术及已学会制作方法。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”，另有“描述”“来历”两项记事文字。技能经 skills 登记并按实际minutes累计学习，普通/良好/高阶标准1/3/7日再按资质调整；0分钟仅登记，标记“修习中”不能施展，足时才“已学会”。首次学习须有完整资料或有效传授的source。制作方法按实际掌握授业，不套技能天数。定义为已登记功法定义的稳定标识（如 strike／fire_bolt／condensed_blade／heavy_thunder／flame_wave／shield／meridian_secret_blade；制作方法如 craft.talisman.ward，仅授予制作资格，不是战斗招式），版本为该角色实际学会的版本号。“描述”写这门功法施展起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写从谁手里、从哪本册子或哪处遗迹得来。两项都在首次学会时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写威力、消耗或任何数值，那些一律由已登记定义决定。登记、修习进度和掌握程度均由学习结算写入；仅正文提到不授予能力，不能在state_changes里手写学习结果。定义不存在或版本未登记时不写，改由学习结算写入。新建 Actor 首次出场时就已经会、且定义已登记的功法，直接在 create 的初始状态里写入本字段，不必再走学习结算——这个人的过去不是本回合学到的。本故事自行造出的功法由学习结算按已批准模板登记，标识形如 gen.\u003c模板\u003e.\u003c名称\u003e，不要手写。\n本局生成技能：需要新造功法时用 template_id 选本局已批准模板，并用 name 写名称：fire_bolt（普通·常见）；condensed_blade（良好·少见）；heavy_thunder（高阶·稀有）；flame_wave（良好·少见）；shield（普通·常见）；meridian_secret_blade（高阶·珍稀）；foundation_pierce（高阶·稀有）；foundation_wave（高阶·稀有）；foundation_ward（高阶·稀有）；core_pierce（高阶·稀有）；core_wave（高阶·稀有）；core_ward（高阶·稀有）；nascent_pierce（高阶·稀有）；nascent_wave（高阶·稀有）；nascent_ward（高阶·稀有）；spirit_pierce（高阶·稀有）；spirit_wave（高阶·稀有）；spirit_ward（高阶·稀有）；void_pierce（高阶·稀有）；void_wave（高阶·稀有）；void_ward（高阶·稀有）；integration_pierce（高阶·稀有）；integration_wave（高阶·稀有）；integration_ward（高阶·稀有）；mahayana_pierce（高阶·稀有）；mahayana_wave（高阶·稀有）；mahayana_ward（高阶·稀有）。省略skill_design时沿用模板；提出设计变化时由既有结算核算实际耗灵、负担和研习时间。品级、适用阶段、资料与法器要求取自该模板，不从别的世界补齐。已登记技能用def_id与minutes继续学习，未完成不能施展；登记不等于取得物品，实物仍须有实际来源。",
+            "group": "修为",
+            "visibility": "private"
+          },
+          {
+            "name": "功法",
+            "type": "object",
+            "default": {},
+            "description": "记录本人已登记、修习中、已掌握与当前运转的功法。功法由规则登记，属性加成由规则结算，不在此处写数值。",
+            "update_instruction": "键为功法名称，子值使用“定义”“版本”“掌握程度”“运转”，另有“描述”“来历”两项记事文字。定义为已登记功法定义的稳定标识（如 method.basic_breathing／method.warm_origin／method.cold_spring／method.origin_guard／method.flowing_wind／method.clear_mind／method.body_cycle／method.economical_breath），版本为该角色实际学会的版本号。掌握程度为“已掌握”或“修习中”；运转为“运转”或“停止”。“描述”写这门功法运转起来是什么样子、什么手感，一两句，可带一点机锋；“来历”写师承、家传或得自何处。两项在首次修习时由学习结算写入，之后固定不变，后续叙述不得改写；也不要在这里写效果、消耗或任何数值，那些一律由已登记定义决定。新功法可用 techniques.learn 的template_id/name/source登记同效模板，本局生成定义上限512；学习结算保存名称、已修习分钟、修习中/已掌握，登记不等于掌握。普通调整一次10分钟，温寒换运一次安全调息60分钟且结束负担为0；使用既有恢复规则，不免费补满血蓝、不把同一准备重复提交rest，战斗中不能切换。数值、调息状态与时间均由规则记录。",
+            "group": "修为",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "world_entities",
+        "name": "世界实体表",
+        "description": "地点与势力集中在同一个世界 Actor 中，以两个 object 字段保持不同记录结构。",
+        "fields": [
+          {
+            "name": "地点记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍有探索、通行、资源或剧情价值的重要地点。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的地点名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、所属范围、当前状态、风险、关键特征与通路，最多 16 条。风险使用低、中、高、致命等文字等级，不保存画布坐标；删除记录时 replace 整个 object。地点类型可使用洞府、宗门、坊市、秘境、禁地、城池、洞天或战场。",
+            "group": "地点"
+          },
+          {
+            "name": "势力记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍在影响主角、任务或世界局势的重要势力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的势力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、核心特征、存续状态、对主角立场、主要范围和当前行动，最多 8 条。存续状态、主要范围与当前行动只在本次确有依据时才改写：写清这个变化是怎么来的——谁说的、谁办的、在什么地方见到的，或主角亲眼见到的结果；只听到有人这么说、只被转告一句旧消息、只是自己的推测，都不足以改写，宁可先写成传闻或怀疑，也不要当成这个势力现在的样子。没有依据时保留原有记录不动。旧记录可能写于很久以前，见 Actor 上标出的写下时间；超出这个时间的说法不能当成眼下的事实。删除记录时 replace 整个 object。势力类型可使用宗门、世家、仙朝、魔门、妖族、商会、散修盟或上界势力。",
+            "group": "势力"
+          }
+        ]
+      }
+    ],
+    "initial_actors": [
+      {
+        "id": "protagonist",
+        "name": "主角",
+        "template_id": "protagonist",
+        "role": "protagonist",
+        "description": "当前故事的可玩主角；身份、状态、技能、重要物品和关系集中维护在此 Actor。"
+      },
+      {
+        "id": "story",
+        "name": "故事状态",
+        "template_id": "story_context",
+        "role": "story_context",
+        "description": "当前场景、世界局势与当前任务的统一状态对象。"
+      },
+      {
+        "id": "world",
+        "name": "世界实体",
+        "template_id": "world_entities",
+        "role": "world",
+        "description": "仍对当前故事有行动价值的重要地点与势力。"
+      }
+    ]
+  },
+  "custom": false
+}

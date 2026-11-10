@@ -1,0 +1,272 @@
+--- a/internal/agents/prompts/composition.go
++++ b/internal/agents/prompts/composition.go
+@@ -148,6 +148,29 @@
+ 		Purpose: "define the built-in game narration workflow and output behavior",
+ 		Content: BuildInteractiveStoryFlowInstruction(baseInput), Required: true, Overflow: SystemPromptOverflowReject,
+ 	})
++	builtIn = append(builtIn, SystemPromptFragment{
++		ID: "shared_narrative_rules", Source: "Text Adventure built-in", Title: "通用创作红线",
++		Purpose: "约束冒险主故事正文，具体文风由所选世界与故事设定决定",
++		Content: `# 冒险主故事通用创作红线
++
++这些规则用于所有冒险世界包的主故事正文。视角和具体文风沿用当前工作区与所选叙事风格。文字要紧凑、自然，有人在场的感觉。眼前的人、事和处境决定写多少，保留本世界的用词、人物差异和已有设定。
++
++## 回合红线
++
++1. 从玩家行动带来的结果、环境反馈或人物回应起笔。跳过对本轮输入的换词复述和整段背景回顾。交代因果时，只补读者理解结果所需的信息。
++2. 主角的决定、台词、动作和内心由玩家掌握。按玩家已声明的行动推进，写出外界反应、可感知的信息和已经成立的身体后果。玩家明确交代的连续行动，若各步都能按规则办理且无需另作决定，可以略过无波折的过程，直接写到实际结果。遇到需要玩家另作决定的分岔、阻碍或新增代价时，写清眼前状况，把决定交还给玩家。不得擅自补写主角的决定、台词、动作或内心。
++3. 人物各有自己的目标、关系、底线和知情范围。只依据自己亲历、听闻、受告或能够合理推断的事作答，传闻可以存疑。旁白也不提前揭出主角尚未发现的真相。
++4. 写清已经成立的事实和结算。位置、时钟、钱物、伤势、关系、检定与胜负依照世界和存档，文风不能改变结果。把拒绝、条件和代价写成人物或处境中的具体反应，正文不展示工具、协议、内部流程、系统数值标签或检定术语。角色可知的价格、数量和时间等事实，可以自然写进正文。
++5. 正文收在具体的动作、落下的一句话、已经发生的结果，或正等玩家作答的处境。删去段尾总结、抒情拔高、预告和硬添的悬念。平常一轮可以安静结束，已办完的事可以办完。后续行动交给玩家和界面选项。
++
++## 通用叙事要求
++
++- 用准确的名词、有力的动词和少量有用的细节写情绪。从眼前的人物和处境里选取动作、停顿或反应。细节已经传达了意思，就收住。必须说清的事实可以直说。
++- 台词接住眼前的话头。称呼、语气、长短和停顿随身份、熟悉程度与当下压力变化。需要时可以绕开、打断、留半句，平常问路也可以直接指路。人物即使不愿开口，也应有符合处境的反应，避免反复用沉默搪塞。
++- 人物按自己的利害和交情作出反应。帮忙、拒绝、试探、让步都可以发生，给它一个能从人物和现场看出来的缘由。不要让一句漂亮话消除真实的分歧，也别让每场交往都变成算计。
++- 句子随事情轻重伸缩。交锋和紧急时刻可以短促，日常可以舒缓，常规过程可以概述。一个停顿或一个物件已经足够时，别再添一串眼神、气味和天气。留白要让人有得想，事实和因果仍要讲明白。
++- 正文用小说自然段。少修饰、少解释，避开说教、咨询腔和鸡汤腔。不用小标题、表格、条款和机械的先否定后转折句。删去“命运的齿轮开始转动”“一场风暴正在酝酿”“尽管面临诸多挑战”这类空泛套话。普通词和动作按场景使用，避免拿同一套措辞反复代替细节。`, Prefix: "\n\n", Overflow: SystemPromptOverflowTruncate,
++	})
+ 	return composeProtectedSystemInstruction(cfg, config.AgentKindInteractiveStory, "interactive", workspace, applyAgentPromptDefinition(cfg, config.AgentKindInteractiveStory, builtIn))
+ }
+ 
+--- a/internal/api/routes.go
++++ b/internal/api/routes.go
+@@ -26,27 +26,7 @@
+ 		api.GET("/agent-runtimes", apiHandlers.HandleAgentEngines)
+ 		api.POST("/agent-runtimes/:id/check", apiHandlers.HandleAgentEngineCheck)
+ 		api.GET("/agent-runtimes/:id/models", apiHandlers.HandleAgentEngineModels)
+-		api.GET("/history/assets/:asset_name", apiHandlers.HandleHistoryScenarioAsset)
+-		api.POST("/history/bootstrap", apiHandlers.HandleHistoryBootstrap)
+ 		projects := api.Group("/projects/:project_id", apiHandlers.ProjectScopeMiddleware)
+-		projects.POST("/history/scenarios", apiHandlers.HandleHistoryScenarioImport)
+-		projects.GET("/history/scenarios/:scenario_id/bundle", apiHandlers.HandleHistoryScenarioBundle)
+-		projects.GET("/history/scenarios/:scenario_id", apiHandlers.HandleHistoryScenarioExport)
+-		projects.GET("/history/campaigns", apiHandlers.HandleHistoryCampaigns)
+-		projects.POST("/history/campaigns", apiHandlers.HandleHistoryCreate)
+-		projects.GET("/history/campaigns/:campaign_id", apiHandlers.HandleHistoryRead)
+-		projects.POST("/history/campaigns/:campaign_id/chat", apiHandlers.HandleHistoryChat)
+-		projects.POST("/history/campaigns/:campaign_id/advice", apiHandlers.HandleHistoryAdvice)
+-		projects.POST("/history/campaigns/:campaign_id/prepare-edict", apiHandlers.HandleHistoryPrepareEdict)
+-		projects.POST("/history/campaigns/:campaign_id/direct-edict", apiHandlers.HandleHistoryDirectEdict)
+-		projects.POST("/history/campaigns/:campaign_id/edict", apiHandlers.HandleHistoryEdict)
+-		projects.POST("/history/campaigns/:campaign_id/advance", apiHandlers.HandleHistoryAdvance)
+-		projects.POST("/history/campaigns/:campaign_id/checkpoints", apiHandlers.HandleHistoryCheckpoint)
+-		projects.POST("/history/campaigns/:campaign_id/restore", apiHandlers.HandleHistoryRestore)
+-		projects.POST("/history/campaigns/:campaign_id/inspect", apiHandlers.HandleHistoryInspect)
+-		projects.POST("/history/campaigns/:campaign_id/archive", apiHandlers.HandleHistoryArchive)
+-		projects.POST("/history/campaigns/:campaign_id/unarchive", apiHandlers.HandleHistoryUnarchive)
+-		projects.POST("/history/campaigns/:campaign_id/cancel", apiHandlers.HandleHistoryCancel)
+ 		projects.POST("/files/resolve", apiHandlers.HandleProjectFileTreeResolve)
+ 		projects.GET("/files/file", apiHandlers.HandleProjectFileRead)
+ 		projects.GET("/files/asset", apiHandlers.HandleProjectFileAsset)
+--- a/internal/app/app.go
++++ b/internal/app/app.go
+@@ -83,7 +83,6 @@
+ 	chatApp            *ChatAppService
+ 	agentChatApp       *agentchatapp.Service
+ 	interactiveApp     *InteractiveAppService
+-	historyApp         *HistoryAppService
+ 	loreApp            *loreapp.Service
+ 	trajectoryOutcomes *trajectory.OutcomeStore
+ 	bookApp            *bookapp.Service
+@@ -314,8 +313,7 @@
+ 		}
+ 		a.agentChatApp = agentchatapp.NewService(agentChatHost{app: a}, a.projectRegistry)
+ 		a.interactiveApp = &InteractiveAppService{app: a}
+-		a.historyApp = &HistoryAppService{app: a, flights: make(map[string]*historyFlight)}
+-		dataDir := ""
++			dataDir := ""
+ 		if a.cfg != nil {
+ 			dataDir = a.cfg.DataDir()
+ 		}
+@@ -506,7 +504,6 @@
+ 		if a.projectFiles != nil {
+ 			a.projectFiles.Close()
+ 		}
+-		a.historyApp.close()
+ 		a.abortOwnedAgentTasks(context.Background())
+ 		if rootScope != nil {
+ 			if err := rootScope.Wait(context.Background()); err != nil {
+--- a/internal/storypack/assets_rule_candidates.go
++++ b/internal/storypack/assets_rule_candidates.go
+@@ -17,8 +17,5 @@
+ //go:embed assets/lord-of-mysteries-ta07-full-gm-candidate.json
+ var builtinRuleCandidate3 string
+ 
+-//go:embed assets/sanguo-190-ta07-full-gm-candidate.json
+-var builtinRuleCandidate4 string
+-
+ //go:embed assets/zichuan-xichuan-ta07-full-gm-candidate.json
+ var builtinRuleCandidate5 string
+--- a/internal/storypack/builtin.go
++++ b/internal/storypack/builtin.go
+@@ -13,7 +13,7 @@
+ // world's 102-person catalog. Anything devBuiltinPacks adds is a development
+ // and test world and is absent from a delivered build; see builtin_dev.go.
+ func builtinPacks() []Pack {
+-	documents := append([]string{builtinPackJSONFanrenFormal, builtinPackJSONLanchuan, builtinPackJSONXinghai, builtinPackJSONShatteredCrown, builtinRuleCandidate0, builtinRuleCandidate1, builtinRuleCandidate2, builtinRuleCandidate3, builtinRuleCandidate4, builtinRuleCandidate5}, devBuiltinPacks()...)
++	documents := append([]string{builtinPackJSONFanrenFormal, builtinPackJSONLanchuan, builtinPackJSONXinghai, builtinPackJSONShatteredCrown, builtinRuleCandidate0, builtinRuleCandidate1, builtinRuleCandidate2, builtinRuleCandidate3, builtinRuleCandidate5}, devBuiltinPacks()...)
+ 	packs := make([]Pack, 0, len(documents))
+ 	for _, raw := range documents {
+ 		var pack Pack
+--- a/web/src/App.tsx
++++ b/web/src/App.tsx
+@@ -163,8 +163,7 @@
+   useEffect(() => {
+     if (workspace || !workspaceLoaded) return
+     clearSelectedFile()
+-    // The independent history game and game chooser do not need an adventure Book.
+-    if (workspaceModeRequiresBook(mode)) setMode(mode === 'interactive' ? 'games' : 'books')
++    if (workspaceModeRequiresBook(mode)) setMode('books')
+   }, [clearSelectedFile, mode, setMode, workspace, workspaceLoaded])
+ 
+   const handleQuickWorkspaceSwitch = useCallback(async (newPath: string): Promise<boolean> => {
+--- a/web/src/components/workbench/ModeRouter.tsx
++++ b/web/src/components/workbench/ModeRouter.tsx
+@@ -13,12 +13,9 @@
+ import { useWorkbenchRouteHost, WorkbenchRouteLayer } from './WorkbenchRouteHost'
+ import type { ModeRouterProps } from './ModeRouter.types'
+ import { SharedWorkbenchRoutes } from './SharedWorkbenchRoutes'
+-import { GameChooser } from '@/features/history/GameChooser'
+-import { GameDestinationNav } from '@/features/history/GameDestinationNav'
+ import { GameSaveActions } from '@/features/interactive/components/GameSaveActions'
+ import { ToolNavigationProvider, type ToolNavigationIntent, type ToolNavigationTarget } from '@/components/Chat/tool-navigation'
+ 
+-const HistoryGame = memo(lazy(() => import('@/features/history/HistoryGame').then((module) => ({ default: module.HistoryGame }))))
+ const InteractiveLayout = memo(lazy(() => import('@/features/interactive/components/InteractiveLayout').then((module) => ({ default: module.InteractiveLayout }))))
+ const SettingPanel = memo(lazy(() => import('@/features/interactive/components/SettingPanel').then((module) => ({ default: module.SettingPanel }))))
+ const GameAssistantView = memo(lazy(() => import('@/features/interactive/components/game-settings/GameAssistantView').then((module) => ({ default: module.GameAssistantView }))))
+@@ -170,7 +167,6 @@
+     <main className="relative h-full min-w-0 overflow-hidden bg-[var(--nova-bg)]">
+       {routeHost.isMounted('interactive') && (
+         <WorkbenchRouteLayer visible={presentedMainRoute === 'interactive'} loadingLabel={t('router.loading')}>
+-          <GameDestinationNav current="interactive" onNavigate={onSetMode} />
+           <GameSaveActions projectId={projectId} onStartStory={onStartStory} onOpenSave={onOpenSave} onDeleteSave={onDeleteSave} />
+           <InteractiveLayout
+             projectId={projectId}
+@@ -186,16 +182,6 @@
+             rightPanelVisible={interactiveRightVisible}
+             onToggleRightPanel={onToggleInteractiveRightPanel}
+           />
+-        </WorkbenchRouteLayer>
+-      )}
+-
+-      {routeHost.isMounted('games') && (
+-        <WorkbenchRouteLayer visible={presentedMainRoute === 'games'} loadingLabel={t('router.loading')}><GameChooser onNavigate={onSetMode} /></WorkbenchRouteLayer>
+-      )}
+-      {routeHost.isMounted('history') && (
+-        <WorkbenchRouteLayer visible={presentedMainRoute === 'history'} loadingLabel={t('router.loading')}>
+-          <GameDestinationNav current="history" onNavigate={onSetMode} />
+-          <div className="min-h-0 flex-1"><HistoryGame active={presentedMainRoute === 'history'} /></div>
+         </WorkbenchRouteLayer>
+       )}
+ 
+--- a/web/src/components/workbench/WorkbenchRouteHost.tsx
++++ b/web/src/components/workbench/WorkbenchRouteHost.tsx
+@@ -9,8 +9,6 @@
+   | 'settings'
+   | 'books'
+   | 'interactive'
+-  | 'history'
+-  | 'games'
+   | 'lore'
+   | 'game-settings'
+   | 'assistant'
+@@ -19,8 +17,6 @@
+   settings: 'full',
+   books: 'full',
+   interactive: 'interactive',
+-  history: 'full',
+-  games: 'full',
+   lore: 'full',
+   'game-settings': 'full',
+   assistant: 'full',
+@@ -91,8 +87,6 @@
+   switch (mode) {
+     case 'books':
+     case 'interactive':
+-    case 'history':
+-    case 'games':
+     case 'lore':
+     case 'game-settings':
+     case 'assistant':
+--- a/web/src/components/workbench/WorkbenchShell.tsx
++++ b/web/src/components/workbench/WorkbenchShell.tsx
+@@ -113,9 +113,9 @@
+     if (navigationFrameRef.current !== null) window.cancelAnimationFrame(navigationFrameRef.current)
+   }, [])
+ 
+-  const interactiveModeActive = (mode === 'interactive' || mode === 'history' || mode === 'games') && !settingsOpen
++  const interactiveModeActive = mode === 'interactive' && !settingsOpen
+   const loreActive = mode === 'lore' && !settingsOpen
+-  const adventureContextVisible = mode !== 'history' && mode !== 'games'
++  const adventureContextVisible = Boolean(workspace)
+   const activityOrderScope: ActivityOrderScope = 'workspace'
+   const activityOrder = activityOrders[activityOrderScope]
+ 
+@@ -126,7 +126,7 @@
+   const openGame = () => {
+     closeSettingsIfOpen()
+     onSetInteractiveSubmode('story')
+-    onSetMode(mode === 'history' ? 'history' : workspace ? 'interactive' : 'games')
++    onSetMode(workspace ? 'interactive' : 'books')
+   }
+ 
+   const openRoute = (nextMode: WorkspaceMode) => {
+--- a/web/src/i18n/locales/en-US.ts
++++ b/web/src/i18n/locales/en-US.ts
+@@ -1,4 +1,3 @@
+-import history from './en-US/history'
+ import worldPresentation from './en-US/worldPresentation'
+ import game from './en-US/game'
+ import entryDetails from './en-US/entryDetails'
+@@ -50,7 +49,6 @@
+ import reason from './en-US/reason'
+ 
+ const enUS = {
+-  ...history,
+   ...common,
+   ...entryDetails,
+   ...characterWindow,
+--- a/web/src/i18n/locales/zh-CN.ts
++++ b/web/src/i18n/locales/zh-CN.ts
+@@ -1,4 +1,3 @@
+-import history from './zh-CN/history'
+ import worldPresentation from './zh-CN/worldPresentation'
+ import game from './zh-CN/game'
+ import entryDetails from './zh-CN/entryDetails'
+@@ -50,7 +49,6 @@
+ import reason from './zh-CN/reason'
+ 
+ const zhCN = {
+-  ...history,
+   ...common,
+   ...entryDetails,
+   ...characterWindow,
+--- a/web/src/stores/workspace-store.ts
++++ b/web/src/stores/workspace-store.ts
+@@ -8,7 +8,7 @@
+  * an internal template source, and leaving the route in this union would let a
+  * stored preference reopen the old 45-item editor.
+  */
+-export type WorkspaceRoute = 'interactive' | 'history' | 'games' | 'lore' | 'game-settings' | 'assistant' | 'books'
++export type WorkspaceRoute = 'interactive' | 'lore' | 'game-settings' | 'assistant' | 'books'
+ /** Historical internal name retained while the persisted key stays stable. */
+ export type WorkspaceMode = WorkspaceRoute
+ 
+@@ -42,13 +42,12 @@
+ 
+ function readInitialMode(): WorkspaceMode {
+   if (typeof window === 'undefined') return DEFAULT_WORKSPACE_MODE
+-  if (new URLSearchParams(window.location.search).get('game') === 'history') return 'history'
+   const stored = window.localStorage.getItem(MODE_STORAGE_KEY)
+   return isPlayerWorkspaceMode(stored) ? stored : DEFAULT_WORKSPACE_MODE
+ }
+ 
+ /** Player destinations. A stored preference naming a retired surface must not restore it. */
+-const PLAYER_WORKSPACE_MODES: WorkspaceMode[] = ['interactive', 'history', 'games', 'lore', 'game-settings', 'assistant', 'books']
++const PLAYER_WORKSPACE_MODES: WorkspaceMode[] = ['interactive', 'lore', 'game-settings', 'assistant', 'books']
+ 
+ function isPlayerWorkspaceMode(value: unknown): value is WorkspaceMode {
+   return typeof value === 'string' && (PLAYER_WORKSPACE_MODES as string[]).includes(value)

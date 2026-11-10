@@ -1,0 +1,303 @@
+package loreapp
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log/slog"
+	"strings"
+
+	"ta/config"
+	imageapp "ta/internal/app/image"
+	appsettings "ta/internal/app/settings"
+	booklore "ta/internal/book/lore"
+	imageasset "ta/internal/image/asset"
+	imagepreset "ta/internal/image/preset"
+)
+
+func (service *Service) Items(ctx context.Context, projectID string) ([]booklore.Item, error) {
+	var items []booklore.Item
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var listErr error
+		items, listErr = store.ListAll()
+		return listErr
+	})
+	return items, err
+}
+
+func (service *Service) CreateItem(ctx context.Context, projectID string, input booklore.ItemInput) (booklore.Item, error) {
+	var item booklore.Item
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var createErr error
+		item, createErr = store.Create(input)
+		return createErr
+	})
+	return item, err
+}
+
+// CreateItems seeds a complete batch in one store transaction. Explicit IDs
+// own identity, so a different same-named facet must not silently disappear.
+// Existing IDs preserve user edits. Inputs without IDs retain name idempotence.
+// Name collisions between distinct IDs remain visible atomic errors.
+func (service *Service) CreateItems(ctx context.Context, projectID string, inputs []booklore.ItemInput) ([]booklore.Item, error) {
+	created := make([]booklore.Item, 0, len(inputs))
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		existing, err := store.ListAll()
+		if err != nil {
+			return err
+		}
+		byID := make(map[string]booklore.Item, len(existing))
+		byScopedName := make(map[string]bool, len(existing))
+		for _, item := range existing {
+			byID[item.ID] = item
+			byScopedName[scopedNameKey(item.Scope, item.Name)] = true
+		}
+		pending := make(map[string]string, len(inputs))
+		ops := make([]booklore.Operation, 0, len(inputs))
+		for _, input := range inputs {
+			input.ID = strings.TrimSpace(input.ID)
+			input.Scope = strings.TrimSpace(input.Scope)
+			if store.Bound() {
+				input.Scope = store.Scope()
+			}
+			if input.ID != "" {
+				if item, ok := byID[input.ID]; ok {
+					if item.Scope != input.Scope {
+						return fmt.Errorf("lore seed ID %s belongs to a different scope", input.ID)
+					}
+					if item.Content != strings.TrimSpace(input.Content) {
+						slog.WarnContext(ctx, "[lore] preserved existing seed content", "item_id", input.ID, "scope", input.Scope)
+					}
+					continue
+				}
+				raw, marshalErr := json.Marshal(input)
+				if marshalErr != nil {
+					return marshalErr
+				}
+				if previous, ok := pending[input.ID]; ok {
+					if previous != string(raw) {
+						return fmt.Errorf("lore seed contains conflicting input for ID %s", input.ID)
+					}
+					continue
+				}
+				pending[input.ID] = string(raw)
+			} else if byScopedName[scopedNameKey(input.Scope, input.Name)] {
+				continue
+			}
+			byScopedName[scopedNameKey(input.Scope, input.Name)] = true
+			ops = append(ops, booklore.Operation{Op: "create", Item: input})
+		}
+		if len(ops) == 0 {
+			return nil
+		}
+		result, err := store.ApplyOperations("Seed world lore", ops)
+		if err != nil {
+			return err
+		}
+		created = result.Created
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return created, nil
+}
+
+// scopedNameKey mirrors the lore store's per-scope name uniqueness. Applying a
+// pack twice stays idempotent, while a second pack's same-named entry is still
+// written because it lives in a different scope.
+func scopedNameKey(scope, name string) string {
+	return strings.TrimSpace(scope) + "\x00" + strings.ToLower(strings.TrimSpace(name))
+}
+
+func (service *Service) UpdateItem(ctx context.Context, projectID, id string, input booklore.ItemInput) (booklore.Item, error) {
+	var item booklore.Item
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var updateErr error
+		item, updateErr = store.Update(id, input)
+		return updateErr
+	})
+	return item, err
+}
+
+func (service *Service) DeleteItem(ctx context.Context, projectID, id string) error {
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error { return store.Delete(id) })
+	return err
+}
+
+func (service *Service) ClearItemImage(ctx context.Context, projectID, id string) (booklore.Item, error) {
+	var item booklore.Item
+	_, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var updateErr error
+		item, updateErr = store.SetImage(id, nil)
+		return updateErr
+	})
+	return item, err
+}
+
+func (service *Service) GenerateItemImage(ctx context.Context, projectID, id string, request ItemImageGenerateRequest) (booklore.Item, error) {
+	if strings.TrimSpace(request.Mode) == "agent" {
+		return service.generateItemImageWithAgent(ctx, projectID, id, request)
+	}
+	if service == nil || service.images == nil {
+		return booklore.Item{}, ErrNoWorkspace
+	}
+	runtime, err := service.images.AcquireProjectRuntime(ctx, projectID)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	defer runtime.Release()
+
+	cfg := runtime.Config
+	if layered, loadErr := config.LoadLayeredWithStartupConfigAt(
+		cfg.DataDir(), runtime.Workspace, config.ProjectConfigPath(cfg.ProjectStoreDir),
+	); loadErr == nil {
+		appsettings.ApplyLayered(&cfg, layered)
+	} else {
+		slog.ErrorContext(ctx, fmt.Sprintf("[lore-image] load layered settings failed workspace=%s err=%v", runtime.Workspace, loadErr))
+	}
+	store := booklore.NewStore(runtime.Workspace)
+	item, err := store.ReadAny(id)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	preset := imagepreset.Preset{}
+	if strings.TrimSpace(request.Prompt) == "" {
+		preset, err = resolveImagePreset(cfg, request.ImagePresetID)
+		if err != nil {
+			return booklore.Item{}, err
+		}
+	}
+	generated, err := imageasset.NewService().GenerateLore(runtime.Context(), &cfg, runtime.BookService, imageasset.LoreGenerateRequest{
+		Item:              item,
+		Prompt:            request.Prompt,
+		Instruction:       request.Instruction,
+		ImagePresetID:     preset.ID,
+		ImagePresetPrompt: preset.PromptForTargets(imagepreset.TargetToolRequest),
+		ProfileID:         request.ProfileID,
+	})
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	if err := runtime.Context().Err(); err != nil {
+		return booklore.Item{}, err
+	}
+	updated, err := store.SetImage(item.ID, &generated)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	slog.InfoContext(ctx, fmt.Sprintf("[lore-image] generated item_id=%s path=%s", updated.ID, generated.ImagePath))
+	return updated, nil
+}
+
+func (service *Service) generateItemImageWithAgent(ctx context.Context, projectID, id string, request ItemImageGenerateRequest) (booklore.Item, error) {
+	if service == nil || service.images == nil {
+		return booklore.Item{}, ErrNoWorkspace
+	}
+	var item booklore.Item
+	if _, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var readErr error
+		item, readErr = store.ReadAny(id)
+		return readErr
+	}); err != nil {
+		return booklore.Item{}, err
+	}
+	previousImagePath := ""
+	if item.Image != nil {
+		previousImagePath = item.Image.ImagePath
+	}
+	source, err := json.Marshal(struct {
+		ItemID            string   `json:"item_id"`
+		Type              string   `json:"type"`
+		Name              string   `json:"name"`
+		Tags              []string `json:"tags,omitempty"`
+		BriefDescription  string   `json:"brief_description,omitempty"`
+		Content           string   `json:"content,omitempty"`
+		AdditionalRequest string   `json:"additional_user_requirements,omitempty"`
+	}{
+		ItemID: item.ID, Type: item.Type, Name: item.Name, Tags: item.Tags,
+		BriefDescription: item.BriefDescription, Content: item.Content,
+		AdditionalRequest: strings.TrimSpace(request.Instruction),
+	})
+	if err != nil {
+		return booklore.Item{}, fmt.Errorf("encode lore image source context: %w", err)
+	}
+	result, err := service.images.GenerateProjectWithAgent(ctx, projectID, imageapp.AgentGenerateRequest{
+		CommandID: request.CommandID, Purpose: "lore_item", LoreItemID: item.ID,
+		SourceContext: string(source), ImagePresetID: request.ImagePresetID,
+		SystemPrompt: "Generate exactly one recognizable visual reference for this lore item. Do not edit lore content and do not generate text, titles, watermarks, logos, UI panels, or QR codes.",
+		AltText:      "Lore image: " + item.Name,
+	})
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	if _, err := service.withStore(ctx, projectID, func(store *booklore.Store) error {
+		var readErr error
+		item, readErr = store.ReadAny(id)
+		return readErr
+	}); err != nil {
+		return booklore.Item{}, err
+	}
+	if item.Image == nil || strings.TrimSpace(item.Image.ImagePath) == "" || item.Image.ImagePath == previousImagePath {
+		err := result.MissingImageError()
+		slog.WarnContext(ctx, "[lore-image] Image Agent completed without a new lore image",
+			"project_id", projectID, "item_id", item.ID, "command_id", request.CommandID, "error", err)
+		return booklore.Item{}, err
+	}
+	return item, nil
+}
+
+func (service *Service) UploadItemImage(ctx context.Context, projectID, id, filename string, data []byte) (booklore.Item, error) {
+	if service == nil || service.images == nil {
+		return booklore.Item{}, ErrNoWorkspace
+	}
+	runtime, err := service.images.AcquireProjectRuntime(ctx, projectID)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	defer runtime.Release()
+
+	store := booklore.NewStore(runtime.Workspace)
+	item, err := store.ReadAny(id)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	uploaded, err := imageasset.NewService().UploadLore(runtime.Context(), runtime.BookService, imageasset.LoreUploadRequest{
+		Item:     item,
+		Filename: filename,
+		Data:     data,
+	})
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	if err := runtime.Context().Err(); err != nil {
+		return booklore.Item{}, err
+	}
+	updated, err := store.SetImage(item.ID, &uploaded)
+	if err != nil {
+		return booklore.Item{}, err
+	}
+	slog.InfoContext(ctx, fmt.Sprintf("[lore-image] uploaded item_id=%s filename=%q path=%s", updated.ID, filename, uploaded.ImagePath))
+	return updated, nil
+}
+
+func (service *Service) withStore(ctx context.Context, projectID string, action func(*booklore.Store) error) (string, error) {
+	if service == nil || service.host == nil {
+		return "", ErrNoWorkspace
+	}
+	return service.host.WithLoreStore(ctx, projectID, action)
+}
+
+func resolveImagePreset(cfg config.Config, requestedID string) (imagepreset.Preset, error) {
+	presetID := imagepreset.NormalizeID(requestedID)
+	if presetID == "" {
+		presetID = imagepreset.NormalizeID(cfg.IDEImagePresetID)
+	}
+	if presetID == "" {
+		presetID = imagepreset.DefaultID
+	}
+	if strings.TrimSpace(cfg.DataDir()) == "" {
+		return imagepreset.DefaultPreset(), nil
+	}
+	return imagepreset.NewLibrary(cfg.DataDir()).Get(presetID)
+}

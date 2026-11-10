@@ -1,0 +1,27 @@
+/* Art is independent of rarity. Decorative overlays never catch input, flash,
+   change hue with level, or reduce prose contrast. */
+.entry-artwork { margin: 0; min-width: 0; }
+.entry-artwork__frame { display: block; position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 1; border-radius: .65rem; border: 1px solid var(--entry-aura); background: var(--background); box-shadow: inset 0 0 calc(2px + var(--entry-layers) * 2px) color-mix(in srgb, var(--entry-aura) 25%, transparent), 0 0 calc(var(--entry-layers) * 2px + var(--entry-intensity) * 8px) color-mix(in srgb, var(--entry-aura) 28%, transparent); }
+.entry-artwork:not(.entry-artwork--thumbnail) .entry-artwork__frame { width: min(100%, 22rem); margin-inline: auto; }
+.entry-artwork__image, .entry-artwork__empty { width: 100%; height: 100%; display: block; background-repeat: no-repeat; }
+.entry-artwork__image img { width: 100%; height: 100%; object-fit: cover; }
+.entry-artwork__empty { display: grid; place-items: center; padding: .5rem; text-align: center; color: var(--muted-foreground); font-size: .75rem; }
+.entry-artwork__tracery, .entry-artwork__halo, .entry-artwork__corners, .entry-artwork__orbit { position: absolute; pointer-events: none; z-index: 1; }
+.entry-artwork__halo { inset: 0; border-radius: inherit; box-shadow: inset 0 0 calc(4px + var(--entry-layers) * 3px + var(--entry-intensity) * 12px) color-mix(in srgb, var(--entry-aura) 44%, transparent); }
+.entry-artwork__tracery { inset: 6%; opacity: calc(.12 + var(--entry-intensity) * .3); border: 1px solid var(--entry-aura); border-radius: 50%; transform: rotate(45deg); }
+.entry-artwork[data-art-theme="wuxia"] .entry-artwork__tracery { border-radius: 5% 50%; border-width: 1px 3px; }
+.entry-artwork[data-art-theme="space"] .entry-artwork__tracery { inset: 7%; border-radius: 0; clip-path: polygon(0 0, 35% 0, 35% 2%, 65% 2%, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 98%, 35% 98%, 35% 100%, 0 100%); }
+.entry-artwork__corners { inset: 3%; border: 2px solid var(--entry-aura); clip-path: polygon(0 0, 15% 0, 15% 2%, 2% 2%, 2% 15%, 0 15%, 0 0, 100% 0, 100% 15%, 98% 15%, 98% 2%, 85% 2%, 85% 0, 100% 0, 100% 100%, 85% 100%, 85% 98%, 98% 98%, 98% 85%, 100% 85%, 100% 100%, 0 100%, 0 85%, 2% 85%, 2% 98%, 15% 98%, 15% 100%, 0 100%); }
+.entry-artwork__orbit { inset: -12%; border: 1px dashed var(--entry-aura); border-radius: 50%; opacity: calc(.2 + var(--entry-intensity) * .25); transform: rotate(25deg); }
+.entry-artwork--thumbnail { width: 2.75rem; flex: 0 0 2.75rem; }
+.entry-artwork--thumbnail .entry-artwork__frame { border-radius: .4rem; }
+/* Deliberately static by default. Remains static under reduced motion and forced colors. */
+@media (prefers-reduced-motion: reduce) { .entry-artwork *, .entry-artwork *::before, .entry-artwork *::after { animation: none !important; transition: none !important; } }
+@media (forced-colors: active) { .entry-artwork__frame { border: 1px solid CanvasText; box-shadow: none; } .entry-artwork__tracery, .entry-artwork__halo, .entry-artwork__orbit, .entry-artwork__corners { display: none; } }
+
+.entry-artwork__image .entry-artwork__preload { display: none; }
+
+.entry-artwork[data-art-grade="red"] .entry-artwork__orbit { border-width: 3px; border-style: double; inset: 9%; background: radial-gradient(circle at 50% 0, var(--entry-aura) 0 1px, transparent 3px), radial-gradient(circle at 0 50%, var(--entry-aura) 0 1px, transparent 3px), radial-gradient(circle at 100% 50%, var(--entry-aura) 0 1px, transparent 3px), radial-gradient(circle at 50% 100%, var(--entry-aura) 0 1px, transparent 3px); }
+
+/* Empty illustrations must not push the rules and costs a full image below the fold. */
+.entry-artwork--empty:not(.entry-artwork--thumbnail) .entry-artwork__frame { aspect-ratio: auto; height: 4.5rem; }

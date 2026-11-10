@@ -1,0 +1,76 @@
+Text Adventure
+==============
+
+This product is a modified version of DENOVA.
+
+Upstream project: https://github.com/alfredxw/denova
+Upstream copyright: Copyright [2026] xinggwang@gmail.com
+Upstream license: Apache License 2.0 (reproduced in the LICENSE file)
+
+Text Adventure is distributed under the same Apache License 2.0. The copyright
+notice above is retained as that license requires.
+
+Changes from the upstream work
+------------------------------
+
+Text Adventure is not the upstream product. It is a derivative that keeps the
+upstream runtime and replaces the surrounding product with a single-purpose
+narrative game. The principal changes are:
+
+- The product surface is reduced to one activity: playing and authoring
+  interactive text-adventure stories. Product areas unrelated to that activity
+  were removed rather than hidden.
+- Branding, interface copy and the desktop entry point are renamed to
+  Text Adventure (TA), and the default data root is `.ta-game`.
+- Game systems were extended: character attributes and cultivation progress,
+  item and equipment handling with per-grade identity, combat rounds, world
+  clock and deadlines, faction and organisation affairs, spirit beasts,
+  character messaging, and intimacy/relationship flows.
+- Story-pack authoring was extended with the world, character, location,
+  faction and rule structures the game systems consume.
+- A local package updater (`TA-updater`) replaces updating from the upstream
+  release channel. This build refuses to update from the upstream channel by
+  design, because the upstream channel publishes a different product.
+- Third-party notices for the compiled distribution are collected under
+  `licenses/third-party/` at packaging time.
+
+Files that carry the upstream copyright notice are not individually marked;
+this NOTICE and the modification history in the source repository identify the
+work as changed.
+
+Content rights are separate
+---------------------------
+
+The Apache License 2.0 covers the software. It does not cover story content:
+the world setting, characters, text, images or any other media shipped with a
+story pack. Story packs derived from an existing novel or other work remain
+subject to that work's rights, and nothing in the LICENSE or this NOTICE grants
+rights to them.
+
+---
+
+Text Adventure 是 DENOVA 的修改版本。
+
+上游项目：https://github.com/alfredxw/denova
+上游版权：Copyright [2026] xinggwang@gmail.com
+上游许可：Apache License 2.0（全文见 LICENSE）
+
+本作品以上游同一许可 Apache License 2.0 发布，并保留上述版权声明。
+
+与上游的主要差异：产品范围收窄为「游玩与编写文字冒险故事」这一件事，与
+之无关的产品区域被删除而非隐藏；品牌、界面文案与桌面入口改为 Text Adventure
+（TA），默认数据根改为 `.ta-game`；扩展了人物属性与修炼、物品与按品级区分的
+装备、战斗回合、世界时钟与期限、势力与组织事务、灵兽、人物来讯、亲密关系等
+游戏系统；扩展了世界包的人物、地点、势力与规则结构；用本地更新器
+`TA-updater` 取代上游发布渠道更新，并有意拒绝从上游渠道更新，因为上游发布的
+是另一款产品；打包时把编译发行所需的第三方许可收集到
+`licenses/third-party/`。
+
+许可范围仅限软件本身。故事内容——世界设定、人物、文本、图片及随世界包提供的
+其他媒体——不在 Apache License 2.0 的范围内。改编自既有小说或其他作品的世界
+包，其权利仍归原权利人，LICENSE 与本 NOTICE 均不授予这些内容的任何权利。
+
+Cloud development increment, 2026-11-03: ordinary-work settlement, generated-item
+consumers, asset defeat/surrender handling and genre-aware character creation
+were updated. See handoff/CLOUD_CHANGES.md in the accompanying source archive.
+This private development candidate is not an upstream release.

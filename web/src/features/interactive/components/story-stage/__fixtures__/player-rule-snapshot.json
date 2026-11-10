@@ -1,0 +1,112 @@
+{
+  "story_id": "saved-story",
+  "branch_id": "main",
+  "turns": [
+    {
+      "v": 0,
+      "type": "",
+      "id": "saved-turn",
+      "parent_id": null,
+      "branch_id": "main",
+      "ts": "",
+      "user": "",
+      "narrative": "Saved body",
+      "rule_resolution": {
+        "id": "saved-check",
+        "display_template_id": "dm-mystery-clue-forward",
+        "request": {
+          "action": "",
+          "intent": "",
+          "challenge": "",
+          "cost": "",
+          "state": "",
+          "adjudication": {},
+          "rule": {},
+          "difficulty": "",
+          "outcomes": {
+            "critical_success": {
+              "result": ""
+            },
+            "success": {
+              "result": ""
+            },
+            "failure": {
+              "result": ""
+            },
+            "critical_failure": {
+              "result": ""
+            }
+          }
+        },
+        "result": {
+          "id": "check_1",
+          "label": "悬疑调查型 DM：线索不断线",
+          "kind": "dice_check",
+          "dice": "1d20",
+          "rolls": [
+            4
+          ],
+          "outcome": "failure",
+          "kept_roll": 4
+        }
+      }
+    }
+  ],
+  "current_turn": {
+    "v": 0,
+    "type": "",
+    "id": "saved-turn",
+    "parent_id": null,
+    "branch_id": "main",
+    "ts": "",
+    "user": "",
+    "narrative": "Saved body",
+    "rule_resolution": {
+      "id": "saved-check",
+      "display_template_id": "dm-mystery-clue-forward",
+      "request": {
+        "action": "",
+        "intent": "",
+        "challenge": "",
+        "cost": "",
+        "state": "",
+        "adjudication": {},
+        "rule": {},
+        "difficulty": "",
+        "outcomes": {
+          "critical_success": {
+            "result": ""
+          },
+          "success": {
+            "result": ""
+          },
+          "failure": {
+            "result": ""
+          },
+          "critical_failure": {
+            "result": ""
+          }
+        }
+      },
+      "result": {
+        "id": "check_1",
+        "label": "悬疑调查型 DM：线索不断线",
+        "kind": "dice_check",
+        "dice": "1d20",
+        "rolls": [
+          4
+        ],
+        "outcome": "failure",
+        "kept_roll": 4
+      }
+    }
+  },
+  "state": {},
+  "graph": {
+    "nodes": null,
+    "branches": null
+  },
+  "turn_count": 1,
+  "turn_start": 0,
+  "has_earlier_turns": false
+}

@@ -1,0 +1,232 @@
+# Text Adventure startup configuration template.
+# Settings precedence (lowest to highest): built-in defaults, startup config,
+# user config (<denova_dir>/config.toml), then Project settings.
+# Environment overrides, such as OPENAI_API_KEY and OPENAI_MODEL, take precedence
+# at runtime and are not written back to configuration files.
+#
+# This file contains only fields supported by the startup loader. Configure
+# appearance, editor autosave, chapter naming/grouping, timed versions, default
+# plan mode, writing narrative style, and story line height in Settings or the
+# appropriate user/Project configuration, not in this startup file.
+# Omit an optional field to inherit its default; empty values have field-specific semantics.
+#
+# Keep root-level keys above ALL table headers, including optional examples.
+# Keys after a table header belong to that table, even after blank lines or comments.
+
+# Bundled, read-only Skills directory loaded at startup.
+skills_dir = "./skills"
+# Leave unset to keep an existing data directory when one is present.
+# Fresh installations use .ta-game; set this only to choose a different data root.
+# Only startup config and TA_DIR (or legacy DENOVA_DIR/NOVA_DIR) select the data root.
+# User/Project settings do not relocate it.
+# denova_dir = "./.ta-game"
+
+# Optional port overrides. Defaults are backend 8080 and frontend 5173;
+# user settings and environment overrides can select other ports.
+# backend_port = 8111
+# frontend_port = 5112
+
+# Recursive file-tree loading falls back to incremental loading above this limit.
+# Default: 100000 entries; maximum: 1000000. Restart the backend after changing it.
+project_file_tree_entry_limit = 100000
+
+# Agent execution settings; user and Project settings can override these defaults.
+model_max_retries = 5
+# Concurrent parallel_read operations: 1-64.
+agent_tool_parallelism = 8
+# Concurrent SubAgents under one parent session: 1-32.
+agent_subagent_parallelism = 4
+
+# Default image profile; configure the profiles below.
+default_image_api_profile_id = "default"
+
+# ---------------------------------------------------------------------------
+# Bundled local model gateway (WB).
+#
+# This source-transfer template retains the local-gateway profile names, but
+# endpoint and credential values have intentionally been cleared. Configure
+# an available provider in Settings before requesting model-backed gameplay.
+# A local gateway still needs a non-empty client api_key if its protocol
+# requires one; follow that gateway's setup instructions.
+#
+# Players who want a different provider can still change this in Settings; the
+# UI writes to the user layer, which overrides this startup file.
+#
+# Thinking: narrative turns enable the reasoning effort the gateway supports.
+# Ordinary character chat leaves thinking_level unset so no reasoning field is
+# sent at all, which is the honest non-thinking default. Set it to "off" only
+# if the gateway starts rejecting an absent reasoning field.
+# ---------------------------------------------------------------------------
+[[model_endpoints]]
+id = "default"
+name = "WorkBuddy 本机代理"
+provider = "openai-compatible"
+protocol = "openai-chat-completions"
+base_url = ""
+api_key = ""
+
+[[model_profiles]]
+id = "default"
+name = "DeepSeek 4.1 Flash（WB）"
+endpoint_id = "default"
+model = "deepseek-v4.1-flash"
+
+[agent_models.default]
+profile_id = "default"
+
+[agent_models.interactive_story]
+profile_id = "default"
+thinking_level = "high"
+
+# 图像模型。内置 OpenAI、xAI/Grok、ComfyUI、火山 Seedream、Google Gemini；
+# 自定义端点可选择任一已支持协议。可配置多个 profile。
+# 生成结果会保存到当前工作区 assets/image/generated/。
+
+[[image_api_profiles]]
+id = "default"
+name = "OpenAI 图片"
+provider = "openai"
+protocol = "openai-images"
+base_url = ""
+api_key = ""
+model = "gpt-image-2"
+default_quality = "auto"
+default_output_format = "png"
+#
+# ComfyUI 默认从服务中发现用户保存的工作流；保存后运行一次即可解析 API Graph，
+# 也可以在设置页直接导入 ComfyUI 导出的 API Format JSON：
+# [[image_api_profiles]]
+# id = "comfyui"
+# name = "本机 ComfyUI"
+# provider = "comfyui"
+# base_url = "http://127.0.0.1:8188"
+# default_size = "1024x1024"
+# [image_api_profiles.comfyui]
+# workflow_mode = "remote"
+#
+# 可选：为不同 Agent 叠加自定义 system prompt。
+# 自定义提示在行为、创作偏好、策略和风格上优先于 Text Adventure 内置提示，
+# 但不会覆盖工具权限、输出协议、互动禁写文件、结构化 JSON 要求和后端校验边界。
+#
+# [agent_prompts.ide]
+# system_prompt = "你在章节创作前先用更短的要点确认写作意图；正文保持冷静、克制、少解释。"
+#
+# [agent_prompts.interactive_story]
+# system_prompt = "更主动地制造 NPC 反应和场景压力，但不要替玩家做重大选择。"
+#
+# 可选：按 Agent 调整工具权限。字段不填表示继承内置默认值；
+# `web_search` 同时控制 `web_search` 与 `web_fetch` 两个只读网页工具。
+#
+# [agent_tools.ide]
+# web_search = true
+#
+# [agent_tools.interactive_story]
+# web_search = false
+
+# 网页访问。默认并发查询 DuckDuckGo 与 Bing 并合并结果；配置 SearXNG 后优先使用该实例，
+# 实例无结果或请求失败时仍会回退到 DuckDuckGo/Bing。provider 超时为 0 时表示不限制。
+# 正文抓取仅支持公开 HTTP(S) 页面。
+[web_access]
+searxng_base_url = ""
+search_max_results = 10
+search_provider_timeout_seconds = 10
+fetch_max_response_kb = 8192
+fetch_max_content_chars = 262144
+
+# 预置写作 SubAgent。它们只是普通配置项，不是 Go 代码内置默认值；
+# 可以在 Agents 页像自定义 SubAgent 一样改名、改提示词、限制工具或关闭。
+# parents = ["ide"] 表示只供写作 Agent 使用。
+[[sub_agents]]
+id = "context-planner"
+name = "上下文规划"
+description = "写作前整理范围、目标、约束和风险，不写正文。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是写作规划 SubAgent。只负责在正文生成前整理 Context Plan，不写正文、不改文件。
+可读取必要前文、CREATOR.md、大纲、进度、角色状态和资料库作为依据。
+必须从用户 Prompt 判断本次写作范围、目标、关键事件、角色状态、设定约束、风格约束和主要风险；如果信息不足，标出不确定点和需要父 Agent 决策的选项。
+输出简洁结构化计划，避免复述大段原文。
+'''
+
+[[sub_agents]]
+id = "writer"
+name = "初稿写作"
+description = "按用户要求、Writing Skill 和上下文计划生成正文初稿。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是写作初稿 SubAgent。根据用户 Prompt、已加载 Writing Skill、父 Agent 提供的 Context Plan 和必要上下文生成正文初稿。
+严格按用户要求的范围写作，不默认推进到下一章，不擅自改写大纲、进度、角色状态或资料库。
+可读取必要前文、CREATOR.md、大纲、进度、角色状态和资料库以保持连续性。
+若允许写入且任务要求落盘，将正文写入父 Agent 指定路径或合理的新章节文件，并返回文件路径、写作范围、关键决策和未处理风险；不要输出审稿报告。
+'''
+
+[[sub_agents]]
+id = "reviewer"
+name = "严格审稿"
+description = "审查新增章节的连续性、设定、人物、节奏和语言问题。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是严格审稿 SubAgent，只审稿，不改正文，不写文件。
+可读取必要前文、CREATOR.md、大纲、进度、角色状态和资料库作为对照依据。
+重点检查新增章节是否符合任务要求/用户 Prompt、CREATOR.md、长期大纲、角色设定与状态、世界观和已有连续性；评估剧情推进、人物行为动机、设定一致性、节奏、语言质量和可读性。
+按严重程度输出问题、证据位置、影响和可执行改进建议；不要为了礼貌表扬，不要重写正文。
+输出结构：severity（blocker/major/minor）、dimension、evidence、impact、fix_instruction、keep。
+'''
+
+[[sub_agents]]
+id = "fixer"
+name = "定向修稿"
+description = "根据审稿意见修正真正需要修的问题，同时保留原故事。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是修稿 SubAgent。根据 reviewer 的结构化问题和父 Agent 的明确要求修正文稿，只修真正需要修的问题。
+必须保留用户要求的内容、有效情节节点、人物声线、强段落、伏笔和连续性；不要把初稿重写成另一个故事。
+优先修复 blocker/major；如果只有 minor，只做轻度润色。
+若允许写入，直接修改父 Agent 指定文件并返回修改摘要；否则输出修订稿和变更说明。
+不要更新 progress.md、character-state.md 或资料库。
+'''
+
+[[sub_agents]]
+id = "final-gate"
+name = "最终门禁"
+description = "检查修订稿是否满足用户要求、计划、设定和风格约束。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是终检 SubAgent。只对修订稿做最终质量门禁，不扩写正文。
+核对用户 Prompt、Context Plan、Writing Skill 要求、CREATOR.md、长期大纲、角色设定、世界观、已有连续性和风格约束。
+输出 pass/fail；fail 时只列 blocker 和必须返修的问题，包含证据位置、原因和给 fixer 的明确修复指令；pass 时给出简短通过理由和仍需父 Agent 留意的风险。
+不要新增额外 reviewer 流程。
+'''
+
+[[sub_agents]]
+id = "memory-patcher"
+name = "状态补丁"
+description = "根据最终稿生成进度、角色状态、世界状态和伏笔更新建议。"
+enabled = true
+parents = ["ide"]
+system_prompt = '''
+你是写作状态更新 SubAgent。只基于最终稿中已经发生并确认的内容生成状态更新建议，不虚构未写出的剧情。
+可读取 progress.md、character-state.md、CREATOR.md、大纲和资料库以判断变化。
+输出 progress、character_state、world_state、foreshadowing 等可应用 patch，写清依据和目标文件；只更新本轮即时进展和角色当前状态。
+长期资料库只在身份、长期关系、能力体系、世界规则等稳定 canon 明确变化时提出建议，并要求父 Agent 先确认；不要擅自改写长期资料库。
+'''
+
+# Local optional provider. Keep credentials out of shared distributions.
+[[model_endpoints]]
+id = "antigravity-gemini"
+name = "反重力本机代理"
+provider = "openai-compatible"
+protocol = "openai-chat-completions"
+base_url = ""
+api_key = ""
+
+[[model_profiles]]
+id = "gemini-3-8"
+name = "Gemini 3.8（反重力）"
+endpoint_id = "antigravity-gemini"
+model = "gemini-3.8-flash-high"

@@ -1,0 +1,256 @@
+{
+  "space": {
+    "progression": {
+      "max_rank": 60,
+      "experience_per_hour": 24,
+      "currency_per_hour": 2,
+      "stages": [
+        {
+          "id": "xinghai-stage-0",
+          "name": "F级",
+          "english_name": "F",
+          "min_rank": 1,
+          "practice_mastery": 1
+        },
+        {
+          "id": "xinghai-stage-1",
+          "name": "E级",
+          "english_name": "E",
+          "min_rank": 6,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-1",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-1"
+          ]
+        },
+        {
+          "id": "xinghai-stage-2",
+          "name": "D级",
+          "english_name": "D",
+          "min_rank": 11,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-2",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-2"
+          ]
+        },
+        {
+          "id": "xinghai-stage-3",
+          "name": "C级",
+          "english_name": "C",
+          "min_rank": 18,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-3",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-3"
+          ]
+        },
+        {
+          "id": "xinghai-stage-4",
+          "name": "B级",
+          "english_name": "B",
+          "min_rank": 25,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-4",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-4"
+          ]
+        },
+        {
+          "id": "xinghai-stage-5",
+          "name": "A级",
+          "english_name": "A",
+          "min_rank": 33,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-5",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-5"
+          ]
+        },
+        {
+          "id": "xinghai-stage-6",
+          "name": "超A级",
+          "english_name": "Beyond A",
+          "min_rank": 41,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-6",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-6"
+          ]
+        },
+        {
+          "id": "xinghai-stage-7",
+          "name": "超神级",
+          "english_name": "Transcendent",
+          "min_rank": 51,
+          "practice_mastery": 2,
+          "practice_skill": "xinghai-foundation-7",
+          "practice_alternatives": [
+            "xinghai-foundation-recovery-7"
+          ]
+        }
+      ]
+    },
+    "skills": [
+      {
+        "id": "xinghai-foundation-6",
+        "name": "超限意志锚定",
+        "kind": "guard",
+        "scale": "person",
+        "power": 40,
+        "cost": 34,
+        "required_rank": 41,
+        "training_hours": 32,
+        "required_item": "xinghai-advanced-manual-6",
+        "quality_grade": "purple",
+        "description": "薄薄的护层贴着动作起伏，真正受击时才显出平日校准的功夫。",
+        "background": "朱伯利的公开进修札记收录了这条练法。记下步骤只是开始，真正熟悉它的人会记得每次失准的手感。"
+      },
+      {
+        "id": "xinghai-foundation-recovery-6",
+        "name": "超限生命稳态",
+        "kind": "heal",
+        "scale": "person",
+        "power": 44,
+        "cost": 45,
+        "required_rank": 41,
+        "training_hours": 36,
+        "required_item": "xinghai-advanced-manual-6",
+        "quality_grade": "purple",
+        "description": "把散乱的气力重新收束到受损处，恢复来得缓而稳；贪求过快，只会先把自己耗空。",
+        "background": "朱伯利的公开进修札记收录了这条练法。记下步骤只是开始，真正熟悉它的人会记得每次失准的手感。"
+      }
+    ],
+    "english_names": {
+      "xinghai-foundation-6": "Transcendent Will Anchor",
+      "xinghai-foundation-recovery-6": "Limit-Breaking Vital Stability"
+    }
+  },
+  "wuxia": {
+    "progression": {
+      "max_rank": 40,
+      "experience_per_hour": 16,
+      "currency_per_hour": 1,
+      "stages": [
+        {
+          "id": "lanchuan-stage-0",
+          "name": "初涉江湖",
+          "english_name": "Novice",
+          "min_rank": 1,
+          "practice_mastery": 1
+        },
+        {
+          "id": "lanchuan-stage-1",
+          "name": "登堂",
+          "english_name": "Established",
+          "min_rank": 6,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-1",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-1"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-2",
+          "name": "入室",
+          "english_name": "Adept",
+          "min_rank": 11,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-2",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-2"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-3",
+          "name": "一流",
+          "english_name": "First-rate",
+          "min_rank": 16,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-3",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-3"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-4",
+          "name": "后天圆满",
+          "english_name": "Mature Foundation",
+          "min_rank": 21,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-4",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-4"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-5",
+          "name": "先天",
+          "english_name": "Innate",
+          "min_rank": 26,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-5",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-5"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-6",
+          "name": "宗师",
+          "english_name": "Master",
+          "min_rank": 31,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-6",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-6"
+          ]
+        },
+        {
+          "id": "lanchuan-stage-7",
+          "name": "大宗师",
+          "english_name": "Grandmaster",
+          "min_rank": 36,
+          "practice_mastery": 2,
+          "practice_skill": "lanchuan-foundation-7",
+          "practice_alternatives": [
+            "lanchuan-foundation-recovery-7"
+          ]
+        }
+      ]
+    },
+    "skills": [
+      {
+        "id": "lanchuan-foundation-6",
+        "name": "百家归流",
+        "kind": "guard",
+        "scale": "person",
+        "power": 40,
+        "cost": 34,
+        "required_rank": 31,
+        "training_hours": 32,
+        "required_item": "lanchuan-advanced-manual-6",
+        "quality_grade": "purple",
+        "description": "沉肩松肘，把呼吸藏进架势；一掌一肘间，给自己留下接住来招的余地。",
+        "background": "这条练法随着澜川同道的手札流传。抄本各有笔迹，练到自己身上时，仍得逐口气、逐寸劲去体会。"
+      },
+      {
+        "id": "lanchuan-foundation-recovery-6",
+        "name": "抱元守一功",
+        "kind": "heal",
+        "scale": "person",
+        "power": 44,
+        "cost": 45,
+        "required_rank": 31,
+        "training_hours": 36,
+        "required_item": "lanchuan-advanced-manual-6",
+        "quality_grade": "purple",
+        "description": "气息放轻，先抚平躁动的内力，再一点点养回受伤的筋骨。",
+        "background": "这条练法随着澜川同道的手札流传。抄本各有笔迹，练到自己身上时，仍得逐口气、逐寸劲去体会。"
+      }
+    ],
+    "english_names": {
+      "lanchuan-foundation-6": "Convergent Schools",
+      "lanchuan-foundation-recovery-6": "Unified Vitality"
+    }
+  }
+}

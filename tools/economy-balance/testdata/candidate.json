@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "synthetic-cli-benchmark",
+  "design_version": "test-1",
+  "status": "candidate_not_installed",
+  "source": "synthetic-design.md",
+  "currency_id": "low_grade_spirit_stone",
+  "amount_limit": 1000000000000,
+  "quantity_limit": 1000000000,
+  "wealth_benchmark": 100,
+  "market_factor_permille": {
+    "min": 800,
+    "max": 1200
+  },
+  "buyback_factor_permille": {
+    "min": 500,
+    "max": 700
+  },
+  "maturity_factor_permille": {
+    "min": 500,
+    "max": 2000
+  },
+  "condition_factor_permille": {
+    "min": 0,
+    "max": 1000
+  },
+  "price_bands": [
+    {
+      "id": "ordinary_qi_recovery_low",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "dose",
+      "min": 2,
+      "max": 3
+    },
+    {
+      "id": "ordinary_qi_recovery_mid_high",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "dose",
+      "min": 5,
+      "max": 10
+    },
+    {
+      "id": "ordinary_qi_implement_low",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "piece",
+      "min": 15,
+      "max": 30
+    },
+    {
+      "id": "foundation_key_material",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "usable_batch",
+      "min": 100,
+      "max": 500
+    }
+  ],
+  "wealth_reference_bands": [
+    {
+      "id": "synthetic_cash",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "cash_balance",
+      "min": 300,
+      "max": 2000
+    }
+  ],
+  "reward_reference_bands": [
+    {
+      "id": "short_low_risk_net_reward",
+      "currency_id": "low_grade_spirit_stone",
+      "unit_id": "completed_net",
+      "min": 3,
+      "max": 8
+    }
+  ]
+}

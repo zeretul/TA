@@ -1,0 +1,290 @@
+import { InlineErrorNotice } from '@/components/common/inline-error-notice'
+import { memo } from 'react'
+import type { CSSProperties } from 'react'
+import type { ChatMessage } from '@/lib/api'
+import { subAgentSessionKey } from './subagent-session'
+import { Message as AIMessage, MessageContent as AIMessageContent } from '@/components/ai-elements/message'
+import { StreamingContentStage } from './StreamingContentStage'
+import { AskInteractionCard, type AskInteractionResolver } from './AskInteractionCard'
+import { ToolApprovalCard } from './ToolApprovalCard'
+import {
+  MarkdownContent,
+  StreamingPlaceholder,
+  ThinkingBlock,
+  sanitizeThinkTags,
+} from './message-content'
+import { ContextCompactionBlock, ProposedPlanBlock } from './message-plan'
+import { ChapterIllustrationBlock, InteractiveImageBlock, InteractiveImageStrip } from './message-media'
+import {
+  MessageInlineMeta,
+  RuleRollBlock,
+  SentMessageReferences,
+  SubAgentSessionCard,
+} from './message-metadata'
+import { ToolExecutionBlock, ToolResultBlock } from './message-tool'
+import { TodoListBlock } from './message-todo'
+import { toolCallRenderer, toolResultRenderer } from '@/lib/tool-presentation'
+import { SentMessageAttachments } from './ComposerAttachments'
+import { ToolInspector } from './ToolInspector'
+import { PlayerCheckDetails } from './PlayerCheckDetails'
+
+/** Progress prose omits conversation-level metadata such as time and actions. */
+export type AssistantMessagePresentation = 'message' | 'progress'
+
+interface MessageItemProps {
+  projectId?: string
+  message: ChatMessage
+  assistantPresentation?: AssistantMessagePresentation
+  highlightDialogue?: boolean
+  messageStyle?: CSSProperties
+  onEdit?: (message: ChatMessage) => void
+  onEditAssistantReply?: (message: ChatMessage) => void
+  onCreateBranch?: (message: ChatMessage) => void
+  onRegenerate?: (message: ChatMessage) => void
+  onSwitchVersion?: (message: ChatMessage, direction: -1 | 1) => void
+  onOpenSubAgentSession?: (message: ChatMessage) => void
+  onReadAloud?: (message: ChatMessage) => void
+  onGenerateInteractiveImage?: (message: ChatMessage) => void
+  generatingInteractiveImageTurnId?: string
+  activeSubAgentSessionKey?: string
+  subAgentPresentation?: 'card' | 'content'
+  onInteractiveCardLayoutChange?: (element?: HTMLElement) => void
+  onResolveAsk?: AskInteractionResolver
+}
+
+/** Dispatches one role-specific message to its focused renderer. */
+export const MessageItem = memo(function MessageItem(props: MessageItemProps) {
+  const { message, projectId = '' } = props
+  const content = <MessageItemContent {...props} />
+  return message.role === 'tool_call' || message.role === 'tool_result' || message.role === 'ask'
+    ? <ToolInspector message={message} projectId={projectId}>{content}</ToolInspector>
+    : content
+})
+
+function MessageItemContent({ projectId = '', message, assistantPresentation = 'message', highlightDialogue = false, messageStyle, onEdit, onEditAssistantReply, onCreateBranch, onRegenerate, onSwitchVersion, onOpenSubAgentSession, onReadAloud, onGenerateInteractiveImage, generatingInteractiveImageTurnId, activeSubAgentSessionKey, subAgentPresentation = 'card', onInteractiveCardLayoutChange, onResolveAsk }: MessageItemProps) {
+  const { role, content = '' } = message
+  const canEdit = role === 'user' && Boolean(message.turn_id) && Boolean(onEdit)
+  const canEditAssistantReply = role === 'assistant' && !message.subagent && Boolean(message.turn_id) && Boolean(onEditAssistantReply) && !message.streaming
+  const canCreateBranch = role === 'assistant' && !message.subagent && Boolean(message.turn_id) && Boolean(onCreateBranch) && !message.streaming
+  const canRegenerate = (role === 'assistant' || role === 'error') && Boolean(onRegenerate) && !message.streaming
+  const canGenerateInteractiveImage = role === 'assistant' && Boolean(message.turn_id) && Boolean(onGenerateInteractiveImage) && !message.streaming
+  const versionCount = message.turn_versions?.length || 0
+  const markedVersionIndex = message.turn_versions?.findIndex((version) => version.current) ?? -1
+  const versionIndex = message.turn_version_index ?? markedVersionIndex
+  const canSwitchVersion = role === 'assistant' && versionCount > 1 && versionIndex >= 0 && Boolean(onSwitchVersion) && !message.streaming
+  const showAgentSource = subAgentPresentation !== 'content'
+  const openTaskSubAgentSession = onOpenSubAgentSession
+    ? (sessionKey: string) => onOpenSubAgentSession({ ...message, subagent: true, subagent_session_id: sessionKey })
+    : undefined
+
+  switch (role) {
+    case 'user':
+      return (
+        <AIMessage from="user" className="max-w-none items-end">
+          <div className="nova-message-body-with-meta nova-message-body-with-meta-user max-w-[88%]">
+            <AIMessageContent className="nova-user-message rounded-lg bg-[var(--nova-user-message-bg-to)] px-3 py-2 text-sm leading-5 text-[var(--nova-user-message-text)] whitespace-pre-wrap group-[.is-user]:px-3 group-[.is-user]:py-2" style={messageStyle}>
+              <SentMessageAttachments attachments={message.attachments} />
+              <SentMessageReferences references={message.user_references} />
+              {content ? <span>{content}</span> : null}
+            </AIMessageContent>
+            <MessageInlineMeta message={message} content={content} align="right" reserveSpace={Boolean(onEdit)} onEdit={canEdit ? onEdit : undefined} />
+          </div>
+        </AIMessage>
+      )
+
+    case 'assistant': {
+      if (message.subagent && subAgentPresentation === 'card') {
+        return (
+          <SubAgentSessionCard
+            message={message}
+            onOpen={onOpenSubAgentSession}
+            active={Boolean(activeSubAgentSessionKey && activeSubAgentSessionKey === subAgentSessionKey(message))}
+          />
+        )
+      }
+      // Streaming content may not have arrived yet, or may contain only hidden
+      // reasoning. Show activity instead of an empty bubble in either case.
+      const streamingTargetContent = message.streaming === true && message.streaming_target_content && message.streaming_target_content !== content
+        ? message.streaming_target_content
+        : undefined
+      const visibleContent = sanitizeThinkTags(streamingTargetContent || content).trim()
+      const reserveMetaSpace = message.streaming === true || Boolean(onReadAloud || canEditAssistantReply || canCreateBranch || onGenerateInteractiveImage || onRegenerate || onSwitchVersion)
+      return (
+        <AIMessage from="assistant" className="max-w-none">
+          <div className="w-full">
+            <div className="nova-message-body-with-meta nova-message-body-with-meta-assistant">
+              <AIMessageContent className="chat-agent-message block w-full gap-0 px-1 text-sm text-[var(--nova-text)]" style={messageStyle}>
+                {/* Live and settled replies share one streaming-aware Markdown tree. */}
+                {message.streaming && !visibleContent ? (
+                  <StreamingPlaceholder />
+                ) : (
+                  <StreamingContentStage content={content} targetContent={streamingTargetContent} streaming={message.streaming === true}>
+                    {(value) => (
+                      <MarkdownContent
+                        content={sanitizeThinkTags(value)}
+                        highlightDialogue={highlightDialogue}
+                        projectId={projectId}
+                        streaming={message.streaming === true}
+                      />
+                    )}
+                  </StreamingContentStage>
+                )}
+              </AIMessageContent>
+              <InteractiveImageStrip message={message} projectId={projectId} />
+              {message.public_rule_roll && !message.streaming ? <PlayerCheckDetails evidence={message.public_rule_roll} /> : null}
+              {assistantPresentation === 'message' ? (
+                <MessageInlineMeta
+                  projectId={projectId}
+                  message={message}
+                  content={content}
+                  align="left"
+                  reserveSpace={reserveMetaSpace}
+                  hideActions={message.streaming === true}
+                  onEdit={canEditAssistantReply ? onEditAssistantReply : undefined}
+                  editLabelKey="chat.action.editAssistantReply"
+                  onCreateBranch={canCreateBranch ? onCreateBranch : undefined}
+                  onReadAloud={!message.streaming && !message.subagent && message.turn_id ? onReadAloud : undefined}
+                  onGenerateInteractiveImage={canGenerateInteractiveImage ? onGenerateInteractiveImage : undefined}
+                  generatingInteractiveImage={Boolean(message.turn_id && generatingInteractiveImageTurnId === message.turn_id)}
+                  interactiveImageGenerationDisabled={Boolean(generatingInteractiveImageTurnId)}
+                  onRegenerate={canRegenerate ? onRegenerate : undefined}
+                  onSwitchVersion={canSwitchVersion ? onSwitchVersion : undefined}
+                  versionIndex={versionIndex}
+                  versionCount={versionCount}
+                />
+              ) : null}
+            </div>
+          </div>
+        </AIMessage>
+      )
+    }
+
+    case 'thinking':
+      return <ThinkingBlock projectId={projectId} message={message} content={content} streaming={message.streaming === true} showAgentSource={showAgentSource} />
+
+    case 'tool_call': {
+      // Live input is an opaque protocol text stream. Specialized renderers may
+      // interpret arguments only after the input stream has completed.
+      if (message.streaming === true) {
+        return <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+      }
+      // A completed AI SDK dynamic-tool part contains both call and result
+      // phases. Result refinement must win for interactive media when no richer
+      // data part is available (for example after reopening Writing history).
+      if (message.status !== 'running' && message.status !== 'cancelled' && toolResultRenderer(message) === 'interactive_media') {
+        return <InteractiveImageBlock message={message} projectId={projectId} />
+      }
+      const renderer = toolCallRenderer(message)
+      switch (renderer) {
+        case 'interactive_media':
+          return message.status === 'cancelled'
+            ? <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+            : <InteractiveImageBlock message={message} projectId={projectId} />
+        case 'image':
+          return message.illustration
+            ? <ChapterIllustrationBlock message={message} projectId={projectId} />
+            : <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+        case 'todo':
+          return message.status === 'cancelled'
+            ? <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+            : <TodoListBlock message={message} />
+        case 'interaction':
+          // A failed interaction never produced durable Ask state. Keep it as a
+          // diagnostic tool card instead of parsing its rejected input as pending.
+          if (message.status === 'error' || message.status === 'cancelled') {
+            return <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+          }
+          if (message.ask?.kind === 'tool_approval') return <ToolApprovalCard message={message} onResolve={onResolveAsk} />
+          return <AskInteractionCard message={message} onResolve={onResolveAsk} />
+        case 'generic':
+          return <ToolExecutionBlock message={message} showAgentSource={showAgentSource} onResolve={onResolveAsk} onLayoutChange={onInteractiveCardLayoutChange} onOpenSubAgentSession={openTaskSubAgentSession} />
+        default: {
+          const exhaustive: never = renderer
+          return exhaustive
+        }
+      }
+    }
+
+    case 'ask':
+      if (message.ask?.kind === 'tool_approval') return <ToolApprovalCard message={message} onResolve={onResolveAsk} />
+      return <AskInteractionCard message={message} onResolve={onResolveAsk} />
+
+    case 'rule_roll':
+      return <RuleRollBlock message={message} />
+
+    case 'tool_result': {
+      const renderer = toolResultRenderer(message)
+      switch (renderer) {
+        case 'interactive_media':
+          return <InteractiveImageBlock message={message} projectId={projectId} />
+        case 'image':
+          return message.illustration
+            ? <ChapterIllustrationBlock message={message} projectId={projectId} />
+            : <ToolResultBlock content={content} />
+        case 'generic':
+          return <ToolResultBlock content={content} />
+        default: {
+          const exhaustive: never = renderer
+          return exhaustive
+        }
+      }
+    }
+
+    case 'context_compaction':
+      return <ContextCompactionBlock message={message} />
+
+    case 'todo_updated':
+      return <TodoListBlock message={message} />
+
+    // Usage records are summarized in TokenUsagePanel rather than the timeline.
+    case 'token_usage':
+      return null
+
+    case 'proposed_plan':
+      return <ProposedPlanBlock projectId={projectId} message={message} highlightDialogue={highlightDialogue} />
+
+    case 'system':
+      if (!content.trim()) return null
+      return (
+        <div className="flex justify-center">
+          <span className="rounded-full border border-[var(--nova-border)] bg-[var(--nova-surface-2)] px-3 py-1 text-xs text-[var(--nova-text-muted)]">
+            {content}
+          </span>
+        </div>
+      )
+
+    case 'error':
+      return (
+        <div className="flex justify-center">
+          <div className="nova-message-body-with-meta max-w-full">
+            <InlineErrorNotice message={content} />
+            <MessageInlineMeta projectId={projectId} message={message} content={content} align="left" onRegenerate={canRegenerate ? onRegenerate : undefined} />
+          </div>
+        </div>
+      )
+
+    default: {
+      const exhaustiveRole: never = role
+      return exhaustiveRole
+    }
+  }
+}
+
+/**
+ * Lightweight activity shown before an active Agent emits a concrete message.
+ * A rotating hint passes `screenReaderLabel` so assistive tech hears one stable
+ * sentence instead of every line change.
+ */
+export function AgentActivityShimmer({ content, screenReaderLabel }: { content: string; screenReaderLabel?: string }) {
+  return (
+    <div className="flex justify-start px-1 py-1" role="status" aria-live="polite">
+      {screenReaderLabel ? <span className="sr-only">{screenReaderLabel}</span> : null}
+      <span
+        aria-hidden={screenReaderLabel ? true : undefined}
+        className="shimmer line-clamp-2 min-w-0 text-sm font-medium [--shimmer-color:var(--nova-text-faint)]"
+      >
+        {content}
+      </span>
+    </div>
+  )
+}

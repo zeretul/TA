@@ -1,0 +1,811 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useChat as useAIChat } from '@ai-sdk/react'
+import { useTranslation } from 'react-i18next'
+import { toast } from '@/lib/toast'
+import { createAgentCommandID } from '@/lib/api'
+import type { AgentQueuedCommandAction, AgentRuntimeQueuedCommand, ContextAnalysis, IDEContext, SessionSummary, TextSelection } from '@/lib/api'
+import { withErrorLogID } from '@/lib/api-client'
+import { agentCommandErrorMessage, agentCommandRetryKey, isKnownAgentCommandOutcome, mergeProjectedAgentQueue, rememberAgentCommandID } from '@/lib/agent-command'
+import { localizeAgentRuntimeError, localizeAgentRuntimeReason } from '@/lib/agent-runtime-error'
+import { AgentChatTransport, AgentUIMessageNormalizer, buildAgentChatRequestBody, type AgentUIMessage } from '@/lib/agent-ui'
+import { STREAMING_RENDER_INTERVAL_MS } from '@/lib/streaming/raf-update-batcher'
+import { isProjectChangeForProject, type WorkspaceChangeEvent } from '@/features/changes/types'
+import {
+  agentBypassCommand,
+  appendDataMessage,
+  buildUserMessageReferences,
+  normalizeIDEContext,
+  parseInlineReferences,
+  parseInlineStyleScenes,
+} from './agent-chat-state'
+import { useWritingAgentHistory } from './use-agent-history'
+import {
+  useWritingAgentRuntimeRecovery,
+  type WritingDisplayRehydrateRequest,
+  type WritingTaskStatus,
+} from './use-agent-runtime-recovery'
+import { writingAgentChatClient, type AgentChatClient } from './agent-chat-client'
+import { attachmentDescriptors, attachmentUploadsRetryIdentity, filesToAttachmentUploads, type ChatAttachmentUpload } from '@/lib/chat-attachments'
+
+interface ChatOptions {
+  projectId?: string
+  /** Explicit API binding. AgentChat supplies one immutable project/session client per tab. */
+  client?: AgentChatClient
+  onAgentFileChange?: (path?: string) => void | Promise<void>
+  onWorkspaceChange?: (event: WorkspaceChangeEvent) => void | Promise<void>
+}
+
+export interface ChatSendOptions {
+  attachments?: File[]
+  ideContext?: IDEContext
+  imagePresetId?: string
+  tellerId?: string
+  displayMessage?: string
+  hideUserMessage?: boolean
+  reviewFeedback?: Array<{
+    source?: 'workspace_change' | 'document'
+    reviewThreadId: string
+    commentIds: string[]
+  }>
+  reviewFeedbackDisplay?: {
+    comments: Array<{
+      id: string
+      body: string
+      path?: string
+      review_path?: string
+      review_line?: number
+    }>
+  }
+  loreReferenceLabels?: Record<string, string>
+  onSubmissionStart?: () => void
+  onSubmissionError?: () => void
+}
+
+interface QueuedComposerDraft {
+  message: string
+  composerReferences: string[]
+  composerLoreReferences: string[]
+  composerStyleScenes: string[]
+  composerTextSelections: TextSelection[]
+  restoreSubmission?: () => void
+}
+
+export function useAgentChat(options: ChatOptions = {}) {
+  const { t } = useTranslation()
+  const { projectId = '', client = writingAgentChatClient, onAgentFileChange, onWorkspaceChange } = options
+  const terminalDiagnosticReceived = useRef(false)
+  const transport = useMemo(() => new AgentChatTransport(client.transportOptions), [client])
+  const [runtimeRecoverySignal, setRuntimeRecoverySignal] = useState(0)
+  const projectStreamCycleRef = useRef<(operationID: string, cycle?: number) => void>(() => undefined)
+  const refreshSessionsRef = useRef<() => Promise<SessionSummary[]>>(async () => [])
+  const messageNormalizerRef = useRef<AgentUIMessageNormalizer | null>(null)
+  messageNormalizerRef.current ??= new AgentUIMessageNormalizer()
+  const [displayRehydrateRequest, setDisplayRehydrateRequest] = useState<WritingDisplayRehydrateRequest | null>(null)
+  const {
+    messages: uiMessages,
+    setMessages: setUIMessages,
+    sendMessage,
+    resumeStream,
+    stop: stopAIStream,
+    status,
+    error,
+  } = useAIChat<AgentUIMessage>({
+    transport,
+    throttle: STREAMING_RENDER_INTERVAL_MS,
+    onData: (part) => {
+      if (part.type === 'data-agent-error') {
+        const data = part.data as Record<string, unknown>
+        const content = localizeAgentRuntimeError(data, t('chat.activity.unknownError'), t)
+        terminalDiagnosticReceived.current = data.terminal === true
+        toast.error(content)
+        return
+      }
+      if (part.type === 'data-agent-activity') {
+        const data = part.data as Record<string, unknown>
+        if (data.event === 'goal_evaluation_failed' || data.code === 'agent_runtime.goal_evaluation_failed') {
+          toast.error(t('chat.activity.goalEvaluationFailed'))
+          return
+        }
+        if (data.event === 'agent_cycle_started') {
+          const operationID = typeof data.operation_id === 'string' ? data.operation_id.trim() : ''
+          const cycle = typeof data.cycle === 'number' ? data.cycle : Number(data.cycle)
+          projectStreamCycleRef.current(operationID, Number.isSafeInteger(cycle) ? cycle : undefined)
+          return
+        }
+        if (data.event === 'task_rehydrate_required' || data.code === 'agent_stream.rehydrate_required') {
+          const taskID = typeof data.task_id === 'string' ? data.task_id.trim() : ''
+          const cursor = typeof data.cursor === 'number' ? data.cursor : Number(data.cursor)
+          if (taskID && Number.isSafeInteger(cursor) && cursor >= 0) {
+            setDisplayRehydrateRequest((current) => ({
+              signal: (current?.signal || 0) + 1,
+              taskID,
+              cursor,
+              settled: data.settled === true,
+              status: writingTaskStatus(data.status),
+              terminalReason: typeof data.terminal_reason === 'string' ? data.terminal_reason.trim() : undefined,
+              terminalReasonTruncated: data.terminal_reason_truncated === true,
+            }))
+          }
+          return
+        }
+        if (data.event === 'runtime_recovery_required' || data.code === 'agent_runtime.recovery_required') {
+          setRuntimeRecoverySignal((current) => current + 1)
+          return
+        }
+      }
+      if (part.type !== 'data-agent-workspace-change') return
+      const event = part.data as WorkspaceChangeEvent
+      if (!projectId || !isProjectChangeForProject(event, projectId)) return
+      window.dispatchEvent(new CustomEvent('nova:workspace-change', { detail: event }))
+      void onWorkspaceChange?.(event)
+    },
+    onError: (error) => {
+      if (terminalDiagnosticReceived.current) { terminalDiagnosticReceived.current = false; return }
+      toast.error(withErrorLogID(error.message || t('chat.activity.unknownError'), error))
+    },
+    onFinish: () => {
+      terminalDiagnosticReceived.current = false
+      void onAgentFileChange?.()
+      void refreshSessionsRef.current()
+    },
+  })
+  const prepareStreamResumeBoundary = useCallback(() => {
+    setUIMessages((current) => {
+      const tail = current.at(-1)
+      if (tail?.role !== 'assistant') return current
+      // AI SDK reconnects by mutating the last assistant message. Keep the
+      // canonical tail intact so a SubAgent message cannot lend its metadata
+      // to the root Task replay (or vice versa).
+      return [
+        ...current,
+        {
+          id: `agent-stream-resume-boundary:${tail.id}`,
+          role: 'system',
+          parts: [],
+        },
+      ]
+    })
+  }, [setUIMessages])
+  const messages = useMemo(() => (
+    messageNormalizerRef.current!.normalize(uiMessages).flatMap<AgentUIMessage>((message) => {
+      const visibleParts = message.parts.filter((part) => part.type !== 'data-agent-error')
+      if (visibleParts.length === message.parts.length) return [message]
+      if (visibleParts.length === 0) return []
+      return [{ ...message, parts: visibleParts }]
+    })
+  ), [uiMessages])
+  const transportStreaming = status === 'submitted' || status === 'streaming'
+  const {
+    activeSessionId,
+    hasEarlierMessages,
+    isLoadingEarlierHistory,
+    loadEarlierHistory,
+    loadHistory,
+    loadHistoryAuthoritative,
+    loadSessions,
+    sessions,
+    setActiveSessionId,
+  } = useWritingAgentHistory({ setMessages: setUIMessages, client, transportStreaming })
+  refreshSessionsRef.current = loadSessions
+  const [references, setReferences] = useState<string[]>([])
+  const [loreReferences, setLoreReferences] = useState<string[]>([])
+  const [styleScenes, setStyleScenes] = useState<string[]>([])
+  const [textSelections, setTextSelections] = useState<TextSelection[]>([])
+  const [abortPending, setAbortPending] = useState(false)
+  const [commandSubmitting, setCommandSubmitting] = useState(false)
+  const [sessionTransitionPending, setSessionTransitionPending] = useState(false)
+  const [queueActionPendingCommandID, setQueueActionPendingCommandID] = useState('')
+  const commandSubmittingRef = useRef(false)
+  const sessionTransitionPendingRef = useRef(false)
+  const retryCommandIDsRef = useRef(new Map<string, string>())
+  const initialStartCommandIDsRef = useRef(new Map<string, string>())
+  const queuedComposerDraftsRef = useRef(new Map<string, QueuedComposerDraft>())
+  const projectedOperationIDRef = useRef('')
+
+  const notifyDisplayRehydrated = useCallback(() => {
+    appendDataMessage(setUIMessages, 'data-agent-system', {
+      content: t('chat.activity.displayRehydrated'),
+    })
+  }, [setUIMessages, t])
+
+  const restoreDisplayTerminal = useCallback(
+    (request: WritingDisplayRehydrateRequest) => {
+      switch (request.status) {
+        case 'error':
+          toast.error(localizeAgentRuntimeReason(request.terminalReason, t('chat.activity.unknownError'), t))
+          return
+        case 'aborted':
+          toast.info(t('chat.activity.abortMessage'))
+          return
+        case 'running':
+        case 'done':
+        case undefined:
+          return
+      }
+    },
+    [t],
+  )
+
+  const { abortRecovery, resumeTask: continueTask, projectStreamCycle, recoveryPending, resumeActiveChat, runtimeProjection, setRuntimeProjection } = useWritingAgentRuntimeRecovery({
+    activeSessionId,
+    displayRehydrateRequest,
+    loadHistoryAuthoritative,
+    onDisplayRehydrated: notifyDisplayRehydrated,
+    onDisplayTerminalRestored: restoreDisplayTerminal,
+    onSettled: () => setAbortPending(false),
+    prepareStreamResumeBoundary,
+    runtimeRecoverySignal,
+    resumeStream,
+    transport,
+    transportError: error,
+    transportStatus: status,
+    transportStreaming,
+    client,
+  })
+  projectStreamCycleRef.current = projectStreamCycle
+  const isStreaming = transportStreaming || recoveryPending
+  // Recovery inspection temporarily sets recoveryPending even for an idle
+  // conversation. Project-level running state must represent real execution,
+  // not that startup probe.
+  const isExecutionActive = transportStreaming || runtimeProjection?.active === true
+  const lastPart = messages.at(-1)?.parts.at(-1)
+  const retry = lastPart?.type === 'data-agent-activity' && lastPart.data.event === 'model_retry' ? lastPart.data : undefined
+  const activityContent = recoveryPending ? t('chat.activity.recovering') : retry && transportStreaming
+    ? t(retry.output_state === 'complete' ? 'chat.activity.modelRepair' : 'chat.activity.modelRetry')
+    : status === 'submitted' ? t('chat.activity.thinking') : ''
+
+  useEffect(() => {
+    const pending = runtimeProjection?.pending_asks ?? (runtimeProjection?.pending_ask ? [runtimeProjection.pending_ask] : [])
+    for (const question of pending) appendDataMessage(setUIMessages, 'data-agent-ask', { ...question })
+  }, [runtimeProjection?.pending_ask, runtimeProjection?.pending_asks, setUIMessages])
+
+  useEffect(() => {
+    const operationID = runtimeProjection?.active_operation_id?.trim() || ''
+    if (projectedOperationIDRef.current && projectedOperationIDRef.current !== operationID) {
+      setAbortPending(false)
+    }
+    projectedOperationIDRef.current = operationID
+  }, [runtimeProjection?.active_operation_id])
+
+  useEffect(() => {
+    const queuedIDs = new Set((runtimeProjection?.queue || []).map((item) => item.command_id))
+    for (const commandID of queuedComposerDraftsRef.current.keys()) {
+      if (!queuedIDs.has(commandID)) queuedComposerDraftsRef.current.delete(commandID)
+    }
+  }, [runtimeProjection?.queue])
+
+  const addReference = useCallback((path: string) => {
+    setReferences((prev) => Array.from(new Set([...prev, path])))
+  }, [])
+  const addLoreReference = useCallback((id: string) => {
+    setLoreReferences((prev) => Array.from(new Set([...prev, id])))
+  }, [])
+  const removeReference = useCallback((path: string) => {
+    setReferences((prev) => prev.filter((item) => item !== path))
+  }, [])
+  const removeLoreReference = useCallback((id: string) => {
+    setLoreReferences((prev) => prev.filter((item) => item !== id))
+  }, [])
+  const addStyleScene = useCallback((scene: string) => {
+    setStyleScenes((prev) => Array.from(new Set([...prev, scene])))
+  }, [])
+  const removeStyleScene = useCallback((scene: string) => {
+    setStyleScenes((prev) => prev.filter((item) => item !== scene))
+  }, [])
+  const clearReferences = useCallback(() => setReferences([]), [])
+  const clearStyleScenes = useCallback(() => setStyleScenes([]), [])
+  const addTextSelection = useCallback((sel: TextSelection) => {
+    setTextSelections((prev) => [...prev, sel])
+  }, [])
+  const removeTextSelection = useCallback((index: number) => {
+    setTextSelections((prev) => prev.filter((_, i) => i !== index))
+  }, [])
+
+  const prepareAgentRequest = useCallback(
+    (input: string) => {
+      if (input.startsWith('/')) {
+        const cmd = input.slice(1).split(' ')[0]
+        if (['clear', 'compact', 'status', 'help'].includes(cmd)) {
+          throw new Error(t('chat.contextAnalysis.commandUnavailable'))
+        }
+      }
+
+      const inlineReferences = parseInlineReferences(input)
+      const inlineStyleScenes = parseInlineStyleScenes(input)
+      return {
+        message: input,
+        references: Array.from(new Set([...references, ...inlineReferences])),
+        loreReferences: Array.from(new Set(loreReferences)),
+        styleScenes: Array.from(new Set([...styleScenes, ...inlineStyleScenes])),
+        textSelections,
+        composerReferences: references,
+        composerLoreReferences: loreReferences,
+        composerStyleScenes: styleScenes,
+        composerTextSelections: textSelections,
+      }
+    },
+    [loreReferences, references, styleScenes, t, textSelections],
+  )
+
+  const send = useCallback(
+    async (input: string, sendOptions: ChatSendOptions = {}) => {
+      if (sessionTransitionPendingRef.current) return false
+      let targetSessionID = (client.fixedSessionId || activeSessionId).trim()
+      if (!targetSessionID) {
+        const availableSessions = await loadSessions()
+        targetSessionID = (
+          client.fixedSessionId || availableSessions.find((session) => session.active)?.id || availableSessions[0]?.id || ''
+        ).trim()
+        if (!targetSessionID) {
+          toast.error(t('chat.sessionUnavailable'))
+          return false
+        }
+      }
+      const resumeInterruptionID = isStreaming ? '' : runtimeProjection?.pending_interruption_id?.trim() || ''
+      const resumeFromEmptyComposer = Boolean(resumeInterruptionID && !input.trim() && !sendOptions.attachments?.length)
+      const canonicalInput = resumeFromEmptyComposer ? 'Continue.' : input
+      const resumeDisplayMessage = resumeFromEmptyComposer ? t('chat.input.resume') : ''
+      const command = isStreaming || sendOptions.attachments?.length ? '' : agentBypassCommand(canonicalInput)
+      if (command) {
+        const result = await client.executeCommand(command)
+        if (command === 'clear') {
+          await loadHistory()
+          await loadSessions()
+          return true
+        }
+        if (command === 'compact') await loadHistory()
+        appendDataMessage(setUIMessages, 'data-agent-system', {
+          content: result,
+        })
+        return true
+      }
+
+      let prepared: ReturnType<typeof prepareAgentRequest>
+      try {
+        prepared = prepareAgentRequest(canonicalInput)
+      } catch (e) {
+        toast.error((e as Error).message)
+        return false
+      }
+
+      let attachmentUploads: ChatAttachmentUpload[] = []
+      if (sendOptions.attachments?.length) {
+        try {
+          attachmentUploads = await filesToAttachmentUploads(sendOptions.attachments)
+        } catch (error) {
+          toast.error(t('chat.attachment.readFailed', { error: String(error) }))
+          return false
+        }
+      }
+
+      const body = buildAgentChatRequestBody({
+        message: prepared.message,
+        resume_interruption_id: resumeInterruptionID || undefined,
+        references: prepared.references,
+        lore_references: prepared.loreReferences,
+        style_scenes: prepared.styleScenes,
+        selections: prepared.textSelections.map((s) => ({
+          file_name: s.fileName,
+          start_line: s.startLine,
+          end_line: s.endLine,
+          content: s.content,
+        })),
+        ide_context: normalizeIDEContext(sendOptions.ideContext),
+        image_preset_id: sendOptions.imagePresetId,
+        teller_id: sendOptions.tellerId,
+        review_feedback: sendOptions.reviewFeedback?.map((feedback) => ({
+          source: feedback.source,
+          review_thread_id: feedback.reviewThreadId,
+          comment_ids: feedback.commentIds,
+        })),
+        attachments: attachmentUploads,
+      } as Parameters<typeof buildAgentChatRequestBody>[0] & {
+        message: string
+      }) as Record<string, unknown>
+      body.message = prepared.message
+      if (sendOptions.displayMessage?.trim()) body.display_message = sendOptions.displayMessage
+      body.session_id = targetSessionID
+      const retryBody = { ...body, attachments: attachmentUploadsRetryIdentity(attachmentUploads) }
+
+      const userReferences = buildUserMessageReferences(prepared, sendOptions)
+      if (isStreaming || runtimeProjection?.phase === 'suspended') {
+        if (abortPending || commandSubmittingRef.current) return false
+        const operationID = runtimeProjection?.active_operation_id?.trim()
+        if ((!runtimeProjection?.active && runtimeProjection?.phase !== 'suspended') || !operationID) {
+          toast.error(t('chat.runtime.operationUnavailable'))
+          return false
+        }
+        const delivery = 'follow_up' as const
+        const retryKey = agentCommandRetryKey(operationID, delivery, retryBody)
+        const commandID = rememberAgentCommandID(retryCommandIDsRef.current, retryKey, createAgentCommandID)
+        commandSubmittingRef.current = true
+        setCommandSubmitting(true)
+        try {
+          const receipt = await client.submitChatCommand(delivery, commandID, operationID, targetSessionID, body)
+          retryCommandIDsRef.current.delete(retryKey)
+          queuedComposerDraftsRef.current.set(commandID, {
+            message: sendOptions.displayMessage || prepared.message,
+            composerReferences: prepared.composerReferences,
+            composerLoreReferences: prepared.composerLoreReferences,
+            composerStyleScenes: prepared.composerStyleScenes,
+            composerTextSelections: prepared.composerTextSelections,
+            restoreSubmission: sendOptions.onSubmissionError,
+          })
+          setRuntimeProjection((current) => {
+            if (!current || current.active_operation_id !== operationID) return current
+            return {
+              ...current,
+              cursor: receipt.cursor,
+              active_operation_id: receipt.operation_id,
+              ...(current.phase !== 'suspended' ? { recovery_paused: false, runtime_recoverable: false, recovery_actions: [] } : {}),
+              queue: mergeProjectedAgentQueue(current.queue, {
+                command_id: commandID,
+                operation_id: receipt.operation_id,
+                delivery,
+                message: sendOptions.displayMessage || prepared.message,
+              }),
+            }
+          })
+          if (runtimeProjection?.phase === 'suspended') setRuntimeProjection(await client.getActiveChatTask(targetSessionID))
+          setReferences((current) => current.filter((item) => !prepared.composerReferences.includes(item)))
+          setLoreReferences((current) => current.filter((item) => !prepared.composerLoreReferences.includes(item)))
+          setStyleScenes((current) => current.filter((item) => !prepared.composerStyleScenes.includes(item)))
+          setTextSelections((current) => current.filter((item) => !prepared.composerTextSelections.includes(item)))
+          sendOptions.onSubmissionStart?.()
+          return true
+        } catch (error) {
+          if (isKnownAgentCommandOutcome(error)) retryCommandIDsRef.current.delete(retryKey)
+          sendOptions.onSubmissionError?.()
+          toast.error(agentCommandErrorMessage(error, t))
+          return false
+        } finally {
+          commandSubmittingRef.current = false
+          setCommandSubmitting(false)
+        }
+      }
+      const initialRetryKey = agentCommandRetryKey('', 'start_turn', retryBody)
+      const initialCommandID = rememberAgentCommandID(initialStartCommandIDsRef.current, initialRetryKey, createAgentCommandID)
+      body.command_id = initialCommandID
+      let submissionStarted = false
+      try {
+        const pendingRequest = sendMessage(
+          {
+            role: 'user',
+            metadata: {
+              ...(sendOptions.hideUserMessage ? { display_hidden: true } : {}),
+              ...(userReferences.length ? { user_references: userReferences } : {}),
+              ...(sendOptions.attachments?.length ? { attachments: attachmentDescriptors(sendOptions.attachments) } : {}),
+            },
+            parts: [{ type: 'text', text: sendOptions.displayMessage || resumeDisplayMessage || canonicalInput }],
+          },
+          { body },
+        )
+        setReferences((current) => current.filter((item) => !prepared.composerReferences.includes(item)))
+        setLoreReferences((current) => current.filter((item) => !prepared.composerLoreReferences.includes(item)))
+        setStyleScenes((current) => current.filter((item) => !prepared.composerStyleScenes.includes(item)))
+        setTextSelections((current) => current.filter((item) => !prepared.composerTextSelections.includes(item)))
+        submissionStarted = true
+        sendOptions.onSubmissionStart?.()
+        await pendingRequest
+        const acceptance = transport.takeInitialSubmissionOutcome(initialCommandID, 'accepted')
+        if (acceptance === 'accepted') {
+          initialStartCommandIDsRef.current.delete(initialRetryKey)
+          return true
+        }
+        if (acceptance === 'rejected') initialStartCommandIDsRef.current.delete(initialRetryKey)
+        setReferences((current) => Array.from(new Set([...prepared.composerReferences, ...current])))
+        setLoreReferences((current) => Array.from(new Set([...prepared.composerLoreReferences, ...current])))
+        setStyleScenes((current) => Array.from(new Set([...prepared.composerStyleScenes, ...current])))
+        setTextSelections((current) => [...prepared.composerTextSelections.filter((item) => !current.includes(item)), ...current])
+        sendOptions.onSubmissionError?.()
+        if (acceptance === 'uncertain') await resumeActiveChat(targetSessionID)
+        return false
+      } catch (e) {
+        const acceptance = transport.takeInitialSubmissionOutcome(initialCommandID)
+        if (acceptance !== 'uncertain') initialStartCommandIDsRef.current.delete(initialRetryKey)
+        if (submissionStarted) {
+          setReferences((current) => Array.from(new Set([...prepared.composerReferences, ...current])))
+          setLoreReferences((current) => Array.from(new Set([...prepared.composerLoreReferences, ...current])))
+          setStyleScenes((current) => Array.from(new Set([...prepared.composerStyleScenes, ...current])))
+          setTextSelections((current) => [...prepared.composerTextSelections.filter((item) => !current.includes(item)), ...current])
+          sendOptions.onSubmissionError?.()
+        }
+        if (acceptance === 'uncertain') await resumeActiveChat(targetSessionID)
+        toast.error(t('chat.activity.requestFailed', { error: String(e) }))
+        return false
+      }
+    },
+    [
+      abortPending,
+      activeSessionId,
+      client,
+      isStreaming,
+      loadHistory,
+      loadSessions,
+      prepareAgentRequest,
+      resumeActiveChat,
+      runtimeProjection,
+      sendMessage,
+      setUIMessages,
+      t,
+      transport,
+    ],
+  )
+
+  const submitQueuedControl = useCallback(
+    async (item: AgentRuntimeQueuedCommand, action: AgentQueuedCommandAction, reason?: string) => {
+      if (abortPending || commandSubmittingRef.current) return false
+      const operationID = runtimeProjection?.active_operation_id?.trim()
+      const targetSessionID = (client.fixedSessionId || activeSessionId).trim()
+      if ((!runtimeProjection?.active && runtimeProjection?.phase !== 'suspended') || !operationID || item.operation_id !== operationID) {
+        toast.error(t('chat.runtime.operationUnavailable'))
+        return false
+      }
+      if (!runtimeProjection.queue?.some((candidate) => candidate.command_id === item.command_id)) {
+        toast.error(t('chat.runtime.invalidCommand'))
+        return false
+      }
+
+      const retryKey = agentCommandRetryKey(operationID, action, {
+        target_command_id: item.command_id,
+        ...(reason ? { reason } : {}),
+      })
+      const commandID = rememberAgentCommandID(retryCommandIDsRef.current, retryKey, createAgentCommandID)
+      commandSubmittingRef.current = true
+      setCommandSubmitting(true)
+      setQueueActionPendingCommandID(item.command_id)
+      try {
+        const receipt = await client.submitQueuedChatCommand(action, commandID, operationID, item.command_id, targetSessionID, reason)
+        retryCommandIDsRef.current.delete(retryKey)
+        setRuntimeProjection((current) => {
+          if (!current || current.active_operation_id !== operationID) return current
+          const queue = action === 'cancel_queued'
+            ? (current.queue || []).filter((candidate) => candidate.command_id !== item.command_id)
+            : (current.queue || []).map((candidate) => candidate.command_id === item.command_id
+              ? { ...candidate, steer_requested: true }
+              : candidate)
+          return {
+            ...current,
+            cursor: receipt.cursor,
+            active_operation_id: receipt.operation_id,
+            ...(action === 'steer_queued' && current.phase !== 'suspended' ? {
+              recovery_paused: false,
+              runtime_recoverable: false,
+              recovery_actions: [],
+            } : {}),
+            queue,
+          }
+        })
+        if (runtimeProjection?.phase === 'suspended') setRuntimeProjection(await client.getActiveChatTask(targetSessionID))
+        return true
+      } catch (error) {
+        if (isKnownAgentCommandOutcome(error)) retryCommandIDsRef.current.delete(retryKey)
+        toast.error(agentCommandErrorMessage(error, t))
+        return false
+      } finally {
+        commandSubmittingRef.current = false
+        setCommandSubmitting(false)
+        setQueueActionPendingCommandID('')
+      }
+    },
+    [abortPending, activeSessionId, client, runtimeProjection, setRuntimeProjection, t],
+  )
+
+  const steerQueuedCommand = useCallback(
+    (item: AgentRuntimeQueuedCommand) => submitQueuedControl(item, 'steer_queued'),
+    [submitQueuedControl],
+  )
+
+  const deleteQueuedCommand = useCallback(async (item: AgentRuntimeQueuedCommand) => {
+    const accepted = await submitQueuedControl(item, 'cancel_queued', 'user_deleted')
+    if (accepted) queuedComposerDraftsRef.current.delete(item.command_id)
+    return accepted
+  }, [submitQueuedControl])
+
+  const editQueuedCommand = useCallback(async (item: AgentRuntimeQueuedCommand) => {
+    const draft = queuedComposerDraftsRef.current.get(item.command_id)
+    const accepted = await submitQueuedControl(item, 'cancel_queued', 'returned_to_editor')
+    if (!accepted) return null
+    queuedComposerDraftsRef.current.delete(item.command_id)
+    if (draft) {
+      setReferences((current) => Array.from(new Set([...draft.composerReferences, ...current])))
+      setLoreReferences((current) => Array.from(new Set([...draft.composerLoreReferences, ...current])))
+      setStyleScenes((current) => Array.from(new Set([...draft.composerStyleScenes, ...current])))
+      setTextSelections((current) => [...draft.composerTextSelections.filter((selection) => !current.includes(selection)), ...current])
+      draft.restoreSubmission?.()
+    }
+    return draft?.message || item.message
+  }, [submitQueuedControl])
+
+  const analyzeContext = useCallback(
+    async (input: string, sendOptions: ChatSendOptions = {}): Promise<ContextAnalysis> => {
+      if (isStreaming) throw new Error(t('chat.contextAnalysis.streamingUnavailable'))
+      const prepared = prepareAgentRequest(input)
+      return client.analyzeChatContext(
+        prepared.message,
+        prepared.references,
+        prepared.loreReferences,
+        prepared.styleScenes,
+        prepared.textSelections,
+        sendOptions.ideContext,
+        sendOptions.imagePresetId,
+        sendOptions.tellerId,
+      )
+    },
+    [client, isStreaming, prepareAgentRequest, t],
+  )
+
+  const suspend = useCallback(async () => {
+    const operationID = runtimeProjection?.active_operation_id?.trim()
+    if (!operationID || commandSubmittingRef.current) return
+    commandSubmittingRef.current = true
+    setCommandSubmitting(true)
+    const key = agentCommandRetryKey(operationID, 'suspend', {})
+    try {
+      const commandID = rememberAgentCommandID(retryCommandIDsRef.current, key, createAgentCommandID)
+      const sessionID = (client.fixedSessionId || activeSessionId).trim()
+      await client.submitChatCommand('suspend', commandID, operationID, sessionID)
+      retryCommandIDsRef.current.delete(key)
+      setRuntimeProjection(await client.getActiveChatTask(sessionID))
+    } catch (error) {
+      if (isKnownAgentCommandOutcome(error)) retryCommandIDsRef.current.delete(key)
+      toast.error(agentCommandErrorMessage(error, t))
+    } finally {
+      commandSubmittingRef.current = false
+      setCommandSubmitting(false)
+    }
+  }, [activeSessionId, client, runtimeProjection, setRuntimeProjection, t])
+
+  const resumeTask = useCallback(async () => {
+    try { await continueTask() } catch (error) { toast.error(agentCommandErrorMessage(error, t)) }
+  }, [continueTask, t])
+
+  const stop = useCallback(async () => {
+    if (abortPending || commandSubmittingRef.current || sessionTransitionPendingRef.current) return
+    let retryKey = ''
+    commandSubmittingRef.current = true
+    setCommandSubmitting(true)
+    try {
+      if (await abortRecovery()) {
+        setAbortPending(true)
+        return
+      }
+      const operationID = runtimeProjection?.active_operation_id?.trim()
+      if (!runtimeProjection?.active || !operationID) {
+        toast.error(t('chat.runtime.operationUnavailable'))
+        return
+      }
+      retryKey = agentCommandRetryKey(operationID, 'abort', {
+        reason: 'user_requested',
+      })
+      const commandID = rememberAgentCommandID(retryCommandIDsRef.current, retryKey, createAgentCommandID)
+      const targetSessionID = (client.fixedSessionId || activeSessionId).trim()
+      const receipt = await client.submitChatCommand('abort', commandID, operationID, targetSessionID, undefined, 'user_requested')
+      retryCommandIDsRef.current.delete(retryKey)
+      setAbortPending(true)
+      setRuntimeProjection((current) =>
+        current && current.active_operation_id === operationID
+          ? {
+              ...current,
+              cursor: receipt.cursor,
+              active_operation_id: receipt.operation_id,
+            }
+          : current,
+      )
+    } catch (error) {
+      if (retryKey && isKnownAgentCommandOutcome(error)) retryCommandIDsRef.current.delete(retryKey)
+      toast.error(agentCommandErrorMessage(error, t))
+    } finally {
+      commandSubmittingRef.current = false
+      setCommandSubmitting(false)
+    }
+  }, [abortPending, abortRecovery, activeSessionId, client, runtimeProjection, t])
+
+  const runSessionTransition = useCallback(async (mutation: () => Promise<SessionSummary>) => {
+    if (sessionTransitionPendingRef.current) return
+    sessionTransitionPendingRef.current = true
+    setSessionTransitionPending(true)
+    stopAIStream()
+    try {
+      const session = await mutation()
+      setActiveSessionId(session.id)
+      // The server binding has changed. Clear the previous Session display
+      // before loading so a failed history request cannot leave A visible while
+      // subsequent controls and recovery are bound to B.
+      setUIMessages([])
+      await Promise.all([loadSessions(), loadHistoryAuthoritative(session.id)])
+      await resumeActiveChat(session.id)
+    } finally {
+      sessionTransitionPendingRef.current = false
+      setSessionTransitionPending(false)
+    }
+  }, [loadHistoryAuthoritative, loadSessions, resumeActiveChat, setActiveSessionId, setUIMessages, stopAIStream])
+
+  const createChatSession = useCallback(
+    async (title?: string, customAgentId?: string) => {
+      await runSessionTransition(() => client.createSession(title, customAgentId))
+    },
+    [client, runSessionTransition],
+  )
+
+  const switchChatSession = useCallback(
+    async (id: string) => {
+      if (!id || id === activeSessionId) return
+      await runSessionTransition(() => client.switchSession(id))
+    },
+    [activeSessionId, client, runSessionTransition],
+  )
+
+  const renameChatSession = useCallback(
+    async (id: string, title: string) => {
+      await client.renameSession(id, title)
+      await loadSessions()
+    },
+    [client, loadSessions],
+  )
+
+  const deleteChatSession = useCallback(
+    async (id: string) => {
+      await runSessionTransition(() => client.deleteSession(id))
+    },
+    [client, runSessionTransition],
+  )
+
+  return {
+    messages,
+    suspend,
+    resumeTask,
+    sessions,
+    activeSessionId,
+    sessionTransitionPending,
+    isStreaming,
+    isExecutionActive,
+    runtimeProjection,
+    abortPending,
+    commandSubmitting,
+    queueActionPendingCommandID,
+    activityContent,
+    references,
+    loreReferences,
+    styleScenes,
+    textSelections,
+    send,
+    analyzeContext,
+    stop,
+    steerQueuedCommand,
+    deleteQueuedCommand,
+    editQueuedCommand,
+    loadSessions,
+    loadHistory,
+    loadEarlierHistory,
+    hasEarlierMessages,
+    isLoadingEarlierHistory,
+    resumeActiveChat,
+    createChatSession,
+    switchChatSession,
+    renameChatSession,
+    deleteChatSession,
+    addReference,
+    removeReference,
+    addLoreReference,
+    removeLoreReference,
+    addStyleScene,
+    removeStyleScene,
+    addTextSelection,
+    removeTextSelection,
+    clearReferences,
+    clearStyleScenes,
+  }
+}
+
+function writingTaskStatus(value: unknown): WritingTaskStatus | undefined {
+  switch (value) {
+    case 'running':
+    case 'done':
+    case 'aborted':
+    case 'error':
+      return value
+    default:
+      return undefined
+  }
+}

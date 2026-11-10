@@ -1,0 +1,3910 @@
+{
+  "schema": 1,
+  "id": "song-1127",
+  "version": "1.1.1",
+  "name": {
+    "zh": "南宋·建炎求存",
+    "en": "Southern Song: Survival in Jianyan"
+  },
+  "description": {
+    "zh": "议政、颁诏、逐季推演，在变化的天下里选择自己的道路。初值为游戏设定。",
+    "en": "Discuss policy, issue decrees and face the consequences each season. Opening values are authored game parameters."
+  },
+  "calendar": {
+    "name": {
+      "zh": "建炎",
+      "en": "Jianyan"
+    },
+    "year": 1127,
+    "quarter": 2,
+    "era_offset": 1126
+  },
+  "rules": "这是AI驱动的经营剧本，所有初始数值都是游戏化设定，不是史实统计。每季从完整当前状态出发，考虑所有有效政令、地方灾情、税收、民生、军队、朝廷派系、外部势力、科技与运输条件的联动，NPC和敌对势力也会自主行动。朝议是建议而非执行。不得把历史人物后来发生的命运写成必然结果。\n玩家可自由下诏，包括任免、整军、行军、战争、外交、开市、工程、税制、赈济、查案、科研和长期国策。不要求每项都指定准确金额；明确授权的“酌情/便宜行事”允许在实际权限和资源内给出合理执行额度。未获授权不得动用独立内帑。命令不能凭一句话瞬间完成，行军时间、地形、距离、军需、补给线、军心、装备和敌方反应共同决定结果。海运与水军要有实际交通条件；兵员不能凭空增长，损失与招募要有来源。\n开局现存税制和军政机关持续运行；无新诏令也有常规税收、军饷、粮耗、季节变化及外部发展。tax_base为年度潜在税额，季度通常约四分之一，须考虑季节征解、灾情、控制和贪腐。国库与内帑独立，所有进出逐项列账，调拨从账户到另一账户、真实消耗从账户流出、收入从外部进入，不能重复记账。缺款不允许负库存，也不可以截为零抹掉债务；减少实际支出，并把欠款记入相关主体的arrears及事件。grain为各仓实际存粮，粮运应另记损耗，不把库存当产量。常规税款、军费与专项工程分别计账。\n每项正在执行的命令都必须给出本季结果，长期政策持续生效直到玩家撤销，不因换季自动完成；一次事项、项目完成后不重复花费。条件令必须满足真实条件和依赖；未满足则等待。limits是整条政令累计支出上限，spent是已经花费，不可重置或重复抵扣。政令修订、暂停、恢复、撤销不会退还已经消耗的资源。\n科技研发依时代条件、前置技术、人才和投入逐步推进，不能穿越式瞬间获得现代工业。技术进展可以使能力、产能和军政结果变化，但不能凭技术名直接赠送无限钱粮。派系、社会群体与官员会根据利益、政策和履历反应，任免需要正式事实变化和合理交接。关系、官职、控制区、驻地等必须以当前保存事实为准。\n重大变化写入事件，旧危机有后续时引用其ID更新状态；已解决不反复刷新。新人物、新军队、势力分裂或新的地方机构可创建带稳定ID的新实体。隐情用空audience；公开消息用public；皇帝已收到的用player；大臣只在实际知悉或获得送达时加入其ID。涉及军政结果的送达消息应送给负责大臣，不能让所有大臣凭空全知。不要把结算错误当作谎报来解释。季报只讲皇帝确实获知的结果、代价和待决事项。\n南宋补充：建炎元年第二季度开局，皇帝赵构，行在应天府，不是崇祯年间。钱库单位为贯，粮仓为石，不得套用明代内帑、东厂或辽饷。政治中心与行在可迁移；金国、河北抵抗、两淮江防、东南财赋和水运相互影响。人物appearance记最早登场窗口，不能让未来人物提前任职；任免、地方归属与架空变化仍以当前游戏事实为准。恢复农商、盐茶与海贸需考虑征收成本和地方承受力。火器、船运与印刷只能沿本时代工艺渐进发展。\n\n【两版移植规则】\n## 御案与施政重心\n玩家可以直接下诏，也可先私下召见或廷议。每季有限的官僚经办、交通和监督能力是实际约束，不能用固定点击次数限制自由输入。明确“本季优先”时，优先级影响资源与执行顺序，其他有效政策仍持续；若无法兼顾，说明延误与代价。既有税制、俸饷、仓储和交通体系继续运转，不能无诏便停摆。诏令文字须完整保留约束；建议、批准、执行、完成是四个不同阶段。\n\n## 君臣、派系与用人\n人物能力按军略、吏治、财经、外交、学术和实际专长区分，隐藏的操守/私心/派系利益影响建议、执行偏差与信誉，但不能每句随机撒谎。根据真实身份提出至少一种可执行办法及其代价；合理反对和质询不等于叛逆。高能力也受经办容量、消息和机构掣肘限制。廷议意见不强行统一：军饷、赈灾、税收或外交有冲突时，各人解释自己掌握的理由。\n任免、考核、举荐、师承、地方历练、京察和撤职要记录当前官职、驻地、所属、具体经办履历及公开评价。大臣应被送达自己的新职责与核定账面。办成事务可以积累与领域有关的经验，不能一季全能力满值；失误和贪渎影响信誉，不能把一次反对永久标成敌人。对言路采取纳谏、留中、压制或惩处时，影响后续进言质量、皇权声望与派系反应，不给无代价的“所有人忠诚+20”。公共履历只记确实办过的事；隐秘意图留在独立隐藏人物资料中。\n\n## 密令、奏疏与核查\n明确密诏或秘密调查时，政令标记sealed，只由玩家和承办者知悉，不出现在公共廷议上下文。涉密事件只送达玩家与明确承办者，不能因别人在场便公开。会话中讨论调查本身不执行，也不花钱。秘密工作可能遭遇阻挠，但泄露必须有发生途径、相关人物和本季证据，不能为制造剧情随机泄漏。\n官方奏疏、传闻、预测、秘密实际情况与查证结论分别记录来源、日期、置信程度和后续线索。可用claim实体保存某人的陈述，attributes标明陈述者、依据和核验状态；与真实隐藏情况矛盾的陈述不覆盖实体真实指标。不能把“有人说”作为定罪证据。调查或微服私访须有明确对象、人员、行程、合理成本/风险，季度后才能形成可核验记录；依据真实现状揭露或排除问题。核查结果用investigation实体或事件保持稳定ID，说明查到了什么、没查到什么、花了多少、涉及何人，送达玩家。个人资产若已有账户，追缴须从该账户扣除并转入接收账户，查实资产余额是上限；不能一边保留原资产，一边把同一笔钱写成无来源国库收入。资产不是犯罪证明，未查实前不得把拥有财产等同于赃款。查案不能凭空创造巨额赃款；抄家需要对象、事实或玩家明确强行处分的授权，真实可收资产、追索损耗和政治后果分别保存。秘密事实通过调查确认后复制为有来源的公开结论，不直接展示隐藏评分。\n\n## 人口、危机与人物生命周期\n灾荒、粮价、税负、治安、流民、军纪和地方控制相互影响。危机必须有前兆、当前阶段、干预窗口和后续线索；更新同一事件，不每季再造同一个未决危机。拖延可恶化，投入有效可缓解，搬走人口不等于消灭困难。民变先从组织、领袖、兵源、武器和粮食条件成长，不能由一次民心下降凭空生成十万大军。招抚、安置、编练、剿灭各有成本和反应。\n历史节点是压力情景，不是定时强制剧情。没有现实前提就不触发固定历史灾难；玩家改变财政、军政或人事后，后果必须随之改变。人物出生、成年、出仕、疾病、退休、死亡和继任以本局年份及事实为准。available_year是可能发现人才的参考窗口，不是自动升任最高官职的日期；未出生者不可出场，在野者可由举荐或调查发现。不得把后来史书中的投降、殉难、著作或胜利写成开局既成事实。\n\n## 财政、货币、产业与运输\n预算上限不是支出目标。先依据任务范围、人数、路程、时日、材料和已提供单价估算实际需要，再与授权比较；需求不变时，提高上限不会自动提高实际成本。保留未用余额，不能写“按上限核销”代替成本依据；资料不足时说明合理估算依据和不确定性。短程任务若跨季，须有具体交通、季节或交接阻滞，不能只为花完额度编造延误。同一国家公共库房之间转账不重复算支出；付给个人、私人商号或其他政权是实际付款，须关联政令并占额度。追回个人资产或收取对方款项是收入，不消耗己方授权。\n区分公共国库、皇室内帑、部门资产、地方仓储和民间财富，内部调拨不能增加总资源；独立内帑没有明确授权不动用。税额、实收、在途、征解成本、拖欠和截留不能混成同一个数字。税制修改须体现税基、征收能力、地区差异、社会负担与季节；三饷等名称只在对应时代与政策成立时使用，不自动添加未来税目。借款需记录债权人、真实入账、余额、到期季和条件；还款同时减少债务，不还款也不能抹账。军饷/俸禄不足应记录欠付与其后果。\n银荒、铜钱/纸币、粮价、贸易和税收互相影响；增发名义货币不等于凭空增添粮食或工业产能。开市/开海可能改善供应，但须有航路、治安、港口和外交条件；纸币需要信用、兑付和可征税基础。物价变化影响采购和民生，不能每季任意大幅震荡或自动归零。\n工场与矿山保留工匠、产能、设备状态、技术门槛和原料/成品账户。生产先核对原料、资金、工匠、能源、运输与需求；本季实际产出才入库存，不能把满编产能当已生产。修复废弛工场先花费和时间，再恢复能力。原料用量、损耗与产出分别列账；消耗本地原料账户，成品增加必须有对应生产记录。运输有始发地、目的地、承运能力和途中损耗，不能当季无限距离瞬移。跨部门协作明确牵头、参与者、责任、可用资产和沟通成本，皇帝下令协调有作用但不会消除真实物流约束。\n\n## 军队、战争与外交\n军队使用同一份人数、兵种、指挥、士气、训练、装备、饷粮、驻地与军需记录。行军和作战受道路、水路、季节、地形、距离、情报、补给线、对方行动影响。征募有兵源和训练期，兵器须有库存或采购来源。装备改善不代替训练，招兵不等于即时成军；战争伤亡、军饷、弹药和粮耗保存为真实变化。守备军保护地方也消耗资源，不能通过更名重复新增同一支军队。只控制城池不等于完全控制全省；占领、治理、民心和运输分别考虑。远征军长期断饷或与中央疏远可能形成自主诉求，须有实际过程。\n外交对象有自己的目标、兵力、财政与承诺，议和提议不等于对方接受。条约用treaty实体保存签约方、条款、生效/到期季、履行状态、支付和违约后果；同一条约只建一次，修订引用原记录。贸易、朝贡、结盟、赎俘、使节与战争共同读取当前世界，不能外交已经议和而另一条线仍无条件作战。条约承诺的未来款项不提前计为收入。\n\n## 研发、皇室与长线回顾\n科技条目是待研究知识与制度，不是开局已掌握。研究须具备前置知识、人才、材料、试验条件与经费。分辨理论、试制、可用成果、量产和推广；时代不具备条件的技术可以提出长期探索路径，不能一诏造出现代武器。失败给出可积累的信息与已耗成本；成功更新同一技术或新增真实成果，说明用途、局限和后续生产条件。树外合理创新也可建technology实体，不能用“列表没有”拒绝自由诏令。\n皇室教育、储位和继承属于本剧本制度。先核对是否有已出生且存活的合适人选；皇帝健康/继承制度、师傅选择、教育领域和家族政治分别有长期记录。不存在太子时，不能凭一条“教太子”命令创造成年继承人。可先议储位、选择辅导安排或完善继承规则；皇帝更替改变角色和官场局势，国家、钱粮和有效政令不中途清空。若政权确实崩溃，按本局已发生的丧失控制等条件结局，不按历史年份强制结束。\n季度奏报按本季变化解释因果，先列当前最需要决策的事项，再说明执行、成本、受益与后遗症。人物建议和未实现计划明确使用未来措辞。历史回顾只取本局已提交诏令、事件、账目和成就；可评价取舍，不伪造未玩过的战争与政绩。\n",
+  "provenance": "Adapted from user-authored reference data; seed.py SHA-256 1077db8794b010c3bcbbae31f0e2d9b8c5f82587291cbaada99f9b2f800a8411. No original commercial art included. | content-port: authored seed.py 1077db8794b010c3bcbbae31f0e2d9b8c5f82587291cbaada99f9b2f800a8411; original local reference map_data.json b8fc9a2d04ca9705509d06e789a8845ed3bd51b787de3f6eae6777790fe82ac4; new original artwork; garrisons use reference constants; Song workshop values are authored gameplay assumptions, not historical statistics.",
+  "metrics": [
+    {
+      "id": "heart",
+      "name": {
+        "zh": "民心",
+        "en": "Public support"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "tax_base",
+      "name": {
+        "zh": "年度税基",
+        "en": "Annual tax base"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000000
+    },
+    {
+      "id": "disaster",
+      "name": {
+        "zh": "灾情",
+        "en": "Disaster severity"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "refugees",
+      "name": {
+        "zh": "流民",
+        "en": "Displaced people"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000000
+    },
+    {
+      "id": "corruption",
+      "name": {
+        "zh": "贪腐",
+        "en": "Corruption"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "power",
+      "name": {
+        "zh": "势力",
+        "en": "Influence"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "relation",
+      "name": {
+        "zh": "关系",
+        "en": "Relations"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": -100,
+      "max": 100
+    },
+    {
+      "id": "strength",
+      "name": {
+        "zh": "战力",
+        "en": "Readiness"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "morale",
+      "name": {
+        "zh": "士气",
+        "en": "Morale"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "size",
+      "name": {
+        "zh": "人数",
+        "en": "Personnel"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000000
+    },
+    {
+      "id": "training",
+      "name": {
+        "zh": "训练",
+        "en": "Training"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "pay_ratio",
+      "name": {
+        "zh": "实发饷比例",
+        "en": "Pay fulfillment"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "progress",
+      "name": {
+        "zh": "进展",
+        "en": "Progress"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "control",
+      "name": {
+        "zh": "控制力",
+        "en": "Control"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "legitimacy",
+      "name": {
+        "zh": "合法性",
+        "en": "Legitimacy"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "stability",
+      "name": {
+        "zh": "稳定",
+        "en": "Stability"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "health",
+      "name": {
+        "zh": "健康",
+        "en": "Health"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "research",
+      "name": {
+        "zh": "研究",
+        "en": "Research"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "arrears",
+      "name": {
+        "zh": "欠款",
+        "en": "Arrears"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000000
+    },
+    {
+      "id": "production",
+      "name": {
+        "zh": "产能",
+        "en": "Production"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000000
+    },
+    {
+      "id": "ability",
+      "name": {
+        "zh": "能力",
+        "en": "Ability"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "loyalty",
+      "name": {
+        "zh": "忠诚",
+        "en": "Loyalty"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "integrity",
+      "name": {
+        "zh": "操守",
+        "en": "Integrity"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "self_interest",
+      "name": {
+        "zh": "私心",
+        "en": "Self-interest"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "military",
+      "name": {
+        "zh": "军略",
+        "en": "Military command"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "governance",
+      "name": {
+        "zh": "吏治",
+        "en": "Administration"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "finance",
+      "name": {
+        "zh": "财经",
+        "en": "Finance"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "diplomacy",
+      "name": {
+        "zh": "外交",
+        "en": "Diplomacy"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "learning",
+      "name": {
+        "zh": "学术",
+        "en": "Scholarship"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "credibility",
+      "name": {
+        "zh": "信誉",
+        "en": "Credibility"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "prices",
+      "name": {
+        "zh": "物价指数",
+        "en": "Price index"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 10,
+      "max": 1000
+    },
+    {
+      "id": "currency",
+      "name": {
+        "zh": "货币流通指数",
+        "en": "Currency circulation"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "id": "authority",
+      "name": {
+        "zh": "皇权威信",
+        "en": "Royal authority"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "remonstrance",
+      "name": {
+        "zh": "言路畅通",
+        "en": "Openness to counsel"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "succession",
+      "name": {
+        "zh": "继承稳固",
+        "en": "Succession security"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "craftsmen",
+      "name": {
+        "zh": "工匠",
+        "en": "Craftspeople"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 1000000
+    },
+    {
+      "id": "equipment",
+      "name": {
+        "zh": "装备完备",
+        "en": "Equipment readiness"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "supply",
+      "name": {
+        "zh": "补给保障",
+        "en": "Supply security"
+      },
+      "unit": {
+        "zh": "",
+        "en": ""
+      },
+      "min": 0,
+      "max": 100
+    }
+  ],
+  "resources": [
+    {
+      "id": "cash",
+      "name": {
+        "zh": "钱帛",
+        "en": "Treasury cash"
+      },
+      "unit": {
+        "zh": "贯",
+        "en": "guan"
+      },
+      "max_transaction": 100000000
+    },
+    {
+      "id": "grain",
+      "name": {
+        "zh": "粮食",
+        "en": "Grain"
+      },
+      "unit": {
+        "zh": "石",
+        "en": "shi"
+      },
+      "max_transaction": 100000000
+    },
+    {
+      "id": "iron",
+      "name": {
+        "zh": "铁料",
+        "en": "Iron"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "copper",
+      "name": {
+        "zh": "铜料",
+        "en": "Copper"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "timber",
+      "name": {
+        "zh": "木料",
+        "en": "Timber"
+      },
+      "unit": {
+        "zh": "件",
+        "en": "pieces"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "niter",
+      "name": {
+        "zh": "硝石",
+        "en": "Niter"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "sulfur",
+      "name": {
+        "zh": "硫磺",
+        "en": "Sulfur"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "ore",
+      "name": {
+        "zh": "矿石",
+        "en": "Ore"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "fodder",
+      "name": {
+        "zh": "草料",
+        "en": "Fodder"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "firearms",
+      "name": {
+        "zh": "火铳",
+        "en": "Firearms"
+      },
+      "unit": {
+        "zh": "支",
+        "en": "pieces"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "cannon",
+      "name": {
+        "zh": "火炮",
+        "en": "Cannon"
+      },
+      "unit": {
+        "zh": "门",
+        "en": "pieces"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "ships",
+      "name": {
+        "zh": "船只",
+        "en": "Ships"
+      },
+      "unit": {
+        "zh": "艘",
+        "en": "vessels"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "armor",
+      "name": {
+        "zh": "盔甲",
+        "en": "Armor"
+      },
+      "unit": {
+        "zh": "套",
+        "en": "sets"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "blades",
+      "name": {
+        "zh": "刀剑",
+        "en": "Blades"
+      },
+      "unit": {
+        "zh": "柄",
+        "en": "pieces"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "powder",
+      "name": {
+        "zh": "火药",
+        "en": "Gunpowder"
+      },
+      "unit": {
+        "zh": "千克",
+        "en": "kg"
+      },
+      "max_transaction": 1000000000
+    },
+    {
+      "id": "horses",
+      "name": {
+        "zh": "战马",
+        "en": "Horses"
+      },
+      "unit": {
+        "zh": "匹",
+        "en": "horses"
+      },
+      "max_transaction": 1000000000
+    }
+  ],
+  "ministers": [
+    {
+      "id": "li_gang",
+      "name": "李纲",
+      "name_en": "Li Gang",
+      "office": "尚书右仆射兼中书侍郎／宰相",
+      "office_en": "Chancellor",
+      "profile": "整军与经略",
+      "domain": "court",
+      "capacity": 72000,
+      "knowledge": []
+    },
+    {
+      "id": "zong_ze",
+      "name": "宗泽",
+      "name_en": "Zong Ze",
+      "office": "京城留守／知开封府",
+      "office_en": "Kaifeng prefect and defense commissioner",
+      "profile": "京城防务",
+      "domain": "military",
+      "capacity": 62000,
+      "knowledge": []
+    },
+    {
+      "id": "huang_qianshan",
+      "name": "黄潜善",
+      "name_en": "Huang Qianshan",
+      "office": "宰执／和议保全立场",
+      "office_en": "Senior minister; negotiation advocate",
+      "profile": "迁移与和议",
+      "domain": "court",
+      "capacity": 60000,
+      "knowledge": []
+    },
+    {
+      "id": "wang_boyan",
+      "name": "汪伯彦",
+      "name_en": "Wang Boyan",
+      "office": "宰执／和议保全立场",
+      "office_en": "Senior minister; negotiation advocate",
+      "profile": "行朝保全",
+      "domain": "court",
+      "capacity": 58000,
+      "knowledge": []
+    },
+    {
+      "id": "xu_jingheng",
+      "name": "许景衡",
+      "name_en": "Xu Jingheng",
+      "office": "御史中丞",
+      "office_en": "Deputy censor-in-chief",
+      "profile": "监察与吏治",
+      "domain": "court",
+      "capacity": 76000,
+      "knowledge": []
+    },
+    {
+      "id": "zhang_jun_general",
+      "name": "张俊",
+      "name_en": "Zhang Jun",
+      "office": "行营都统制",
+      "office_en": "Field army commander",
+      "profile": "江淮军政",
+      "domain": "military",
+      "capacity": 58000,
+      "knowledge": []
+    },
+    {
+      "id": "liu_guangshi",
+      "name": "刘光世",
+      "name_en": "Liu Guangshi",
+      "office": "地方军统制",
+      "office_en": "Regional army commander",
+      "profile": "地方军整合",
+      "domain": "military",
+      "capacity": 54000,
+      "knowledge": []
+    },
+    {
+      "id": "zhu_shengfei",
+      "name": "朱胜非",
+      "name_en": "Zhu Shengfei",
+      "office": "宰执",
+      "office_en": "Senior minister",
+      "profile": "行朝政务",
+      "domain": "court",
+      "capacity": 72000,
+      "knowledge": []
+    },
+    {
+      "id": "lv_yihao",
+      "name": "吕颐浩",
+      "name_en": "Lv Yihao",
+      "office": "宰执与行营总领",
+      "office_en": "Senior minister and field command supervisor",
+      "profile": "行营与行政",
+      "domain": "court",
+      "capacity": 78000,
+      "knowledge": []
+    },
+    {
+      "id": "chen_dong",
+      "name": "陈东",
+      "name_en": "Chen Dong",
+      "office": "台谏与直谏人物",
+      "office_en": "Remonstrant",
+      "profile": "直谏与封驳",
+      "domain": "court",
+      "capacity": 65000,
+      "knowledge": []
+    },
+    {
+      "id": "li_ruoshui",
+      "name": "李若水",
+      "name_en": "Li Ruoshui",
+      "office": "使臣与直臣",
+      "office_en": "Diplomatic envoy",
+      "profile": "使节与直谏",
+      "domain": "court",
+      "capacity": 58000,
+      "knowledge": []
+    },
+    {
+      "id": "sun_fu",
+      "name": "孙傅",
+      "name_en": "Sun Fu",
+      "office": "礼部与行朝文臣",
+      "office_en": "Minister of rites",
+      "profile": "礼制与文书",
+      "domain": "court",
+      "capacity": 64000,
+      "knowledge": []
+    }
+  ],
+  "initial": {
+    "entities": [
+      {
+        "id": "song",
+        "kind": "state",
+        "name": {
+          "zh": "南宋行朝",
+          "en": "Song court"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "legitimacy": 58,
+          "control": 46,
+          "stability": 42
+        },
+        "attributes": {
+          "capital": {
+            "zh": "应天府",
+            "en": "Yingtian"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yingtian_court",
+        "kind": "region",
+        "name": {
+          "zh": "应天行朝",
+          "en": "Yingtian court"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 180000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：lianghuai,jiangdong,yangzhou",
+            "en": "Routes: lianghuai, jiangdong, yangzhou"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "lianghuai",
+        "kind": "region",
+        "name": {
+          "zh": "两淮江防",
+          "en": "Huai defenses"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 140000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：yingtian_court,jiangdong,jinghu_north,kaifeng_front,hebei_corridor,yangzhou",
+            "en": "Routes: yingtian_court, jiangdong, jinghu_north, kaifeng_front, hebei_corridor, yangzhou"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "jinghu_north",
+        "kind": "region",
+        "name": {
+          "zh": "荆湖北路",
+          "en": "Northern Jinghu"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "jin_state",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 90000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：lianghuai,jinghu_south,chuanshan",
+            "en": "Routes: lianghuai, jinghu_south, chuanshan"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "jinghu_south",
+        "kind": "region",
+        "name": {
+          "zh": "荆湖南路",
+          "en": "Southern Jinghu"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 120000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：jinghu_north,jiangxi,guangnan",
+            "en": "Routes: jinghu_north, jiangxi, guangnan"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "chuanshan",
+        "kind": "region",
+        "name": {
+          "zh": "川陕屏障",
+          "en": "Sichuan-Shaanxi barrier"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 110000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：jinghu_north,jiangxi",
+            "en": "Routes: jinghu_north, jiangxi"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "jiangdong",
+        "kind": "region",
+        "name": {
+          "zh": "江南东路",
+          "en": "Jiangnan East"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 160000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：yingtian_court,lianghuai,jiangxi,liangzhe,yangzhou",
+            "en": "Routes: yingtian_court, lianghuai, jiangxi, liangzhe, yangzhou"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "liangzhe",
+        "kind": "region",
+        "name": {
+          "zh": "两浙财赋区",
+          "en": "Liangzhe"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 240000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：jiangdong,jiangxi,fujian_coast,yangzhou",
+            "en": "Routes: jiangdong, jiangxi, fujian_coast, yangzhou"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "jiangxi",
+        "kind": "region",
+        "name": {
+          "zh": "江南西路",
+          "en": "Jiangnan West"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 150000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：jiangdong,liangzhe,jinghu_south,chuanshan,guangnan",
+            "en": "Routes: jiangdong, liangzhe, jinghu_south, chuanshan, guangnan"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "fujian_coast",
+        "kind": "region",
+        "name": {
+          "zh": "福建沿海",
+          "en": "Fujian coast"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 120000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：liangzhe,guangnan",
+            "en": "Routes: liangzhe, guangnan"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "guangnan",
+        "kind": "region",
+        "name": {
+          "zh": "广南海路",
+          "en": "Guangnan"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 140000,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：jinghu_south,jiangxi,fujian_coast",
+            "en": "Routes: jinghu_south, jiangxi, fujian_coast"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "kaifeng_front",
+        "kind": "region",
+        "name": {
+          "zh": "开封前线节点",
+          "en": "Kaifeng front"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "jin_state",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 0,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：lianghuai,hebei_corridor",
+            "en": "Routes: lianghuai, hebei_corridor"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "hebei_corridor",
+        "kind": "region",
+        "name": {
+          "zh": "河北抗金走廊",
+          "en": "Hebei resistance corridor"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "jin_state",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 0,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：kaifeng_front,lianghuai",
+            "en": "Routes: kaifeng_front, lianghuai"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yangzhou",
+        "kind": "region",
+        "name": {
+          "zh": "扬州行在节点",
+          "en": "Yangzhou court station"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "heart": 45,
+          "tax_base": 0,
+          "disaster": 0,
+          "refugees": 0,
+          "corruption": 30
+        },
+        "attributes": {
+          "routes": {
+            "zh": "相邻：yingtian_court,lianghuai,jiangdong,liangzhe",
+            "en": "Routes: yingtian_court, lianghuai, jiangdong, liangzhe"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "song_court",
+        "kind": "faction",
+        "name": {
+          "zh": "南渡行朝",
+          "en": "Imperial court"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 55
+        },
+        "attributes": {
+          "stance": {
+            "zh": "求存",
+            "en": "survival"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "court_war_party",
+        "kind": "faction",
+        "name": {
+          "zh": "主战朝议",
+          "en": "Advocates of resistance"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 42
+        },
+        "attributes": {
+          "stance": {
+            "zh": "主战",
+            "en": "war"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "court_peace_party",
+        "kind": "faction",
+        "name": {
+          "zh": "避战朝议",
+          "en": "Advocates of negotiation"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 45
+        },
+        "attributes": {
+          "stance": {
+            "zh": "避战",
+            "en": "peace"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "frontier_commanders",
+        "kind": "faction",
+        "name": {
+          "zh": "边军与地方军",
+          "en": "Frontier commanders"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 60
+        },
+        "attributes": {
+          "stance": {
+            "zh": "观望",
+            "en": "conditional"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "jin_state",
+        "kind": "state",
+        "name": {
+          "zh": "金朝",
+          "en": "Jin state"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 78
+        },
+        "attributes": {
+          "stance": {
+            "zh": "敌对",
+            "en": "hostile"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "maritime_network",
+        "kind": "faction",
+        "name": {
+          "zh": "东南海运网络",
+          "en": "Southeastern maritime network"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "",
+        "metrics": {
+          "power": 35
+        },
+        "attributes": {
+          "stance": {
+            "zh": "可议价",
+            "en": "negotiable"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhao_gou",
+        "kind": "person",
+        "name": {
+          "zh": "赵构",
+          "en": "Zhao Gou"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "皇帝／行朝核心",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "行在统筹",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "li_gang",
+        "kind": "person",
+        "name": {
+          "zh": "李纲",
+          "en": "Li Gang"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "尚书右仆射兼中书侍郎／宰相",
+            "en": "Chancellor"
+          },
+          "profile": {
+            "zh": "整军与经略",
+            "en": "Chancellor with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zong_ze",
+        "kind": "person",
+        "name": {
+          "zh": "宗泽",
+          "en": "Zong Ze"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "京城留守／知开封府",
+            "en": "Kaifeng prefect and defense commissioner"
+          },
+          "profile": {
+            "zh": "京城防务",
+            "en": "Kaifeng prefect and defense commissioner with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "huang_qianshan",
+        "kind": "person",
+        "name": {
+          "zh": "黄潜善",
+          "en": "Huang Qianshan"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执／和议保全立场",
+            "en": "Senior minister; negotiation advocate"
+          },
+          "profile": {
+            "zh": "迁移与和议",
+            "en": "Senior minister; negotiation advocate with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wang_boyan",
+        "kind": "person",
+        "name": {
+          "zh": "汪伯彦",
+          "en": "Wang Boyan"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执／和议保全立场",
+            "en": "Senior minister; negotiation advocate"
+          },
+          "profile": {
+            "zh": "行朝保全",
+            "en": "Senior minister; negotiation advocate with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "xu_jingheng",
+        "kind": "person",
+        "name": {
+          "zh": "许景衡",
+          "en": "Xu Jingheng"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "御史中丞",
+            "en": "Deputy censor-in-chief"
+          },
+          "profile": {
+            "zh": "监察与吏治",
+            "en": "Deputy censor-in-chief with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yue_fei",
+        "kind": "person",
+        "name": {
+          "zh": "岳飞",
+          "en": "Yue Fei"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "河北招抚体系将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "河北抗金",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhang_jun_general",
+        "kind": "person",
+        "name": {
+          "zh": "张俊",
+          "en": "Zhang Jun"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "行营都统制",
+            "en": "Field army commander"
+          },
+          "profile": {
+            "zh": "江淮军政",
+            "en": "Field army commander with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "han_shizhong",
+        "kind": "person",
+        "name": {
+          "zh": "韩世忠",
+          "en": "Han Shizhong"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "淮东军统制",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "水陆防务",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "liu_guangshi",
+        "kind": "person",
+        "name": {
+          "zh": "刘光世",
+          "en": "Liu Guangshi"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "地方军统制",
+            "en": "Regional army commander"
+          },
+          "profile": {
+            "zh": "地方军整合",
+            "en": "Regional army commander with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wu_jie",
+        "kind": "person",
+        "name": {
+          "zh": "吴玠",
+          "en": "Wu Jie"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "川陕经略将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "川陕山地防务",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wu_lin",
+        "kind": "person",
+        "name": {
+          "zh": "吴璘",
+          "en": "Wu Lin"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "川陕军副将",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "山地军与关隘",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "liu_qi",
+        "kind": "person",
+        "name": {
+          "zh": "刘锜",
+          "en": "Liu Qi"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "顺昌防务将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "守城与野战",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhang_suo",
+        "kind": "person",
+        "name": {
+          "zh": "张所",
+          "en": "Zhang Suo"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "河北招抚使",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "河北招抚",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "li_xianzhong",
+        "kind": "person",
+        "name": {
+          "zh": "李显忠",
+          "en": "Li Xianzhong"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "边军将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "骑战与复土",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第3季",
+            "en": "Earliest appearance: 1128 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yang_yizhong",
+        "kind": "person",
+        "name": {
+          "zh": "杨沂中",
+          "en": "Yang Yizhong"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "行在宿卫将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "宿卫与机动作战",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "niu_gao",
+        "kind": "person",
+        "name": {
+          "zh": "牛皋",
+          "en": "Niu Gao"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "地方义军将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "地方军与突击",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第3季",
+            "en": "Earliest appearance: 1128 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yang_zaixing",
+        "kind": "person",
+        "name": {
+          "zh": "杨再兴",
+          "en": "Yang Zaixing"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "前线骑将",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "骑兵突击",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1129年第2季",
+            "en": "Earliest appearance: 1129 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wang_de",
+        "kind": "person",
+        "name": {
+          "zh": "王德",
+          "en": "Wang De"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "行营将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "军队整编",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第3季",
+            "en": "Earliest appearance: 1128 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wei_sheng",
+        "kind": "person",
+        "name": {
+          "zh": "魏胜",
+          "en": "Wei Sheng"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "淮北义军将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "义军与边防",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1129年第3季",
+            "en": "Earliest appearance: 1129 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "wang_yan",
+        "kind": "person",
+        "name": {
+          "zh": "王彦",
+          "en": "Wang Yan"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "河北义军将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "山地义军",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第4季",
+            "en": "Earliest appearance: 1127 Q4"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhang_jun_court",
+        "kind": "person",
+        "name": {
+          "zh": "张浚",
+          "en": "Zhang Jun"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "枢密与主战宰执",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "军政统筹",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhao_ding",
+        "kind": "person",
+        "name": {
+          "zh": "赵鼎",
+          "en": "Zhao Ding"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执与台谏协调",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "朝议与吏治",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第3季",
+            "en": "Earliest appearance: 1128 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "qin_hui",
+        "kind": "person",
+        "name": {
+          "zh": "秦桧",
+          "en": "Qin Hui"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "和议宰执",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "外交与权术",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1130年第2季",
+            "en": "Earliest appearance: 1130 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhu_shengfei",
+        "kind": "person",
+        "name": {
+          "zh": "朱胜非",
+          "en": "Zhu Shengfei"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执",
+            "en": "Senior minister"
+          },
+          "profile": {
+            "zh": "行朝政务",
+            "en": "Senior minister with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "lv_yihao",
+        "kind": "person",
+        "name": {
+          "zh": "吕颐浩",
+          "en": "Lv Yihao"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执与行营总领",
+            "en": "Senior minister and field command supervisor"
+          },
+          "profile": {
+            "zh": "行营与行政",
+            "en": "Senior minister and field command supervisor with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "fan_zongyin",
+        "kind": "person",
+        "name": {
+          "zh": "范宗尹",
+          "en": "Fan Zongyin"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "宰执",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "行朝保全",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "chen_gui",
+        "kind": "person",
+        "name": {
+          "zh": "陈规",
+          "en": "Chen Gui"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "守城与军器官",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "守城与军器",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第4季",
+            "en": "Earliest appearance: 1127 Q4"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "chen_dong",
+        "kind": "person",
+        "name": {
+          "zh": "陈东",
+          "en": "Chen Dong"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "台谏与直谏人物",
+            "en": "Remonstrant"
+          },
+          "profile": {
+            "zh": "直谏与封驳",
+            "en": "Remonstrant with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "li_ruoshui",
+        "kind": "person",
+        "name": {
+          "zh": "李若水",
+          "en": "Li Ruoshui"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "使臣与直臣",
+            "en": "Diplomatic envoy"
+          },
+          "profile": {
+            "zh": "使节与直谏",
+            "en": "Diplomatic envoy with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "sun_fu",
+        "kind": "person",
+        "name": {
+          "zh": "孙傅",
+          "en": "Sun Fu"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "礼部与行朝文臣",
+            "en": "Minister of rites"
+          },
+          "profile": {
+            "zh": "礼制与文书",
+            "en": "Minister of rites with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第2季",
+            "en": "Earliest appearance: 1127 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "meng_yu",
+        "kind": "person",
+        "name": {
+          "zh": "孟庾",
+          "en": "Meng Yu"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "行朝财政官",
+            "en": "Fiscal official"
+          },
+          "profile": {
+            "zh": "财赋与转运",
+            "en": "Fiscal official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1127年第3季",
+            "en": "Earliest appearance: 1127 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhao_kai",
+        "kind": "person",
+        "name": {
+          "zh": "赵开",
+          "en": "Zhao Kai"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "财赋与盐茶官",
+            "en": "Fiscal official"
+          },
+          "profile": {
+            "zh": "盐茶与财政",
+            "en": "Fiscal official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zheng_gangzhong",
+        "kind": "person",
+        "name": {
+          "zh": "郑刚中",
+          "en": "Zheng Gangzhong"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "经略与财赋官",
+            "en": "Fiscal official"
+          },
+          "profile": {
+            "zh": "经略与财赋",
+            "en": "Fiscal official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1130年第3季",
+            "en": "Earliest appearance: 1130 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "liu_ziyu",
+        "kind": "person",
+        "name": {
+          "zh": "刘子羽",
+          "en": "Liu Ziyu"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "川陕军政幕府",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "军政幕府",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第2季",
+            "en": "Earliest appearance: 1128 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "hu_shijiang",
+        "kind": "person",
+        "name": {
+          "zh": "胡世将",
+          "en": "Hu Shijiang"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "川陕经略官",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "边防经略",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1128年第3季",
+            "en": "Earliest appearance: 1128 Q3"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "hu_quan",
+        "kind": "person",
+        "name": {
+          "zh": "胡铨",
+          "en": "Hu Quan"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "台谏与主战文臣",
+            "en": "Court official"
+          },
+          "profile": {
+            "zh": "台谏与主战",
+            "en": "Court official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1130年第2季",
+            "en": "Earliest appearance: 1130 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "li_bao",
+        "kind": "person",
+        "name": {
+          "zh": "李宝",
+          "en": "Li Bao"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "水师将领",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "水师与海战",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1133年第2季",
+            "en": "Earliest appearance: 1133 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yue_yun",
+        "kind": "person",
+        "name": {
+          "zh": "岳云",
+          "en": "Yue Yun"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "前线骑将",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "骑兵突击",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1132年第2季",
+            "en": "Earliest appearance: 1132 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "zhang_xian",
+        "kind": "person",
+        "name": {
+          "zh": "张宪",
+          "en": "Zhang Xian"
+        },
+        "status": "absent",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "health": 100
+        },
+        "attributes": {
+          "office": {
+            "zh": "前线军官",
+            "en": "Military official"
+          },
+          "profile": {
+            "zh": "军令与统兵",
+            "en": "Military official with individual interests and experience."
+          },
+          "appearance": {
+            "zh": "可登场起点：1130年第2季",
+            "en": "Earliest appearance: 1130 Q2"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "yingtian_guard",
+        "kind": "army",
+        "name": {
+          "zh": "行在护卫",
+          "en": "Court guard"
+        },
+        "status": "active",
+        "location": "yingtian_court",
+        "owner": "song",
+        "metrics": {
+          "size": 6000,
+          "strength": 52,
+          "morale": 58,
+          "training": 50,
+          "pay_ratio": 80
+        },
+        "attributes": {
+          "supply": {
+            "zh": "补给依托：应天行朝",
+            "en": "Supply base: Yingtian court"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "lianghuai_defense",
+        "kind": "army",
+        "name": {
+          "zh": "两淮江防体系",
+          "en": "Huai defensive command"
+        },
+        "status": "active",
+        "location": "lianghuai",
+        "owner": "song",
+        "metrics": {
+          "size": 16000,
+          "strength": 50,
+          "morale": 52,
+          "training": 50,
+          "pay_ratio": 80
+        },
+        "attributes": {
+          "supply": {
+            "zh": "补给依托：两淮江防",
+            "en": "Supply base: Huai defenses"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "kaifeng_defense",
+        "kind": "army",
+        "name": {
+          "zh": "开封留守防务",
+          "en": "Kaifeng defenders"
+        },
+        "status": "active",
+        "location": "kaifeng_front",
+        "owner": "song",
+        "metrics": {
+          "size": 10000,
+          "strength": 48,
+          "morale": 50,
+          "training": 50,
+          "pay_ratio": 80
+        },
+        "attributes": {
+          "supply": {
+            "zh": "补给依托：开封前线节点",
+            "en": "Supply base: Kaifeng front"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "hebei_resistance",
+        "kind": "army",
+        "name": {
+          "zh": "河北抗金网络",
+          "en": "Hebei resistance"
+        },
+        "status": "active",
+        "location": "hebei_corridor",
+        "owner": "song",
+        "metrics": {
+          "size": 5000,
+          "strength": 45,
+          "morale": 48,
+          "training": 50,
+          "pay_ratio": 80
+        },
+        "attributes": {
+          "supply": {
+            "zh": "补给依托：河北抗金走廊",
+            "en": "Supply base: Hebei resistance corridor"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "southeast_water_force",
+        "kind": "army",
+        "name": {
+          "zh": "东南水师",
+          "en": "Southeastern river fleet"
+        },
+        "status": "active",
+        "location": "fujian_coast",
+        "owner": "song",
+        "metrics": {
+          "size": 7000,
+          "strength": 50,
+          "morale": 55,
+          "training": 50,
+          "pay_ratio": 80
+        },
+        "attributes": {
+          "supply": {
+            "zh": "补给依托：福建沿海",
+            "en": "Supply base: Fujian coast"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "tech-river",
+        "kind": "technology",
+        "name": {
+          "zh": "河渠与海运",
+          "en": "Rivers and sea transport"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "progress": 0
+        },
+        "attributes": {},
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "tech-gunpowder",
+        "kind": "technology",
+        "name": {
+          "zh": "火药与军器",
+          "en": "Gunpowder and armaments"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "progress": 0
+        },
+        "attributes": {},
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "tech-agriculture",
+        "kind": "technology",
+        "name": {
+          "zh": "农政与赈济",
+          "en": "Agriculture and relief"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "progress": 0
+        },
+        "attributes": {},
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "tech-printing",
+        "kind": "technology",
+        "name": {
+          "zh": "印刷与文书",
+          "en": "Printing and administration"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "progress": 0
+        },
+        "attributes": {},
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "tech-salt",
+        "kind": "technology",
+        "name": {
+          "zh": "盐茶制度",
+          "en": "Salt and tea administration"
+        },
+        "status": "active",
+        "location": "",
+        "owner": "song",
+        "metrics": {
+          "progress": 0
+        },
+        "attributes": {},
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-industry-1",
+        "kind": "industry",
+        "name": {
+          "zh": "江东军器作院",
+          "en": "Jiangdong Arsenal"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "jiangdong",
+        "metrics": {
+          "craftsmen": 120,
+          "production": 300
+        },
+        "attributes": {
+          "product": {
+            "zh": "弓弩、甲械",
+            "en": "bows, crossbows and armor"
+          },
+          "condition": {
+            "zh": "战乱中维持旧有作坊，产能需核实。",
+            "en": "Existing wartime workshop; effective capacity requires inspection."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-industry-2",
+        "kind": "industry",
+        "name": {
+          "zh": "两浙船场",
+          "en": "Liangzhe Shipyard"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "liangzhe",
+        "metrics": {
+          "craftsmen": 120,
+          "production": 8
+        },
+        "attributes": {
+          "product": {
+            "zh": "江海船只",
+            "en": "river and sea vessels"
+          },
+          "condition": {
+            "zh": "战乱中维持旧有作坊，产能需核实。",
+            "en": "Existing wartime workshop; effective capacity requires inspection."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-industry-3",
+        "kind": "industry",
+        "name": {
+          "zh": "川陕冶铁作坊",
+          "en": "Chuanshan Ironworks"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "chuanshan",
+        "metrics": {
+          "craftsmen": 120,
+          "production": 300
+        },
+        "attributes": {
+          "product": {
+            "zh": "铁料",
+            "en": "iron"
+          },
+          "condition": {
+            "zh": "战乱中维持旧有作坊，产能需核实。",
+            "en": "Existing wartime workshop; effective capacity requires inspection."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-soldiers",
+        "kind": "society",
+        "name": {
+          "zh": "军户",
+          "en": "Military households"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "饷粮、装备、军纪与家属生计",
+            "en": "Pay, equipment, discipline and family welfare"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-peasants",
+        "kind": "society",
+        "name": {
+          "zh": "农户",
+          "en": "Farmers"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "田赋、灾害、粮价与安置",
+            "en": "Taxes, disasters, grain prices and resettlement"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-gentry",
+        "kind": "society",
+        "name": {
+          "zh": "士绅",
+          "en": "Gentry"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "地方秩序、税负、名望与自治",
+            "en": "Local order, taxes, reputation and autonomy"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-merchants",
+        "kind": "society",
+        "name": {
+          "zh": "商人",
+          "en": "Merchants"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "商路、币信、税则与治安",
+            "en": "Trade routes, currency, tariffs and security"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-clan",
+        "kind": "society",
+        "name": {
+          "zh": "宗室",
+          "en": "Imperial clan"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "宗亲待遇、储位与礼制",
+            "en": "Allowances, succession and legitimacy"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-officials",
+        "kind": "society",
+        "name": {
+          "zh": "官僚",
+          "en": "Civil officials"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "俸禄、升迁、责任与言路",
+            "en": "Pay, promotion, responsibility and counsel"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-palace",
+        "kind": "society",
+        "name": {
+          "zh": "内廷人员",
+          "en": "Palace servants"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {
+          "heart": 50,
+          "power": 35
+        },
+        "attributes": {
+          "interests": {
+            "zh": "内廷资源、权力边界与皇帝信任",
+            "en": "Palace resources, limits on authority and royal trust"
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-pressure-border",
+        "kind": "pressure",
+        "name": {
+          "zh": "边防失守风险",
+          "en": "Border breach risk"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {},
+        "attributes": {
+          "condition": {
+            "zh": "边防兵力、粮饷、守隘和敌方行动共同决定；防守空隙才可能出现绕道入境，不因到了某年自动发生。",
+            "en": "An incursion requires a real defensive gap and enemy capability; never trigger it solely by date."
+          }
+        },
+        "audience": []
+      },
+      {
+        "id": "port-pressure-mutiny",
+        "kind": "pressure",
+        "name": {
+          "zh": "军中离心风险",
+          "en": "Military disaffection"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {},
+        "attributes": {
+          "condition": {
+            "zh": "欠饷、补给、军纪、将领待遇与中央控制共同决定。预警先于失控，兑现承诺和合理整饬可以缓解。",
+            "en": "Arrears, supplies, discipline and command relations shape unrest. Warnings and remedies precede escalation."
+          }
+        },
+        "audience": []
+      },
+      {
+        "id": "port-pressure-rebellion",
+        "kind": "pressure",
+        "name": {
+          "zh": "民变演化压力",
+          "en": "Civil unrest pressure"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {},
+        "attributes": {
+          "condition": {
+            "zh": "灾情、粮价、税负、安置、组织者和兵源决定民变走向。历史人物不必按原史起事或胜利。",
+            "en": "Disasters, prices, taxation, resettlement, organizers and manpower determine unrest; historical outcomes are not guaranteed."
+          }
+        },
+        "audience": []
+      },
+      {
+        "id": "port-pressure-revenues",
+        "kind": "pressure",
+        "name": {
+          "zh": "紧急筹饷压力",
+          "en": "Emergency revenue pressure"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {},
+        "attributes": {
+          "condition": {
+            "zh": "国库紧张时臣工可能提出加税、借款、裁费、挪拨等不同建议，明确各方代价；未批准不擅设新税。",
+            "en": "A fiscal squeeze prompts competing proposals for taxes, loans, economies or transfers; new taxes require approval."
+          }
+        },
+        "audience": []
+      },
+      {
+        "id": "port-pressure-command",
+        "kind": "pressure",
+        "name": {
+          "zh": "将领与指挥分歧",
+          "en": "Command and loyalty disputes"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "",
+        "metrics": {},
+        "attributes": {
+          "condition": {
+            "zh": "任免、冤狱、战败、被俘和救援影响将领与中央关系；须有真实过程，不能预写投降或死亡。",
+            "en": "Appointments, unjust punishment, defeats, capture and relief shape loyalty; no predetermined betrayal or death."
+          }
+        },
+        "audience": []
+      },
+      {
+        "id": "port-governance",
+        "kind": "institution",
+        "name": {
+          "zh": "朝廷政务",
+          "en": "Government"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "yingtian_court",
+        "metrics": {
+          "authority": 55,
+          "remonstrance": 45,
+          "control": 55
+        },
+        "attributes": {
+          "mandate": {
+            "zh": "协调任免、言路与跨衙门政务。",
+            "en": "Coordinates appointments, counsel and cross-office work."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-economy",
+        "kind": "institution",
+        "name": {
+          "zh": "财赋与市面",
+          "en": "Revenue and markets"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "yingtian_court",
+        "metrics": {
+          "prices": 100,
+          "currency": 70,
+          "arrears": 0
+        },
+        "attributes": {
+          "policy": {
+            "zh": "沿用开局税制；新税、借款和币制改革须有本局记录。",
+            "en": "Existing taxes remain; new levies, debts and currency reforms require recorded decisions."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      },
+      {
+        "id": "port-household",
+        "kind": "institution",
+        "name": {
+          "zh": "皇室与储位",
+          "en": "Imperial household and succession"
+        },
+        "status": "active",
+        "owner": "song",
+        "location": "yingtian_court",
+        "metrics": {
+          "health": 85,
+          "succession": 25,
+          "learning": 15
+        },
+        "attributes": {
+          "succession": {
+            "zh": "开局未确立可接续统治的继承安排，须核对人选与礼制。",
+            "en": "No secure succession arrangement at the opening; candidates and institutions need review."
+          }
+        },
+        "audience": [
+          "public"
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "id": "treasury",
+        "name": {
+          "zh": "行朝钱库",
+          "en": "Court treasury"
+        },
+        "resource": "cash",
+        "balance": 1500000,
+        "owner": "song",
+        "audience": [
+          "player",
+          "li_gang",
+          "xu_jingheng",
+          "huang_qianshan",
+          "wang_boyan"
+        ]
+      },
+      {
+        "id": "granary",
+        "name": {
+          "zh": "行朝粮储",
+          "en": "Court granary"
+        },
+        "resource": "grain",
+        "balance": 1200000,
+        "owner": "song",
+        "audience": [
+          "player",
+          "li_gang",
+          "xu_jingheng",
+          "huang_qianshan",
+          "wang_boyan"
+        ]
+      },
+      {
+        "id": "port-industry-1-iron",
+        "name": {
+          "zh": "江东军器作院·铁料",
+          "en": "Jiangdong Arsenal · Iron"
+        },
+        "resource": "iron",
+        "owner": "port-industry-1",
+        "balance": 80000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      },
+      {
+        "id": "port-industry-1-timber",
+        "name": {
+          "zh": "江东军器作院·木料",
+          "en": "Jiangdong Arsenal · Timber"
+        },
+        "resource": "timber",
+        "owner": "port-industry-1",
+        "balance": 1000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      },
+      {
+        "id": "port-industry-2-iron",
+        "name": {
+          "zh": "两浙船场·铁料",
+          "en": "Liangzhe Shipyard · Iron"
+        },
+        "resource": "iron",
+        "owner": "port-industry-2",
+        "balance": 80000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      },
+      {
+        "id": "port-industry-2-timber",
+        "name": {
+          "zh": "两浙船场·木料",
+          "en": "Liangzhe Shipyard · Timber"
+        },
+        "resource": "timber",
+        "owner": "port-industry-2",
+        "balance": 1000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      },
+      {
+        "id": "port-industry-3-iron",
+        "name": {
+          "zh": "川陕冶铁作坊·铁料",
+          "en": "Chuanshan Ironworks · Iron"
+        },
+        "resource": "iron",
+        "owner": "port-industry-3",
+        "balance": 80000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      },
+      {
+        "id": "port-industry-3-timber",
+        "name": {
+          "zh": "川陕冶铁作坊·木料",
+          "en": "Chuanshan Ironworks · Timber"
+        },
+        "resource": "timber",
+        "owner": "port-industry-3",
+        "balance": 1000,
+        "audience": [
+          "player",
+          "li_gang"
+        ]
+      }
+    ],
+    "orders": [],
+    "events": [
+      {
+        "id": "opening-crossroads",
+        "turn": 0,
+        "title": "行朝初立",
+        "title_en": "A court seeking stability",
+        "text_en": "After the Jingkang crisis, the court must choose between defense, relocation and rebuilding southeastern revenue. Frontier forces are not fully under central control.",
+        "follow_up_en": "Jin pressure, the court location, military autonomy and revenue recovery interact.",
+        "text": "靖康危局之后，行朝需在守御、迁移和整顿东南财赋之间选择。边军并非尽受中央节制。",
+        "entity_ids": [
+          "song",
+          "yingtian_court",
+          "jin_state"
+        ],
+        "order_ids": [],
+        "audience": [
+          "public"
+        ],
+        "follow_up": "金军南向压力、行在安全、军头控制和财赋恢复共同演变。",
+        "status": "open"
+      }
+    ],
+    "achieved": []
+  },
+  "objectives": [
+    {
+      "id": "restore-control",
+      "name": {
+        "zh": "安定行朝",
+        "en": "Stabilize the court"
+      },
+      "entity_id": "song",
+      "metric": "control",
+      "operator": "gte",
+      "value": 75,
+      "ending": ""
+    },
+    {
+      "id": "court-falls",
+      "name": {
+        "zh": "行朝瓦解",
+        "en": "Collapse of the court"
+      },
+      "entity_id": "song",
+      "metric": "control",
+      "operator": "lte",
+      "value": 0,
+      "ending": "defeat"
+    },
+    {
+      "id": "port-achievement-1",
+      "name": {
+        "zh": "言路渐开",
+        "en": "Open counsel"
+      },
+      "entity_id": "port-governance",
+      "metric": "remonstrance",
+      "operator": "gte",
+      "value": 70,
+      "ending": ""
+    },
+    {
+      "id": "port-achievement-2",
+      "name": {
+        "zh": "政令通达",
+        "en": "Effective government"
+      },
+      "entity_id": "port-governance",
+      "metric": "control",
+      "operator": "gte",
+      "value": 75,
+      "ending": ""
+    },
+    {
+      "id": "port-achievement-3",
+      "name": {
+        "zh": "国本渐固",
+        "en": "Secure succession"
+      },
+      "entity_id": "port-household",
+      "metric": "succession",
+      "operator": "gte",
+      "value": 70,
+      "ending": ""
+    }
+  ],
+  "presentation": {
+    "backdrop": "/history/song-study.png",
+    "portraits": {
+      "zhao_gou": {
+        "asset": "/history/song-portraits.png",
+        "index": 0,
+        "columns": 8,
+        "rows": 5
+      },
+      "li_gang": {
+        "asset": "/history/song-portraits.png",
+        "index": 1,
+        "columns": 8,
+        "rows": 5
+      },
+      "zong_ze": {
+        "asset": "/history/song-portraits.png",
+        "index": 2,
+        "columns": 8,
+        "rows": 5
+      },
+      "huang_qianshan": {
+        "asset": "/history/song-portraits.png",
+        "index": 3,
+        "columns": 8,
+        "rows": 5
+      },
+      "wang_boyan": {
+        "asset": "/history/song-portraits.png",
+        "index": 4,
+        "columns": 8,
+        "rows": 5
+      },
+      "xu_jingheng": {
+        "asset": "/history/song-portraits.png",
+        "index": 5,
+        "columns": 8,
+        "rows": 5
+      },
+      "yue_fei": {
+        "asset": "/history/song-portraits.png",
+        "index": 6,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhang_jun_general": {
+        "asset": "/history/song-portraits.png",
+        "index": 7,
+        "columns": 8,
+        "rows": 5
+      },
+      "han_shizhong": {
+        "asset": "/history/song-portraits.png",
+        "index": 8,
+        "columns": 8,
+        "rows": 5
+      },
+      "liu_guangshi": {
+        "asset": "/history/song-portraits.png",
+        "index": 9,
+        "columns": 8,
+        "rows": 5
+      },
+      "wu_jie": {
+        "asset": "/history/song-portraits.png",
+        "index": 10,
+        "columns": 8,
+        "rows": 5
+      },
+      "wu_lin": {
+        "asset": "/history/song-portraits.png",
+        "index": 11,
+        "columns": 8,
+        "rows": 5
+      },
+      "liu_qi": {
+        "asset": "/history/song-portraits.png",
+        "index": 12,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhang_suo": {
+        "asset": "/history/song-portraits.png",
+        "index": 13,
+        "columns": 8,
+        "rows": 5
+      },
+      "li_xianzhong": {
+        "asset": "/history/song-portraits.png",
+        "index": 14,
+        "columns": 8,
+        "rows": 5
+      },
+      "yang_yizhong": {
+        "asset": "/history/song-portraits.png",
+        "index": 15,
+        "columns": 8,
+        "rows": 5
+      },
+      "niu_gao": {
+        "asset": "/history/song-portraits.png",
+        "index": 16,
+        "columns": 8,
+        "rows": 5
+      },
+      "yang_zaixing": {
+        "asset": "/history/song-portraits.png",
+        "index": 17,
+        "columns": 8,
+        "rows": 5
+      },
+      "wang_de": {
+        "asset": "/history/song-portraits.png",
+        "index": 18,
+        "columns": 8,
+        "rows": 5
+      },
+      "wei_sheng": {
+        "asset": "/history/song-portraits.png",
+        "index": 19,
+        "columns": 8,
+        "rows": 5
+      },
+      "wang_yan": {
+        "asset": "/history/song-portraits.png",
+        "index": 20,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhang_jun_court": {
+        "asset": "/history/song-portraits.png",
+        "index": 21,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhao_ding": {
+        "asset": "/history/song-portraits.png",
+        "index": 22,
+        "columns": 8,
+        "rows": 5
+      },
+      "qin_hui": {
+        "asset": "/history/song-portraits.png",
+        "index": 23,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhu_shengfei": {
+        "asset": "/history/song-portraits.png",
+        "index": 24,
+        "columns": 8,
+        "rows": 5
+      },
+      "lv_yihao": {
+        "asset": "/history/song-portraits.png",
+        "index": 25,
+        "columns": 8,
+        "rows": 5
+      },
+      "fan_zongyin": {
+        "asset": "/history/song-portraits.png",
+        "index": 26,
+        "columns": 8,
+        "rows": 5
+      },
+      "chen_gui": {
+        "asset": "/history/song-portraits.png",
+        "index": 27,
+        "columns": 8,
+        "rows": 5
+      },
+      "chen_dong": {
+        "asset": "/history/song-portraits.png",
+        "index": 28,
+        "columns": 8,
+        "rows": 5
+      },
+      "li_ruoshui": {
+        "asset": "/history/song-portraits.png",
+        "index": 29,
+        "columns": 8,
+        "rows": 5
+      },
+      "sun_fu": {
+        "asset": "/history/song-portraits.png",
+        "index": 30,
+        "columns": 8,
+        "rows": 5
+      },
+      "meng_yu": {
+        "asset": "/history/song-portraits.png",
+        "index": 31,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhao_kai": {
+        "asset": "/history/song-portraits.png",
+        "index": 32,
+        "columns": 8,
+        "rows": 5
+      },
+      "zheng_gangzhong": {
+        "asset": "/history/song-portraits.png",
+        "index": 33,
+        "columns": 8,
+        "rows": 5
+      },
+      "liu_ziyu": {
+        "asset": "/history/song-portraits.png",
+        "index": 34,
+        "columns": 8,
+        "rows": 5
+      },
+      "hu_shijiang": {
+        "asset": "/history/song-portraits.png",
+        "index": 35,
+        "columns": 8,
+        "rows": 5
+      },
+      "hu_quan": {
+        "asset": "/history/song-portraits.png",
+        "index": 36,
+        "columns": 8,
+        "rows": 5
+      },
+      "li_bao": {
+        "asset": "/history/song-portraits.png",
+        "index": 37,
+        "columns": 8,
+        "rows": 5
+      },
+      "yue_yun": {
+        "asset": "/history/song-portraits.png",
+        "index": 38,
+        "columns": 8,
+        "rows": 5
+      },
+      "zhang_xian": {
+        "asset": "/history/song-portraits.png",
+        "index": 39,
+        "columns": 8,
+        "rows": 5
+      }
+    },
+    "view_box": [
+      380,
+      170,
+      320,
+      310
+    ],
+    "regions": [
+      {
+        "entity_id": "yingtian_court",
+        "center": [
+          560,
+          273
+        ],
+        "label": {
+          "zh": "应天行朝",
+          "en": "Yingtian"
+        }
+      },
+      {
+        "entity_id": "lianghuai",
+        "center": [
+          620,
+          290
+        ],
+        "label": {
+          "zh": "两淮江防",
+          "en": "Huai"
+        }
+      },
+      {
+        "entity_id": "jinghu_north",
+        "center": [
+          545,
+          323
+        ],
+        "label": {
+          "zh": "荆湖北路",
+          "en": "N. Jinghu"
+        }
+      },
+      {
+        "entity_id": "jinghu_south",
+        "center": [
+          540,
+          365
+        ],
+        "label": {
+          "zh": "荆湖南路",
+          "en": "S. Jinghu"
+        }
+      },
+      {
+        "entity_id": "chuanshan",
+        "center": [
+          430,
+          310
+        ],
+        "label": {
+          "zh": "川陕屏障",
+          "en": "Chuanshan"
+        }
+      },
+      {
+        "entity_id": "jiangdong",
+        "center": [
+          610,
+          330
+        ],
+        "label": {
+          "zh": "江南东路",
+          "en": "Jiangdong"
+        }
+      },
+      {
+        "entity_id": "liangzhe",
+        "center": [
+          655,
+          350
+        ],
+        "label": {
+          "zh": "两浙财赋区",
+          "en": "Liangzhe"
+        }
+      },
+      {
+        "entity_id": "jiangxi",
+        "center": [
+          590,
+          370
+        ],
+        "label": {
+          "zh": "江南西路",
+          "en": "Jiangxi"
+        }
+      },
+      {
+        "entity_id": "fujian_coast",
+        "center": [
+          635,
+          405
+        ],
+        "label": {
+          "zh": "福建沿海",
+          "en": "Fujian"
+        }
+      },
+      {
+        "entity_id": "guangnan",
+        "center": [
+          520,
+          440
+        ],
+        "label": {
+          "zh": "广南海路",
+          "en": "Guangnan"
+        }
+      },
+      {
+        "entity_id": "kaifeng_front",
+        "center": [
+          555,
+          245
+        ],
+        "label": {
+          "zh": "开封前线节点",
+          "en": "Kaifeng"
+        }
+      },
+      {
+        "entity_id": "hebei_corridor",
+        "center": [
+          580,
+          205
+        ],
+        "label": {
+          "zh": "河北抗金走廊",
+          "en": "Hebei"
+        }
+      },
+      {
+        "entity_id": "yangzhou",
+        "center": [
+          645,
+          305
+        ],
+        "label": {
+          "zh": "扬州行在节点",
+          "en": "Yangzhou"
+        }
+      }
+    ],
+    "routes": [
+      [
+        "fujian_coast",
+        "guangnan"
+      ],
+      [
+        "jiangdong",
+        "liangzhe"
+      ],
+      [
+        "jiangxi",
+        "fujian_coast"
+      ],
+      [
+        "jiangxi",
+        "jiangdong"
+      ],
+      [
+        "jinghu_north",
+        "chuanshan"
+      ],
+      [
+        "jinghu_north",
+        "jinghu_south"
+      ],
+      [
+        "jinghu_north",
+        "lianghuai"
+      ],
+      [
+        "jinghu_south",
+        "jiangxi"
+      ],
+      [
+        "kaifeng_front",
+        "hebei_corridor"
+      ],
+      [
+        "lianghuai",
+        "yangzhou"
+      ],
+      [
+        "yangzhou",
+        "jiangdong"
+      ],
+      [
+        "yingtian_court",
+        "kaifeng_front"
+      ],
+      [
+        "yingtian_court",
+        "lianghuai"
+      ]
+    ]
+  },
+  "player_entity_id": "song"
+}

@@ -1,0 +1,1322 @@
+{
+ "schema": "portrait-defaults.v1",
+ "source_manifest_sha256": "8d959eafe1230c2b4b7784a16b3ee458464f9f64fe5d8d93e89c9fee44abaf81",
+ "source_manifest": "assets/npc-portraits-default/manifest.json",
+ "derivation": "128px thumbnail of each entry selected default portrait; no image was regenerated",
+ "display_derivation": "192px thumbnail of the same selected default portrait; no image was regenerated",
+ "entries": [
+  {
+   "source_key": "canon_chen_qiaoqian",
+   "display_name": "陈巧倩",
+   "sha256": "fea529653f305f5b0abb738dcb60145a19d5061fd0217950ca35bb0c590f0c60",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_chen_qiaoqian.png",
+    "sha256": "f3eda9b4fdb9388707fe7782e1e2a98ab02d55c77cf654ab8bdbd992d5c8bab4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_chen_qiaotian",
+   "display_name": "陈巧天",
+   "sha256": "32b7786594e4446da56cfad1914c8680c5bd4bfb6df05e780580edc69da283ed",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_chen_qiaotian.png",
+    "sha256": "e4a67f944b5617bb02ef004da1de1e4693cf0bff7e233182332cacf1063b89c5",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_dong_xuaner",
+   "display_name": "董萱儿",
+   "sha256": "3038692c3454daf5dd3141ecf28779e65009c8486cf33871faf7aa6ae3198e5d",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_dong_xuaner.png",
+    "sha256": "cd8ef52a309e6828b3f90dac57bc9fdd0e27b47ba6092adc1f684b57b1871e4a",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_fairy_nichang",
+   "display_name": "霓裳仙子",
+   "sha256": "6eea290ae57af8b70df43dee7752f5ccef8adc7dc6f747ec2aad21fbca357b2d",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_fairy_nichang.png",
+    "sha256": "bb51bc201924d4976dcd091ee54b1d50b1d019961780c06553c1f91286df25cf",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_feng_yue",
+   "display_name": "封岳",
+   "sha256": "1c7341ff56e088ccb473ea4963f7300387b379ed2a9b57988cddbf498e5eff9e",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_feng_yue.png",
+    "sha256": "36f578cca390f7c30acda4847bb0557b36cdf9cf079c19852f27fd4c1aefc1c9",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_han_yunzhi",
+   "display_name": "菡云芝",
+   "sha256": "54a68136133404ad47d3d697d1e9e3fc7147a089be45a1cb82dce59e6261ae4c",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_han_yunzhi.png",
+    "sha256": "02a7b0e809f2507feb44bfa2f95d215a2d1e5944424a65ae41ff6c8332c5bbe6",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_hong_fu",
+   "display_name": "红拂",
+   "sha256": "23f864c6cd30d2d562da3aeecf3b388cf8f411ec6c9b0d2f03854043c08a5aa2",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_hong_fu.png",
+    "sha256": "39f60335b6c869b800e95b253b4a633e532494cdb5c0088a6de76e0642f079fd",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_lei_wanhe",
+   "display_name": "雷万鹤",
+   "sha256": "c71ccd78027b1fe165688af7683793258e03dcd3ce8c809170bb20a398977ed7",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_lei_wanhe.png",
+    "sha256": "46afc7ce4c125aae4e047c036cb02dd8cedcbd39cb0fa9d20198f50f07c79c8a",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_linghu",
+   "display_name": "令狐老祖",
+   "sha256": "f91ab3ebe44d4b33dadbf358c3a70ca271e141255ba27cd20162c79ca2bd00fc",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_linghu.png",
+    "sha256": "972277eddc18cb5e4a4f0352e1caee2fc8d56aec0ba032b6019cb856cfd89069",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_liu_jing",
+   "display_name": "刘靖",
+   "sha256": "19d57e32fba5680ebf65989607cea2ba7c4f32f2e0251c7ce32476b52ad82614",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_liu_jing.png",
+    "sha256": "8e4d354477ea1f98ebfb79a923a4a76ef4213e20c9b25ac101dfa880c53cad1c",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_martial_ma",
+   "display_name": "马师伯",
+   "sha256": "88b2c6e2f9ac0663319a2e8bcb6bf9568b6e010e28c783e000eaf877c7933ac2",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_martial_ma.png",
+    "sha256": "f869fd0a8feaaee9af7ec16c4ab92b3f30bd19fdb6d162ca114ada7b01a0d318",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_nie_ying",
+   "display_name": "聂盈",
+   "sha256": "1341098e51bcabce09bd33abcc7e87cc0719998d494ef19d92c664cd4ba450d6",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_nie_ying.png",
+    "sha256": "3bb74fe79c4f8f5543680996a752794cd940fd7d099eec96439b11d6058bbfdb",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_qi_yunxiao",
+   "display_name": "齐云霄",
+   "sha256": "deb13b7c4ffcb219d035ffd506b8142e89bf0b56310ed691c9f91e196450e0e8",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_qi_yunxiao.png",
+    "sha256": "7a9885bee6ae1d930772501b6db4df1d61ab0e32f9d98cc0cfc883e991cd7797",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_qiong",
+   "display_name": "穹老怪",
+   "sha256": "216510ea32744510736e37140fcee3a611439e558d6a39058d7101802786393d",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_qiong.png",
+    "sha256": "ac24fc4244bb883b674b47e75591ae2b53f7b63388ff581cfebb06bc405e2abe",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_song_meng",
+   "display_name": "宋蒙",
+   "sha256": "7aee33fc24112e5a1906b598fb6a461e9c2ee5b79841f321a5152ff3fbfff07b",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_song_meng.png",
+    "sha256": "4f157e30c908e3ed225df9097566cb5457a9409f92f5745d8569d93601b7f6c4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_wu_feng",
+   "display_name": "吴风",
+   "sha256": "f17625190e69ecc7cfe00f4218b3a3cbe076c3bc57aca6bd5dc176c13765cf95",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_wu_feng.png",
+    "sha256": "99d707a002a254b66482c914ac7905df532c98825661e54a097896b488b93cdc",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_wu_xuan",
+   "display_name": "武炫",
+   "sha256": "cb7f764e33d728279e5e0ff6dc23a139e5a77dcef20d3bc9b1c831daf7306a38",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_wu_xuan.png",
+    "sha256": "deb14b418603b50b47e6ca7e5c9ea92d805c50827153b0d27a30767d38e6e972",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_xiao_zhen",
+   "display_name": "萧振",
+   "sha256": "70c0a58420388585d5bbaedda248cbae7fc12c2220fafbeb1974a676c39400e4",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_xiao_zhen.png",
+    "sha256": "5af203ba0b64d6ba5a95210433b1db7f740aa0e4d004ec792ea03edbb5d17027",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_xin_ruyin",
+   "display_name": "辛如音",
+   "sha256": "e6e89ea241f2207d5a8875159d7b9c59ca7ae519645f0a0570a3643437948d92",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_xin_ruyin.png",
+    "sha256": "4df815ed610c7104585895b9c591fa4940846a42ca36f5a199da00491797f240",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_yan_ancestor",
+   "display_name": "燕家老祖",
+   "sha256": "4371b88a063493d7df84ae82e74cf0b46ded9ea705e490c98d2f3b018331429f",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_yan_ancestor.png",
+    "sha256": "7e6e3f98aec2fe4c3f12f45f71b534fedf4d25cbdffe2bc43ca5467edc8efcb9",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_yan_ruyan",
+   "display_name": "燕如嫣",
+   "sha256": "d728315d130d21110afc00e6f46d9777de1f53e0002358d44d77f6f9df0492f6",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_yan_ruyan.png",
+    "sha256": "b51f5d57dbf7213238ea383d099a2d752dbc5c3ad442b60922da9ad66cbd3536",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "canon_zhong_weiniang",
+   "display_name": "钟卫娘",
+   "sha256": "6460bd3b885764828113e84b9a8a9b3b522b6e54ab165f82303463648ba7b617",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "canon_zhong_weiniang.png",
+    "sha256": "a8a8457f813985cf0572f44e2dcb79c4657c545908c8bb9fd68a366b230f3c6f",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_du_hanzhang",
+   "display_name": "杜含章",
+   "sha256": "32d7343f356aad05ee876960b17c14d5c2f70cdb4987b6da7cc0e892b04be296",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_du_hanzhang.png",
+    "sha256": "4539bbdbf4f13b1bf75aa2c97e9c4d4d88ae86dfa71802a72fd39f6e20653f0b",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_gu_zheng",
+   "display_name": "顾铮",
+   "sha256": "35d260e7f8987a196c7fcd1900549c9dac72036d87c744531d00e8e98d12a672",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_gu_zheng.png",
+    "sha256": "c298519494f28ef86036a4df464e9090a2b424cefa3e45c7e7eddf8299e02c80",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_lu_shouheng",
+   "display_name": "陆守衡",
+   "sha256": "289cb6101b1c831ef19b7aeef9ca59827d85772f2141940c84f5acc11967a334",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_lu_shouheng.png",
+    "sha256": "4f78906157f29574cb503acd06512cd4013ed600db5b94b7d3e515448e004144",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_shen_lixing",
+   "display_name": "沈厉行",
+   "sha256": "da1884097c97c5cbdf2c823fd33b4b3b7859a9dc05ab2984db5273097719ded6",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_shen_lixing.png",
+    "sha256": "a6968559d00b3f7188b17ddeccae2fb22d331500abbf5117963fb874e0383c1c",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_wen_shouyi",
+   "display_name": "温守一",
+   "sha256": "adfae7d8e945eba1ddbbd818fa753bc21d7a332204ac1ed5bb70c26cefe97e98",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_wen_shouyi.png",
+    "sha256": "89150c631318189555520725b3c96490a3fa2c37b95a899be1edecd96f12b2ab",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_xu_chengyue",
+   "display_name": "许承岳",
+   "sha256": "6e3f264303c48c45eab21f6d645b4c3d0a01fce6e8928653937ca302d6212608",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_xu_chengyue.png",
+    "sha256": "ee5fddb638b975dfa95f0cac809cfd4c124355d5001bf66fa46fc688d9c951ec",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "leader_zhong_lingdao",
+   "display_name": "钟灵道",
+   "sha256": "13bc4ac6df8d98a175bce19af2688096373aea71d1dd6f39847c2546d4d06fd3",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "leader_zhong_lingdao.png",
+    "sha256": "8d7b063d5dbb79ec18595f9a0643eb69a545b42a88f82cdffe5598f757d8f8c6",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_cj_tn_yaopu",
+   "display_name": "白术",
+   "sha256": "863e4f66459e48302e322339c31d3e1983629f6536c9a6ac0edf59f3413d3cb6",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_cj_tn_yaopu.png",
+    "sha256": "631bbea30329da0428323c5ed374696c3b7cd5b5635190c4004b4fdb607ea2c2",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_fs_hf_zhanggui",
+   "display_name": "钱守信",
+   "sha256": "5f38934dd30a87c119c185adaa7baa04a44caa0fd3c6482cea42086689f0ba07",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_fs_hf_zhanggui.png",
+    "sha256": "469351386e2921ac2eaa63764e0a8b123d8a16b3d4fa93f8aa12246d317960e0",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_fs_tn_tanzhu",
+   "display_name": "王婆子",
+   "sha256": "40f91104146029a7d724c420aa69b889b9f45d6bd13e7c70c206d685e132abeb",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_fs_tn_tanzhu.png",
+    "sha256": "fcf1d6335fde5ca753c53d28f817c52a13e3bf28918f134f8d30ce0b2fcfffc1",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_zm_hfg_shoumen",
+   "display_name": "卢守山",
+   "sha256": "1d498312a6851835842952173b00f22706cb4ec1bc481fed14c6c80cbb28ddf9",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_zm_hfg_shoumen.png",
+    "sha256": "6c1c042cab18320040b66651a3399a92abb0ed5b7fc2efb31815405dc9fd5827",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_zm_lss_shoumen",
+   "display_name": "虎子",
+   "sha256": "95e9c2e046b732c9c6e818bb6e28dcca2baf85e13edfa2fd951d8e17cdf796d4",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_zm_lss_shoumen.png",
+    "sha256": "ea61af1c25030e17644f18e2b466fc7a62bcbb8e960c4196e04a35c1f703fc29",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_b_zm_yy_shoumen",
+   "display_name": "冷霜",
+   "sha256": "d9faf171ae816414662fc6f3b9e542e17678cede833e76ad980aa5a96bdea535",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_b_zm_yy_shoumen.png",
+    "sha256": "d169fe485b13981b8814f8b90639364a07d388aba2a68704f4498a94206d59f1",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_chen_yanzhi",
+   "display_name": "陈砚之",
+   "sha256": "7616d10599d86b7f23d35c6050dc648b5eddbf17513cef58fff041674c09b80b",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_chen_yanzhi.png",
+    "sha256": "14e580ce153a5c299ce66adc8bbb019769f9975b8700a610bae48034a89767fe",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_fan_jingmei",
+   "display_name": "范静梅",
+   "sha256": "b02347bfed86090d14dfd538a0455cdde3ba5724f481ffa6bc1cacee3e594759",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_fan_jingmei.png",
+    "sha256": "6f69c73bd98927e0cb4ad0e0d4832c57ac9f1b888ab10bee64f0cd7076cb044e",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_fu_yunzi",
+   "display_name": "浮云子",
+   "sha256": "b1d13d69eaf174ead885506fcae56300cc4c3e345e365d18b7bee2867494d951",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_fu_yunzi.png",
+    "sha256": "442bb888c7910dd79475b98fb4b5024cc293364421b0166474f9111dcf301c17",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_gu_xiaoman",
+   "display_name": "顾小满",
+   "sha256": "d18a76ae459c0e74e1f72744f4b23c19eda2f1f47ff3e49b4352794e6507f381",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_gu_xiaoman.png",
+    "sha256": "537ddbb02d24a409003db7abf0dcc1a2db8d3c4deb0c46cb8688a058ae58c754",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_gui_wujiu",
+   "display_name": "鬼无咎",
+   "sha256": "60d804e5f14e74743c070f7c4f60f79a890a16fa76196787ec898ed70b0d1253",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_gui_wujiu.png",
+    "sha256": "62a23659b480ac7bb0fb534027d91382debd2af16f9e0079180ecac3341e9100",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_han_li",
+   "display_name": "韩立",
+   "sha256": "51ebbc0b47f4fe3a9a5c11f5a5d1d8b3592e088504662cdf80fa09464328ae94",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_han_li.png",
+    "sha256": "615c44aef83febbf098691e0df28e9afbfac3724b8ff51b57e2eb055ec25ea7e",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_han_tianya",
+   "display_name": "寒天涯",
+   "sha256": "fcdb4d44372fd807dc534f70e09bec7134d8779be6e5e8c72e2ac490d2106ed0",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_han_tianya.png",
+    "sha256": "d0605412527474ef4a2405e3526fcfb1bf86256cba4fe8c94ab21e57e07592cf",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_han_xuanji",
+   "display_name": "韩玄机",
+   "sha256": "bb88693107087188f7d0a7533f8da5bfbd64b31078bbf4c7f433053975b089ca",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_han_xuanji.png",
+    "sha256": "94e1a446ac8a8a7e5cea84807bf98571f420a0a90b25e76cb1bd71ffba9d615b",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_hou_xiaoqi",
+   "display_name": "侯小七",
+   "sha256": "1cd9e6cbb7bcb08d9d9d31ce31c119d15ee6b44d3a15a625f5c2f1bb00e90912",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_hou_xiaoqi.png",
+    "sha256": "355c86d7f279fd9b3e4af046bd4267876956d1384ecbca1eaf5458f31e10c79b",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_lei_zhenchuan",
+   "display_name": "雷震川",
+   "sha256": "fa2420dd18986f2150bcde590c213fd0fce1248e67a63acd136d5eb7e615c2b1",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_lei_zhenchuan.png",
+    "sha256": "0fee9385a31952ffdd0a4e4d34c907563ba57108f9aa282ad86c688dd801306c",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_li_huayuan",
+   "display_name": "李化元",
+   "sha256": "32180d5b6dbfbe0ae839c925e4d6dc17bbf89cd788c0d4a1ac99ba5b6b29bf3d",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_li_huayuan.png",
+    "sha256": "757961796fd565af7aebd93da1813a6481ba0986a0a701ff33c507554ebdf3ac",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_liu_yu",
+   "display_name": "柳玉",
+   "sha256": "3f02ac9a52052383e0f402275c5ebb69be89d96b15c73b6fb78d6f30c218a314",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_liu_yu.png",
+    "sha256": "592ccac5885280eeb764030a1e5c9134953664fac080cca238b2168565e5fb8b",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_lss_lu_qinghe",
+   "display_name": "陆青禾",
+   "sha256": "82e2276f53f6ecbcf0e0c76dd0616f4476a0d1446492bd41004de7b51949f526",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_lss_lu_qinghe.png",
+    "sha256": "8998b2bed8f359a029253820119453b4752e5906d63835e46ec8d7588e29c12e",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_lss_luo_tianxiao",
+   "display_name": "罗天啸",
+   "sha256": "88f71b0f739c3677c145355004a7b93042b9a50781c772f91d55ceb73e9ccd4b",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_lss_luo_tianxiao.png",
+    "sha256": "5bfc82ca7c8dd249d41049cf1677e4b960cdbd0ccf3d835dbe689e2373829cf3",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_lu_jingming",
+   "display_name": "陆景明",
+   "sha256": "332a149a949c4af22bf0ca942dec2d238e1eeaa02789997884c6749bb1383d29",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_lu_jingming.png",
+    "sha256": "292d88a4dee8dc7a2fd00d555b7e6ea0efe13614a6f9720838e1c58b5785c67d",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_miao_xixi",
+   "display_name": "苗细细",
+   "sha256": "f0912cd1c3fac5561106539530260b67883035a25bbbfd4c88b7736b1e5cc069",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_miao_xixi.png",
+    "sha256": "de973c2114e64fff3c548eeddd506dd446d2f4bbce9d090ce7a48086f24d2eb7",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_mo_caihuan",
+   "display_name": "墨彩环",
+   "sha256": "c6e8bca72e2711691c891f89f2b8b7dd7d865de1b86f20adebc5e71b22c00b3c",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_mo_caihuan.png",
+    "sha256": "e4b511357e6ced433953f2d5727926fbbf76014335c5dc5269864608cd0d5a93",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_mu_peiling",
+   "display_name": "慕沛灵",
+   "sha256": "9a412cc70a2fac54d1c6912cbc2308593d1b7b1601cc491bafe5f5bdaf081f73",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_mu_peiling.png",
+    "sha256": "038d74b3996a23ba7e2feeb7d04fc82dfa0bfa6d652d55165c740334302e02e6",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_nan_gongwan",
+   "display_name": "南宫婉",
+   "sha256": "b01eed7aee048695e74c62439422dd6bbe2e0cc7895f134168c2f4d102121b2b",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_nan_gongwan.png",
+    "sha256": "cbf58c1b923f231adb88596c6900e972e12a16f8a28c0420ebde6e3a2f98c7f9",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_ning_fuling",
+   "display_name": "宁茯苓",
+   "sha256": "f0fc64fa9d5de151479a25e4fe8298345255b4ff68035166228734f58acd71fa",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_ning_fuling.png",
+    "sha256": "fb0b8fe8216fe714b033232dc3b5f3e9d95eea4df5b596d898900904bb122019",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_pei_shixiong",
+   "display_name": "裴世雄",
+   "sha256": "97bda5fde80134cae880b54df2a799c086a7d368e93ddfc0bf46e144e1a9a971",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_pei_shixiong.png",
+    "sha256": "a16c0a6655824949b3d7c84983cd252ec32f4615fcdd2718eb6a17aefa0b3b22",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_pei_yuanlang",
+   "display_name": "裴元朗",
+   "sha256": "79bb6d4732bd6ac2e5d3f9ba04486e593a9d68504e8aff7b32e65569f50640fc",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_pei_yuanlang.png",
+    "sha256": "044f2bc5c8bb3cdc627b57e9505b58015acb15abd8ca1ff8a3bdb4dbf1ed6a37",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_qin_shouzheng",
+   "display_name": "秦守正",
+   "sha256": "731453b4e89e19547ab2c4dc07a21a2a790e9add330fc7c4167406fcf49310a0",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_qin_shouzheng.png",
+    "sha256": "6db917406dcc399c5c417062ed31f9229b1604171a0ed39a2b3987f0a7121809",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_qingxia_zhenren",
+   "display_name": "青霞真人",
+   "sha256": "4627734d5267ce245433b4ef706e7ce0a15415ee5c022c2873e72fb718ddf555",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_qingxia_zhenren.png",
+    "sha256": "ab15d3540c495087731cd19299b538f1f390a44ef27a9921ae3cd1f1f98473cc",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_shi_jian",
+   "display_name": "石坚",
+   "sha256": "c73ab57e8bfa0459650e06a96f6ac270d2f2d06a5c7bb3e5d3184afe09e30896",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_shi_jian.png",
+    "sha256": "98da27cfa18b18d172980c3afab0a9ac3802fb527a9111a9575ce0fecb4c2def",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_shi_zhongjian",
+   "display_name": "石中坚",
+   "sha256": "52b63316032d7408179233b1af9a758087ca8715697d8da7eba99c5e89ca9b2e",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_shi_zhongjian.png",
+    "sha256": "ea895673e6ed8394ceb0373aadd5f8b089e34ff5c0b3ee139da4d9a45559cef6",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_song_guanlan",
+   "display_name": "宋观澜",
+   "sha256": "8db04826e1f285fbe18a66c82338b65704f7555c05754e2457dafeca30e44123",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_song_guanlan.png",
+    "sha256": "e5cff88e4ed66134772beb66fbd1522144c0379beae5c47ad0aef84fb7d494c1",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_song_hanyi",
+   "display_name": "宋寒衣",
+   "sha256": "0b1c6af8596048de1cc74314013f8dc0632db0441f07c509b6c2e301fabe7289",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_song_hanyi.png",
+    "sha256": "6232372e351971491d89db6f48634a790ca2aae2a76054f594415d19b80faded",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_song_yu",
+   "display_name": "宋玉",
+   "sha256": "4f4dc06b3b10648a03247b3c3001aea00aa048494d1f056154f5e77f46d49870",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_song_yu.png",
+    "sha256": "ac61e9d982bd94e74308f2c6154b0f89c6292757e5736cdad448af50a7a891f4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_su_qian",
+   "display_name": "苏浅",
+   "sha256": "101f680ebfa8658a232fbbd3817f4e85b70b8fc411f7166592d2cbec122a9749",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_su_qian.png",
+    "sha256": "99cc359a53f486eaa7d57df11b7e3edf54c8bc35765cef2ad288cc3515d9d245",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_sun_shi",
+   "display_name": "孙氏",
+   "sha256": "935d29dea3ba00bbd99c46ffe0b4ad2182027c0a78c93be29117b62a26bd4721",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_sun_shi.png",
+    "sha256": "fbcce96560028005750cd4a5f24daa0f3a388e47aa782823e0ed12af20a6eaed",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_tianque_tili_zhanglao",
+   "display_name": "护堡执事",
+   "sha256": "327cdca577fd6fc78b3c3bc397460b93e71aa7222a57402861a9998bc1491919",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_tianque_tili_zhanglao.png",
+    "sha256": "0788d5fb89d1150371388a35848f7741313d0a4cc9d42b6c0397fe881011e9ce",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_wang_shishu",
+   "display_name": "王师叔",
+   "sha256": "fef3223a3a4d16dc8d3711b1e26313924b444eabc182eee73f2007d4a7986658",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_wang_shishu.png",
+    "sha256": "5221f8922da1caca369f7784fba75107d66144371383c8805db02c8ec951fe4b",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_wen_wenyan",
+   "display_name": "温文彦",
+   "sha256": "d9c23459006f7014df7f849f939de6a93690754768ad995b52ac51a9c6638ada",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_wen_wenyan.png",
+    "sha256": "4e0e73376cdb708fa0d4df78a53568e92731997fd1a8f24dd1088f11952f9ca4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_wuming_jianke",
+   "display_name": "无名剑客",
+   "sha256": "4352bbe97204c14b184d1c9136be753f93066ff772d0c3399b813e9ab26ef924",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_wuming_jianke.png",
+    "sha256": "61e6880d4859e408d973fde0da64a7eab55e203e0ca19c9efe255f301f4e7231",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_xiao_cuier",
+   "display_name": "萧翠儿",
+   "sha256": "8363ce17055c1e585b8755be5decdb8114025d7fea28cb48f2febf81da12ee1d",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_xiao_cuier.png",
+    "sha256": "2d4f9f0fd4e7f69ca32112b0724d9e837712e43b2733db68a7694ce07b6e5f2c",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_xie_qingdai",
+   "display_name": "谢青黛",
+   "sha256": "01c07e821b33f75b1d89c2c79760aa8bd70d2eceabd4eb18c3f2370e2f46f9c3",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_xie_qingdai.png",
+    "sha256": "385fd3f5e44e948d98090a5b5b6899897155172437e670174763eee5b25d5873",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_xue_ya",
+   "display_name": "血鸦",
+   "sha256": "e3b1412a218d2b5b9754e2dadac77a1f1dc1dd9827e89d4bc3af254e0d25a675",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_xue_ya.png",
+    "sha256": "ce8ff8eff3adf7e470789d82bdb44557a5f43cf6b17ce40adac72b3b5dcda2a7",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_yin_nishang",
+   "display_name": "殷霓裳",
+   "sha256": "550e080df6cfac2268b23bf6cc3e1ff62eba50def309bf0e82b2e0b7b56b9171",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_yin_nishang.png",
+    "sha256": "3d4b5016653cbe5c11cc9f5c245bfad33aa7902d9d3c4f40be4004011b69ade9",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_yinxi",
+   "display_name": "银汐",
+   "sha256": "405bdd6df3663242a9f269193e4c7acbbe6522ac195529eacce27f96edb5dac8",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_yinxi.png",
+    "sha256": "1467d58867a1ce4357fc93591f4447faa71af2be34982be31334771980f6ecfc",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_yy_gu_wanqing",
+   "display_name": "顾婉晴",
+   "sha256": "2a320a9c3645ffe8b2daca3d86aa4e45f5c17aa947bbc6b3a4a97c8078e0f8ac",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_yy_gu_wanqing.png",
+    "sha256": "21a2a8967a5426430131e5098fcc3d0adc0b824e390ffae5c27a76b47abc7e93",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_yy_shen_ningxue",
+   "display_name": "沈凝雪",
+   "sha256": "6efd1a5cfdfa9e3e5dc64787f87ecc5c9dc8f79f5e335431180929c07c9eb1d0",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_yy_shen_ningxue.png",
+    "sha256": "a09d107b9d8930368b1a02e7d40e95bd987d6ce2b5a70e815989d206caa8f8e2",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_zhang_laotou",
+   "display_name": "张老头",
+   "sha256": "352e1edbc84a7aa315d53b3c75577f2ca7cbf583be41d01b742dddc3267e8dfc",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_zhang_laotou.png",
+    "sha256": "83ac64a062aff9dadb2f3db872b7eb3c708fa99501b9eee0420b3dbaf973c189",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_zhao_chengan",
+   "display_name": "赵承安",
+   "sha256": "b6e9cbbc9672ad85157061083c6bc2c53be8abc92259b74e1b3893a9b8977e51",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_zhao_chengan.png",
+    "sha256": "26ab049ba427bd9f7054ef722e5853830ea72fbeeca58e9b6f32e7521a4a7478",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_zhao_ling",
+   "display_name": "赵灵",
+   "sha256": "f5bce9ee0a12c54b011a7a6d066b8dfbf25d5c142048f1d56965596714dbe1b9",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_zhao_ling.png",
+    "sha256": "7b9cf5bb3bf386bafc997370593efbfdc99f19891c51336d4578785bd8cd3ff3",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "npc_zhong_wu",
+   "display_name": "钟吾",
+   "sha256": "502e1e3e23f7ad5028bdd38ef066a7bd77f132b4c3a9fa23dce857c74ad1958b",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "npc_zhong_wu.png",
+    "sha256": "e1eabeb2b628ffc39b51a02a2b2320c6a07d0686349d1d34d78d2286f2e3e148",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_chen_dingyue",
+   "display_name": "陈定岳",
+   "sha256": "5e13ea2f40f636e0e4724d1755c443a80ceaf66e04b9a78e128e6cc0b64eff46",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_chen_dingyue.png",
+    "sha256": "4baed217217636f103b545f49dd881e28fbb66cec21cc6393657622b4d8d16ae",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_cheng_xingheng",
+   "display_name": "程星衡",
+   "sha256": "e1cd344ef3c132dd0fd97c51e322c09b5207bba0da60af2d99b2ea7c59ead1f9",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_cheng_xingheng.png",
+    "sha256": "738993e3d7725b977a0b7bf4bf784bfd46e9542730a828a183f37c03a212d9cb",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_gu_beiheng",
+   "display_name": "顾北衡",
+   "sha256": "4cb81536bf1d4995d820ae60b83485b8bed6422791b1d83651a5febbd7222ca2",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_gu_beiheng.png",
+    "sha256": "73a91494288b9fa362caf1882ca40f5c74e0385d68b4037ae50297cddcecc1a4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_jiang_yunxiu",
+   "display_name": "姜云岫",
+   "sha256": "5264e939015a9726ac2ed7fb67024d10525fb585c0ba3b0fd1dfd869359fc4ec",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_jiang_yunxiu.png",
+    "sha256": "3127522f2d326407726af5b9afe916db6b38216aa996c9037440c221b4b89a1a",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_jingheng",
+   "display_name": "静衡道人",
+   "sha256": "f022e0391d40dcaf8392498294a9a93e9709c2806d2424bcae81e6a4c701b963",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_jingheng.png",
+    "sha256": "06fe9a3ca9b87cfa7951e3eb5345b98eabb820e74a684b42c00e1d826a740872",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_lu_huaizhang",
+   "display_name": "陆怀章",
+   "sha256": "d1cdba2224cc4998c3457907a92e70986a245150694219fd68775a22f09aba37",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_lu_huaizhang.png",
+    "sha256": "8f276c9718869235b0855a7d19d3aa80dce205f1c6cf6ad3f4b95db5ee654854",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_lu_songnian",
+   "display_name": "陆松年",
+   "sha256": "36b9d0fa5d6136d4f7372a378c4a5adb633f4fb916b97de1a1becb35fe9411ab",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_lu_songnian.png",
+    "sha256": "9496f49f990881f67e2e5f684af36a43536814d5c9d16e0f1a7f60d15877ea92",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_may_yingqiu",
+   "display_name": "梅映秋",
+   "sha256": "ce00e9e4912ab3cfc118c08d4e0d10ac2a0272e18c79dd3aaad796976ff559f7",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_may_yingqiu.png",
+    "sha256": "d33f6649ae337c4ce333c4bec8dcd3eba10aa4039f070ea08474644055b4bbdc",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_shen_huaizhen",
+   "display_name": "沈怀真",
+   "sha256": "c527e36598909b4f664ab956d8aa88538181b315663be9af9b60187dd702442f",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_shen_huaizhen.png",
+    "sha256": "60b9e09ec6217368303cab377f62969fc4282a7ec214fa16a68f4225704d69db",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_shen_tianshu",
+   "display_name": "沈天枢",
+   "sha256": "2d49c4780d014e7cd180317d039fff175a9022e04245900af893f03a40fb6df0",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_shen_tianshu.png",
+    "sha256": "60d0d2397009225e0ad90a1d6eb8a050307d4aaf798cd633a304a40b8c3cef30",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_shen_xuanzhao",
+   "display_name": "沈玄照",
+   "sha256": "6002a022815aaf266c522a9ce545958dc4350493f9dab8d60545237e38dde89c",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_shen_xuanzhao.png",
+    "sha256": "ac9bca2d67f366401845efbfefe29de697a3c8e9e455abbd430074ef0b9f8f65",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_shen_zhaowei",
+   "display_name": "沈照微",
+   "sha256": "e4e460be36fcb26ce57f327119dbf7054b26870a9598b7a22d365c4dabc685b9",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_shen_zhaowei.png",
+    "sha256": "2555d3d4938d0b727744a298b2c406b55857238f9fc912abdc29e7c1c6f915e4",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_tao_lingjun",
+   "display_name": "陶灵均",
+   "sha256": "c33a2974756550c5e99488c22d6f03ab6fef4cd8273e16db9d788d1a5d76ac17",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_tao_lingjun.png",
+    "sha256": "9028ef07347c9e1e7d83422b12449e9df8583234d7460ed475be90d070960b5a",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_tao_zhiyuan",
+   "display_name": "陶知远",
+   "sha256": "661ba06683e7c7587ce7d9e421789a9aa535227b59ac564bbbab335ff88eb903",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_tao_zhiyuan.png",
+    "sha256": "55cd5a11aff50a0fa5c3d0bf9d5473b76b65eb0d702283e1a4f67e6546955369",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_wen_bailian",
+   "display_name": "闻百炼",
+   "sha256": "078dc3c6564e4ae6fd082b4975483a72fa2528ac356b85bb24c796293e3f62ac",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_wen_bailian.png",
+    "sha256": "40aa54c470470cbf90e6677fc78c95f4583b31761c431b7345467d4e24964653",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_xu_xingzhou",
+   "display_name": "许行舟",
+   "sha256": "3da58b88fd0684eb2bf46229a579b8591188dcee97e76894fc0560d1a3842299",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_xu_xingzhou.png",
+    "sha256": "794cfd8ea2a1de717d1b01ebc9befca80bee013fa1c8ec353c37ad82e3c4ab76",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_xuanjing",
+   "display_name": "玄静子",
+   "sha256": "4bb78d38b4ec507b8a069b3db04f9fd1780cb05d092baf1ae6614692cc62dfc4",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_xuanjing.png",
+    "sha256": "ae53e09dc61183000c0aefb14e2ccf910c011f4d11036faab984d5bfa03c36c1",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_xuanzhao",
+   "display_name": "玄照子",
+   "sha256": "5f1807491b98d29ae980608cd7854fee511727e77ace63230673305e352cd96c",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_xuanzhao.png",
+    "sha256": "737a7e62b2ce76f3e0252493c391c2dfd6fb6dcc771890f5cf18bbf9223916c6",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_yue_zhuchuan",
+   "display_name": "岳铸川",
+   "sha256": "315a0ba13f2f1e27cab231c0553d2eb5df1c6067dba7478fd1278ce637a06ed3",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_yue_zhuchuan.png",
+    "sha256": "1f33a267c8acf5a2f4229ee949121bc1438736081487d5c8227692cac055b267",
+    "width": 192,
+    "height": 192
+   }
+  },
+  {
+   "source_key": "parallel_zhou_shouan",
+   "display_name": "周守安",
+   "sha256": "c03b4904d8ddc562147362fcdb97f568615cbb714c984e54ac03753f5768909f",
+   "width": 128,
+   "height": 128,
+   "display": {
+    "file": "parallel_zhou_shouan.png",
+    "sha256": "871f9538b2a8d2efeea234f5a82bb7f897269ec6fb3572ec6869d8bdbd2bd9ad",
+    "width": 192,
+    "height": 192
+   }
+  }
+ ]
+}

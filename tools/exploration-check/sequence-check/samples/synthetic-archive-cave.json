@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "sequence.synthetic-archive-cave",
+  "version": "1.0",
+  "package_id": "sequence.synthetic-exploration",
+  "package_version": "1.0",
+  "ruleset_id": "sequence.synthetic-rules",
+  "ruleset_version": "1.0",
+  "theme": "Synthetic cave used only for sequence and snapshot isolation checks.",
+  "objectives": [
+    {"id": "recover.inscription", "description": "Recover the archive inscription."}
+  ],
+  "areas": [
+    {"id": "entrance", "name": "Entrance", "description": "Arrival point."},
+    {"id": "archive", "name": "Archive", "description": "The inscription chamber."},
+    {"id": "exit", "name": "Outer passage", "description": "A legal cave exit."},
+    {"id": "sealed_annex", "name": "Sealed annex", "description": "An undiscovered side chamber."}
+  ],
+  "connections": [
+    {"id": "entry_passage", "from_area_id": "entrance", "to_area_id": "archive", "bidirectional": true, "player_visible": true},
+    {"id": "outbound_ramp", "from_area_id": "archive", "to_area_id": "exit", "bidirectional": false, "player_visible": true},
+    {"id": "sealed_door", "from_area_id": "archive", "to_area_id": "sealed_annex", "bidirectional": false, "player_visible": false}
+  ],
+  "entry_location_ids": [],
+  "entry_area_ids": ["entrance"],
+  "exit_area_ids": ["exit"],
+  "challenges": [
+    {"id": "archive.seal", "area_id": "archive", "reference_id": "synthetic.challenge.seal"}
+  ],
+  "content_refs": [],
+  "completion_paths": [
+    {"id": "recover-path", "objective_ids": ["recover.inscription"], "challenge_ids": ["archive.seal"], "required_ability_ids": []}
+  ]
+}

@@ -1,0 +1,475 @@
+{
+  "version": 6,
+  "id": "detective-investigation-v1",
+  "name": "侦探调查状态",
+  "description": "无等级成长的调查状态；四项能力按1至10记录，参与已注册的调查检定。",
+  "actor_state": {
+    "templates": [
+      {
+        "id": "protagonist",
+        "name": "侦探状态表",
+        "description": "调查能力与通用人物状态；能力值通过悬疑调查的检定绑定真实生效。",
+        "fields": [
+          {
+            "name": "姓名",
+            "type": "string",
+            "description": "主角姓名；尚未确定时保持空白，确认后只在正式改名时更新。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、社会身份等当前故事确实使用的信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录有辨识度的外貌、衣着、装备外观和当前伪装；忽略无承接价值的临时描写。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录会持续影响选择的性格倾向与已确认背景，不复述回合经历。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "生命",
+            "type": "string",
+            "default": "10/10",
+            "description": "使用“当前值/上限”表达可恢复的生命资源；例如 8/12。",
+            "update_instruction": "受伤、治疗或上限改变时更新；没有生命数值规则时改用作品中的等价状态。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "当前处境",
+            "type": "string",
+            "description": "记录当前优势、危险、限制和直接压力；具体地点由故事状态维护。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 12 条。删除记录时 replace 整个 object。类型使用战斗、社交、探索、制造或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 16 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型使用装备、消耗品、资源、任务物、线索或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 12 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系类型按故事实际使用亲属、朋友、同伴、竞争、敌对、恋爱、主从或师徒等自然语言。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "观察",
+            "type": "number",
+            "default": 5,
+            "min": 1,
+            "max": 10,
+            "description": "发现现场细节与线索的能力。 数值区间：1–10；5为普通水平。",
+            "update_instruction": "只在对应调查行动的受支持检定中读取，不因叙事成功自动成长。",
+            "group": "调查能力",
+            "display": "stat"
+          },
+          {
+            "name": "逻辑",
+            "type": "number",
+            "default": 5,
+            "min": 1,
+            "max": 10,
+            "description": "比较证据、检验证词矛盾的能力。 数值区间：1–10；5为普通水平。",
+            "update_instruction": "只在对应调查行动的受支持检定中读取，不因叙事成功自动成长。",
+            "group": "调查能力",
+            "display": "stat"
+          },
+          {
+            "name": "交涉",
+            "type": "number",
+            "default": 5,
+            "min": 1,
+            "max": 10,
+            "description": "争取证人合作的能力。 数值区间：1–10；5为普通水平。",
+            "update_instruction": "只在对应调查行动的受支持检定中读取，不因叙事成功自动成长。",
+            "group": "调查能力",
+            "display": "stat"
+          },
+          {
+            "name": "体能",
+            "type": "number",
+            "default": 5,
+            "min": 1,
+            "max": 10,
+            "description": "追逐、脱困等行动的能力。 数值区间：1–10；5为普通水平。",
+            "update_instruction": "只在对应调查行动的受支持检定中读取，不因叙事成功自动成长。",
+            "group": "调查能力",
+            "display": "stat"
+          }
+        ]
+      },
+      {
+        "id": "story_context",
+        "name": "故事状态表",
+        "description": "集中维护当前场景、世界局势和当前任务；不保存纪要、总结、行动选项或幕后计划。",
+        "fields": [
+          {
+            "name": "当前时间",
+            "type": "string",
+            "description": "按世界观记录当前日期、时段或阶段；只保留对行动有意义的精度。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前详细地点",
+            "type": "string",
+            "description": "用一个字段表达当前具体地点及必要的上级范围，不再拆分大区、区域和房间。",
+            "group": "当前场景",
+            "display": "inline"
+          },
+          {
+            "name": "当前事件",
+            "type": "string",
+            "description": "合并记录正在发生的事件、直接压力和下一步必须面对的问题。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "在场角色",
+            "type": "list",
+            "default": [],
+            "description": "使用 Actor 状态中已有的精确 ID；新建 Actor 直接使用故事语言中的角色名称，Actor 名称即 ID。只保留当前可感知或正在互动的角色。",
+            "group": "当前场景",
+            "display": "list"
+          },
+          {
+            "name": "可承接钩子",
+            "type": "string",
+            "description": "保留一个下一段可以直接承接的未完成动作、对话、发现或迫近威胁；它不是剧情总结或选项列表。",
+            "update_instruction": "只写一个当前最直接的承接点。原钩子已经兑现、失效或被更强的新钩子替代时更新；使用具体对象与动作，不写泛泛的“继续探索”或多个备选项。",
+            "group": "当前场景",
+            "display": "block"
+          },
+          {
+            "name": "世界局势",
+            "type": "string",
+            "description": "记眼下的世界概况和正在发生的主要事件。写清哪些地方或势力发生了什么，哪些变化仍在持续。",
+            "group": "世界状态",
+            "display": "block"
+          },
+          {
+            "name": "当前任务",
+            "type": "object",
+            "default": {},
+            "description": "记录已经成立且仍需推进的任务。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的任务名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、状态、目标与进度、时限、明确的奖惩和关联对象名称/ID，最多 8 条；关联对象引用已有状态面板名称/ID。任务结算且结果已进入正文后删除；删除记录时 replace 整个 object。任务类型按故事实际使用主线、支线、个人、委托或世界事件。",
+            "group": "当前任务"
+          }
+        ]
+      },
+      {
+        "id": "important_character",
+        "name": "重要角色状态表",
+        "description": "每个反复登场的重要角色使用独立 Actor；重点维护当前状态、对主角好感与已知信息，以及自身技能、物品和其他关系。",
+        "fields": [
+          {
+            "name": "基本身份",
+            "type": "string",
+            "description": "合并记录年龄、性别、职业、种族、组织与公开身份等有用信息。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "所属势力",
+            "type": "list",
+            "default": [],
+            "description": "主角已经获知的本人物势力归属及其状态；身份或状态未知时不推断。",
+            "update_instruction": "只记录主角实际获知的归属。列表项优先使用{faction_id,name,status}，faction_id须为势力记录的精确稳定键，name只作展示；status为formal、temporary、pending或left。同名势力不合并；不要删除已知离开而误作仍在籍。旧纯文字项不能推断新的稳定ID。主角正式归属以character_facts.memberships为准，不能靠该列表改变成员资格。不从服饰、标签、出生地、师承、来访地点或作者秘密身份推断；最多8项。",
+            "group": "关系",
+            "display": "list"
+          },
+          {
+            "name": "外貌与装扮",
+            "type": "string",
+            "description": "合并记录辨识特征、常见装束、装备外观和当前伪装。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "性格与背景",
+            "type": "string",
+            "description": "记录稳定性格、关键来历和会持续影响行为的背景。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "出场与位置",
+            "type": "string",
+            "description": "用一句话记录在场、离场、失联、死亡等存续状态及当前位置或最后确认位置。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "已知位置",
+            "type": "object",
+            "default": {},
+            "description": "主角最后实际获知的位置及该条消息的来源、获知时刻和可信度。",
+            "update_instruction": "只在主角真正观察或获得新消息时更新；对象使用location、learned_at、source、nature、confidence及可选evidence_refs。location写这条消息的位置，不写后台实时位置；learned_at是获知时的世界时间，不是当前时刻或文件时间。source仅observation、conversation、public_record；nature仅experienced、told、hearsay、conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs仅引用主角可见的已提交exchange精确ID；没有证据就省略，不复制私人谈话、NPC私有状态或作者资料。信息缺失留空，不推断，不随着NPC后台移动更新。",
+            "group": "经历见闻"
+          },
+          {
+            "name": "等级",
+            "type": "number",
+            "default": 1,
+            "min": 1,
+            "description": "角色当前规则等级。 数值区间：1–4 初阶；5–10 中阶；11–16 高阶；17 及以上传奇。",
+            "update_instruction": "等级只随明确的升级、降级或规则结算改变。",
+            "group": "战斗与状态",
+            "display": "stat"
+          },
+          {
+            "name": "生命",
+            "type": "string",
+            "default": "10/10",
+            "description": "使用“当前值/上限”表达可恢复的生命资源；例如 8/12。",
+            "update_instruction": "受伤、治疗或上限改变时更新；没有生命数值规则时改用作品中的等价状态。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "当前目标与处境",
+            "type": "string",
+            "description": "记录已经由行为、对话或设定确认的近期目标、压力、优势与限制，不猜测幕后计划。",
+            "group": "战斗与状态",
+            "display": "block"
+          },
+          {
+            "name": "与主角关系",
+            "type": "string",
+            "description": "记录关系类型、当前态度、关系阶段、重要承诺、边界和主要矛盾。",
+            "group": "关系",
+            "display": "block"
+          },
+          {
+            "name": "对主角好感度",
+            "type": "number",
+            "default": 0,
+            "min": -100,
+            "max": 100,
+            "description": "该角色对主角的总体情感倾向，不代表信任、服从或恋爱关系。 0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。",
+            "update_instruction": "该数值由好感结算写入，不要在 state_changes 中直接改写；会改变双方关系的有效互动或事件通过 character_facts.affinities 提交，并说明所依据的那一件事实。关系类型与关系阶段只随相应剧情事实更新，不根据好感度自动推导。",
+            "group": "关系",
+            "display": "stat"
+          },
+          {
+            "name": "已知人物关系",
+            "type": "object",
+            "default": {},
+            "description": "只记录主角已经获知的该人物对其他已知人物的有方向关系。",
+            "update_instruction": "键为已登记且主角已知的目标Actor精确ID；值用kind写有方向的关系，learned_at写实际获知的世界时刻。source仅observation、conversation或public_record；nature仅experienced、told、hearsay或conjecture；confidence仅confirmed或uncertain，传闻和推测必须uncertain。evidence_refs可列主角可见的已提交exchange精确ID，无引用就省略。只记亲眼见到或明确获知的关系，不从好感、同场、作者资料、NPC私有关系或私人谈话复制，不附自由证据原文。最多12项；不自动镜像，只有真正获知变化才更新。正式主角关系以character_facts.relationships为准。",
+            "group": "关系"
+          },
+          {
+            "name": "对主角的已知信息",
+            "type": "list",
+            "default": [],
+            "description": "只列会影响该角色判断或行动、且该角色确实已经得知的信息，最多 6 项。",
+            "group": "经历见闻",
+            "display": "list"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型使用战斗、社交、探索、制造或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 6 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型使用装备、消耗品、资源、任务物、线索或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 6 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系类型按故事实际使用亲属、朋友、同伴、竞争、敌对、恋爱、主从或师徒等自然语言。 对主角的关系已由专用字段维护，此处只记录该角色对其他 Actor 或势力的关系。",
+            "group": "行囊",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "opponent",
+        "name": "敌对对象状态表",
+        "description": "每个需要持续追踪的敌人、怪物、Boss 或异常实体使用独立 Actor；相近威胁信息合并维护。",
+        "fields": [
+          {
+            "name": "类型与外观",
+            "type": "string",
+            "description": "合并记录敌人、怪物、Boss、陷阱或异常实体的类型、身份与辨识特征。",
+            "group": "概况",
+            "display": "block"
+          },
+          {
+            "name": "存续与位置",
+            "type": "string",
+            "description": "用一句话记录活跃、撤退、被俘、失效、消灭等状态及所在或最后确认位置。",
+            "group": "概况",
+            "display": "inline"
+          },
+          {
+            "name": "威胁态势",
+            "type": "string",
+            "description": "合并记录威胁级别、警戒或追击状态和当前目标。",
+            "update_instruction": "使用低、中、高、致命四档：低=通常无需专门准备；中=会造成明确损失；高=需要资源、协作或针对性策略；致命=正面对抗很可能导致死亡或不可逆后果。只有能力、数量、环境或目标发生实质变化时调整。",
+            "group": "威胁",
+            "display": "block"
+          },
+          {
+            "name": "等级",
+            "type": "number",
+            "default": 1,
+            "min": 1,
+            "description": "角色当前规则等级。 数值区间：1–4 初阶；5–10 中阶；11–16 高阶；17 及以上传奇。",
+            "update_instruction": "等级只随明确的升级、降级或规则结算改变。",
+            "group": "战斗与状态",
+            "display": "stat"
+          },
+          {
+            "name": "生命",
+            "type": "string",
+            "default": "10/10",
+            "description": "使用“当前值/上限”表达可恢复的生命资源；例如 8/12。",
+            "update_instruction": "受伤、治疗或上限改变时更新；没有生命数值规则时改用作品中的等价状态。",
+            "group": "战斗与状态",
+            "display": "inline"
+          },
+          {
+            "name": "行动模式",
+            "type": "string",
+            "description": "记录已经观察或可靠确认的攻击倾向、触发方式和行为规律。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "弱点与退场条件",
+            "type": "string",
+            "description": "合并记录已确认弱点，以及击败、驱散、封印、谈判或摆脱条件。",
+            "group": "经历见闻",
+            "display": "block"
+          },
+          {
+            "name": "技能与能力",
+            "type": "object",
+            "default": {},
+            "description": "记录属于当前 Actor、会再次使用或仍有可变状态的能力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的技能或能力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、掌握或当前状态、效果、代价与限制、来源，最多 6 条。删除记录时 replace 整个 object。类型使用战斗、社交、探索、制造或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "重要物品",
+            "type": "object",
+            "default": {},
+            "description": "记录由当前 Actor 持有、会影响后续行动的物品。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的物品名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。当前 Actor 即持有者；子值按需记录类型、数量或状态、作用、限制、来历与描述，最多 4 条。来历写从谁手里、从什么地方得来；描述写它看上去、摸上去是什么样，一两句，可带一点机锋。两项只作记事，不进任何数值，首次写入后沿用不改。物品转移时同轮从原持有者移除并写入新持有者；删除记录时 replace 整个 object。类型使用装备、消耗品、资源、任务物、线索或其他符合故事设定的分类。",
+            "group": "行囊",
+            "visibility": "private"
+          },
+          {
+            "name": "关系",
+            "type": "object",
+            "default": {},
+            "description": "记录当前 Actor 对目标 Actor 或势力的有方向关系。",
+            "update_instruction": "键使用目标 Actor 或势力的精确 ID；新建目标直接使用故事语言中的名称，目标 Actor 或势力的名称即 ID，不得翻译成英文、转写拼音或生成 slug。只表示当前 Actor 对目标的单向关系，不自动镜像；每项只写关系类型、阶段、好感度、当前态度、边界或承诺、主要矛盾，最多 4 条。好感度规则：0 为路人基线，表示尚无个人好恶；1–100 表示好感逐渐加深，-1–-100 表示敌意逐渐加深。好感度只描述个人好恶的方向与强度，不自动改变关系类型或关系阶段；朋友、恋爱、亲属、师徒、竞争、敌对等关系使用各自符合故事设定的阶段与行为表现。 普通同场或闲聊不自动增加；删除记录时 replace 整个 object。关系类型按故事实际使用亲属、朋友、同伴、竞争、敌对、恋爱、主从或师徒等自然语言。",
+            "group": "行囊",
+            "visibility": "private"
+          }
+        ]
+      },
+      {
+        "id": "world_entities",
+        "name": "世界实体表",
+        "description": "地点与势力集中在同一个世界 Actor 中，以两个 object 字段保持不同记录结构。",
+        "fields": [
+          {
+            "name": "地点记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍有探索、通行、资源或剧情价值的重要地点。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的地点名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、所属范围、当前状态、风险、关键特征与通路，最多 16 条。风险使用低、中、高、致命等文字等级，不保存画布坐标；删除记录时 replace 整个 object。地点类型按世界观使用城市、建筑、野外、遗迹、设施或房间等自然语言。",
+            "group": "地点"
+          },
+          {
+            "name": "势力记录",
+            "type": "object",
+            "default": {},
+            "description": "记录仍在影响主角、任务或世界局势的重要势力。",
+            "update_instruction": "map key 直接使用故事语言中稳定、可读的势力名称，名称即 ID；不得翻译成英文、转写拼音或生成 slug；子值不要求重复名称字段。子值按需记录类型、核心特征、存续状态、对主角立场、主要范围和当前行动，最多 8 条。存续状态、主要范围与当前行动只在本次确有依据时才改写：写清这个变化是怎么来的——谁说的、谁办的、在什么地方见到的，或主角亲眼见到的结果；只听到有人这么说、只被转告一句旧消息、只是自己的推测，都不足以改写，宁可先写成传闻或怀疑，也不要当成这个势力现在的样子。没有依据时保留原有记录不动。旧记录可能写于很久以前，见 Actor 上标出的写下时间；超出这个时间的说法不能当成眼下的事实。删除记录时 replace 整个 object。势力类型按世界观使用组织、国家、公司、教会、帮派或其他自然语言。",
+            "group": "势力"
+          }
+        ]
+      }
+    ],
+    "initial_actors": [
+      {
+        "id": "protagonist",
+        "name": "主角",
+        "template_id": "protagonist",
+        "role": "protagonist",
+        "description": "当前故事的可玩主角；身份、状态、技能、重要物品和关系集中维护在此 Actor。"
+      },
+      {
+        "id": "story",
+        "name": "故事状态",
+        "template_id": "story_context",
+        "role": "story_context",
+        "description": "当前场景、世界局势与当前任务的统一状态对象。"
+      },
+      {
+        "id": "world",
+        "name": "世界实体",
+        "template_id": "world_entities",
+        "role": "world",
+        "description": "仍对当前故事有行动价值的重要地点与势力。"
+      }
+    ]
+  },
+  "custom": false
+}

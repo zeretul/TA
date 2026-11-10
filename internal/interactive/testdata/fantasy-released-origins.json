@@ -1,0 +1,152 @@
+{
+  "sg-start-smith": {
+    "family": "fantasy",
+    "rank": 1,
+    "experience": 0,
+    "health": 100,
+    "max_health": 100,
+    "energy": 100,
+    "max_energy": 100,
+    "injury": 0,
+    "currency": 24,
+    "skills": {
+      "sg-forge": 1,
+      "sg-fieldrepair": 1,
+      "sg-blade": 1,
+      "sg-parley": 1
+    },
+    "training": {},
+    "inventory": {
+      "sg-padded": 1,
+      "sg-bread": 3,
+      "sg-tonic": 1,
+      "sg-manual-blade": 1,
+      "sg-manual-parley": 1,
+      "sg-journal": 1,
+      "sg-forge-tools": 1,
+      "sg-travel-blade": 1,
+      "sg-manual-forge": 1,
+      "sg-manual-fieldrepair": 1,
+      "sg-cloth": 2,
+      "sg-herbs": 2
+    },
+    "equipment": {
+      "person:weapon": "sg-travel-blade",
+      "person:armor": "sg-padded"
+    },
+    "assets": {}
+  },
+  "sg-start-carer": {
+    "family": "fantasy",
+    "rank": 1,
+    "experience": 0,
+    "health": 100,
+    "max_health": 100,
+    "energy": 100,
+    "max_energy": 100,
+    "injury": 0,
+    "currency": 24,
+    "skills": {
+      "sg-firstaid": 1,
+      "sg-prayer": 1,
+      "sg-parley": 1
+    },
+    "training": {},
+    "inventory": {
+      "sg-padded": 1,
+      "sg-bread": 3,
+      "sg-tonic": 1,
+      "sg-manual-blade": 1,
+      "sg-manual-parley": 1,
+      "sg-journal": 1,
+      "sg-prayer-cord": 1,
+      "sg-prayer-mace": 1,
+      "sg-herb-kit": 1,
+      "sg-manual-firstaid": 1,
+      "sg-manual-prayer": 1,
+      "sg-cloth": 6,
+      "sg-salt": 6,
+      "sg-herbs": 2
+    },
+    "equipment": {
+      "person:weapon": "sg-prayer-mace",
+      "person:armor": "sg-padded"
+    },
+    "assets": {}
+  },
+  "sg-start-grove": {
+    "family": "fantasy",
+    "rank": 1,
+    "experience": 0,
+    "health": 100,
+    "max_health": 100,
+    "energy": 100,
+    "max_energy": 100,
+    "injury": 0,
+    "currency": 24,
+    "skills": {
+      "sg-greenhand": 1,
+      "sg-thorn": 1,
+      "sg-herbwise": 1,
+      "sg-parley": 1
+    },
+    "training": {},
+    "inventory": {
+      "sg-padded": 1,
+      "sg-bread": 3,
+      "sg-tonic": 1,
+      "sg-manual-blade": 1,
+      "sg-manual-parley": 1,
+      "sg-journal": 1,
+      "sg-rootstaff": 1,
+      "sg-focus": 1,
+      "sg-herb-kit": 1,
+      "sg-manual-greenhand": 1,
+      "sg-manual-thorn": 1,
+      "sg-manual-herbwise": 1,
+      "sg-seed": 6,
+      "sg-cloth": 2,
+      "sg-herbs": 2
+    },
+    "equipment": {
+      "person:weapon": "sg-rootstaff",
+      "person:armor": "sg-padded"
+    },
+    "assets": {}
+  },
+  "sg-start-runner": {
+    "family": "fantasy",
+    "rank": 1,
+    "experience": 0,
+    "health": 100,
+    "max_health": 100,
+    "energy": 100,
+    "max_energy": 100,
+    "injury": 0,
+    "currency": 24,
+    "skills": {
+      "sg-listen": 1,
+      "sg-knife": 1,
+      "sg-parley": 1
+    },
+    "training": {},
+    "inventory": {
+      "sg-padded": 1,
+      "sg-bread": 3,
+      "sg-tonic": 1,
+      "sg-manual-blade": 1,
+      "sg-manual-parley": 1,
+      "sg-journal": 1,
+      "sg-dagger": 1,
+      "sg-manual-listen": 1,
+      "sg-manual-knife": 1,
+      "sg-cloth": 2,
+      "sg-herbs": 2
+    },
+    "equipment": {
+      "person:weapon": "sg-dagger",
+      "person:armor": "sg-padded"
+    },
+    "assets": {}
+  }
+}

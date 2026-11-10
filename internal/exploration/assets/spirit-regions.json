@@ -1,0 +1,744 @@
+[
+  {
+    "schema_version": 1,
+    "id": "realm.spirit_boundary",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "ruleset_id": "xiuxian",
+    "ruleset_version": "1.0",
+    "theme": "隐在远山中的薄弱界面，石台上还有前人测过的风纹。可以查看、备锚，也可以沿原路回坊市。",
+    "objectives": [
+      {
+        "id": "realm.spirit_boundary.goal_anchor",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.boundary.goal.anchor"
+      }
+    ],
+    "areas": [
+      {
+        "id": "realm.spirit_boundary.entry",
+        "name": "远山界隙勘验台",
+        "name_key": "game.spirit.boundary.name",
+        "description": "隐在远山中的薄弱界面，石台上还有前人测过的风纹。可以查看、备锚，也可以沿原路回坊市。",
+        "description_key": "game.spirit.boundary.description"
+      }
+    ],
+    "connections": [],
+    "entry_area_ids": [
+      "realm.spirit_boundary.entry"
+    ],
+    "entry_location_ids": [
+      "yue.boundary.node"
+    ],
+    "exit_area_ids": [
+      "realm.spirit_boundary.entry"
+    ],
+    "challenges": [],
+    "content_refs": [
+      {
+        "id": "realm.spirit_boundary.reward_anchor",
+        "area_id": "realm.spirit_boundary.entry",
+        "kind": "reward",
+        "reference_id": "material.spirit.boundary_anchor",
+        "quantity": 1,
+        "objective_id": "realm.spirit_boundary.goal_anchor"
+      }
+    ],
+    "completion_paths": [
+      {
+        "id": "realm.spirit_boundary.path_anchor",
+        "objective_ids": [
+          "realm.spirit_boundary.goal_anchor"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      }
+    ],
+    "explore_rules": {
+      "name_key": "game.spirit.boundary.name",
+      "description_key": "game.spirit.boundary.description",
+      "pressure_label": "阵势扰动",
+      "pressure_label_key": "game.spirit.boundary.pressure",
+      "pressure_limit": 8,
+      "return_after_seconds": 0,
+      "approaches": [
+        {
+          "id": "realm.spirit_boundary.survey",
+          "area_id": "realm.spirit_boundary.entry",
+          "kind": "survey",
+          "name": "勘验界面十日",
+          "name_key": "game.spirit.boundary.survey.name",
+          "description": "反复比对风纹与灵流，记录这一处可护持的狭窄窗口。知道窗口不等于已经跨界。",
+          "description_key": "game.spirit.boundary.survey.description",
+          "duration_seconds": 864000,
+          "pressure_delta": 1,
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_boundary.window",
+              "text": "这处界隙有可预先布锚的窄窗；一旦穿过，原路不能逆行。",
+              "text_key": "game.spirit.boundary.fact.window",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_boundary.anchor",
+          "area_id": "realm.spirit_boundary.entry",
+          "kind": "resolve",
+          "name": "炼定一枚护界锚",
+          "name_key": "game.spirit.boundary.anchor.name",
+          "description": "耗一块护界玉与二十份阵石，花三十日定下护界锚。跨界还需化神后期，并消耗四分之一基础生命与一半基础灵力；这是单向远行。",
+          "description_key": "game.spirit.boundary.anchor.description",
+          "duration_seconds": 2592000,
+          "pressure_delta": 1,
+          "required_fact_ids": [
+            "realm.spirit_boundary.window"
+          ],
+          "costs": [
+            {
+              "kind": "consume_item",
+              "ref_id": "material.spirit.boundary_jade",
+              "quantity": 1
+            },
+            {
+              "kind": "consume_item",
+              "ref_id": "material.stone.ward",
+              "quantity": 20
+            }
+          ],
+          "reward_ref_ids": [
+            "realm.spirit_boundary.reward_anchor"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "realm.spirit_rift",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "ruleset_id": "xiuxian",
+    "ruleset_version": "1.0",
+    "theme": "营地外的裂脉吐出时断时续的灵潮。散落的旧匣和矿样能取多少，要看你愿意花时间还是耗阵材。",
+    "objectives": [
+      {
+        "id": "realm.spirit_rift.goal_sample",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.rift.goal.sample"
+      },
+      {
+        "id": "realm.spirit_rift.goal_manual",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.rift.goal.manual"
+      },
+      {
+        "id": "realm.spirit_rift.goal_blade",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.rift.goal.blade"
+      }
+    ],
+    "areas": [
+      {
+        "id": "realm.spirit_rift.entry",
+        "name": "界隙营地残灵脉",
+        "name_key": "game.spirit.rift.name",
+        "description": "营地外的裂脉吐出时断时续的灵潮。散落的旧匣和矿样能取多少，要看你愿意花时间还是耗阵材。",
+        "description_key": "game.spirit.rift.description"
+      }
+    ],
+    "connections": [],
+    "entry_area_ids": [
+      "realm.spirit_rift.entry"
+    ],
+    "entry_location_ids": [
+      "spirit.border.camp"
+    ],
+    "exit_area_ids": [
+      "realm.spirit_rift.entry"
+    ],
+    "challenges": [],
+    "content_refs": [
+      {
+        "id": "realm.spirit_rift.reward_sample",
+        "area_id": "realm.spirit_rift.entry",
+        "kind": "reward",
+        "reference_id": "material.spirit.rift_sample",
+        "quantity": 1,
+        "objective_id": "realm.spirit_rift.goal_sample"
+      },
+      {
+        "id": "realm.spirit_rift.reward_manual",
+        "area_id": "realm.spirit_rift.entry",
+        "kind": "reward",
+        "reference_id": "manual.spirit.void",
+        "quantity": 1,
+        "objective_id": "realm.spirit_rift.goal_manual"
+      },
+      {
+        "id": "realm.spirit_rift.reward_blade",
+        "area_id": "realm.spirit_rift.entry",
+        "kind": "reward",
+        "reference_id": "equipment.void_blade",
+        "quantity": 1,
+        "objective_id": "realm.spirit_rift.goal_blade"
+      }
+    ],
+    "completion_paths": [
+      {
+        "id": "realm.spirit_rift.path_sample",
+        "objective_ids": [
+          "realm.spirit_rift.goal_sample"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_rift.path_manual",
+        "objective_ids": [
+          "realm.spirit_rift.goal_manual"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_rift.path_blade",
+        "objective_ids": [
+          "realm.spirit_rift.goal_blade"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      }
+    ],
+    "explore_rules": {
+      "name_key": "game.spirit.rift.name",
+      "description_key": "game.spirit.rift.description",
+      "pressure_label": "阵势扰动",
+      "pressure_label_key": "game.spirit.rift.pressure",
+      "pressure_limit": 8,
+      "return_after_seconds": 0,
+      "approaches": [
+        {
+          "id": "realm.spirit_rift.survey",
+          "area_id": "realm.spirit_rift.entry",
+          "kind": "survey",
+          "name": "看清灵潮间隔",
+          "name_key": "game.spirit.rift.survey.name",
+          "description": "沿安全边缘观察六小时，记下灵潮的间隔。",
+          "description_key": "game.spirit.rift.survey.description",
+          "duration_seconds": 21600,
+          "pressure_delta": 1,
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_rift.rhythm",
+              "text": "灵潮之间有缓慢而可辨的空隙。",
+              "text_key": "game.spirit.rift.fact.rhythm",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_rift.wait",
+          "area_id": "realm.spirit_rift.entry",
+          "kind": "approach",
+          "name": "守候三个昼夜",
+          "name_key": "game.spirit.rift.wait.name",
+          "description": "按已查明的节律等待，不用护界玉，花三个昼夜缓行到石沿。",
+          "description_key": "game.spirit.rift.wait.description",
+          "duration_seconds": 259200,
+          "pressure_delta": 1,
+          "exclusive_group": "access",
+          "required_fact_ids": [
+            "realm.spirit_rift.rhythm"
+          ],
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_rift.opened",
+              "text": "旧匣所在的石沿已能安全接近。",
+              "text_key": "game.spirit.rift.fact.opened",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_rift.stabilize",
+          "area_id": "realm.spirit_rift.entry",
+          "kind": "approach",
+          "name": "用护界玉稳住灵潮",
+          "name_key": "game.spirit.rift.stabilize.name",
+          "description": "耗一块护界玉，六小时内稳住通向旧匣的灵潮，省下等待。",
+          "description_key": "game.spirit.rift.stabilize.description",
+          "duration_seconds": 21600,
+          "pressure_delta": 1,
+          "exclusive_group": "access",
+          "costs": [
+            {
+              "kind": "consume_item",
+              "ref_id": "material.spirit.boundary_jade",
+              "quantity": 1
+            }
+          ],
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_rift.opened",
+              "text": "旧匣所在的石沿已能安全接近。",
+              "text_key": "game.spirit.rift.fact.opened",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_rift.recover",
+          "area_id": "realm.spirit_rift.entry",
+          "kind": "resolve",
+          "name": "取回旧匣与裂脉样石",
+          "name_key": "game.spirit.rift.recover.name",
+          "description": "花一日整理并带回裂脉样石、炼虚三法注本和一柄可用的五行灵剑。注本还需亲自研习，器物仍按境界御使。",
+          "description_key": "game.spirit.rift.recover.description",
+          "duration_seconds": 86400,
+          "pressure_delta": 1,
+          "required_fact_ids": [
+            "realm.spirit_rift.opened"
+          ],
+          "reward_ref_ids": [
+            "realm.spirit_rift.reward_sample",
+            "realm.spirit_rift.reward_manual",
+            "realm.spirit_rift.reward_blade"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "realm.spirit_array",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "ruleset_id": "xiuxian",
+    "ruleset_version": "1.0",
+    "theme": "废弃哨阵的阵心仍在缓慢转动。拆下阵心能立刻带走器料；保留它则要耗材整修，再等阵息平复。",
+    "objectives": [
+      {
+        "id": "realm.spirit_array.goal_blade",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.array.goal.blade"
+      },
+      {
+        "id": "realm.spirit_array.goal_strip_record",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.array.goal.strip_record"
+      },
+      {
+        "id": "realm.spirit_array.goal_manual",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.array.goal.manual"
+      },
+      {
+        "id": "realm.spirit_array.goal_robe",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.array.goal.robe"
+      },
+      {
+        "id": "realm.spirit_array.goal_preserve_record",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.array.goal.preserve_record"
+      }
+    ],
+    "areas": [
+      {
+        "id": "realm.spirit_array.entry",
+        "name": "旧哨阵测场",
+        "name_key": "game.spirit.array.name",
+        "description": "废弃哨阵的阵心仍在缓慢转动。拆下阵心能立刻带走器料；保留它则要耗材整修，再等阵息平复。",
+        "description_key": "game.spirit.array.description"
+      }
+    ],
+    "connections": [],
+    "entry_area_ids": [
+      "realm.spirit_array.entry"
+    ],
+    "entry_location_ids": [
+      "spirit.tianyuan.market"
+    ],
+    "exit_area_ids": [
+      "realm.spirit_array.entry"
+    ],
+    "challenges": [],
+    "content_refs": [
+      {
+        "id": "realm.spirit_array.reward_blade",
+        "area_id": "realm.spirit_array.entry",
+        "kind": "reward",
+        "reference_id": "equipment.integration_blade",
+        "quantity": 1,
+        "objective_id": "realm.spirit_array.goal_blade"
+      },
+      {
+        "id": "realm.spirit_array.reward_strip_record",
+        "area_id": "realm.spirit_array.entry",
+        "kind": "reward",
+        "reference_id": "material.spirit.formation_record",
+        "quantity": 1,
+        "objective_id": "realm.spirit_array.goal_strip_record"
+      },
+      {
+        "id": "realm.spirit_array.reward_manual",
+        "area_id": "realm.spirit_array.entry",
+        "kind": "reward",
+        "reference_id": "manual.spirit.integration",
+        "quantity": 1,
+        "objective_id": "realm.spirit_array.goal_manual"
+      },
+      {
+        "id": "realm.spirit_array.reward_robe",
+        "area_id": "realm.spirit_array.entry",
+        "kind": "reward",
+        "reference_id": "equipment.integration_robe",
+        "quantity": 1,
+        "objective_id": "realm.spirit_array.goal_robe"
+      },
+      {
+        "id": "realm.spirit_array.reward_preserve_record",
+        "area_id": "realm.spirit_array.entry",
+        "kind": "reward",
+        "reference_id": "material.spirit.formation_record",
+        "quantity": 1,
+        "objective_id": "realm.spirit_array.goal_preserve_record"
+      }
+    ],
+    "completion_paths": [
+      {
+        "id": "realm.spirit_array.path_blade",
+        "objective_ids": [
+          "realm.spirit_array.goal_blade"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_array.path_strip_record",
+        "objective_ids": [
+          "realm.spirit_array.goal_strip_record"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_array.path_manual",
+        "objective_ids": [
+          "realm.spirit_array.goal_manual"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_array.path_robe",
+        "objective_ids": [
+          "realm.spirit_array.goal_robe"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_array.path_preserve_record",
+        "objective_ids": [
+          "realm.spirit_array.goal_preserve_record"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      }
+    ],
+    "explore_rules": {
+      "name_key": "game.spirit.array.name",
+      "description_key": "game.spirit.array.description",
+      "pressure_label": "阵势扰动",
+      "pressure_label_key": "game.spirit.array.pressure",
+      "pressure_limit": 8,
+      "return_after_seconds": 86400,
+      "approaches": [
+        {
+          "id": "realm.spirit_array.survey",
+          "area_id": "realm.spirit_array.entry",
+          "kind": "survey",
+          "name": "核对哨阵刻痕",
+          "name_key": "game.spirit.array.survey.name",
+          "description": "花一日沿外圈核对刻痕，辨明阵心与护具的连接。",
+          "description_key": "game.spirit.array.survey.description",
+          "duration_seconds": 86400,
+          "pressure_delta": 1,
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_array.pattern",
+              "text": "阵心可拆；若要保留，需补足十份阵石再等一日。",
+              "text_key": "game.spirit.array.fact.pattern",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_array.strip",
+          "area_id": "realm.spirit_array.entry",
+          "kind": "resolve",
+          "name": "拆下阵心取走灵剑",
+          "name_key": "game.spirit.array.strip.name",
+          "description": "花六小时拆取合元灵剑与旧哨阵记录。阵心不再运转，另一条整修路线随之放下。",
+          "description_key": "game.spirit.array.strip.description",
+          "duration_seconds": 21600,
+          "pressure_delta": 1,
+          "exclusive_group": "disposition",
+          "required_fact_ids": [
+            "realm.spirit_array.pattern"
+          ],
+          "reward_ref_ids": [
+            "realm.spirit_array.reward_blade",
+            "realm.spirit_array.reward_strip_record"
+          ]
+        },
+        {
+          "id": "realm.spirit_array.preserve",
+          "area_id": "realm.spirit_array.entry",
+          "kind": "resolve",
+          "name": "补阵并保留阵心",
+          "name_key": "game.spirit.array.preserve.name",
+          "description": "耗十份阵石，花一日复接阵路；阵息还需一日平复。可以先回城办自己的事。",
+          "description_key": "game.spirit.array.preserve.description",
+          "duration_seconds": 86400,
+          "pressure_delta": 1,
+          "exclusive_group": "disposition",
+          "required_fact_ids": [
+            "realm.spirit_array.pattern"
+          ],
+          "costs": [
+            {
+              "kind": "consume_item",
+              "ref_id": "material.stone.ward",
+              "quantity": 10
+            }
+          ],
+          "starts_return": true,
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_array.preserved",
+              "text": "阵心已保留；待阵息平复，可读全注本并取下护具。",
+              "text_key": "game.spirit.array.fact.preserved",
+              "publicly_displayable": true
+            }
+          ]
+        },
+        {
+          "id": "realm.spirit_array.return",
+          "area_id": "realm.spirit_array.entry",
+          "kind": "resolve",
+          "name": "取回注本与护具",
+          "name_key": "game.spirit.array.return.name",
+          "description": "回访平复的阵心，花六小时取下合体三法注本、合元法袍与完整测阵记录。",
+          "description_key": "game.spirit.array.return.description",
+          "duration_seconds": 21600,
+          "pressure_delta": 1,
+          "requires_return": true,
+          "required_fact_ids": [
+            "realm.spirit_array.preserved"
+          ],
+          "reward_ref_ids": [
+            "realm.spirit_array.reward_manual",
+            "realm.spirit_array.reward_robe",
+            "realm.spirit_array.reward_preserve_record"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "realm.spirit_archive",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "ruleset_id": "xiuxian",
+    "ruleset_version": "1.0",
+    "theme": "山壁上的旧经文被两层拓片遮住。可以借旧注逐句校读，也能用合阶法镜分辨墨层；读懂后仍要花时间誊录。",
+    "objectives": [
+      {
+        "id": "realm.spirit_archive.goal_manual",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.archive.goal.manual"
+      },
+      {
+        "id": "realm.spirit_archive.goal_rubbing",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.archive.goal.rubbing"
+      },
+      {
+        "id": "realm.spirit_archive.goal_robe",
+        "description": "将实物所得带回。",
+        "description_key": "game.spirit.archive.goal.robe"
+      }
+    ],
+    "areas": [
+      {
+        "id": "realm.spirit_archive.entry",
+        "name": "栖霞谷旧讲经台",
+        "name_key": "game.spirit.archive.name",
+        "description": "山壁上的旧经文被两层拓片遮住。可以借旧注逐句校读，也能用合阶法镜分辨墨层；读懂后仍要花时间誊录。",
+        "description_key": "game.spirit.archive.description"
+      }
+    ],
+    "connections": [],
+    "entry_area_ids": [
+      "realm.spirit_archive.entry"
+    ],
+    "entry_location_ids": [
+      "spirit.quiet.valley"
+    ],
+    "exit_area_ids": [
+      "realm.spirit_archive.entry"
+    ],
+    "challenges": [],
+    "content_refs": [
+      {
+        "id": "realm.spirit_archive.reward_manual",
+        "area_id": "realm.spirit_archive.entry",
+        "kind": "reward",
+        "reference_id": "manual.spirit.mahayana",
+        "quantity": 1,
+        "objective_id": "realm.spirit_archive.goal_manual"
+      },
+      {
+        "id": "realm.spirit_archive.reward_rubbing",
+        "area_id": "realm.spirit_archive.entry",
+        "kind": "reward",
+        "reference_id": "material.spirit.ancient_rubbing",
+        "quantity": 1,
+        "objective_id": "realm.spirit_archive.goal_rubbing"
+      },
+      {
+        "id": "realm.spirit_archive.reward_robe",
+        "area_id": "realm.spirit_archive.entry",
+        "kind": "reward",
+        "reference_id": "equipment.mahayana_robe",
+        "quantity": 1,
+        "objective_id": "realm.spirit_archive.goal_robe"
+      }
+    ],
+    "completion_paths": [
+      {
+        "id": "realm.spirit_archive.path_manual",
+        "objective_ids": [
+          "realm.spirit_archive.goal_manual"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_archive.path_rubbing",
+        "objective_ids": [
+          "realm.spirit_archive.goal_rubbing"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      },
+      {
+        "id": "realm.spirit_archive.path_robe",
+        "objective_ids": [
+          "realm.spirit_archive.goal_robe"
+        ],
+        "challenge_ids": [],
+        "required_ability_ids": []
+      }
+    ],
+    "explore_rules": {
+      "name_key": "game.spirit.archive.name",
+      "description_key": "game.spirit.archive.description",
+      "pressure_label": "阵势扰动",
+      "pressure_label_key": "game.spirit.archive.pressure",
+      "pressure_limit": 8,
+      "return_after_seconds": 0,
+      "approaches": [
+        {
+          "id": "realm.spirit_archive.compare",
+          "area_id": "realm.spirit_archive.entry",
+          "kind": "survey",
+          "name": "持旧注校读七日",
+          "name_key": "game.spirit.archive.compare.name",
+          "description": "实际持有合体三法注本，花七日逐句校读；只用来比照，不消耗注本。",
+          "description_key": "game.spirit.archive.compare.description",
+          "duration_seconds": 604800,
+          "pressure_delta": 1,
+          "costs": [
+            {
+              "kind": "require_item",
+              "ref_id": "manual.spirit.integration",
+              "quantity": 1
+            }
+          ],
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_archive.reading",
+              "text": "两层拓片已有次序，内层是一份完整的大乘续修注本。",
+              "text_key": "game.spirit.archive.fact.reading",
+              "publicly_displayable": true
+            }
+          ],
+          "exclusive_group": "reading"
+        },
+        {
+          "id": "realm.spirit_archive.mirror",
+          "area_id": "realm.spirit_archive.entry",
+          "kind": "survey",
+          "name": "借合元法镜辨墨一日",
+          "name_key": "game.spirit.archive.mirror.name",
+          "description": "实际持有合元法镜，花一日辨清墨层；器物是勘查工具，不会因此授予大乘功法。",
+          "description_key": "game.spirit.archive.mirror.description",
+          "duration_seconds": 86400,
+          "pressure_delta": 1,
+          "costs": [
+            {
+              "kind": "require_item",
+              "ref_id": "equipment.integration_mirror",
+              "quantity": 1
+            }
+          ],
+          "discoveries": [
+            {
+              "kind": "fact",
+              "id": "realm.spirit_archive.reading",
+              "text": "两层拓片已有次序，内层是一份完整的大乘续修注本。",
+              "text_key": "game.spirit.archive.fact.reading",
+              "publicly_displayable": true
+            }
+          ],
+          "exclusive_group": "reading"
+        },
+        {
+          "id": "realm.spirit_archive.copy",
+          "area_id": "realm.spirit_archive.entry",
+          "kind": "resolve",
+          "name": "誊录经文三十日",
+          "name_key": "game.spirit.archive.copy.name",
+          "description": "花三十日校抄大乘三法注本，并保存旧经拓片。一旁封存的参玄法袍也可带走。研究尚未变成修为，随时可结束此地之行。",
+          "description_key": "game.spirit.archive.copy.description",
+          "duration_seconds": 2592000,
+          "pressure_delta": 1,
+          "required_fact_ids": [
+            "realm.spirit_archive.reading"
+          ],
+          "reward_ref_ids": [
+            "realm.spirit_archive.reward_manual",
+            "realm.spirit_archive.reward_rubbing",
+            "realm.spirit_archive.reward_robe"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,2488 @@
+{
+  "routes": [
+    {
+      "id": "sg-route-l01-l02",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l02",
+      "segments": [
+        {
+          "id": "sg-route-l01-l02.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l02",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l02-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l02",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l02-l01.segment",
+          "from_location_id": "sg-l02",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l03",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l03",
+      "segments": [
+        {
+          "id": "sg-route-l01-l03.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l03",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l03-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l03",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l03-l01.segment",
+          "from_location_id": "sg-l03",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l04",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l04",
+      "segments": [
+        {
+          "id": "sg-route-l01-l04.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l04",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l04-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l04",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l04-l01.segment",
+          "from_location_id": "sg-l04",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l05",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l05",
+      "segments": [
+        {
+          "id": "sg-route-l01-l05.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l05",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l05-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l05",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l05-l01.segment",
+          "from_location_id": "sg-l05",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l06",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l06",
+      "segments": [
+        {
+          "id": "sg-route-l01-l06.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l06",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l06-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l06",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l06-l01.segment",
+          "from_location_id": "sg-l06",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l02-l03",
+      "version": "1.0",
+      "origin_location_id": "sg-l02",
+      "destination_location_id": "sg-l03",
+      "segments": [
+        {
+          "id": "sg-route-l02-l03.segment",
+          "from_location_id": "sg-l02",
+          "to_location_id": "sg-l03",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l03-l02",
+      "version": "1.0",
+      "origin_location_id": "sg-l03",
+      "destination_location_id": "sg-l02",
+      "segments": [
+        {
+          "id": "sg-route-l03-l02.segment",
+          "from_location_id": "sg-l03",
+          "to_location_id": "sg-l02",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l04-l05",
+      "version": "1.0",
+      "origin_location_id": "sg-l04",
+      "destination_location_id": "sg-l05",
+      "segments": [
+        {
+          "id": "sg-route-l04-l05.segment",
+          "from_location_id": "sg-l04",
+          "to_location_id": "sg-l05",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l05-l04",
+      "version": "1.0",
+      "origin_location_id": "sg-l05",
+      "destination_location_id": "sg-l04",
+      "segments": [
+        {
+          "id": "sg-route-l05-l04.segment",
+          "from_location_id": "sg-l05",
+          "to_location_id": "sg-l04",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l08",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l08",
+      "segments": [
+        {
+          "id": "sg-route-l07-l08.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l08",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l08-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l08",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l08-l07.segment",
+          "from_location_id": "sg-l08",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l09",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l09",
+      "segments": [
+        {
+          "id": "sg-route-l07-l09.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l09",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l09-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l09",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l09-l07.segment",
+          "from_location_id": "sg-l09",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l10",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l10",
+      "segments": [
+        {
+          "id": "sg-route-l07-l10.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l10",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l10-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l10",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l10-l07.segment",
+          "from_location_id": "sg-l10",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l11",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l11",
+      "segments": [
+        {
+          "id": "sg-route-l07-l11.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l11",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l11-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l11",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l11-l07.segment",
+          "from_location_id": "sg-l11",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l12",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l12",
+      "segments": [
+        {
+          "id": "sg-route-l07-l12.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l12",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l12-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l12",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l12-l07.segment",
+          "from_location_id": "sg-l12",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l08-l09",
+      "version": "1.0",
+      "origin_location_id": "sg-l08",
+      "destination_location_id": "sg-l09",
+      "segments": [
+        {
+          "id": "sg-route-l08-l09.segment",
+          "from_location_id": "sg-l08",
+          "to_location_id": "sg-l09",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l09-l08",
+      "version": "1.0",
+      "origin_location_id": "sg-l09",
+      "destination_location_id": "sg-l08",
+      "segments": [
+        {
+          "id": "sg-route-l09-l08.segment",
+          "from_location_id": "sg-l09",
+          "to_location_id": "sg-l08",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l10-l11",
+      "version": "1.0",
+      "origin_location_id": "sg-l10",
+      "destination_location_id": "sg-l11",
+      "segments": [
+        {
+          "id": "sg-route-l10-l11.segment",
+          "from_location_id": "sg-l10",
+          "to_location_id": "sg-l11",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l11-l10",
+      "version": "1.0",
+      "origin_location_id": "sg-l11",
+      "destination_location_id": "sg-l10",
+      "segments": [
+        {
+          "id": "sg-route-l11-l10.segment",
+          "from_location_id": "sg-l11",
+          "to_location_id": "sg-l10",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l14",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l14",
+      "segments": [
+        {
+          "id": "sg-route-l13-l14.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l14",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l14-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l14",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l14-l13.segment",
+          "from_location_id": "sg-l14",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l15",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l15",
+      "segments": [
+        {
+          "id": "sg-route-l13-l15.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l15",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l15-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l15",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l15-l13.segment",
+          "from_location_id": "sg-l15",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l16",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l16",
+      "segments": [
+        {
+          "id": "sg-route-l13-l16.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l16",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l16-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l16",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l16-l13.segment",
+          "from_location_id": "sg-l16",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l17",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l17",
+      "segments": [
+        {
+          "id": "sg-route-l13-l17.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l17",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l17-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l17",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l17-l13.segment",
+          "from_location_id": "sg-l17",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l18",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l18",
+      "segments": [
+        {
+          "id": "sg-route-l13-l18.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l18",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l18-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l18",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l18-l13.segment",
+          "from_location_id": "sg-l18",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l14-l15",
+      "version": "1.0",
+      "origin_location_id": "sg-l14",
+      "destination_location_id": "sg-l15",
+      "segments": [
+        {
+          "id": "sg-route-l14-l15.segment",
+          "from_location_id": "sg-l14",
+          "to_location_id": "sg-l15",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l15-l14",
+      "version": "1.0",
+      "origin_location_id": "sg-l15",
+      "destination_location_id": "sg-l14",
+      "segments": [
+        {
+          "id": "sg-route-l15-l14.segment",
+          "from_location_id": "sg-l15",
+          "to_location_id": "sg-l14",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l16-l17",
+      "version": "1.0",
+      "origin_location_id": "sg-l16",
+      "destination_location_id": "sg-l17",
+      "segments": [
+        {
+          "id": "sg-route-l16-l17.segment",
+          "from_location_id": "sg-l16",
+          "to_location_id": "sg-l17",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l17-l16",
+      "version": "1.0",
+      "origin_location_id": "sg-l17",
+      "destination_location_id": "sg-l16",
+      "segments": [
+        {
+          "id": "sg-route-l17-l16.segment",
+          "from_location_id": "sg-l17",
+          "to_location_id": "sg-l16",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l20",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l20",
+      "segments": [
+        {
+          "id": "sg-route-l19-l20.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l20",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l20-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l20",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l20-l19.segment",
+          "from_location_id": "sg-l20",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l21",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l21",
+      "segments": [
+        {
+          "id": "sg-route-l19-l21.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l21",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l21-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l21",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l21-l19.segment",
+          "from_location_id": "sg-l21",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l22",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l22",
+      "segments": [
+        {
+          "id": "sg-route-l19-l22.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l22",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l22-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l22",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l22-l19.segment",
+          "from_location_id": "sg-l22",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l23",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l23",
+      "segments": [
+        {
+          "id": "sg-route-l19-l23.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l23",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l23-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l23",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l23-l19.segment",
+          "from_location_id": "sg-l23",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l24",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l24",
+      "segments": [
+        {
+          "id": "sg-route-l19-l24.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l24",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l24-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l24",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l24-l19.segment",
+          "from_location_id": "sg-l24",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l20-l21",
+      "version": "1.0",
+      "origin_location_id": "sg-l20",
+      "destination_location_id": "sg-l21",
+      "segments": [
+        {
+          "id": "sg-route-l20-l21.segment",
+          "from_location_id": "sg-l20",
+          "to_location_id": "sg-l21",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l21-l20",
+      "version": "1.0",
+      "origin_location_id": "sg-l21",
+      "destination_location_id": "sg-l20",
+      "segments": [
+        {
+          "id": "sg-route-l21-l20.segment",
+          "from_location_id": "sg-l21",
+          "to_location_id": "sg-l20",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l22-l23",
+      "version": "1.0",
+      "origin_location_id": "sg-l22",
+      "destination_location_id": "sg-l23",
+      "segments": [
+        {
+          "id": "sg-route-l22-l23.segment",
+          "from_location_id": "sg-l22",
+          "to_location_id": "sg-l23",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l23-l22",
+      "version": "1.0",
+      "origin_location_id": "sg-l23",
+      "destination_location_id": "sg-l22",
+      "segments": [
+        {
+          "id": "sg-route-l23-l22.segment",
+          "from_location_id": "sg-l23",
+          "to_location_id": "sg-l22",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l26",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l26",
+      "segments": [
+        {
+          "id": "sg-route-l25-l26.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l26",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l26-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l26",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l26-l25.segment",
+          "from_location_id": "sg-l26",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l27",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l27",
+      "segments": [
+        {
+          "id": "sg-route-l25-l27.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l27",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l27-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l27",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l27-l25.segment",
+          "from_location_id": "sg-l27",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l28",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l28",
+      "segments": [
+        {
+          "id": "sg-route-l25-l28.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l28",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l28-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l28",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l28-l25.segment",
+          "from_location_id": "sg-l28",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l29",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l29",
+      "segments": [
+        {
+          "id": "sg-route-l25-l29.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l29",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l29-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l29",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l29-l25.segment",
+          "from_location_id": "sg-l29",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l30",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l30",
+      "segments": [
+        {
+          "id": "sg-route-l25-l30.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l30",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l30-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l30",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l30-l25.segment",
+          "from_location_id": "sg-l30",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l26-l27",
+      "version": "1.0",
+      "origin_location_id": "sg-l26",
+      "destination_location_id": "sg-l27",
+      "segments": [
+        {
+          "id": "sg-route-l26-l27.segment",
+          "from_location_id": "sg-l26",
+          "to_location_id": "sg-l27",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l27-l26",
+      "version": "1.0",
+      "origin_location_id": "sg-l27",
+      "destination_location_id": "sg-l26",
+      "segments": [
+        {
+          "id": "sg-route-l27-l26.segment",
+          "from_location_id": "sg-l27",
+          "to_location_id": "sg-l26",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l28-l29",
+      "version": "1.0",
+      "origin_location_id": "sg-l28",
+      "destination_location_id": "sg-l29",
+      "segments": [
+        {
+          "id": "sg-route-l28-l29.segment",
+          "from_location_id": "sg-l28",
+          "to_location_id": "sg-l29",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l29-l28",
+      "version": "1.0",
+      "origin_location_id": "sg-l29",
+      "destination_location_id": "sg-l28",
+      "segments": [
+        {
+          "id": "sg-route-l29-l28.segment",
+          "from_location_id": "sg-l29",
+          "to_location_id": "sg-l28",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l32",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l32",
+      "segments": [
+        {
+          "id": "sg-route-l31-l32.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l32",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l32-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l32",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l32-l31.segment",
+          "from_location_id": "sg-l32",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l33",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l33",
+      "segments": [
+        {
+          "id": "sg-route-l31-l33.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l33",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l33-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l33",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l33-l31.segment",
+          "from_location_id": "sg-l33",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l34",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l34",
+      "segments": [
+        {
+          "id": "sg-route-l31-l34.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l34",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l34-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l34",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l34-l31.segment",
+          "from_location_id": "sg-l34",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l35",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l35",
+      "segments": [
+        {
+          "id": "sg-route-l31-l35.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l35",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l35-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l35",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l35-l31.segment",
+          "from_location_id": "sg-l35",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l36",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l36",
+      "segments": [
+        {
+          "id": "sg-route-l31-l36.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l36",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l36-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l36",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l36-l31.segment",
+          "from_location_id": "sg-l36",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l32-l33",
+      "version": "1.0",
+      "origin_location_id": "sg-l32",
+      "destination_location_id": "sg-l33",
+      "segments": [
+        {
+          "id": "sg-route-l32-l33.segment",
+          "from_location_id": "sg-l32",
+          "to_location_id": "sg-l33",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l33-l32",
+      "version": "1.0",
+      "origin_location_id": "sg-l33",
+      "destination_location_id": "sg-l32",
+      "segments": [
+        {
+          "id": "sg-route-l33-l32.segment",
+          "from_location_id": "sg-l33",
+          "to_location_id": "sg-l32",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l34-l35",
+      "version": "1.0",
+      "origin_location_id": "sg-l34",
+      "destination_location_id": "sg-l35",
+      "segments": [
+        {
+          "id": "sg-route-l34-l35.segment",
+          "from_location_id": "sg-l34",
+          "to_location_id": "sg-l35",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l35-l34",
+      "version": "1.0",
+      "origin_location_id": "sg-l35",
+      "destination_location_id": "sg-l34",
+      "segments": [
+        {
+          "id": "sg-route-l35-l34.segment",
+          "from_location_id": "sg-l35",
+          "to_location_id": "sg-l34",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l38",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l38",
+      "segments": [
+        {
+          "id": "sg-route-l37-l38.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l38",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l38-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l38",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l38-l37.segment",
+          "from_location_id": "sg-l38",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l39",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l39",
+      "segments": [
+        {
+          "id": "sg-route-l37-l39.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l39",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l39-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l39",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l39-l37.segment",
+          "from_location_id": "sg-l39",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l40",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l40",
+      "segments": [
+        {
+          "id": "sg-route-l37-l40.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l40",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l40-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l40",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l40-l37.segment",
+          "from_location_id": "sg-l40",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l41",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l41",
+      "segments": [
+        {
+          "id": "sg-route-l37-l41.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l41",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l41-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l41",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l41-l37.segment",
+          "from_location_id": "sg-l41",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l42",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l42",
+      "segments": [
+        {
+          "id": "sg-route-l37-l42.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l42",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l42-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l42",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l42-l37.segment",
+          "from_location_id": "sg-l42",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l38-l39",
+      "version": "1.0",
+      "origin_location_id": "sg-l38",
+      "destination_location_id": "sg-l39",
+      "segments": [
+        {
+          "id": "sg-route-l38-l39.segment",
+          "from_location_id": "sg-l38",
+          "to_location_id": "sg-l39",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l39-l38",
+      "version": "1.0",
+      "origin_location_id": "sg-l39",
+      "destination_location_id": "sg-l38",
+      "segments": [
+        {
+          "id": "sg-route-l39-l38.segment",
+          "from_location_id": "sg-l39",
+          "to_location_id": "sg-l38",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l40-l41",
+      "version": "1.0",
+      "origin_location_id": "sg-l40",
+      "destination_location_id": "sg-l41",
+      "segments": [
+        {
+          "id": "sg-route-l40-l41.segment",
+          "from_location_id": "sg-l40",
+          "to_location_id": "sg-l41",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l41-l40",
+      "version": "1.0",
+      "origin_location_id": "sg-l41",
+      "destination_location_id": "sg-l40",
+      "segments": [
+        {
+          "id": "sg-route-l41-l40.segment",
+          "from_location_id": "sg-l41",
+          "to_location_id": "sg-l40",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l44",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l44",
+      "segments": [
+        {
+          "id": "sg-route-l43-l44.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l44",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l44-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l44",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l44-l43.segment",
+          "from_location_id": "sg-l44",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 30,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l45",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l45",
+      "segments": [
+        {
+          "id": "sg-route-l43-l45.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l45",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l45-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l45",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l45-l43.segment",
+          "from_location_id": "sg-l45",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 60,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l46",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l46",
+      "segments": [
+        {
+          "id": "sg-route-l43-l46.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l46",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l46-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l46",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l46-l43.segment",
+          "from_location_id": "sg-l46",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 120,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l47",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l47",
+      "segments": [
+        {
+          "id": "sg-route-l43-l47.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l47",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l47-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l47",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l47-l43.segment",
+          "from_location_id": "sg-l47",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 180,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l48",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l48",
+      "segments": [
+        {
+          "id": "sg-route-l43-l48.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l48",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l48-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l48",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l48-l43.segment",
+          "from_location_id": "sg-l48",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 240,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l44-l45",
+      "version": "1.0",
+      "origin_location_id": "sg-l44",
+      "destination_location_id": "sg-l45",
+      "segments": [
+        {
+          "id": "sg-route-l44-l45.segment",
+          "from_location_id": "sg-l44",
+          "to_location_id": "sg-l45",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l45-l44",
+      "version": "1.0",
+      "origin_location_id": "sg-l45",
+      "destination_location_id": "sg-l44",
+      "segments": [
+        {
+          "id": "sg-route-l45-l44.segment",
+          "from_location_id": "sg-l45",
+          "to_location_id": "sg-l44",
+          "duration_minutes": 40,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l46-l47",
+      "version": "1.0",
+      "origin_location_id": "sg-l46",
+      "destination_location_id": "sg-l47",
+      "segments": [
+        {
+          "id": "sg-route-l46-l47.segment",
+          "from_location_id": "sg-l46",
+          "to_location_id": "sg-l47",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l47-l46",
+      "version": "1.0",
+      "origin_location_id": "sg-l47",
+      "destination_location_id": "sg-l46",
+      "segments": [
+        {
+          "id": "sg-route-l47-l46.segment",
+          "from_location_id": "sg-l47",
+          "to_location_id": "sg-l46",
+          "duration_minutes": 90,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l01-l07.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l07-l01.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l01-l13.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 480,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l13-l01.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 480,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l01-l19.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l19-l01.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l01-l25.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l25-l01.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l01-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l01",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l01-l43.segment",
+          "from_location_id": "sg-l01",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l01",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l01",
+      "segments": [
+        {
+          "id": "sg-route-l43-l01.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l01",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l07-l31.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l31-l07.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l13-l19.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l19-l13.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l13-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l13",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l13-l25.segment",
+          "from_location_id": "sg-l13",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l13",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l13",
+      "segments": [
+        {
+          "id": "sg-route-l25-l13.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l13",
+          "duration_minutes": 720,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l19-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l19",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l19-l31.segment",
+          "from_location_id": "sg-l19",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1800,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l19",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l19",
+      "segments": [
+        {
+          "id": "sg-route-l31-l19.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l19",
+          "duration_minutes": 1800,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l25-l31.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l31-l25.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l25-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l25",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l25-l37.segment",
+          "from_location_id": "sg-l25",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l25",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l25",
+      "segments": [
+        {
+          "id": "sg-route-l37-l25.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l25",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l31-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l31",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l31-l37.segment",
+          "from_location_id": "sg-l31",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l31",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l31",
+      "segments": [
+        {
+          "id": "sg-route-l37-l31.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l31",
+          "duration_minutes": 2160,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l37-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l37",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l37-l43.segment",
+          "from_location_id": "sg-l37",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l37",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l37",
+      "segments": [
+        {
+          "id": "sg-route-l43-l37.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l37",
+          "duration_minutes": 1440,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l43-l07",
+      "version": "1.0",
+      "origin_location_id": "sg-l43",
+      "destination_location_id": "sg-l07",
+      "segments": [
+        {
+          "id": "sg-route-l43-l07.segment",
+          "from_location_id": "sg-l43",
+          "to_location_id": "sg-l07",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    },
+    {
+      "id": "sg-route-l07-l43",
+      "version": "1.0",
+      "origin_location_id": "sg-l07",
+      "destination_location_id": "sg-l43",
+      "segments": [
+        {
+          "id": "sg-route-l07-l43.segment",
+          "from_location_id": "sg-l07",
+          "to_location_id": "sg-l43",
+          "duration_minutes": 1080,
+          "movement_method_id": "ordinary_low_tier_travel_with_normal_rests",
+          "zero_time_connection": false
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "sg-l01": "渡鸦桥镇",
+    "sg-l02": "三盏灯客栈",
+    "sg-l03": "旧税关",
+    "sg-l04": "磨石渡",
+    "sg-l05": "灰烬田",
+    "sg-l06": "白砾驿",
+    "sg-l07": "断旗堡",
+    "sg-l08": "白棘演武场",
+    "sg-l09": "断誓礼拜堂",
+    "sg-l10": "红砂隘口",
+    "sg-l11": "悬草坡",
+    "sg-l12": "倒旗墓道",
+    "sg-l13": "沉钟林口",
+    "sg-l14": "根桥聚落",
+    "sg-l15": "鹿角泉",
+    "sg-l16": "空心榆集",
+    "sg-l17": "沉钟沼",
+    "sg-l18": "长眠树庭",
+    "sg-l19": "铜脊矿城",
+    "sg-l20": "深炉议厅",
+    "sg-l21": "七号通风井",
+    "sg-l22": "盐晶洞",
+    "sg-l23": "冷锤工坊",
+    "sg-l24": "矿灯旧轨",
+    "sg-l25": "镜湖镇",
+    "sg-l26": "第六观星塔",
+    "sg-l27": "渡烛书院",
+    "sg-l28": "裂纹温室",
+    "sg-l29": "无声渡台",
+    "sg-l30": "倒影试场",
+    "sg-l31": "无名王庭外城",
+    "sg-l32": "失名档案院",
+    "sg-l33": "裂冠广场",
+    "sg-l34": "黑蜡下街",
+    "sg-l35": "沉王水宫",
+    "sg-l36": "无火旧宫灶",
+    "sg-l37": "雾湾港",
+    "sg-l38": "最后古灯塔",
+    "sg-l39": "风骨盐场",
+    "sg-l40": "破帆泊地",
+    "sg-l41": "潮鸣洞",
+    "sg-l42": "远礁祈潮所",
+    "sg-l43": "灰穗集",
+    "sg-l44": "缝旗营",
+    "sg-l45": "晴风果园",
+    "sg-l46": "旧龙骨渠",
+    "sg-l47": "风铃丘",
+    "sg-l48": "春雪修院"
+  },
+  "aliases": {
+    "sg-l01": [
+      "渡鸦桥镇",
+      "Ravenbridge"
+    ],
+    "sg-l02": [
+      "三盏灯客栈",
+      "Three Lamps Inn"
+    ],
+    "sg-l03": [
+      "旧税关",
+      "Old Tollhouse"
+    ],
+    "sg-l04": [
+      "磨石渡",
+      "Millstone Ferry"
+    ],
+    "sg-l05": [
+      "灰烬田",
+      "Ash Fields"
+    ],
+    "sg-l06": [
+      "白砾驿",
+      "Whitegravel Post"
+    ],
+    "sg-l07": [
+      "断旗堡",
+      "Brokenbanner Keep"
+    ],
+    "sg-l08": [
+      "白棘演武场",
+      "White Thorn Yard"
+    ],
+    "sg-l09": [
+      "断誓礼拜堂",
+      "Broken Oath Chapel"
+    ],
+    "sg-l10": [
+      "红砂隘口",
+      "Red Sand Pass"
+    ],
+    "sg-l11": [
+      "悬草坡",
+      "Hanginggrass Slope"
+    ],
+    "sg-l12": [
+      "倒旗墓道",
+      "Fallen Banner Crypt"
+    ],
+    "sg-l13": [
+      "沉钟林口",
+      "Sunkenbell Verge"
+    ],
+    "sg-l14": [
+      "根桥聚落",
+      "Rootbridge Enclave"
+    ],
+    "sg-l15": [
+      "鹿角泉",
+      "Antler Spring"
+    ],
+    "sg-l16": [
+      "空心榆集",
+      "Hollow Elm Fair"
+    ],
+    "sg-l17": [
+      "沉钟沼",
+      "Sunkenbell Marsh"
+    ],
+    "sg-l18": [
+      "长眠树庭",
+      "Longsleep Grove"
+    ],
+    "sg-l19": [
+      "铜脊矿城",
+      "Copperback"
+    ],
+    "sg-l20": [
+      "深炉议厅",
+      "Deephearth Hall"
+    ],
+    "sg-l21": [
+      "七号通风井",
+      "Vent Shaft Seven"
+    ],
+    "sg-l22": [
+      "盐晶洞",
+      "Saltglass Cavern"
+    ],
+    "sg-l23": [
+      "冷锤工坊",
+      "Coldhammer Workshop"
+    ],
+    "sg-l24": [
+      "矿灯旧轨",
+      "Lantern Rail"
+    ],
+    "sg-l25": [
+      "镜湖镇",
+      "Mirrorlake"
+    ],
+    "sg-l26": [
+      "第六观星塔",
+      "Sixth Observatory"
+    ],
+    "sg-l27": [
+      "渡烛书院",
+      "Candleford School"
+    ],
+    "sg-l28": [
+      "裂纹温室",
+      "Cracked Glasshouse"
+    ],
+    "sg-l29": [
+      "无声渡台",
+      "Quiet Landing"
+    ],
+    "sg-l30": [
+      "倒影试场",
+      "Reflections Yard"
+    ],
+    "sg-l31": [
+      "无名王庭外城",
+      "Outer Nameless Court"
+    ],
+    "sg-l32": [
+      "失名档案院",
+      "House of Lost Names"
+    ],
+    "sg-l33": [
+      "裂冠广场",
+      "Splitcrown Square"
+    ],
+    "sg-l34": [
+      "黑蜡下街",
+      "Blackwax Understreet"
+    ],
+    "sg-l35": [
+      "沉王水宫",
+      "Drowned King’s Hall"
+    ],
+    "sg-l36": [
+      "无火旧宫灶",
+      "Cold Palace Kitchens"
+    ],
+    "sg-l37": [
+      "雾湾港",
+      "Mistbay Harbor"
+    ],
+    "sg-l38": [
+      "最后古灯塔",
+      "Last Ancient Beacon"
+    ],
+    "sg-l39": [
+      "风骨盐场",
+      "Windbone Saltpans"
+    ],
+    "sg-l40": [
+      "破帆泊地",
+      "Torn Sail Anchorage"
+    ],
+    "sg-l41": [
+      "潮鸣洞",
+      "Tidesong Cave"
+    ],
+    "sg-l42": [
+      "远礁祈潮所",
+      "Farreef Shrine"
+    ],
+    "sg-l43": [
+      "灰穗集",
+      "Greygrain Market"
+    ],
+    "sg-l44": [
+      "缝旗营",
+      "Patchbanner Camp"
+    ],
+    "sg-l45": [
+      "晴风果园",
+      "Fairwind Orchard"
+    ],
+    "sg-l46": [
+      "旧龙骨渠",
+      "Old Dragonbone Channel"
+    ],
+    "sg-l47": [
+      "风铃丘",
+      "Windchime Hill"
+    ],
+    "sg-l48": [
+      "春雪修院",
+      "Springsnow Hospice"
+    ]
+  }
+}

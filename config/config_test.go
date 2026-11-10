@@ -1,0 +1,601 @@
+package config
+
+import (
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+func TestUnconfiguredModelSettingsStayEmptyAfterReload(t *testing.T) {
+	t.Chdir(t.TempDir())
+	for _, key := range []string{"OPENAI_API_KEY", "OPENAI_BASE_URL", "OPENAI_MODEL", "OPENAI_CONTEXT_WINDOW_TOKENS"} {
+		t.Setenv(key, "")
+	}
+	dataDir := t.TempDir()
+	for attempt := 0; attempt < 2; attempt++ {
+		cfg, layered, err := LoadWithProject(dataDir, "", "")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(layered.Effective.ModelEndpoints) != 0 || len(layered.Effective.ModelProfiles) != 0 {
+			t.Fatalf("unconfigured settings must not create model connections or profiles: %+v", layered.Effective.ModelProfiles)
+		}
+		for _, kind := range []string{AgentKindIDE, AgentKindInteractiveStory} {
+			model := ResolveAgentModel(cfg, kind)
+			if model.Model != "" || model.BaseURL != "" || model.APIKey != "" || model.Provider != "" {
+				t.Fatalf("unconfigured %s must not resolve a preset: %+v", kind, model)
+			}
+		}
+		if err := WriteSettingsFile(layered.Paths.UserConfig, Settings{Language: "en-US"}); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestLoadDefaultsDenovaDir(t *testing.T) {
+	t.Chdir(t.TempDir())
+	t.Setenv("TA_DIR", "")
+	t.Setenv("NOVA_DIR", "")
+
+	cfg := Load()
+	want := normalizePath(defaultNovaDir())
+	if cfg.NovaDir != want {
+		t.Fatalf("默认 NovaDir 不符合预期: want=%s got=%s", want, cfg.NovaDir)
+	}
+	if cfg.DenovaDir != want {
+		t.Fatalf("默认 DenovaDir 不符合预期: want=%s got=%s", want, cfg.DenovaDir)
+	}
+}
+
+func TestLoadDoesNotDefaultWorkspaceToCurrentDir(t *testing.T) {
+	t.Chdir(t.TempDir())
+	t.Setenv("TA_DIR", "")
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("TA_WORKSPACE", "")
+	t.Setenv("NOVA_WORKSPACE", "")
+
+	cfg := Load()
+	if cfg.Workspace != "" {
+		t.Fatalf("未显式指定 workspace 时不应默认打开当前目录: got=%s", cfg.Workspace)
+	}
+	if !cfg.ResumeLastWorkspace {
+		t.Fatalf("未显式指定 workspace 时应允许恢复上次打开的书籍")
+	}
+}
+
+func TestLoadNovaDirFromEnv(t *testing.T) {
+	t.Chdir(t.TempDir())
+	dir := filepath.Join(t.TempDir(), "nova-data")
+	t.Setenv("TA_DIR", "")
+	t.Setenv("NOVA_DIR", dir)
+
+	cfg := Load()
+	if cfg.NovaDir != dir {
+		t.Fatalf("环境变量 NovaDir 不符合预期: want=%s got=%s", dir, cfg.NovaDir)
+	}
+	if cfg.DenovaDir != dir {
+		t.Fatalf("环境变量 DenovaDir 不符合预期: want=%s got=%s", dir, cfg.DenovaDir)
+	}
+}
+
+func TestLoadDenovaDirEnvOverridesLegacyNovaDir(t *testing.T) {
+	t.Chdir(t.TempDir())
+	denovaDir := filepath.Join(t.TempDir(), "denova-data")
+	legacyDir := filepath.Join(t.TempDir(), "nova-data")
+	t.Setenv("TA_DIR", denovaDir)
+	t.Setenv("NOVA_DIR", legacyDir)
+
+	cfg := Load()
+	if cfg.DenovaDir != denovaDir {
+		t.Fatalf("TA_DIR should override NOVA_DIR: want=%s got=%s", denovaDir, cfg.DenovaDir)
+	}
+	if cfg.NovaDir != denovaDir {
+		t.Fatalf("legacy NovaDir should mirror TA_DIR: want=%s got=%s", denovaDir, cfg.NovaDir)
+	}
+}
+
+// A launcher or unit file written before the rename still exports the previous
+// prefix. It must keep resolving to the same directory instead of silently
+// falling back to the default one.
+func TestLoadAcceptsPreRenameEnvironmentNames(t *testing.T) {
+	cases := []struct{ name, legacy string }{
+		{"TA_DIR", "DENOVA_DIR"},
+		{"TA_DIR", "NOVA_DIR"},
+		{"TA_WORKSPACE", "DENOVA_WORKSPACE"},
+		{"TA_SKILLS_DIR", "DENOVA_SKILLS_DIR"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.legacy, func(t *testing.T) {
+			value := filepath.Join(t.TempDir(), "pre-rename")
+			t.Setenv(tc.name, "")
+			t.Setenv(tc.legacy, value)
+			t.Chdir(t.TempDir())
+
+			cfg := Load()
+			switch tc.name {
+			case "TA_DIR":
+				if cfg.DenovaDir != value {
+					t.Fatalf("%s was not read: want=%s got=%s", tc.legacy, value, cfg.DenovaDir)
+				}
+			case "TA_WORKSPACE":
+				if cfg.Workspace != value {
+					t.Fatalf("%s was not read: want=%s got=%s", tc.legacy, value, cfg.Workspace)
+				}
+			case "TA_SKILLS_DIR":
+				if cfg.SkillsDir != value {
+					t.Fatalf("%s was not read: want=%s got=%s", tc.legacy, value, cfg.SkillsDir)
+				}
+			}
+		})
+	}
+}
+
+func TestNormalizePathExpandsRelativeAndHome(t *testing.T) {
+	relative := "data/nova"
+	abs, err := filepath.Abs(relative)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := normalizePath(relative); got != abs {
+		t.Fatalf("相对路径未转绝对路径: want=%s got=%s", abs, got)
+	}
+
+	home, err := os.UserHomeDir()
+	if err != nil || home == "" {
+		t.Skip("当前环境无 home 目录")
+	}
+	want := filepath.Join(home, ".nova")
+	if got := normalizePath("~/.nova"); got != want {
+		t.Fatalf("~ 路径未正确展开: want=%s got=%s", want, got)
+	}
+}
+
+func TestLoadWithWorkspaceUsesUserSettingsAndWorkspaceAgentOverrides(t *testing.T) {
+	novaDir := t.TempDir()
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", novaDir)
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"),
+		Settings{OpenAIModel: "user-model", Language: "zh-CN", IDEImagePresetID: "realistic"}); err != nil {
+		t.Fatal(err)
+	}
+	if err := WriteSettingsFile(filepath.Join(ws, ".nova", "config.toml"),
+		Settings{
+			OpenAIModel:         "ws-model",
+			Language:            "en-US",
+			IDEImagePresetID:    "2d-illustration",
+			AgentTools:          AgentToolSettings{IDE: AgentToolOverride{AgentToolShell: false}},
+		}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.OpenAIModel != "user-model" {
+		t.Fatalf("user model expected, got %s", cfg.OpenAIModel)
+	}
+	if cfg.Language != "zh-CN" {
+		t.Fatalf("user language expected, got %s", cfg.Language)
+	}
+	if cfg.IDEImagePresetID != "realistic" {
+		t.Fatalf("user image preset default expected, got %s", cfg.IDEImagePresetID)
+	}
+	if len(layered.User.ModelProfiles) != 1 || layered.User.ModelProfiles[0].Model != "user-model" {
+		t.Fatalf("user layer raw value lost")
+	}
+	if layered.Workspace.OpenAIModel != "" || layered.Workspace.Language != "" {
+		t.Fatalf("workspace general settings should be filtered: %#v", layered.Workspace)
+	}
+	if enabled, present := cfg.AgentTools.IDE[AgentToolShell]; !present || enabled {
+		t.Fatalf("workspace Agent override should remain effective: %#v", cfg.AgentTools.IDE)
+	}
+}
+
+func TestLoadWithWorkspaceAllowsUnlimitedAgentIdleTimeout(t *testing.T) {
+	novaDir := t.TempDir()
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", novaDir)
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+	t.Setenv("NOVA_AGENT_IDLE_TIMEOUT_SECONDS", "")
+
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"),
+		Settings{AgentIdleTimeoutSeconds: intPtr(0)}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.AgentIdleTimeoutSeconds != 0 {
+		t.Fatalf("agent idle timeout should allow explicit 0, got %d", cfg.AgentIdleTimeoutSeconds)
+	}
+	if layered.Effective.AgentIdleTimeoutSeconds == nil || *layered.Effective.AgentIdleTimeoutSeconds != 0 {
+		t.Fatalf("effective agent idle timeout should preserve explicit 0")
+	}
+}
+
+func TestLoadWithWorkspaceNormalizesUserProjectFileTreeEntryLimit(t *testing.T) {
+	novaDir := t.TempDir()
+	workspace := t.TempDir()
+	t.Setenv("TA_DIR", novaDir)
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	configured := MaxProjectFileTreeEntryLimit + 1
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"), Settings{
+		ProjectFileTreeEntryLimit: intPtr(configured),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := WriteSettingsFile(filepath.Join(workspace, ".denova", "config.toml"), Settings{
+		ProjectFileTreeEntryLimit: intPtr(10),
+	}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(workspace)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.ProjectFileTreeEntryLimit != MaxProjectFileTreeEntryLimit {
+		t.Fatalf("project file tree limit = %d, want %d", cfg.ProjectFileTreeEntryLimit, MaxProjectFileTreeEntryLimit)
+	}
+	if layered.User.ProjectFileTreeEntryLimit == nil || *layered.User.ProjectFileTreeEntryLimit != MaxProjectFileTreeEntryLimit {
+		t.Fatalf("user project file tree limit was not normalized: %#v", layered.User.ProjectFileTreeEntryLimit)
+	}
+	if layered.Workspace.ProjectFileTreeEntryLimit != nil {
+		t.Fatalf("workspace must not override the user-scoped project file tree limit")
+	}
+}
+
+func TestLoadWithWorkspaceMapsZeroToolResultLimitToDefault(t *testing.T) {
+	novaDir := t.TempDir()
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", novaDir)
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"),
+		Settings{AgentToolResultLimitKB: intPtr(0)}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.AgentToolResultLimitKB != DefaultAgentToolResultLimitKB {
+		t.Fatalf("agent tool result limit should map 0 to the default, got %d", cfg.AgentToolResultLimitKB)
+	}
+	if layered.Effective.AgentToolResultLimitKB == nil || *layered.Effective.AgentToolResultLimitKB != DefaultAgentToolResultLimitKB {
+		t.Fatalf("effective agent tool result limit should expose the default")
+	}
+}
+
+func TestLoadWithWorkspaceLayersAndNormalizesAgentToolParallelism(t *testing.T) {
+	tests := []struct {
+		name          string
+		user          int
+		workspace     int
+		wantUser      int
+		wantWorkspace int
+		wantEffective int
+	}{
+		{name: "workspace override", user: 4, workspace: 12, wantUser: 4, wantWorkspace: 12, wantEffective: 12},
+		{name: "zero uses default", user: 3, workspace: 0, wantUser: 3, wantWorkspace: DefaultAgentToolParallelism, wantEffective: DefaultAgentToolParallelism},
+		{name: "upper bound", user: 4, workspace: 100, wantUser: 4, wantWorkspace: MaxAgentToolParallelism, wantEffective: MaxAgentToolParallelism},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			novaDir := t.TempDir()
+			workspace := t.TempDir()
+			t.Setenv("NOVA_DIR", novaDir)
+			t.Setenv("TA_DIR", "")
+			t.Setenv("OPENAI_API_KEY", "")
+			t.Setenv("OPENAI_MODEL", "")
+			if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"), Settings{AgentToolParallelism: intPtr(test.user)}); err != nil {
+				t.Fatal(err)
+			}
+			if err := WriteSettingsFile(filepath.Join(workspace, ".nova", "config.toml"), Settings{AgentToolParallelism: intPtr(test.workspace)}); err != nil {
+				t.Fatal(err)
+			}
+			cfg, layered, err := LoadWithWorkspace(workspace)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if layered.User.AgentToolParallelism == nil || *layered.User.AgentToolParallelism != test.wantUser ||
+				layered.Workspace.AgentToolParallelism == nil || *layered.Workspace.AgentToolParallelism != test.wantWorkspace ||
+				layered.Effective.AgentToolParallelism == nil || *layered.Effective.AgentToolParallelism != test.wantEffective ||
+				cfg.AgentToolParallelism != test.wantEffective {
+				t.Fatalf("parallelism cfg=%d user=%v workspace=%v effective=%v", cfg.AgentToolParallelism,
+					layered.User.AgentToolParallelism, layered.Workspace.AgentToolParallelism, layered.Effective.AgentToolParallelism)
+			}
+		})
+	}
+}
+
+func TestLoadWithWorkspaceLayersAndNormalizesAgentSubAgentParallelism(t *testing.T) {
+	tests := []struct {
+		name          string
+		user          int
+		workspace     int
+		wantUser      int
+		wantWorkspace int
+		wantEffective int
+	}{
+		{name: "workspace override", user: 2, workspace: 6, wantUser: 2, wantWorkspace: 6, wantEffective: 6},
+		{name: "zero uses default", user: 3, workspace: 0, wantUser: 3, wantWorkspace: DefaultAgentSubAgentParallelism, wantEffective: DefaultAgentSubAgentParallelism},
+		{name: "upper bound", user: 4, workspace: 100, wantUser: 4, wantWorkspace: MaxAgentSubAgentParallelism, wantEffective: MaxAgentSubAgentParallelism},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			novaDir := t.TempDir()
+			workspace := t.TempDir()
+			t.Setenv("NOVA_DIR", novaDir)
+			t.Setenv("TA_DIR", "")
+			t.Setenv("OPENAI_API_KEY", "")
+			t.Setenv("OPENAI_MODEL", "")
+			if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"), Settings{AgentSubAgentParallelism: intPtr(test.user)}); err != nil {
+				t.Fatal(err)
+			}
+			if err := WriteSettingsFile(filepath.Join(workspace, ".nova", "config.toml"), Settings{AgentSubAgentParallelism: intPtr(test.workspace)}); err != nil {
+				t.Fatal(err)
+			}
+			cfg, layered, err := LoadWithWorkspace(workspace)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if layered.User.AgentSubAgentParallelism == nil || *layered.User.AgentSubAgentParallelism != test.wantUser ||
+				layered.Workspace.AgentSubAgentParallelism == nil || *layered.Workspace.AgentSubAgentParallelism != test.wantWorkspace ||
+				layered.Effective.AgentSubAgentParallelism == nil || *layered.Effective.AgentSubAgentParallelism != test.wantEffective ||
+				cfg.AgentSubAgentParallelism != test.wantEffective {
+				t.Fatalf("subagent parallelism cfg=%d user=%v workspace=%v effective=%v", cfg.AgentSubAgentParallelism,
+					layered.User.AgentSubAgentParallelism, layered.Workspace.AgentSubAgentParallelism, layered.Effective.AgentSubAgentParallelism)
+			}
+		})
+	}
+}
+
+func TestLoadWithWorkspaceDefaultsLLMInputLogDisabled(t *testing.T) {
+	novaDir := t.TempDir()
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", novaDir)
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.LLMInputLogEnabled {
+		t.Fatalf("llm input log should default to disabled")
+	}
+	if layered.Effective.LLMInputLogEnabled == nil || *layered.Effective.LLMInputLogEnabled {
+		t.Fatalf("effective llm input log should default to false: %#v", layered.Effective.LLMInputLogEnabled)
+	}
+}
+
+func TestLoadWithWorkspaceReadsUserLLMInputLogSetting(t *testing.T) {
+	novaDir := t.TempDir()
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", novaDir)
+	enabled := true
+
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"),
+		Settings{LLMInputLogEnabled: &enabled}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !cfg.LLMInputLogEnabled {
+		t.Fatalf("llm input log should read user setting")
+	}
+	if layered.Effective.LLMInputLogEnabled == nil || !*layered.Effective.LLMInputLogEnabled {
+		t.Fatalf("effective llm input log should be true")
+	}
+}
+
+func TestLoadWithWorkspaceUsesGlobalConfigNovaDir(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	novaDir := filepath.Join(root, "global-nova")
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("nova_dir = \"./global-nova\"\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := WriteSettingsFile(filepath.Join(novaDir, "config.toml"), Settings{OpenAIModel: "user-model"}); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantNovaDir := normalizePath("./global-nova")
+	if cfg.NovaDir != wantNovaDir {
+		t.Fatalf("global nova_dir should locate user config: want=%s got=%s", wantNovaDir, cfg.NovaDir)
+	}
+	if len(layered.User.ModelProfiles) != 1 || layered.User.ModelProfiles[0].Model != "user-model" {
+		t.Fatalf("user config should be loaded from global nova_dir")
+	}
+}
+
+func TestLoadWithWorkspaceUsesGlobalConfigAsBaseLayer(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("openai_model = \"global-model\"\nskills_dir = \"./global-skills\"\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.OpenAIModel != "global-model" {
+		t.Fatalf("global config should be effective when user/workspace unset: %s", cfg.OpenAIModel)
+	}
+	if len(layered.Global.ModelProfiles) != 1 || layered.Global.ModelProfiles[0].Model != "global-model" {
+		t.Fatalf("global layer should expose the migrated model profile: %#v", layered.Global.ModelProfiles)
+	}
+}
+
+func TestApplyModelEnvironmentOverridesSharedDefaultEndpoint(t *testing.T) {
+	t.Setenv("OPENAI_API_KEY", "env-key")
+	t.Setenv("OPENAI_BASE_URL", "https://env.example/v1")
+	t.Setenv("OPENAI_MODEL", "env-model")
+	cfg := &Config{
+		ModelEndpoints: []ModelEndpointSettings{{ID: DefaultModelEndpointID, Provider: "openai", APIKey: "file-key", BaseURL: "https://file.example/v1"}},
+		ModelProfiles:  []ModelProfileSettings{{ID: DefaultModelEndpointID, EndpointID: DefaultModelEndpointID, Model: "file-model"}},
+	}
+
+	ApplyModelEnvironment(cfg)
+	resolved := ResolveAgentModel(cfg, AgentKindIDE)
+	if resolved.APIKey != "env-key" || resolved.BaseURL != "https://env.example/v1" || resolved.Model != "env-model" {
+		t.Fatalf("environment model = %#v", resolved)
+	}
+}
+
+func TestLoadWithWorkspaceAllowsGlobalUnlimitedAgentIdleTimeout(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("agent_idle_timeout_seconds = 0\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.AgentIdleTimeoutSeconds != 0 {
+		t.Fatalf("global agent idle timeout should allow explicit 0, got %d", cfg.AgentIdleTimeoutSeconds)
+	}
+	if layered.Global.AgentIdleTimeoutSeconds == nil || *layered.Global.AgentIdleTimeoutSeconds != 0 {
+		t.Fatalf("global layer should preserve explicit 0")
+	}
+}
+
+func TestLoadWithWorkspaceMapsGlobalZeroToolResultLimitToDefault(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("agent_tool_result_limit_kb = 0\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.AgentToolResultLimitKB != DefaultAgentToolResultLimitKB {
+		t.Fatalf("global agent tool result limit should map 0 to the default, got %d", cfg.AgentToolResultLimitKB)
+	}
+	if layered.Global.AgentToolResultLimitKB == nil || *layered.Global.AgentToolResultLimitKB != DefaultAgentToolResultLimitKB {
+		t.Fatalf("global layer should expose the default")
+	}
+}
+
+func TestLoadWithWorkspaceUsesConfiguredStartupPorts(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	ws := t.TempDir()
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("NOVA_BACKEND_PORT", "")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("backend_port = 18080\nfrontend_port = 15173\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg, layered, err := LoadWithWorkspace(ws)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if cfg.BackendPort != 18080 {
+		t.Fatalf("global backend_port should be effective: %d", cfg.BackendPort)
+	}
+	if layered.Effective.BackendPort == nil || *layered.Effective.BackendPort != 18080 {
+		t.Fatalf("effective backend_port should be exposed")
+	}
+	if cfg.FrontendPort != 15173 {
+		t.Fatalf("global frontend_port should be effective: %d", cfg.FrontendPort)
+	}
+	if layered.Effective.FrontendPort == nil || *layered.Effective.FrontendPort != 15173 {
+		t.Fatalf("effective frontend_port should be exposed")
+	}
+}
+
+func TestLoadStartupPortEnvOverridesConfig(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("NOVA_BACKEND_PORT", "19090")
+	t.Setenv("NOVA_FRONTEND_PORT", "16173")
+
+	if err := os.WriteFile(filepath.Join(root, "config.toml"), []byte("backend_port = 18080\nfrontend_port = 15173\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg := Load()
+	if cfg.BackendPort != 19090 {
+		t.Fatalf("NOVA_BACKEND_PORT should override config: %d", cfg.BackendPort)
+	}
+	if cfg.FrontendPort != 16173 {
+		t.Fatalf("NOVA_FRONTEND_PORT should override config: %d", cfg.FrontendPort)
+	}
+}
+
+func TestLoadStartupDataPortEnvOverridesLegacy(t *testing.T) {
+	root := t.TempDir()
+	t.Chdir(root)
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("TA_BACKEND_PORT", "19090")
+	t.Setenv("NOVA_BACKEND_PORT", "18080")
+	t.Setenv("TA_FRONTEND_PORT", "16173")
+	t.Setenv("NOVA_FRONTEND_PORT", "15173")
+
+	cfg := Load()
+	if cfg.BackendPort != 19090 {
+		t.Fatalf("TA_BACKEND_PORT should override NOVA_BACKEND_PORT: %d", cfg.BackendPort)
+	}
+	if cfg.FrontendPort != 16173 {
+		t.Fatalf("TA_FRONTEND_PORT should override NOVA_FRONTEND_PORT: %d", cfg.FrontendPort)
+	}
+}
+
+func TestLoadAgentIdleTimeoutEnvAllowsZero(t *testing.T) {
+	t.Chdir(t.TempDir())
+	t.Setenv("NOVA_DIR", "")
+	t.Setenv("OPENAI_API_KEY", "")
+	t.Setenv("OPENAI_MODEL", "")
+	t.Setenv("NOVA_AGENT_IDLE_TIMEOUT_SECONDS", "0")
+
+	cfg := Load()
+	if cfg.AgentIdleTimeoutSeconds != 0 {
+		t.Fatalf("NOVA_AGENT_IDLE_TIMEOUT_SECONDS=0 should disable idle timeout, got %d", cfg.AgentIdleTimeoutSeconds)
+	}
+}

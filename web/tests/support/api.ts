@@ -1,0 +1,222 @@
+import { expect, type APIRequestContext, type APIResponse } from '@playwright/test'
+import { randomUUID } from 'node:crypto'
+
+export interface E2EBook {
+  projectId: string
+  workspace: string
+  title: string
+}
+
+export interface E2EStory {
+  id: string
+}
+
+export interface E2EStoryTurn {
+  user?: string
+  narrative?: string
+}
+
+export interface E2EBranchPlan {
+  markdown: string
+  updated_turn_id: string
+  updated_at: string
+}
+
+export interface E2EAgentChatProject {
+  id: string
+  type: 'book' | 'general' | 'harness'
+  path: string
+  name: string
+}
+
+export interface E2EAgentChatSession {
+  id: string
+  title: string
+}
+
+export type E2EAgentApprovalMode = 'ask' | 'write' | 'full_access'
+
+async function expectSuccessful(response: APIResponse): Promise<void> {
+  const failureDetails = response.ok() ? undefined : await response.text()
+  expect(response.ok(), failureDetails).toBe(true)
+}
+
+export async function createAndOpenBook(request: APIRequestContext, title: string): Promise<E2EBook> {
+  // Every call owns its Project, including repeats and retries on one backend.
+  const uniqueTitle = `${title} ${randomUUID().slice(0, 8)}`
+  const created = await request.post('/api/books/create', {
+    data: { title: uniqueTitle, author: 'Text Adventure E2E' },
+  })
+  await expectSuccessful(created)
+  const body = await created.json() as { project_id: string; workspace: string }
+  const switched = await request.post('/api/workspace/switch', { data: { path: body.workspace } })
+  await expectSuccessful(switched)
+  return { projectId: body.project_id, workspace: body.workspace, title: uniqueTitle }
+}
+
+export async function createProjectFile(
+  request: APIRequestContext,
+  projectId: string,
+  path: string,
+  content: string,
+): Promise<void> {
+  const response = await request.post(`/api/projects/${encodeURIComponent(projectId)}/files/operations`, {
+    data: { operations: [{ id: 'seed', kind: 'create', path, type: 'file', content }] },
+  })
+  await expectSuccessful(response)
+  const body = await response.json() as { results?: Array<{ ok: boolean; error?: string }> }
+  expect(body.results?.[0]).toMatchObject({ ok: true })
+}
+
+export async function readProjectFile(
+  request: APIRequestContext,
+  projectId: string,
+  path: string,
+): Promise<{ content: string; revision: string }> {
+  const query = new URLSearchParams({ path })
+  const response = await request.get(`/api/projects/${encodeURIComponent(projectId)}/files/file?${query}`)
+  await expectSuccessful(response)
+  return response.json()
+}
+
+export async function saveProjectFile(
+  request: APIRequestContext,
+  projectId: string,
+  path: string,
+  content: string,
+): Promise<void> {
+  const current = await readProjectFile(request, projectId, path)
+  const response = await request.put(`/api/projects/${encodeURIComponent(projectId)}/files/file`, {
+    data: { path, content, base_revision: current.revision },
+  })
+  await expectSuccessful(response)
+}
+
+export async function getCurrentWorkspace(
+  request: APIRequestContext,
+): Promise<{ workspace: string; project_id: string; has_state: boolean }> {
+  const response = await request.get('/api/workspace/current')
+  await expectSuccessful(response)
+  return response.json()
+}
+
+export async function getProjectLoreItems(
+  request: APIRequestContext,
+  projectId: string,
+): Promise<Array<{ id: string; name: string; content: string }>> {
+  const response = await request.get(`/api/projects/${encodeURIComponent(projectId)}/book/lore/items`)
+  await expectSuccessful(response)
+  const body = await response.json() as { items?: Array<{ id: string; name: string; content: string }> }
+  return body.items ?? []
+}
+
+export async function createStory(
+  request: APIRequestContext,
+  title: string,
+  options: { planningMode?: 'enabled' | 'disabled' } = {},
+): Promise<E2EStory> {
+  const response = await request.post('/api/interactive/stories', {
+    data: {
+      title,
+      origin: '一扇石门挡在旧车站入口。',
+      protagonist: {
+        mode: 'custom',
+        name: 'E2E 主角',
+        profile: '一名正在调查旧车站的旅行者。',
+      },
+      choice_count: 2,
+      planning_mode: options.planningMode ?? 'disabled',
+      state_schema_policy: { mode: 'fixed_template' },
+    },
+  })
+  await expectSuccessful(response)
+  return response.json()
+}
+
+export async function createStartedStory(
+  request: APIRequestContext,
+  title: string,
+  options: { planningMode?: 'enabled' | 'disabled' } = {},
+): Promise<E2EStory> {
+  const story = await createStory(request, title, options)
+  const started = await request.post('/api/interactive/chat', {
+    data: {
+      command_id: `e2e-opening-${story.id}`,
+      mode: 'story',
+      story_id: story.id,
+      branch: 'main',
+      start_opening: true,
+    },
+  })
+  await expectSuccessful(started)
+  await expect.poll(async () => (await getStorySnapshot(request, story.id)).turns).toHaveLength(1)
+  return story
+}
+
+export async function getStorySnapshot(
+  request: APIRequestContext,
+  storyId: string,
+  branch = 'main',
+): Promise<{ turns: E2EStoryTurn[]; branch_plan?: E2EBranchPlan }> {
+  const query = new URLSearchParams({ branch })
+  const response = await request.get(`/api/interactive/stories/${encodeURIComponent(storyId)}/snapshot?${query}`)
+  await expectSuccessful(response)
+  const body = await response.json() as { turns?: E2EStoryTurn[]; branch_plan?: E2EBranchPlan }
+  return body.branch_plan
+    ? { turns: body.turns ?? [], branch_plan: body.branch_plan }
+    : { turns: body.turns ?? [] }
+}
+
+export async function getStoryBranches(
+  request: APIRequestContext,
+  storyId: string,
+): Promise<Array<{ id: string; title: string; current?: boolean }>> {
+  const response = await request.get(`/api/interactive/stories/${encodeURIComponent(storyId)}/branches`)
+  await expectSuccessful(response)
+  const body = await response.json() as { branches?: Array<{ id: string; title: string; current?: boolean }> }
+  return body.branches ?? []
+}
+
+export async function registerAgentChatProject(
+  request: APIRequestContext,
+  path: string,
+): Promise<E2EAgentChatProject> {
+  const response = await request.post('/api/agent-chat/projects', { data: { path } })
+  await expectSuccessful(response)
+  return response.json()
+}
+
+export async function createAgentChatSession(
+  request: APIRequestContext,
+  projectId: string,
+  title: string,
+): Promise<E2EAgentChatSession> {
+  const response = await request.post(`/api/projects/${encodeURIComponent(projectId)}/agent-chat/sessions`, {
+    data: { title },
+  })
+  await expectSuccessful(response)
+  return response.json()
+}
+
+export async function setAgentChatApprovalMode(
+  request: APIRequestContext,
+  projectId: string,
+  sessionId: string,
+  approvalMode: E2EAgentApprovalMode,
+): Promise<void> {
+  const binding = { mode: 'agent_chat', session_id: sessionId }
+  const query = new URLSearchParams(binding)
+  const path = `/api/projects/${encodeURIComponent(projectId)}/conversation-config`
+  const current = await request.get(`${path}?${query}`)
+  await expectSuccessful(current)
+  const snapshot = await current.json() as { revision: number }
+  const updated = await request.patch(path, {
+    data: {
+      binding,
+      base_revision: snapshot.revision,
+      changes: { approval_mode: approvalMode },
+    },
+  })
+  await expectSuccessful(updated)
+  expect(await updated.json()).toMatchObject({ approval_mode: approvalMode })
+}

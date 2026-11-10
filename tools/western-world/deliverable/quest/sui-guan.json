@@ -1,0 +1,4597 @@
+[
+  {
+    "schema_version": 1,
+    "id": "sg-q01",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "桥下第一根铁销",
+    "brief": "桥工发现下游支座松了，修桥资金与通行安排都需要有人跑一趟。",
+    "public_location_ids": [
+      "sg-l01"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q01.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q01.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q01.c1",
+        "title": "带铁料帮桥工更换支销",
+        "description": "带铁料帮桥工更换支销；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q01.resolve",
+        "location_ids": [
+          "sg-l01"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-iron": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-bridge-pin",
+            "quantity": 1
+          }
+        ],
+        "success": "桥工量过尺寸后与你完成更换，通行暂未中断。 桥工把一枚验过尺寸的备用铁销交给你。",
+        "failure": "铁销尺寸与桥孔仍不合，桥面暂时沿原有限载使用，不能把这段工程记为修复完成。",
+        "echo_after_seconds": 21600,
+        "success_echo": "桥工准备请过路车主共同承担下一段维修，而不是永远等一个外客。",
+        "failure_echo": "桥工把未完成处标在工单上，下一次得带尺寸或更可靠的工法来。",
+        "success_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "桥工准备请过路车主共同承担下一段维修，而不是永远等一个外客。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "桥工把未完成处标在工单上，下一次得带尺寸或更可靠的工法来。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p01"
+        ]
+      },
+      {
+        "id": "sg-q01.c2",
+        "title": "协调临时限载与修桥时段",
+        "description": "协调临时限载与修桥时段；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q01.resolve",
+        "location_ids": [
+          "sg-l01"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 8
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "车主同意分批通行，工人有了安稳检修的空档。",
+        "failure": "铁销尺寸与桥孔仍不合，桥面暂时沿原有限载使用，不能把这段工程记为修复完成。",
+        "echo_after_seconds": 21600,
+        "success_echo": "商队开始按新的时段排队，小车主希望下次也能参加商议。",
+        "failure_echo": "桥工把未完成处标在工单上，下一次得带尺寸或更可靠的工法来。",
+        "success_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "商队开始按新的时段排队，小车主希望下次也能参加商议。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "桥工把未完成处标在工单上，下一次得带尺寸或更可靠的工法来。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p01"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q02",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "没有写进账的热汤",
+    "brief": "客栈掌柜与磨坊的欠账影响桥工晚饭，双方都不愿在客人面前争吵。",
+    "public_location_ids": [
+      "sg-l02"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q02.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q02.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q02.c1",
+        "title": "核对已送面粉和已有还款",
+        "description": "核对已送面粉和已有还款；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q02.resolve",
+        "location_ids": [
+          "sg-l02"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你找出一笔被重复登记的运费，双方按实物与旧收条重算。",
+        "failure": "两份面粉记录仍对不上，热汤摊没有因此得到一笔不存在的清账。",
+        "echo_after_seconds": 21600,
+        "success_echo": "磨坊仍需收回余款，掌柜也开始另记免单，不把善意当成凭空粮食。",
+        "failure_echo": "掌柜保留原单据，只愿按后来核实的数目继续谈。",
+        "success_reaction": {
+          "character_source_key": "sg-p02",
+          "statement": "磨坊仍需收回余款，掌柜也开始另记免单，不把善意当成凭空粮食。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p02",
+          "statement": "掌柜保留原单据，只愿按后来核实的数目继续谈。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p02"
+        ]
+      },
+      {
+        "id": "sg-q02.c2",
+        "title": "自付一份应急粮，给双方留商议余地",
+        "description": "自付一份应急粮，给双方留商议余地；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q02.resolve",
+        "location_ids": [
+          "sg-l02"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-grain": 3
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "厨房照常开火，欠账并未被你这一份粮食抹掉。",
+        "failure": "两份面粉记录仍对不上，热汤摊没有因此得到一笔不存在的清账。",
+        "echo_after_seconds": 21600,
+        "success_echo": "受助桥工愿意在休工时修磨坊门板，新的交换要重新说定。",
+        "failure_echo": "掌柜保留原单据，只愿按后来核实的数目继续谈。",
+        "success_reaction": {
+          "character_source_key": "sg-p02",
+          "statement": "受助桥工愿意在休工时修磨坊门板，新的交换要重新说定。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p02",
+          "statement": "掌柜保留原单据，只愿按后来核实的数目继续谈。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p02"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q03",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "重复的旧税票",
+    "brief": "两车粮持同一编号，关吏没有足够证据扣下任何一车。",
+    "public_location_ids": [
+      "sg-l03"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q03.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q03.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q03.c1",
+        "title": "比较两份票据的经手次序",
+        "description": "比较两份票据的经手次序；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q03.resolve",
+        "location_ids": [
+          "sg-l03"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-old-seal",
+            "quantity": 1
+          }
+        ],
+        "success": "旧账副显示是换班时误抄编号，税额仍须逐车核实。 关吏把已注销的旧路印作为查验样本交给你，不再有通行效力。",
+        "failure": "印记相似不足以说明两张税票来自同一次收费，你没有注销其中任何一张。",
+        "echo_after_seconds": 21600,
+        "success_echo": "关吏改为在交接页签名，一位曾被怀疑的车主愿意再来作证。",
+        "failure_echo": "核票员把疑票单独留存，车主仍需拿出原始经手凭据。",
+        "success_reaction": {
+          "character_source_key": "sg-p03",
+          "statement": "关吏改为在交接页签名，一位曾被怀疑的车主愿意再来作证。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p03",
+          "statement": "核票员把疑票单独留存，车主仍需拿出原始经手凭据。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p03"
+        ]
+      },
+      {
+        "id": "sg-q03.c2",
+        "title": "请两名车主共同留样并继续送粮",
+        "description": "请两名车主共同留样并继续送粮；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q03.resolve",
+        "location_ids": [
+          "sg-l03"
+        ],
+        "skill_id": "sg-witness",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "两名车主留下可追溯副本，粮车没有为证据不足的指控停运。",
+        "failure": "印记相似不足以说明两张税票来自同一次收费，你没有注销其中任何一张。",
+        "echo_after_seconds": 21600,
+        "success_echo": "粮送到后，收货人能补上另一段交接证言。",
+        "failure_echo": "核票员把疑票单独留存，车主仍需拿出原始经手凭据。",
+        "success_reaction": {
+          "character_source_key": "sg-p03",
+          "statement": "粮送到后，收货人能补上另一段交接证言。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p03",
+          "statement": "核票员把疑票单独留存，车主仍需拿出原始经手凭据。"
+        },
+        "required_skill": "sg-witness",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-witness",
+        "required_character_source_keys": [
+          "sg-p03"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q04",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "漂木与鱼汛",
+    "brief": "渡工想接运木，渔户担心堵鱼，两边都只见过河的一段。",
+    "public_location_ids": [
+      "sg-l04"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q04.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q04.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q04.c1",
+        "title": "查浅滩并标出不堵水的系木处",
+        "description": "查浅滩并标出不堵水的系木处；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q04.resolve",
+        "location_ids": [
+          "sg-l04"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-shared-map",
+            "quantity": 1
+          }
+        ],
+        "success": "你找到可分批系木的位置，需船户照标记实际操作。 参加测绘的人让你保留一张共绘路图。",
+        "failure": "水流和木排位置还不足以证明鱼道畅通，试运安排没有被确认。",
+        "echo_after_seconds": 21600,
+        "success_echo": "渔户带来这一轮鱼获记录，后续能比较而不是继续猜。",
+        "failure_echo": "渔户继续看水，放木者也没有获得可以任意占河的许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p04",
+          "statement": "渔户带来这一轮鱼获记录，后续能比较而不是继续猜。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p04",
+          "statement": "渔户继续看水，放木者也没有获得可以任意占河的许可。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        },
+        "required_character_source_keys": [
+          "sg-p04"
+        ]
+      },
+      {
+        "id": "sg-q04.c2",
+        "title": "谈成小批试运并邀请渔户观察",
+        "description": "谈成小批试运并邀请渔户观察；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q04.resolve",
+        "location_ids": [
+          "sg-l04"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "双方只同意一次小批试运，没有交出全部水面。",
+        "failure": "水流和木排位置还不足以证明鱼道畅通，试运安排没有被确认。",
+        "echo_after_seconds": 21600,
+        "success_echo": "试运者要说明自己看到的结果，未到场的人不会自动知道。",
+        "failure_echo": "渔户继续看水，放木者也没有获得可以任意占河的许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p04",
+          "statement": "试运者要说明自己看到的结果，未到场的人不会自动知道。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p04",
+          "statement": "渔户继续看水，放木者也没有获得可以任意占河的许可。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p04"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q05",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "灰烬田的闸口",
+    "brief": "两户共用水渠都说自己先缺水，裂开的闸板已经关不严。",
+    "public_location_ids": [
+      "sg-l05"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q05.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q05.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q05.c1",
+        "title": "用木料和铁件修闸",
+        "description": "用木料和铁件修闸；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q05.resolve",
+        "location_ids": [
+          "sg-l05"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-wood": 2,
+          "sg-iron": 1
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "闸板重新能关紧，分水时段仍需两家谈妥。",
+        "failure": "闸口仍漏水，田间轮放需要重新测量；这一回没有分出谁应优先用水。",
+        "echo_after_seconds": 21600,
+        "success_echo": "田里新作物开始发芽，退伍兵想请人教孩子修工具。",
+        "failure_echo": "农户按已有安排取水，争议没有被一个修复宣称掩盖。",
+        "success_reaction": {
+          "character_source_key": "sg-p05",
+          "statement": "田里新作物开始发芽，退伍兵想请人教孩子修工具。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p05",
+          "statement": "农户按已有安排取水，争议没有被一个修复宣称掩盖。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p05"
+        ]
+      },
+      {
+        "id": "sg-q05.c2",
+        "title": "对照田况商议轮流放水",
+        "description": "对照田况商议轮流放水；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q05.resolve",
+        "location_ids": [
+          "sg-l05"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 8
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "两户在田边定下短期轮流安排，没有把下一季也替别人决定。",
+        "failure": "闸口仍漏水，田间轮放需要重新测量；这一回没有分出谁应优先用水。",
+        "echo_after_seconds": 21600,
+        "success_echo": "轮值遇到暴雨后要重议，旧约可以按新事实调整。",
+        "failure_echo": "农户按已有安排取水，争议没有被一个修复宣称掩盖。",
+        "success_reaction": {
+          "character_source_key": "sg-p05",
+          "statement": "轮值遇到暴雨后要重议，旧约可以按新事实调整。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p05",
+          "statement": "农户按已有安排取水，争议没有被一个修复宣称掩盖。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p05"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q06",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "雨中的未送信",
+    "brief": "驿站找到一封受潮信，收件地址只写了旧村名。",
+    "public_location_ids": [
+      "sg-l06"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q06.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q06.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q06.c1",
+        "title": "核对旧路图寻找今名",
+        "description": "核对旧路图寻找今名；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q06.resolve",
+        "location_ids": [
+          "sg-l06"
+        ],
+        "skill_id": "sg-lore",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "旧路图与信封上的小桥记号对上了，信仍未送到本人手里。",
+        "failure": "旧村名还不能对应到一个可核实的新住处，信仍未被拆开或擅自转交。",
+        "echo_after_seconds": 21600,
+        "success_echo": "信使可以沿已核地址安排递送，回信需另等真实行程。",
+        "failure_echo": "驿站把缺失的地名线索记下，等有依据再决定往哪送。",
+        "success_reaction": {
+          "character_source_key": "sg-p06",
+          "statement": "信使可以沿已核地址安排递送，回信需另等真实行程。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p06",
+          "statement": "驿站把缺失的地名线索记下，等有依据再决定往哪送。"
+        },
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-lore"
+      },
+      {
+        "id": "sg-q06.c2",
+        "title": "向失土者询问村名，不拆信",
+        "description": "向失土者询问村名，不拆信；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q06.resolve",
+        "location_ids": [
+          "sg-l06"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "有人认出故乡旧称，愿意提供一位可能知道去处的联系人。",
+        "failure": "旧村名还不能对应到一个可核实的新住处，信仍未被拆开或擅自转交。",
+        "echo_after_seconds": 21600,
+        "success_echo": "被询问的人会担心寻人缘由，再见时需要解释而非默认信任。",
+        "failure_echo": "驿站把缺失的地名线索记下，等有依据再决定往哪送。",
+        "success_reaction": {
+          "character_source_key": "sg-p06",
+          "statement": "被询问的人会担心寻人缘由，再见时需要解释而非默认信任。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p06",
+          "statement": "驿站把缺失的地名线索记下，等有依据再决定往哪送。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p06"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q07",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "一堡两份冬粮",
+    "brief": "骑士团的运粮车到了，军户认为分配表漏了伤残者家属。",
+    "public_location_ids": [
+      "sg-l07"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q07.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q07.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q07.c1",
+        "title": "核对人数与储粮实数",
+        "description": "核对人数与储粮实数；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q07.resolve",
+        "location_ids": [
+          "sg-l07"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你指出漏记的一户和无法同时满足的缺口，没有许诺不存在的粮。",
+        "failure": "冬粮人数与储量不能相互印证，这一轮没有形成新的借粮约定。",
+        "echo_after_seconds": 21600,
+        "success_echo": "书记请两边各留一人参与下一次清点。",
+        "failure_echo": "军需书记继续保留两份账，不把短缺转成任何人的终身效忠。",
+        "success_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "书记请两边各留一人参与下一次清点。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "军需书记继续保留两份账，不把短缺转成任何人的终身效忠。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p07"
+        ]
+      },
+      {
+        "id": "sg-q07.c2",
+        "title": "协调暂借公共粮，不签长期效忠",
+        "description": "协调暂借公共粮，不签长期效忠；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q07.resolve",
+        "location_ids": [
+          "sg-l07"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "团方与军户明确借多少、何时再谈，帮助不等于入团。",
+        "failure": "冬粮人数与储量不能相互印证，这一轮没有形成新的借粮约定。",
+        "echo_after_seconds": 21600,
+        "success_echo": "借粮方按约准备答复，改变的是一笔具体关系而非全境好感。",
+        "failure_echo": "军需书记继续保留两份账，不把短缺转成任何人的终身效忠。",
+        "success_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "借粮方按约准备答复，改变的是一笔具体关系而非全境好感。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "军需书记继续保留两份账，不把短缺转成任何人的终身效忠。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p07"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q08",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "先学会停手",
+    "brief": "教头要新兵练停手信号，一位新兵觉得这会显得胆怯。",
+    "public_location_ids": [
+      "sg-l08"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q08.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q08.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q08.c1",
+        "title": "参加一次明确非致命练习",
+        "description": "参加一次明确非致命练习；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q08.resolve",
+        "location_ids": [
+          "sg-l08"
+        ],
+        "skill_id": "sg-shield",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你按信号收势，让新兵看到留手需要的控制。",
+        "failure": "练习中的停手信号仍未被可靠执行，教头中止这一轮，不把逞强算作学会。",
+        "echo_after_seconds": 21600,
+        "success_echo": "新兵愿意先把架势练稳，之后的正式切磋仍要双方同意。",
+        "failure_echo": "下一次练习要先把规则和余力说明白，旁观者的催促不算同意。",
+        "success_reaction": {
+          "character_source_key": "sg-p08",
+          "statement": "新兵愿意先把架势练稳，之后的正式切磋仍要双方同意。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p08",
+          "statement": "下一次练习要先把规则和余力说明白，旁观者的催促不算同意。"
+        },
+        "required_skill": "sg-shield",
+        "required_skill_rank": 1,
+        "required_items": {
+          "sg-buckler": 1
+        },
+        "required_character_source_keys": [
+          "sg-p08"
+        ]
+      },
+      {
+        "id": "sg-q08.c2",
+        "title": "听他说明逞强的原因",
+        "description": "听他说明逞强的原因；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q08.resolve",
+        "location_ids": [
+          "sg-l08"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "他承认担心家人以为自己没用，教头答应给他别的责任。",
+        "failure": "练习中的停手信号仍未被可靠执行，教头中止这一轮，不把逞强算作学会。",
+        "echo_after_seconds": 21600,
+        "success_echo": "他开始帮忙检查训练木剑，勇气有了不只一种表达。",
+        "failure_echo": "下一次练习要先把规则和余力说明白，旁观者的催促不算同意。",
+        "success_reaction": {
+          "character_source_key": "sg-p08",
+          "statement": "他开始帮忙检查训练木剑，勇气有了不只一种表达。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p08",
+          "statement": "下一次练习要先把规则和余力说明白，旁观者的催促不算同意。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p08"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q09",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "家书上的空名字",
+    "brief": "礼拜堂的无名家书可能对应一名死者，书记不愿草率认亲。",
+    "public_location_ids": [
+      "sg-l09"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q09.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q09.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q09.c1",
+        "title": "比对亲历者证言与衣物",
+        "description": "比对亲历者证言与衣物；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q09.resolve",
+        "location_ids": [
+          "sg-l09"
+        ],
+        "skill_id": "sg-witness",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "两段证言对上了修补位置，但还不足以确认全名。",
+        "failure": "证言与衣物上的线索仍有出入，没有新增死者身份或替家属写出他们未说的话。",
+        "echo_after_seconds": 21600,
+        "success_echo": "亲属被告知确认与不确定的部分，决定是否继续寻找。",
+        "failure_echo": "葬仪师保留空名栏，等到可以说明来源的新材料。",
+        "success_reaction": {
+          "character_source_key": "sg-p09",
+          "statement": "亲属被告知确认与不确定的部分，决定是否继续寻找。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p09",
+          "statement": "葬仪师保留空名栏，等到可以说明来源的新材料。"
+        },
+        "required_skill": "sg-witness",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-witness",
+        "required_character_source_keys": [
+          "sg-p09"
+        ]
+      },
+      {
+        "id": "sg-q09.c2",
+        "title": "先帮照顾等候的家属",
+        "description": "先帮照顾等候的家属；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q09.resolve",
+        "location_ids": [
+          "sg-l09"
+        ],
+        "skill_id": "sg-firstaid",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-cloth": 2
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你提供实际药布和照料，辨认程序没有因此被省略。",
+        "failure": "证言与衣物上的线索仍有出入，没有新增死者身份或替家属写出他们未说的话。",
+        "echo_after_seconds": 21600,
+        "success_echo": "家属记得你的帮助，却仍有自己的哀伤与选择。",
+        "failure_echo": "葬仪师保留空名栏，等到可以说明来源的新材料。",
+        "success_reaction": {
+          "character_source_key": "sg-p09",
+          "statement": "家属记得你的帮助，却仍有自己的哀伤与选择。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p09",
+          "statement": "葬仪师保留空名栏，等到可以说明来源的新材料。"
+        },
+        "required_skill": "sg-firstaid",
+        "required_skill_rank": 1,
+        "required_items": {
+          "sg-herb-kit": 1
+        },
+        "required_character_source_keys": [
+          "sg-p09"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q10",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "越过草场的线",
+    "brief": "军需与牧群的界桩倒了，倒桩本身无法证明谁先越界。",
+    "public_location_ids": [
+      "sg-l11"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q10.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q10.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q10.c1",
+        "title": "查旧桩穴和牲畜足印",
+        "description": "查旧桩穴和牲畜足印；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q10.resolve",
+        "location_ids": [
+          "sg-l11"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "雨水冲塌了桩穴，后来确有两边牲畜经过，顺序仍不完全清楚。",
+        "failure": "桩穴与足印不能确定旧界线，临时草场的使用条件也还没谈妥。",
+        "echo_after_seconds": 21600,
+        "success_echo": "双方改在稳定地段补标，愿意交换病畜照料办法。",
+        "failure_echo": "牧人继续看管自己的牲畜，没有谁凭这一轮取得整片草地。",
+        "success_reaction": {
+          "character_source_key": "sg-p11",
+          "statement": "双方改在稳定地段补标，愿意交换病畜照料办法。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p11",
+          "statement": "牧人继续看管自己的牲畜，没有谁凭这一轮取得整片草地。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-q10.c2",
+        "title": "先议一块共享短期草地",
+        "description": "先议一块共享短期草地；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q10.resolve",
+        "location_ids": [
+          "sg-l11"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "两边划出可共用的草地，争议界线留待证据齐备再谈。",
+        "failure": "桩穴与足印不能确定旧界线，临时草场的使用条件也还没谈妥。",
+        "echo_after_seconds": 21600,
+        "success_echo": "草地使用带来新的实际观察，旧指责不必一直决定关系。",
+        "failure_echo": "牧人继续看管自己的牲畜，没有谁凭这一轮取得整片草地。",
+        "success_reaction": {
+          "character_source_key": "sg-p11",
+          "statement": "草地使用带来新的实际观察，旧指责不必一直决定关系。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p11",
+          "statement": "牧人继续看管自己的牲畜，没有谁凭这一轮取得整片草地。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p11"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q11",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "谁听见了钟",
+    "brief": "采药人与樵夫对夜间声音各有解释，两条路线交会在低洼地。",
+    "public_location_ids": [
+      "sg-l13"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q11.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q11.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q11.c1",
+        "title": "沿已知路线查水与回声",
+        "description": "沿已知路线查水与回声；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q11.resolve",
+        "location_ids": [
+          "sg-l13"
+        ],
+        "skill_id": "sg-trail",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你找到水击空铜的可能位置，尚不能断言那就是每次钟声。",
+        "failure": "水声在几处互相重叠，你还不能说明哪一声来自钟铜。",
+        "echo_after_seconds": 21600,
+        "success_echo": "两人愿意共同记录下一次声音的时刻与风向。",
+        "failure_echo": "林口的人保留各自听到的描述，下一次需有能区分声源的观察。",
+        "success_reaction": {
+          "character_source_key": "sg-p13",
+          "statement": "两人愿意共同记录下一次声音的时刻与风向。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p13",
+          "statement": "林口的人保留各自听到的描述，下一次需有能区分声源的观察。"
+        },
+        "required_skill": "sg-trail",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-trail"
+      },
+      {
+        "id": "sg-q11.c2",
+        "title": "比较旧林记而不先判谁撒谎",
+        "description": "比较旧林记而不先判谁撒谎；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q11.resolve",
+        "location_ids": [
+          "sg-l13"
+        ],
+        "skill_id": "sg-lore",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "旧记录说明沉钟不止一口，两份说法未必互斥。",
+        "failure": "水声在几处互相重叠，你还不能说明哪一声来自钟铜。",
+        "echo_after_seconds": 21600,
+        "success_echo": "守林人愿意开放一段普通旧图，深处遗址仍需另行准备。",
+        "failure_echo": "林口的人保留各自听到的描述，下一次需有能区分声源的观察。",
+        "success_reaction": {
+          "character_source_key": "sg-p13",
+          "statement": "守林人愿意开放一段普通旧图，深处遗址仍需另行准备。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p13",
+          "statement": "林口的人保留各自听到的描述，下一次需有能区分声源的观察。"
+        },
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-lore"
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q12",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "活根与石桥",
+    "brief": "根桥病变，外来石匠的加固建议触动守林者的旧伤。",
+    "public_location_ids": [
+      "sg-l14"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q12.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q12.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q12.c1",
+        "title": "取病根小样并保留活根",
+        "description": "取病根小样并保留活根；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q12.resolve",
+        "location_ids": [
+          "sg-l14"
+        ],
+        "skill_id": "sg-herbwise",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-herbs": 1
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "样本显示局部腐损，你提出先减载和清理积水。",
+        "failure": "根部与桥台的受力关系仍没查清，临时尝试没有让活根或石桥恢复可靠承重。",
+        "echo_after_seconds": 21600,
+        "success_echo": "石匠与守林者愿意一起查看恢复情况，没人提前保证痊愈。",
+        "failure_echo": "根桥匠继续标示薄弱处，不把保树与保桥说成只能选一个。",
+        "success_reaction": {
+          "character_source_key": "sg-p14",
+          "statement": "石匠与守林者愿意一起查看恢复情况，没人提前保证痊愈。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p14",
+          "statement": "根桥匠继续标示薄弱处，不把保树与保桥说成只能选一个。"
+        },
+        "required_skill": "sg-herbwise",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-herbwise",
+        "required_items": {
+          "sg-herb-kit": 1
+        }
+      },
+      {
+        "id": "sg-q12.c2",
+        "title": "做可拆支架，不砍主根",
+        "description": "做可拆支架，不砍主根；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q12.resolve",
+        "location_ids": [
+          "sg-l14"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-wood": 2
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "支架接住负荷，主根留在原处，双方能继续观察。",
+        "failure": "根部与桥台的受力关系仍没查清，临时尝试没有让活根或石桥恢复可靠承重。",
+        "echo_after_seconds": 21600,
+        "success_echo": "聚落开始讨论由谁维护支架，而非把修好当成永远结束。",
+        "failure_echo": "根桥匠继续标示薄弱处，不把保树与保桥说成只能选一个。",
+        "success_reaction": {
+          "character_source_key": "sg-p14",
+          "statement": "聚落开始讨论由谁维护支架，而非把修好当成永远结束。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p14",
+          "statement": "根桥匠继续标示薄弱处，不把保树与保桥说成只能选一个。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        }
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q13",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "泉水不是罪名",
+    "brief": "泉水混浊，指向矿城的传闻已比实际样本传得更远。",
+    "public_location_ids": [
+      "sg-l15"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q13.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q13.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q13.c1",
+        "title": "按地点封存水样",
+        "description": "按地点封存水样；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q13.resolve",
+        "location_ids": [
+          "sg-l15"
+        ],
+        "skill_id": "sg-herbwise",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-wax": 1
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-water-sample",
+            "quantity": 1
+          }
+        ],
+        "success": "你按上下游分别取样，标签能支持比较，不能直接定罪。 一份标记完整的水样由你保管。",
+        "failure": "样本来源或对照不足，这一回不能据此指认泉水污染者。",
+        "echo_after_seconds": 21600,
+        "success_echo": "矿工与守林者有了可共同复核的材料。",
+        "failure_echo": "守泉者保留疑问而非散布罪名；后来的检验需要清楚的取样记录。",
+        "success_reaction": {
+          "character_source_key": "sg-p15",
+          "statement": "矿工与守林者有了可共同复核的材料。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p15",
+          "statement": "守泉者保留疑问而非散布罪名；后来的检验需要清楚的取样记录。"
+        },
+        "required_skill": "sg-herbwise",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-herbwise",
+        "required_items": {
+          "sg-herb-kit": 1
+        },
+        "required_character_source_keys": [
+          "sg-p15"
+        ]
+      },
+      {
+        "id": "sg-q13.c2",
+        "title": "勘查暴雨后的支流泥沙",
+        "description": "勘查暴雨后的支流泥沙；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q13.resolve",
+        "location_ids": [
+          "sg-l15"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "一条自然滑坡支流也带入泥沙，污染来源可能不只一处。",
+        "failure": "样本来源或对照不足，这一回不能据此指认泉水污染者。",
+        "echo_after_seconds": 21600,
+        "success_echo": "调查避免了立即封死矿井，但实际排水问题仍待解决。",
+        "failure_echo": "守泉者保留疑问而非散布罪名；后来的检验需要清楚的取样记录。",
+        "success_reaction": {
+          "character_source_key": "sg-p15",
+          "statement": "调查避免了立即封死矿井，但实际排水问题仍待解决。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p15",
+          "statement": "守泉者保留疑问而非散布罪名；后来的检验需要清楚的取样记录。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q14",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "二手铜钮",
+    "brief": "旧铜钮被认作失窃家物，卖主拿得出自己的购货收条。",
+    "public_location_ids": [
+      "sg-l16"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q14.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q14.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q14.c1",
+        "title": "沿收条追查转手过程",
+        "description": "沿收条追查转手过程；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q14.resolve",
+        "location_ids": [
+          "sg-l16"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "收条连到一名搬家清物的亲属，财物是否获准出售仍须问本人。",
+        "failure": "铜钮的转手链仍缺一段，物主与买主的权利没有因猜测改变。",
+        "echo_after_seconds": 21600,
+        "success_echo": "两家愿意等来信而非当街动手。",
+        "failure_echo": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。",
+        "success_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "两家愿意等来信而非当街动手。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p16"
+        ]
+      },
+      {
+        "id": "sg-q14.c2",
+        "title": "促成暂存与双方留名",
+        "description": "促成暂存与双方留名；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q14.resolve",
+        "location_ids": [
+          "sg-l16"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "铜钮由双方同意的人暂存，没人因此自动丢钱或获利。",
+        "failure": "铜钮的转手链仍缺一段，物主与买主的权利没有因猜测改变。",
+        "echo_after_seconds": 21600,
+        "success_echo": "后续取回或补偿要依据新确认的事实。",
+        "failure_echo": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。",
+        "success_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "后续取回或补偿要依据新确认的事实。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p16"
+        ]
+      },
+      {
+        "id": "sg-q14.c3",
+        "title": "听经手人对照收条讲述",
+        "description": "在旧货商在场时对照收条听清两段交接，只记录真正听见的内容。",
+        "objective_id": "sg-q14.resolve",
+        "location_ids": [
+          "sg-l16"
+        ],
+        "skill_id": "sg-listen",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "两段交接用了不同的“替人收好”说法；你指出差异，尚不能因此认定赠与或偷窃。",
+        "failure": "铜钮的转手链仍缺一段，物主与买主的权利没有因猜测改变。",
+        "echo_after_seconds": 21600,
+        "success_echo": "旧货商请持有人核对原话，铜钮仍按既有保管安排放着。",
+        "failure_echo": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。",
+        "success_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "旧货商请持有人核对原话，铜钮仍按既有保管安排放着。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p16",
+          "statement": "旧货商暂留相关收条，谁愿补充证据仍由本人决定。"
+        },
+        "required_skill": "sg-listen",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-listen",
+        "required_character_source_keys": [
+          "sg-p16"
+        ],
+        "required_items": {}
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q15",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "钟铜与沼路",
+    "brief": "拆钟者说需要铜钱修路，守林者担心钟体支撑着木栈。",
+    "public_location_ids": [
+      "sg-l17"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q15.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q15.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q15.c1",
+        "title": "先测栈道承重并标危险段",
+        "description": "先测栈道承重并标危险段；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q15.resolve",
+        "location_ids": [
+          "sg-l17"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你找出受力支点，确认不能直接把整圈铜沿切走。",
+        "failure": "栈道的沉陷还超出这次检查和补料能确认的范围，不能宣布整条沼路安全。",
+        "echo_after_seconds": 21600,
+        "success_echo": "拆钟者改谈少量松脱铜片，修路仍需找别的来源。",
+        "failure_echo": "危险段仍有标记，打捞人要另找落脚处而不是被迫赌命。",
+        "success_reaction": {
+          "character_source_key": "sg-p17",
+          "statement": "拆钟者改谈少量松脱铜片，修路仍需找别的来源。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p17",
+          "statement": "危险段仍有标记，打捞人要另找落脚处而不是被迫赌命。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-q15.c2",
+        "title": "带木料加固一段过水路",
+        "description": "带木料加固一段过水路；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q15.resolve",
+        "location_ids": [
+          "sg-l17"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-wood": 3
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "一段栈道稳住了，余下的沼地仍危险。",
+        "failure": "栈道的沉陷还超出这次检查和补料能确认的范围，不能宣布整条沼路安全。",
+        "echo_after_seconds": 21600,
+        "success_echo": "守林者愿意带路复查，但不会保证所有来客无风险。",
+        "failure_echo": "危险段仍有标记，打捞人要另找落脚处而不是被迫赌命。",
+        "success_reaction": {
+          "character_source_key": "sg-p17",
+          "statement": "守林者愿意带路复查，但不会保证所有来客无风险。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p17",
+          "statement": "危险段仍有标记，打捞人要另找落脚处而不是被迫赌命。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        }
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q16",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "矿城的第一桶清水",
+    "brief": "病房缺清水，矿主与工人争论先修泵还是先清沉池。",
+    "public_location_ids": [
+      "sg-l19"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q16.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q16.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q16.c1",
+        "title": "修泵并清理可见堵塞",
+        "description": "修泵并清理可见堵塞；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q16.resolve",
+        "location_ids": [
+          "sg-l19"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-iron": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "泵恢复输水，水质仍需另查，不能把流得快当成干净。",
+        "failure": "泵后的水仍混浊，这批处理没有达到可以供病房使用的条件。",
+        "echo_after_seconds": 21600,
+        "success_echo": "工人开始收集水质记录，下一步维护有了证据。",
+        "failure_echo": "配水师分开保留有问题的水样，清水仍按现有来源调配。",
+        "success_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "工人开始收集水质记录，下一步维护有了证据。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "配水师分开保留有问题的水样，清水仍按现有来源调配。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p19"
+        ]
+      },
+      {
+        "id": "sg-q16.c2",
+        "title": "给病房先做有限净水处理",
+        "description": "给病房先做有限净水处理；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q16.resolve",
+        "location_ids": [
+          "sg-l19"
+        ],
+        "skill_id": "sg-herbwise",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-herbs": 2,
+          "sg-salt": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 8
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "药草与净盐用于这一批水，长期供应仍没解决。",
+        "failure": "泵后的水仍混浊，这批处理没有达到可以供病房使用的条件。",
+        "echo_after_seconds": 21600,
+        "success_echo": "病房得到喘息时间，愿意参加下一次公共水源协商。",
+        "failure_echo": "配水师分开保留有问题的水样，清水仍按现有来源调配。",
+        "success_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "病房得到喘息时间，愿意参加下一次公共水源协商。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "配水师分开保留有问题的水样，清水仍按现有来源调配。"
+        },
+        "required_skill": "sg-herbwise",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-herbwise",
+        "required_items": {
+          "sg-herb-kit": 1
+        },
+        "required_character_source_keys": [
+          "sg-p19"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q17",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "风轮停不停",
+    "brief": "七号井风轮坏了，停产意味着少拿工钱，继续则有人可能撑不住。",
+    "public_location_ids": [
+      "sg-l21"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q17.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q17.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q17.c1",
+        "title": "带铁件修复风轮轴",
+        "description": "带铁件修复风轮轴；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q17.resolve",
+        "location_ids": [
+          "sg-l21"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-iron": 3
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你在撤出人员后配合井工修轴，复工仍需复查。",
+        "failure": "风轮转动仍不稳定，不能把井下通风已经恢复当作完工依据。",
+        "echo_after_seconds": 21600,
+        "success_echo": "工人提出写清停工期间的实际工资安排。",
+        "failure_echo": "当班工头记录停机处，后续进井须重新确认风况。",
+        "success_reaction": {
+          "character_source_key": "sg-p21",
+          "statement": "工人提出写清停工期间的实际工资安排。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p21",
+          "statement": "当班工头记录停机处，后续进井须重新确认风况。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p21"
+        ]
+      },
+      {
+        "id": "sg-q17.c2",
+        "title": "支持暂封井并协调应急生活",
+        "description": "支持暂封井并协调应急生活；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q17.resolve",
+        "location_ids": [
+          "sg-l21"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 8
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "人先离井，损失被明确记录，没有用一顿饭当成全额补偿。",
+        "failure": "风轮转动仍不稳定，不能把井下通风已经恢复当作完工依据。",
+        "echo_after_seconds": 21600,
+        "success_echo": "诸家需要面对工资问题，工人不必把救命者当永久领袖。",
+        "failure_echo": "当班工头记录停机处，后续进井须重新确认风况。",
+        "success_reaction": {
+          "character_source_key": "sg-p21",
+          "statement": "诸家需要面对工资问题，工人不必把救命者当永久领袖。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p21",
+          "statement": "当班工头记录停机处，后续进井须重新确认风况。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p21"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q18",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "军刀还是犁铧",
+    "brief": "工坊同一炉铁要交军单又要修春耕犁，两边都说误不得。",
+    "public_location_ids": [
+      "sg-l23"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q18.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q18.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q18.c1",
+        "title": "按交货实况重排工期",
+        "description": "按交货实况重排工期；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q18.resolve",
+        "location_ids": [
+          "sg-l23"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "可延后的军单与真正紧急的农具分开，客户需要逐一同意。",
+        "failure": "修件的接合仍不牢，工坊没有把它交给下一位使用者，也未支付完工款。",
+        "echo_after_seconds": 21600,
+        "success_echo": "工坊让各方看到明确顺序，旧怨没有立刻消失。",
+        "failure_echo": "铁匠把问题留在验件记录里；之后要以改进后的工法重新处理。",
+        "success_reaction": {
+          "character_source_key": "sg-p23",
+          "statement": "工坊让各方看到明确顺序，旧怨没有立刻消失。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p23",
+          "statement": "铁匠把问题留在验件记录里；之后要以改进后的工法重新处理。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p23"
+        ]
+      },
+      {
+        "id": "sg-q18.c2",
+        "title": "自备材料补修两件常用工具",
+        "description": "自备材料补修两件常用工具；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q18.resolve",
+        "location_ids": [
+          "sg-l23"
+        ],
+        "skill_id": "sg-fieldrepair",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-iron": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 24
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你完成有限补修，没凭空增加整座工坊产量。",
+        "failure": "修件的接合仍不牢，工坊没有把它交给下一位使用者，也未支付完工款。",
+        "echo_after_seconds": 21600,
+        "success_echo": "农户愿意提供粮食作为未来交换，数量仍需再谈。",
+        "failure_echo": "铁匠把问题留在验件记录里；之后要以改进后的工法重新处理。",
+        "success_reaction": {
+          "character_source_key": "sg-p23",
+          "statement": "农户愿意提供粮食作为未来交换，数量仍需再谈。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p23",
+          "statement": "铁匠把问题留在验件记录里；之后要以改进后的工法重新处理。"
+        },
+        "required_skill": "sg-fieldrepair",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-fieldrepair",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p23"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q19",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "封湖线内外",
+    "brief": "湖区的封水告示写得含糊，学徒与渔户各按自己的理解行动。",
+    "public_location_ids": [
+      "sg-l25"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q19.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q19.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q19.c1",
+        "title": "实测并清楚标注范围",
+        "description": "实测并清楚标注范围；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q19.resolve",
+        "location_ids": [
+          "sg-l25"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "危险取水区与可用渡道分开，不再靠整湖禁行一句带过。",
+        "failure": "封湖标线与水面实测仍有偏差，尚不足以形成双方认可的范围。",
+        "echo_after_seconds": 21600,
+        "success_echo": "鱼市恢复部分往来，测量组需要继续解释新结果。",
+        "failure_echo": "渔户与学者继续保存各自依据，眼前并未新增赶人或禁航许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "鱼市恢复部分往来，测量组需要继续解释新结果。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "渔户与学者继续保存各自依据，眼前并未新增赶人或禁航许可。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-q19.c2",
+        "title": "组织双方当面核对需求",
+        "description": "组织双方当面核对需求；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q19.resolve",
+        "location_ids": [
+          "sg-l25"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "学徒解释测试，渔户说明生计，短期安排得以形成。",
+        "failure": "封湖标线与水面实测仍有偏差，尚不足以形成双方认可的范围。",
+        "echo_after_seconds": 21600,
+        "success_echo": "下一次变化将通过约定渠道通知，而不是全境瞬间知晓。",
+        "failure_echo": "渔户与学者继续保存各自依据，眼前并未新增赶人或禁航许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "下一次变化将通过约定渠道通知，而不是全境瞬间知晓。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "渔户与学者继续保存各自依据，眼前并未新增赶人或禁航许可。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p25"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q20",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "错了一格的星图",
+    "brief": "观星塔旧抄本可能误了一格，承认错误会影响一位学者声誉。",
+    "public_location_ids": [
+      "sg-l26"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q20.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q20.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q20.c1",
+        "title": "比较观测与抄本的版本",
+        "description": "比较观测与抄本的版本；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q20.resolve",
+        "location_ids": [
+          "sg-l26"
+        ],
+        "skill_id": "sg-lore",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你定位到抄写偏差，不能因此认定所有旧航图都错。",
+        "failure": "观测日期与抄本版本没有对齐，这次核对不能宣布所有船图已经正确。",
+        "echo_after_seconds": 21600,
+        "success_echo": "塔方愿意更正相关页，海员需要实际收到修订本。",
+        "failure_echo": "抄写员把可疑页另作标记，未收到更正的船不会被算作已经知情。",
+        "success_reaction": {
+          "character_source_key": "sg-p26",
+          "statement": "塔方愿意更正相关页，海员需要实际收到修订本。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p26",
+          "statement": "抄写员把可疑页另作标记，未收到更正的船不会被算作已经知情。"
+        },
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-lore"
+      },
+      {
+        "id": "sg-q20.c2",
+        "title": "请学者说明不确定处并暂发警示",
+        "description": "请学者说明不确定处并暂发警示；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q20.resolve",
+        "location_ids": [
+          "sg-l26"
+        ],
+        "skill_id": "sg-witness",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "学者同意注明待核区域，警示不带未经证实的指控。",
+        "failure": "观测日期与抄本版本没有对齐，这次核对不能宣布所有船图已经正确。",
+        "echo_after_seconds": 21600,
+        "success_echo": "公开承认有限未知，让部分船户愿意继续提供观测。",
+        "failure_echo": "抄写员把可疑页另作标记，未收到更正的船不会被算作已经知情。",
+        "success_reaction": {
+          "character_source_key": "sg-p26",
+          "statement": "公开承认有限未知，让部分船户愿意继续提供观测。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p26",
+          "statement": "抄写员把可疑页另作标记，未收到更正的船不会被算作已经知情。"
+        },
+        "required_skill": "sg-witness",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-witness",
+        "required_character_source_keys": [
+          "sg-p26"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q21",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "捐纸的条件",
+    "brief": "书院有新纸可用，但捐助者要求排除某些学生。",
+    "public_location_ids": [
+      "sg-l27"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q21.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q21.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q21.c1",
+        "title": "要求改为无排斥的共同资助",
+        "description": "要求改为无排斥的共同资助；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q21.resolve",
+        "location_ids": [
+          "sg-l27"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你找到愿意分担的小额资助者，原捐助条件没有被偷偷接受。",
+        "failure": "纸张与课程的安排还没形成双方愿意接受的条件，捐赠并未成交。",
+        "echo_after_seconds": 21600,
+        "success_echo": "书院重新安排课程，各族学生仍需实际投入学习。",
+        "failure_echo": "书院继续用现有纸本，不会为一笔未落实的捐赠改写入学资格。",
+        "success_reaction": {
+          "character_source_key": "sg-p27",
+          "statement": "书院重新安排课程，各族学生仍需实际投入学习。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p27",
+          "statement": "书院继续用现有纸本，不会为一笔未落实的捐赠改写入学资格。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p27"
+        ]
+      },
+      {
+        "id": "sg-q21.c2",
+        "title": "修旧书板与笔具延长使用",
+        "description": "修旧书板与笔具延长使用；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q21.resolve",
+        "location_ids": [
+          "sg-l27"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {
+          "sg-wood": 2
+        },
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "旧工具恢复可用，缓解纸荒但未解决全部开支。",
+        "failure": "纸张与课程的安排还没形成双方愿意接受的条件，捐赠并未成交。",
+        "echo_after_seconds": 21600,
+        "success_echo": "成年人学员提出轮流修理，帮助形成具体的新习惯。",
+        "failure_echo": "书院继续用现有纸本，不会为一笔未落实的捐赠改写入学资格。",
+        "success_reaction": {
+          "character_source_key": "sg-p27",
+          "statement": "成年人学员提出轮流修理，帮助形成具体的新习惯。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p27",
+          "statement": "书院继续用现有纸本，不会为一笔未落实的捐赠改写入学资格。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        }
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q22",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "城门上写谁的名",
+    "brief": "三家使者争修门署名，街坊等着堵住穿堂风。",
+    "public_location_ids": [
+      "sg-l31"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q22.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q22.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q22.c1",
+        "title": "先修居民每天经过的门缝",
+        "description": "先修居民每天经过的门缝；不替未在场的人作额外承诺。当地修护金按这次实际完成的工作支付列明酬劳。",
+        "objective_id": "sg-q22.resolve",
+        "location_ids": [
+          "sg-l31"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-wood": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "修补落到木石上，没有把政治承诺写进工钱收条。",
+        "failure": "门缝的处理或纪念牌的约定仍不充分，居民没有得到一个已经修好的出入口。",
+        "echo_after_seconds": 21600,
+        "success_echo": "街坊更愿意讨论谁来长期维护，而不是谁先剪彩。",
+        "failure_echo": "街坊把通行问题和名号争论分开记下，下一轮仍需实际检查。",
+        "success_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "街坊更愿意讨论谁来长期维护，而不是谁先剪彩。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "街坊把通行问题和名号争论分开记下，下一轮仍需实际检查。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p31"
+        ]
+      },
+      {
+        "id": "sg-q22.c2",
+        "title": "把纪念牌与公共修缮分开商议",
+        "description": "三家话里的条件互相牵连，刚学会调停还未必能理顺；谈不拢时先保留各自说法。",
+        "objective_id": "sg-q22.resolve",
+        "location_ids": [
+          "sg-l31"
+        ],
+        "skill_id": "sg-mediation",
+        "difficulty": 14,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 8
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 24
+          }
+        ],
+        "success": "各方同意先办共同工程，谁留名仍未定。",
+        "failure": "门缝的处理或纪念牌的约定仍不充分，居民没有得到一个已经修好的出入口。",
+        "echo_after_seconds": 21600,
+        "success_echo": "使者对你的态度因各自利益不同，不会一齐臣服。",
+        "failure_echo": "街坊把通行问题和名号争论分开记下，下一轮仍需实际检查。",
+        "success_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "使者对你的态度因各自利益不同，不会一齐臣服。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "街坊把通行问题和名号争论分开记下，下一轮仍需实际检查。"
+        },
+        "required_skill": "sg-mediation",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-mediation",
+        "required_character_source_keys": [
+          "sg-p31"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q23",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "两份继承书",
+    "brief": "档案院两份文书冲突，贸然认定会牵动仍住在旧地的人。",
+    "public_location_ids": [
+      "sg-l32"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q23.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q23.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q23.c1",
+        "title": "查墨迹、保管与证言",
+        "description": "查墨迹、保管与证言；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q23.resolve",
+        "location_ids": [
+          "sg-l32"
+        ],
+        "skill_id": "sg-witness",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-archive-copy",
+            "quantity": 1
+          }
+        ],
+        "success": "其中一份有后补段落，补写者和授权仍未完全确认。 书记给你一份获准带走的核验副本。",
+        "failure": "两份继承书的保管链仍有空白，不能据此替任何一方确立王位或土地权。",
+        "echo_after_seconds": 21600,
+        "success_echo": "相关家庭得到已确认部分，不会突然被一纸结论赶走。",
+        "failure_echo": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。",
+        "success_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "相关家庭得到已确认部分，不会突然被一纸结论赶走。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。"
+        },
+        "required_skill": "sg-witness",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-witness",
+        "required_character_source_keys": [
+          "sg-p32"
+        ]
+      },
+      {
+        "id": "sg-q23.c2",
+        "title": "先整理双方都承认的旧事实",
+        "description": "先整理双方都承认的旧事实；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q23.resolve",
+        "location_ids": [
+          "sg-l32"
+        ],
+        "skill_id": "sg-lore",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "共同承认的界标与住户史被单独保留，争议不再混成一团。",
+        "failure": "两份继承书的保管链仍有空白，不能据此替任何一方确立王位或土地权。",
+        "echo_after_seconds": 21600,
+        "success_echo": "后续调停有了共同起点，但仍允许谈不拢。",
+        "failure_echo": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。",
+        "success_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "后续调停有了共同起点，但仍允许谈不拢。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。"
+        },
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-lore",
+        "required_character_source_keys": [
+          "sg-p32"
+        ]
+      },
+      {
+        "id": "sg-q23.c3",
+        "title": "把旧档放回当年住户的经历中",
+        "description": "以已学遗产释读核对三代住户口述与旧档；书记在场提供已获准查阅的页，不把族谱当产权判决。",
+        "objective_id": "sg-q23.resolve",
+        "location_ids": [
+          "sg-l32"
+        ],
+        "skill_id": "sg-legacy",
+        "difficulty": 20,
+        "duration_seconds": 7200,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 32
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-archive-copy",
+            "quantity": 1
+          }
+        ],
+        "success": "你分开了“受托保管”与“世代所有”两种记法，整理出可带走的核验副本；继承争议仍没有被替双方裁定。",
+        "failure": "两份继承书的保管链仍有空白，不能据此替任何一方确立王位或土地权。",
+        "echo_after_seconds": 21600,
+        "success_echo": "书记把两种记法分别标注，街坊可以继续讨论现实维护，不必先选一位君主。",
+        "failure_echo": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。",
+        "success_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "书记把两种记法分别标注，街坊可以继续讨论现实维护，不必先选一位君主。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p32",
+          "statement": "档案员保留版本差异，下一条证言必须说明本人实际见过什么。"
+        },
+        "required_skill": "sg-legacy",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-legacy",
+        "required_character_source_keys": [
+          "sg-p32"
+        ],
+        "required_items": {}
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q24",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "换灯心还是留回声",
+    "brief": "古灯衰弱，航海安全与保存古代回声不能都靠空口保证。",
+    "public_location_ids": [
+      "sg-l38"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q24.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q24.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q24.c1",
+        "title": "用可拆导件稳定现有灯心",
+        "description": "旧灯的两路导纹必须同时对准，初学时可能仍不稳定；试作会用掉这批辉晶与银丝。修护金只补贴一部分材料。",
+        "objective_id": "sg-q24.resolve",
+        "location_ids": [
+          "sg-l38"
+        ],
+        "skill_id": "sg-beaconwork",
+        "difficulty": 20,
+        "duration_seconds": 3600,
+        "item_costs": {
+          "sg-crystal": 3,
+          "sg-silver-wire": 2
+        },
+        "rewards": [
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 12
+          },
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 36
+          }
+        ],
+        "success": "灯光暂稳，旧心未拆，下一次检查仍必要。",
+        "failure": "灯心的导接或回声抄录还不能稳定复核，古灯没有因这次尝试恢复完整功能。",
+        "echo_after_seconds": 21600,
+        "success_echo": "船户愿意提供航行记录，守望者准备有限修护计划。",
+        "failure_echo": "守灯人继续按现有限制值守，缺失的记录没有被补写成远古真相。",
+        "success_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "船户愿意提供航行记录，守望者准备有限修护计划。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "守灯人继续按现有限制值守，缺失的记录没有被补写成远古真相。"
+        },
+        "required_skill": "sg-beaconwork",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-beaconwork",
+        "required_items": {
+          "sg-focus": 1
+        },
+        "required_character_source_keys": [
+          "sg-p38"
+        ]
+      },
+      {
+        "id": "sg-q24.c2",
+        "title": "先抄录已能辨认的回声与结构",
+        "description": "先抄录自己能辨认的回声与结构，保留已读部分；这次独立观察没有约定酬劳。",
+        "objective_id": "sg-q24.resolve",
+        "location_ids": [
+          "sg-l38"
+        ],
+        "skill_id": "sg-lore",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "记录保住已读部分，灯本身并没有因此修好。",
+        "failure": "灯心的导接或回声抄录还不能稳定复核，古灯没有因这次尝试恢复完整功能。",
+        "echo_after_seconds": 21600,
+        "success_echo": "航海者催问替代警示，学者必须面对等待的代价。",
+        "failure_echo": "守灯人继续按现有限制值守，缺失的记录没有被补写成远古真相。",
+        "success_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "航海者催问替代警示，学者必须面对等待的代价。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "守灯人继续按现有限制值守，缺失的记录没有被补写成远古真相。"
+        },
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-lore"
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q25",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "名单上的名字",
+    "brief": "寻亲名单能帮人团聚，也会让躲避旧仇的人暴露。",
+    "public_location_ids": [
+      "sg-l40"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q25.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q25.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q25.c1",
+        "title": "按当事人意愿保留联系中转",
+        "description": "按当事人意愿保留联系中转；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q25.resolve",
+        "location_ids": [
+          "sg-l40"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "愿意公开与只愿中转的人被分别记录，没有替沉默者答应。",
+        "failure": "名单中的同音和转述仍未分清，不能把一个相似名字当作本人同意联系。",
+        "echo_after_seconds": 21600,
+        "success_echo": "寻找者要通过中转请求联系，被寻者仍可拒绝。",
+        "failure_echo": "中转人保留未确认栏，不把住处交给未经核实的寻访者。",
+        "success_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "寻找者要通过中转请求联系，被寻者仍可拒绝。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "中转人保留未确认栏，不把住处交给未经核实的寻访者。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p40"
+        ]
+      },
+      {
+        "id": "sg-q25.c2",
+        "title": "核对重复与误写，不抄走整份名单",
+        "description": "核对重复与误写，不抄走整份名单；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q25.resolve",
+        "location_ids": [
+          "sg-l40"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "几处同音误写被纠正，完整住处仍由原持有人保管。",
+        "failure": "名单中的同音和转述仍未分清，不能把一个相似名字当作本人同意联系。",
+        "echo_after_seconds": 21600,
+        "success_echo": "一位寻亲者得到准确线索，其他人的资料没有一并公开。",
+        "failure_echo": "中转人保留未确认栏，不把住处交给未经核实的寻访者。",
+        "success_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "一位寻亲者得到准确线索，其他人的资料没有一并公开。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "中转人保留未确认栏，不把住处交给未经核实的寻访者。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p40"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q26",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "修桥之后的座位",
+    "brief": "上一轮修桥已有结果，桥工想让小车主也参与下一轮安排。",
+    "public_location_ids": [
+      "sg-l01"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q26.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q26.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q26.c1",
+        "title": "邀请实际受影响者共同商议",
+        "description": "邀请实际受影响者共同商议；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q26.resolve",
+        "location_ids": [
+          "sg-l01"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "参与者谈妥一小段修缮窗口，没有被强迫加入自由盟。",
+        "failure": "下一轮修缮的参与者或费用仍没说清，小车主没有因此承担新工期。",
+        "echo_after_seconds": 21600,
+        "success_echo": "有人会守约，也有人需要解释迟到，后续以实际行为为准。",
+        "failure_echo": "桥工保留未谈妥的部分，已经完成的旧工程不会被反复计作新报酬。",
+        "success_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "有人会守约，也有人需要解释迟到，后续以实际行为为准。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "桥工保留未谈妥的部分，已经完成的旧工程不会被反复计作新报酬。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p01"
+        ]
+      },
+      {
+        "id": "sg-q26.c2",
+        "title": "把已付与未付费用说明白",
+        "description": "把已付与未付费用说明白；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q26.resolve",
+        "location_ids": [
+          "sg-l01"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "清楚的数额让争议缩小，但欠款不会被一段演说抹掉。",
+        "failure": "下一轮修缮的参与者或费用仍没说清，小车主没有因此承担新工期。",
+        "echo_after_seconds": 21600,
+        "success_echo": "工人能据此决定接不接下一段工程。",
+        "failure_echo": "桥工保留未谈妥的部分，已经完成的旧工程不会被反复计作新报酬。",
+        "success_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "工人能据此决定接不接下一段工程。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "桥工保留未谈妥的部分，已经完成的旧工程不会被反复计作新报酬。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p01"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q01",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q27",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "清水下一程",
+    "brief": "矿城已有一批水源记录，工人和守林者可对照实物再谈。",
+    "public_location_ids": [
+      "sg-l19"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q27.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q27.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q27.c1",
+        "title": "对照标记水样与排水口",
+        "description": "对照标记水样与排水口；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q27.resolve",
+        "location_ids": [
+          "sg-l19"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你排除了一处被误指的水口，留下仍需处理的来源。",
+        "failure": "已有水样还不能排除这次争议的出水口，新的改造安排尚未成立。",
+        "echo_after_seconds": 21600,
+        "success_echo": "双方愿意试一段小改造，效果还要后来观察。",
+        "failure_echo": "工人与守林者继续保留原记录，下一次需要不同来源的对照。",
+        "success_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "双方愿意试一段小改造，效果还要后来观察。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "工人与守林者继续保留原记录，下一次需要不同来源的对照。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-q27.c2",
+        "title": "让病房与井下工人说明急需",
+        "description": "让病房与井下工人说明急需；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q27.resolve",
+        "location_ids": [
+          "sg-l19"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "急需被分开排序，不让声音最大的人独占资源。",
+        "failure": "已有水样还不能排除这次争议的出水口，新的改造安排尚未成立。",
+        "echo_after_seconds": 21600,
+        "success_echo": "各方会据兑现情况改变信任，而非因承诺立即满好感。",
+        "failure_echo": "工人与守林者继续保留原记录，下一次需要不同来源的对照。",
+        "success_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "各方会据兑现情况改变信任，而非因承诺立即满好感。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p19",
+          "statement": "工人与守林者继续保留原记录，下一次需要不同来源的对照。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p19"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q16",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q28",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "更正后的航船",
+    "brief": "星图已有更正或警示，仍需确认实际用图者收到哪一版。",
+    "public_location_ids": [
+      "sg-l25"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q28.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q28.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q28.c1",
+        "title": "核对三份船用抄本版本",
+        "description": "核对三份船用抄本版本；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q28.resolve",
+        "location_ids": [
+          "sg-l25"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 4,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你找出还未更新的一份，船家同意替换相关页。",
+        "failure": "用图者收到的版本仍无法逐一确认，这次没有证明警示已送到所有船上。",
+        "echo_after_seconds": 21600,
+        "success_echo": "海员愿意分享观测，但未到港的船还没有收到。",
+        "failure_echo": "港边继续列出未核对的抄本，后来实际收到回信才会改变记录。",
+        "success_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "海员愿意分享观测，但未到港的船还没有收到。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "港边继续列出未核对的抄本，后来实际收到回信才会改变记录。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p25"
+        ]
+      },
+      {
+        "id": "sg-q28.c2",
+        "title": "请船户说明延误带来的损失",
+        "description": "请船户说明延误带来的损失；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q28.resolve",
+        "location_ids": [
+          "sg-l25"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 4,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "损失被记下，学者解释能承担的部分，双方没有伪装全部满意。",
+        "failure": "用图者收到的版本仍无法逐一确认，这次没有证明警示已送到所有船上。",
+        "echo_after_seconds": 21600,
+        "success_echo": "新的往来依靠实际回信与协作，不是一场谈话解决所有旧怨。",
+        "failure_echo": "港边继续列出未核对的抄本，后来实际收到回信才会改变记录。",
+        "success_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "新的往来依靠实际回信与协作，不是一场谈话解决所有旧怨。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p25",
+          "statement": "港边继续列出未核对的抄本，后来实际收到回信才会改变记录。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p25"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q20",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q29",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "名字之外的街坊",
+    "brief": "城门已有安排，街坊希望维护不再每次受继承之争拖累。",
+    "public_location_ids": [
+      "sg-l31"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q29.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q29.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q29.c1",
+        "title": "轮流安排自愿守夜与检查",
+        "description": "轮流安排自愿守夜与检查；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q29.resolve",
+        "location_ids": [
+          "sg-l31"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "参加者只承担自己同意的班次，不代表整条街都入盟。",
+        "failure": "守夜与维护的承诺尚未落实到自愿参加的人，街坊没有被统一编进新轮值。",
+        "echo_after_seconds": 21600,
+        "success_echo": "缺席时需要通知与替班，街坊关系由真实往来继续。",
+        "failure_echo": "已修的门仍照常使用，后续合作要从未说清的责任重新谈。",
+        "success_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "缺席时需要通知与替班，街坊关系由真实往来继续。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "已修的门仍照常使用，后续合作要从未说清的责任重新谈。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p31"
+        ]
+      },
+      {
+        "id": "sg-q29.c2",
+        "title": "教住户维护一个常坏的铰链",
+        "description": "教住户维护一个常坏的铰链；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q29.resolve",
+        "location_ids": [
+          "sg-l31"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "几名住户亲手试过维护，不必每次等一位英雄回来。",
+        "failure": "守夜与维护的承诺尚未落实到自愿参加的人，街坊没有被统一编进新轮值。",
+        "echo_after_seconds": 21600,
+        "success_echo": "工具归属与材料补充成为下一次普通商议。",
+        "failure_echo": "已修的门仍照常使用，后续合作要从未说清的责任重新谈。",
+        "success_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "工具归属与材料补充成为下一次普通商议。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "已修的门仍照常使用，后续合作要从未说清的责任重新谈。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p31"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q22",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q30",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "灯照到谁家",
+    "brief": "灯塔修护或记录已有进展，附近小船户想知道自己能得到什么。",
+    "public_location_ids": [
+      "sg-l38"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q30.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q30.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q30.c1",
+        "title": "在灯塔岸边测绘实际可见灯区",
+        "description": "在灯塔岸边测绘实际可见灯区；没有到达的海面仍保留空白，不替船户预先确认。",
+        "objective_id": "sg-q30.resolve",
+        "location_ids": [
+          "sg-l38"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "你标出遮挡礁角，灯光并未覆盖所有海面。",
+        "failure": "这一趟的能见记录不足，不能把未观测海面也算进古灯照明范围。",
+        "echo_after_seconds": 21600,
+        "success_echo": "船户想补一个普通岸标，不必再造一座古代奇迹。",
+        "failure_echo": "小船户保留天气与遮挡疑问，不因一个乐观估计放弃备用岸标。",
+        "success_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "船户想补一个普通岸标，不必再造一座古代奇迹。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "小船户保留天气与遮挡疑问，不因一个乐观估计放弃备用岸标。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-q30.c2",
+        "title": "请守望者说明维护与限制",
+        "description": "请守望者说明维护与限制；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q30.resolve",
+        "location_ids": [
+          "sg-l38"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "守望者明确哪些天气不能依赖灯光，大家讨论备用办法。",
+        "failure": "这一趟的能见记录不足，不能把未观测海面也算进古灯照明范围。",
+        "echo_after_seconds": 21600,
+        "success_echo": "理解限制让合作更实在，古灯仍有未解的过去。",
+        "failure_echo": "小船户保留天气与遮挡疑问，不因一个乐观估计放弃备用岸标。",
+        "success_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "理解限制让合作更实在，古灯仍有未解的过去。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p38",
+          "statement": "小船户保留天气与遮挡疑问，不因一个乐观估计放弃备用岸标。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p38"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q24",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-q31",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "愿意回的那封信",
+    "brief": "寻亲中转已有回应，但当事人未必愿意重返旧家庭。",
+    "public_location_ids": [
+      "sg-l40"
+    ],
+    "objectives": [
+      {
+        "id": "sg-q31.resolve",
+        "description": "按自己的方法处理这件事，记录实际结果。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-q31.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-q31.c1",
+        "title": "尊重只愿报平安的答复",
+        "description": "尊重只愿报平安的答复；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q31.resolve",
+        "location_ids": [
+          "sg-l40"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 6,
+        "duration_seconds": 3600,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-family-token",
+            "quantity": 1
+          }
+        ],
+        "success": "你传达获准转告的近况，不替对方许诺重逢。 当事人自愿交给你一枚缝布家徽作为托付，不授权你公开其住处。",
+        "failure": "当事人还没有确认愿意转告的内容，你没有替他们答应返乡或透露住处。",
+        "echo_after_seconds": 21600,
+        "success_echo": "寻亲者可以失望，也可能慢慢接受，后续不强制和解。",
+        "failure_echo": "中转者保留这条未获许可的草稿，是否继续仍由本人选择。",
+        "success_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "寻亲者可以失望，也可能慢慢接受，后续不强制和解。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "中转者保留这条未获许可的草稿，是否继续仍由本人选择。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p40"
+        ]
+      },
+      {
+        "id": "sg-q31.c2",
+        "title": "陪愿意讲述的人记录现在的生活",
+        "description": "陪愿意讲述的人记录现在的生活；不替未在场的人作额外承诺。",
+        "objective_id": "sg-q31.resolve",
+        "location_ids": [
+          "sg-l40"
+        ],
+        "skill_id": "sg-song",
+        "difficulty": 6,
+        "duration_seconds": 1800,
+        "item_costs": {},
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 12
+          }
+        ],
+        "success": "被寻者谈起新朋友与工作，不再只是名单上的旧身份。",
+        "failure": "当事人还没有确认愿意转告的内容，你没有替他们答应返乡或透露住处。",
+        "echo_after_seconds": 21600,
+        "success_echo": "是否把记录分享给家人仍由本人决定。",
+        "failure_echo": "中转者保留这条未获许可的草稿，是否继续仍由本人选择。",
+        "success_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "是否把记录分享给家人仍由本人决定。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p40",
+          "statement": "中转者保留这条未获许可的草稿，是否继续仍由本人选择。"
+        },
+        "required_skill": "sg-song",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-song",
+        "required_character_source_keys": [
+          "sg-p40"
+        ]
+      }
+    ],
+    "requires_echo": {
+      "task_id": "sg-q25",
+      "outcome": "success",
+      "requires_acknowledged": true
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-guild-white-thorn",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "守路者的补给",
+    "brief": "检查下一趟自愿护送的补给，不替任何成员决定参不参加。",
+    "public_location_ids": [
+      "sg-l07"
+    ],
+    "requires_faction_membership": "sg-faction-white-thorn",
+    "objectives": [
+      {
+        "id": "sg-guild-white-thorn.resolve",
+        "description": "完成已经同意的具体工作。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-guild-white-thorn.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-guild-white-thorn.c1",
+        "title": "守路者的补给",
+        "description": "检查下一趟自愿护送的补给，不替任何成员决定参不参加。",
+        "objective_id": "sg-guild-white-thorn.resolve",
+        "location_ids": [
+          "sg-l07"
+        ],
+        "skill_id": "sg-survey",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "你逐件核对这趟已同意护送的补给，把缺的备用绑带列回军需单；这批物资仍属于团部。",
+        "failure": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "echo_after_seconds": 21600,
+        "success_echo": "下一趟护送者可以据清单领物，是否出行仍要本人答应。",
+        "failure_echo": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "下一趟护送者可以据清单领物，是否出行仍要本人答应。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p07",
+          "statement": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。"
+        },
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        },
+        "required_character_source_keys": [
+          "sg-p07"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-guild-nine-towers",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "公开抄本的轮值",
+    "brief": "把获准公开的抄本整理清楚，不把封存私档一并放出。",
+    "public_location_ids": [
+      "sg-l25"
+    ],
+    "requires_faction_membership": "sg-faction-nine-towers",
+    "objectives": [
+      {
+        "id": "sg-guild-nine-towers.resolve",
+        "description": "完成已经同意的具体工作。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-guild-nine-towers.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-guild-nine-towers.c1",
+        "title": "公开抄本的轮值",
+        "description": "把获准公开的抄本整理清楚，不把封存私档一并放出。",
+        "objective_id": "sg-guild-nine-towers.resolve",
+        "location_ids": [
+          "sg-l25"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "你把获准公开的抄本按版次重排，封存私档仍留在原柜，借阅者能分清修订前后。",
+        "failure": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "echo_after_seconds": 21600,
+        "success_echo": "借阅者开始指出另一页不同的注记，学社需实际核对后才能改抄。",
+        "failure_echo": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p55",
+          "statement": "借阅者开始指出另一页不同的注记，学社需实际核对后才能改抄。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p55",
+          "statement": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p55"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-guild-ashriver-league",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "桥市的公秤",
+    "brief": "在实际摊主见证下校准公秤，留下可复查的刻记。",
+    "public_location_ids": [
+      "sg-l01"
+    ],
+    "requires_faction_membership": "sg-faction-ashriver-league",
+    "objectives": [
+      {
+        "id": "sg-guild-ashriver-league.resolve",
+        "description": "完成已经同意的具体工作。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-guild-ashriver-league.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-guild-ashriver-league.c1",
+        "title": "桥市的公秤",
+        "description": "在实际摊主见证下校准公秤，留下可复查的刻记。",
+        "objective_id": "sg-guild-ashriver-league.resolve",
+        "location_ids": [
+          "sg-l01"
+        ],
+        "skill_id": "sg-ledger",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "公秤用已有标准砝码校准，摊主留下这一轮的刻记，不涉及任何旧欠款自动减免。",
+        "failure": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "echo_after_seconds": 21600,
+        "success_echo": "商贩下一次争论重量时有了可查记录，价钱仍由各自商议。",
+        "failure_echo": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "商贩下一次争论重量时有了可查记录，价钱仍由各自商议。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p01",
+          "statement": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。"
+        },
+        "required_skill": "sg-ledger",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-ledger",
+        "required_character_source_keys": [
+          "sg-p01"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-guild-deephearth",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "工伤药架",
+    "brief": "按同工已同意的安排修好药架，不把药房变成某一家私库。",
+    "public_location_ids": [
+      "sg-l20"
+    ],
+    "requires_faction_membership": "sg-faction-deephearth",
+    "objectives": [
+      {
+        "id": "sg-guild-deephearth.resolve",
+        "description": "完成已经同意的具体工作。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-guild-deephearth.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-guild-deephearth.c1",
+        "title": "工伤药架",
+        "description": "按同工已同意的安排修好药架，不把药房变成某一家私库。",
+        "objective_id": "sg-guild-deephearth.resolve",
+        "location_ids": [
+          "sg-l20"
+        ],
+        "skill_id": "sg-forge",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "你按约定修牢公共药架，标出受潮的一层留待晾干；药品仍由原负责者登记发放。",
+        "failure": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "echo_after_seconds": 21600,
+        "success_echo": "换班工人按新标记取放物件，后续添药仍须有真实来货。",
+        "failure_echo": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p20",
+          "statement": "换班工人按新标记取放物件，后续添药仍须有真实来货。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p20",
+          "statement": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。"
+        },
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "required_character_source_keys": [
+          "sg-p20"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-guild-lostlands",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "中转人的承诺",
+    "brief": "整理本人允许转告的联系请求，沉默不算同意。",
+    "public_location_ids": [
+      "sg-l44"
+    ],
+    "requires_faction_membership": "sg-faction-lostlands",
+    "objectives": [
+      {
+        "id": "sg-guild-lostlands.resolve",
+        "description": "完成已经同意的具体工作。",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-guild-lostlands.resolve"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-guild-lostlands.c1",
+        "title": "中转人的承诺",
+        "description": "整理本人允许转告的联系请求，沉默不算同意。",
+        "objective_id": "sg-guild-lostlands.resolve",
+        "location_ids": [
+          "sg-l44"
+        ],
+        "skill_id": "sg-parley",
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "获准转告的联系请求被分开封存，未获许可的住处没有抄进给寻访者的信。",
+        "failure": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "echo_after_seconds": 21600,
+        "success_echo": "中转人按本人允许的方式安排后续，有人只愿报平安而不愿见面。",
+        "failure_echo": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。",
+        "success_reaction": {
+          "character_source_key": "sg-p44",
+          "statement": "中转人按本人允许的方式安排后续，有人只愿报平安而不愿见面。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p44",
+          "statement": "眼前的准备还不足，相关的人说明缺什么，没有把你的成员身份变成无条件许可。"
+        },
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p44"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-crypt-inquiry",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "仍在点名的誓卫",
+    "brief": "倒旗墓道里，每逢雨水流进旧闸，铁壳誓卫就点起一队已经死去的名字。乔文发现名单末尾还有活人的姓。",
+    "public_location_ids": [
+      "sg-l12"
+    ],
+    "objectives": [
+      {
+        "id": "sg-crypt-inquiry.stage1",
+        "description": "查清点名装置眼前的线索",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-crypt-inquiry.stage1"
+          }
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage2",
+        "description": "停止眼前的错误点名",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-crypt-inquiry.stage2"
+          }
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage3",
+        "description": "决定旧闸钥交给谁",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-crypt-inquiry.stage3"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-crypt-inquiry.stage1.c1",
+        "title": "读出两层年代不同的刻字",
+        "description": "带着已有旧文知识在门槛抄读，暂不跨过点名线。",
+        "objective_id": "sg-crypt-inquiry.stage1",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [],
+        "skill_id": "sg-lore",
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "旧军役名册被后来的人重新刻过；装置照着最后一次命令点名，并没有死者回答。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "乔文开始对照旧碑，发现不能把每个同姓人都算作逃兵后裔。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "乔文开始对照旧碑，发现不能把每个同姓人都算作逃兵后裔。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-lore"
+      },
+      {
+        "id": "sg-crypt-inquiry.stage1.c2",
+        "title": "让乔文带着实物讲述来历",
+        "description": "听看守说明亲见的事，把他的猜测另记一栏。",
+        "objective_id": "sg-crypt-inquiry.stage1",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "乔文拿出一枚雨后才掉落的铜字，说明异响与闸口进水相连；谁改过命令仍不清楚。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "他愿意再开一次门让你检查，却要求把墓中私物留在原处。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "他愿意再开一次门让你检查，却要求把墓中私物留在原处。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p12"
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage2.c1",
+        "title": "重接闸簧，令誓卫停在原位",
+        "description": "用两份铁料和一份辉晶更换腐坏触点，保留铁壳中的名册。",
+        "objective_id": "sg-crypt-inquiry.stage2",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [
+          "sg-crypt-inquiry.stage1"
+        ],
+        "skill_id": "sg-forge",
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 7200,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-oath-key",
+            "quantity": 1
+          }
+        ],
+        "success": "点名停了。乔文把脱下来的旧闸钥交给你作核验，名册仍留在铁壳里。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "看守能安静地修墓，但誓卫还在，重新通电前必须有人说明用途。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "看守能安静地修墓，但誓卫还在，重新通电前必须有人说明用途。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "item_costs": {
+          "sg-iron": 2,
+          "sg-crystal": 1
+        },
+        "required_character_source_keys": [
+          "sg-p12"
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage2.c2",
+        "title": "在实战制伏誓卫后收拢残件",
+        "description": "须先在此地的正式交锋中制伏铁壳誓卫，再与看守清点残件；此选择本身不会替你打赢。",
+        "objective_id": "sg-crypt-inquiry.stage2",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [
+          "sg-crypt-inquiry.stage1"
+        ],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-oath-key",
+            "quantity": 1
+          }
+        ],
+        "success": "停止运转的铁壳里只剩半份名册。你与乔文收回旧闸钥，另一半刻字已随战斗毁去。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "村里不再受夜间点名惊扰，几户人却再也找不到名册上那一行。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "村里不再受夜间点名惊扰，几户人却再也找不到名册上那一行。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "required_victory": "sg-crypt-warden",
+        "required_character_source_keys": [
+          "sg-p12"
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage3.c1",
+        "title": "把旧闸钥交回看守并记下经过",
+        "description": "把已经取得的旧闸钥交给乔文，只写亲历内容。",
+        "objective_id": "sg-crypt-inquiry.stage3",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [
+          "sg-crypt-inquiry.stage1",
+          "sg-crypt-inquiry.stage2"
+        ],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "钥匙回到看守手里，见证记录记清了保存与失去的东西。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "乔文愿意让相关家属读这份记录，但不承诺替任何继承人证明血统。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "乔文愿意让相关家属读这份记录，但不承诺替任何继承人证明血统。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "item_costs": {
+          "sg-oath-key": 1
+        },
+        "required_character_source_keys": [
+          "sg-p12"
+        ],
+        "item_handovers": [
+          {
+            "character_source_key": "sg-p12",
+            "items": {
+              "sg-oath-key": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage3.c2",
+        "title": "说明理由，暂时留着旧闸钥",
+        "description": "明确自己要保留这件实物，不把沉默说成看守赞同。",
+        "objective_id": "sg-crypt-inquiry.stage3",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [
+          "sg-crypt-inquiry.stage1",
+          "sg-crypt-inquiry.stage2"
+        ],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "你留下旧闸钥。乔文没有夺走它，也没有把这当成彼此信任的凭据。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "看守向来访者说明钥匙仍在你手中，后来求助或追问都可能循这条线找到你。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "看守向来访者说明钥匙仍在你手中，后来求助或追问都可能循这条线找到你。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "required_items": {
+          "sg-oath-key": 1
+        },
+        "required_character_source_keys": [
+          "sg-p12"
+        ]
+      },
+      {
+        "id": "sg-crypt-inquiry.stage2.c3",
+        "title": "以蜡留样后拆开外闸锁簧",
+        "description": "在乔文看守下用自己的细簧工具与一份蜡处理外闸，令点名机关脱开；不擅入内墓，也不虚构已经击败誓卫。",
+        "objective_id": "sg-crypt-inquiry.stage2",
+        "location_ids": [
+          "sg-l12"
+        ],
+        "after_objectives": [
+          "sg-crypt-inquiry.stage1"
+        ],
+        "skill_id": "sg-lockwork",
+        "required_skill": "sg-lockwork",
+        "required_skill_rank": 1,
+        "difficulty": 3,
+        "duration_seconds": 5400,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-oath-key",
+            "quantity": 1
+          }
+        ],
+        "success": "外闸断开，誓卫停在旧线后。乔文取下旧闸钥交你核验，铁壳和名册均保留在原处。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "乔文给外闸另加警示，后来谁要重接机关仍须说明来意。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "乔文给外闸另加警示，后来谁要重接机关仍须说明来意。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p12",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-lockwork",
+        "required_items": {
+          "sg-lockpicks": 1
+        },
+        "item_costs": {
+          "sg-wax": 1
+        },
+        "required_character_source_keys": [
+          "sg-p12"
+        ]
+      }
+    ]
+  },
+  {
+    "schema_version": 1,
+    "id": "sg-watergate-inquiry",
+    "version": "1.0",
+    "package_id": "sui-guan-realms",
+    "package_version": "1",
+    "kind": "errand",
+    "title": "沉王水下的账",
+    "brief": "阿莎在退水时看见一只绑在旧税柱上的防水匣。匣上是帝国旧印，绳结却还很新。",
+    "public_location_ids": [
+      "sg-l35"
+    ],
+    "objectives": [
+      {
+        "id": "sg-watergate-inquiry.stage1",
+        "description": "为取匣确认一条实际路径",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-watergate-inquiry.stage1"
+          }
+        ]
+      },
+      {
+        "id": "sg-watergate-inquiry.stage2",
+        "description": "从水下取回有来源的匣子",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-watergate-inquiry.stage2"
+          }
+        ]
+      },
+      {
+        "id": "sg-watergate-inquiry.stage3",
+        "description": "在实际到达的地方处置账册",
+        "evidence": [
+          {
+            "kind": "choice",
+            "ref_id": "sg-watergate-inquiry.stage3"
+          }
+        ]
+      }
+    ],
+    "rewards": [],
+    "choices": [
+      {
+        "id": "sg-watergate-inquiry.stage1.c1",
+        "title": "测清回流与塌阶的位置",
+        "description": "用自己的测绳方板做标记，在退水的有限窗口里确认安全落脚点。",
+        "objective_id": "sg-watergate-inquiry.stage1",
+        "location_ids": [
+          "sg-l35"
+        ],
+        "after_objectives": [],
+        "skill_id": "sg-survey",
+        "required_skill": "sg-survey",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "你标出一段可走的浅槽，也看清另一侧有旧式守库构装。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "阿莎愿意沿这些实测记号送工具，下一次潮水后仍会重查。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "阿莎愿意沿这些实测记号送工具，下一次潮水后仍会重查。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-survey",
+        "required_items": {
+          "sg-survey-kit": 1
+        }
+      },
+      {
+        "id": "sg-watergate-inquiry.stage1.c2",
+        "title": "与阿莎一起核对她走过的路",
+        "description": "由实际潜工带路，只沿她已经确认的浅处靠近。",
+        "objective_id": "sg-watergate-inquiry.stage1",
+        "location_ids": [
+          "sg-l35"
+        ],
+        "after_objectives": [],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "阿莎把你带到干台边，说明守库构装会把越线者当成旧税吏。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "她不再独自下水，但是否继续取匣还由你们分别决定。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "她不再独自下水，但是否继续取匣还由你们分别决定。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "required_character_source_keys": [
+          "sg-p35"
+        ]
+      },
+      {
+        "id": "sg-watergate-inquiry.stage2.c1",
+        "title": "沿浅槽放绳，拆开固定扣",
+        "description": "牺牲一条长绳拖匣，锻修具只用于拆扣；不把守库构装算作已击败。",
+        "objective_id": "sg-watergate-inquiry.stage2",
+        "location_ids": [
+          "sg-l35"
+        ],
+        "after_objectives": [
+          "sg-watergate-inquiry.stage1"
+        ],
+        "skill_id": "sg-forge",
+        "required_skill": "sg-forge",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 7200,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-drowned-ledger",
+            "quantity": 1
+          }
+        ],
+        "success": "匣子上岸，绳子断在水下。里面是一册近年的运粮账，几笔数目被刮去。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "阿莎发现旧库里有人一直在走货；账册没有说明所有收货者，也不能单凭旧印认定王庭主使。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "阿莎发现旧库里有人一直在走货；账册没有说明所有收货者，也不能单凭旧印认定王庭主使。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-forge",
+        "required_items": {
+          "sg-forge-tools": 1
+        },
+        "item_costs": {
+          "sg-rope": 1
+        }
+      },
+      {
+        "id": "sg-watergate-inquiry.stage2.c2",
+        "title": "制伏守库构装后查验匣封",
+        "description": "须先在正式交锋中制伏守库构装，再按已学知识开匣，不会凭选项跳过战斗。",
+        "objective_id": "sg-watergate-inquiry.stage2",
+        "location_ids": [
+          "sg-l35"
+        ],
+        "after_objectives": [
+          "sg-watergate-inquiry.stage1"
+        ],
+        "skill_id": "sg-lore",
+        "required_skill": "sg-lore",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 1800,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "item",
+            "ref_id": "sg-drowned-ledger",
+            "quantity": 1
+          }
+        ],
+        "success": "铁壳沉入浅池。你检查出旧封蜡上有第二次热封，打开后得到那册刮改的运粮账。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "附近再无人被构装拦住，但深处通道并未因此全部安全。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "附近再无人被构装拦住，但深处通道并未因此全部安全。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p35",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-lore",
+        "required_victory": "sg-drowned-keeper"
+      },
+      {
+        "id": "sg-watergate-inquiry.stage3.c1",
+        "title": "把账册交给外城街坊核对",
+        "description": "带实物到外城，请菲奥先核对受影响的粮户；不把刮去的字补成罪证。",
+        "objective_id": "sg-watergate-inquiry.stage3",
+        "location_ids": [
+          "sg-l31"
+        ],
+        "after_objectives": [
+          "sg-watergate-inquiry.stage1",
+          "sg-watergate-inquiry.stage2"
+        ],
+        "skill_id": "sg-witness",
+        "required_skill": "sg-witness",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          }
+        ],
+        "success": "账册交由街坊保管，抄出的已核部分先送给有关粮户，尚未查明的去向另行保留。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "几户人找到了旧收据，另有人担心曝光断掉下一批粮路；街坊还要继续争论。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "几户人找到了旧收据，另有人担心曝光断掉下一批粮路；街坊还要继续争论。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p31",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-witness",
+        "item_costs": {
+          "sg-drowned-ledger": 1
+        },
+        "required_character_source_keys": [
+          "sg-p31"
+        ],
+        "item_handovers": [
+          {
+            "character_source_key": "sg-p31",
+            "items": {
+              "sg-drowned-ledger": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "sg-watergate-inquiry.stage3.c2",
+        "title": "向缪特出售这册原账",
+        "description": "把实物带到黑蜡下街。缪特愿以二十五银铢收走原账，不附带替你洗清来历的保证。",
+        "objective_id": "sg-watergate-inquiry.stage3",
+        "location_ids": [
+          "sg-l34"
+        ],
+        "after_objectives": [
+          "sg-watergate-inquiry.stage1",
+          "sg-watergate-inquiry.stage2"
+        ],
+        "skill_id": "sg-parley",
+        "required_skill": "sg-parley",
+        "required_skill_rank": 1,
+        "difficulty": 2,
+        "duration_seconds": 3600,
+        "rewards": [
+          {
+            "kind": "experience",
+            "ref_id": "experience",
+            "quantity": 10
+          },
+          {
+            "kind": "currency",
+            "ref_id": "银铢",
+            "quantity": 25
+          }
+        ],
+        "success": "缪特付钱收账，保留了账册和它能换来的筹码。你取得约定钱款，却不再持有原件。",
+        "failure": "你停在还不能确认的地方，没有把缺失的依据写成既成结果。",
+        "echo_after_seconds": 21600,
+        "success_echo": "黑蜡同行有人悄悄找粮商谈价；阿莎只知道你带走账册，并不知道这次交易的细节。",
+        "failure_echo": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。",
+        "success_reaction": {
+          "character_source_key": "sg-p34",
+          "statement": "黑蜡同行有人悄悄找粮商谈价；阿莎只知道你带走账册，并不知道这次交易的细节。"
+        },
+        "failure_reaction": {
+          "character_source_key": "sg-p34",
+          "statement": "这一步仍未走通，当事人继续自己的安排，愿不愿再谈要看后来的行动。"
+        },
+        "use_skill_id": "sg-parley",
+        "item_costs": {
+          "sg-drowned-ledger": 1
+        },
+        "required_character_source_keys": [
+          "sg-p34"
+        ],
+        "item_handovers": [
+          {
+            "character_source_key": "sg-p34",
+            "items": {
+              "sg-drowned-ledger": 1
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

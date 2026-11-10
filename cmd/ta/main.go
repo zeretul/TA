@@ -1,0 +1,427 @@
+package main
+
+import (
+	"bufio"
+	"context"
+	agentrun "ta/internal/agents/run"
+	"flag"
+	"fmt"
+	"io"
+	"log/slog"
+	"net"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
+	"strconv"
+	"strings"
+
+	"ta/config"
+	"ta/internal/api"
+	"ta/internal/app"
+	"ta/internal/buildinfo"
+	"ta/internal/observability"
+)
+
+func main() {
+	var (
+		workspace string
+		dev       bool
+		devMode   bool
+		noOpen    bool
+	)
+	if hasVersionArg(os.Args[1:]) {
+		fmt.Println(buildinfo.Version)
+		return
+	}
+	cfg := config.Load()
+	port := defaultPort(cfg)
+	frontendPort := defaultFrontendPort(cfg)
+	flag.StringVar(&workspace, "workspace", "", "workspace directory (defaults to the last opened workspace)")
+	flag.StringVar(&port, "port", port, "HTTP server port")
+	flag.StringVar(&frontendPort, "frontend-port", frontendPort, "frontend development server port")
+	flag.BoolVar(&dev, "dev", false, "start the Vite frontend development server")
+	flag.BoolVar(&devMode, "dev-mode", false, "enable development diagnostics for scripts/bootstrap.sh")
+	flag.BoolVar(&noOpen, "no-open", false, "do not open a browser after startup")
+	flag.Parse()
+
+	cfg.DevMode = dev || devMode
+	agentrun.SetModelInputLoggingEnabled(cfg.DevMode && cfg.LLMInputLogEnabled)
+	agentrun.SetTraceRuntimeConfig(cfg.TraceCaptureLevel, cfg.TraceExporter, cfg.TraceRetentionRuns)
+	agentrun.SetTraceContentCaptureEnabled(cfg.Labs.DeveloperMode)
+
+	logPath, logOutput, closeLog := setupLogging("./log")
+	defer closeLog()
+	observability.ConfigureStructuredLogging(logOutput)
+	slog.InfoContext(context.Background(), fmt.Sprintf("[startup] logging enabled dir=./log current_file=%s", logPath))
+	requestedPort := port
+	listenHost := config.HTTPListenHost(cfg.AllowLANAccess)
+	listener, port, err := reserveBackendListener(listenHost, requestedPort, !portWasExplicitlySet(os.Args[1:]))
+	if err != nil {
+		reportBackendPortConflict(os.Stderr, requestedPort, err)
+		waitForAnyKey(os.Stdin)
+		os.Exit(1)
+	}
+	defer func() { _ = listener.Close() }()
+	if port != requestedPort {
+		reportBackendPortFallback(os.Stderr, requestedPort, port)
+	}
+	frontendPort = selectFrontendPort(frontendPort, port)
+	if runtimeWebPort, err := strconv.Atoi(port); err == nil {
+		cfg.RuntimeWebPort = runtimeWebPort
+	}
+	if dev {
+		if runtimeWebPort, err := strconv.Atoi(frontendPort); err == nil {
+			cfg.RuntimeWebPort = runtimeWebPort
+		}
+	}
+
+	if workspace != "" {
+		cfg.Workspace = workspace
+		cfg.ResumeLastWorkspace = false
+	} else if workspaceEnv := envCompat("TA_WORKSPACE", "DENOVA_WORKSPACE", "NOVA_WORKSPACE"); workspaceEnv != "" {
+		cfg.Workspace = workspaceEnv
+		cfg.ResumeLastWorkspace = false
+	}
+
+	cfg.SkillsDir = resolveSkillsDir(cfg.SkillsDir)
+	cfg.MediaDir = resolveMediaDir()
+
+	ctx := context.Background()
+
+	// 初始化应用运行时
+	application, err := app.New(ctx, cfg)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to initialize application: %v\n", err)
+		os.Exit(1)
+	}
+	defer application.Close()
+
+	// 启动 HTTP 服务
+	srv := api.NewServerWithListener(application, port, listener)
+
+	// 打印启动信息
+	url := fmt.Sprintf("http://localhost:%s", port)
+	frontendURL := fmt.Sprintf("http://localhost:%s", frontendPort)
+	fmt.Printf("\n  Text Adventure (TA)\n")
+	fmt.Printf("  ─────────────────────\n")
+	fmt.Printf("  Backend: %s\n", url)
+	if dev {
+		fmt.Printf("  Frontend: %s\n", frontendURL)
+	}
+	if cfg.AllowLANAccess {
+		if dev {
+			fmt.Printf("  LAN frontend: http://%s:%s\n", config.LANAddress(), frontendPort)
+		} else {
+			fmt.Printf("  LAN backend: http://%s:%s\n", config.LANAddress(), port)
+		}
+	}
+	fmt.Printf("  Workspace: %s\n", application.Workspace())
+	fmt.Printf("  Press Ctrl+C to stop\n\n")
+
+	// 开发模式：同时启动 Vite dev server
+	if dev {
+		runBackground("vite-dev-server", func() {
+			startViteDev(frontendPort, listenHost, port)
+		})
+	}
+	if !noOpen {
+		if dev {
+			runBackground("open-frontend", func() {
+				openBrowser(frontendURL)
+			})
+		} else {
+			runBackground("open-backend", func() {
+				openBrowser(url)
+			})
+		}
+	}
+
+	srv.Run()
+}
+
+// runBackground is the process-entry goroutine boundary. A development helper
+// or browser launcher must never bring down the long-lived backend on panic.
+func runBackground(scope string, run func()) {
+	go func() {
+		defer func() {
+			if recovered := recover(); recovered != nil {
+				slog.ErrorContext(context.Background(), fmt.Sprintf("[startup] background task panic recovered scope=%s err=%v", scope, recovered))
+			}
+		}()
+		if run != nil {
+			run()
+		}
+	}()
+}
+
+func hasVersionArg(args []string) bool {
+	for _, arg := range args {
+		if arg == "--version" || arg == "-version" {
+			return true
+		}
+	}
+	return false
+}
+
+// openBrowser 打开默认浏览器
+func openBrowser(url string) {
+	var cmd *exec.Cmd
+	switch runtime.GOOS {
+	case "darwin":
+		cmd = exec.Command("open", url)
+	case "linux":
+		cmd = exec.Command("xdg-open", url)
+	case "windows":
+		cmd = exec.Command("cmd", "/c", "start", url)
+	}
+	if cmd != nil {
+		_ = cmd.Start()
+	}
+}
+
+// startViteDev 启动 Vite 前端开发服务器
+func startViteDev(port, host, backendPort string) {
+	// 查找 web 目录
+	webDir := "./web"
+	if _, err := os.Stat(webDir); os.IsNotExist(err) {
+		// 尝试可执行文件同级
+		webDir = bundledDir("web")
+		if _, err := os.Stat(webDir); os.IsNotExist(err) {
+			fmt.Fprintf(os.Stderr, "Warning: web/ directory not found; skipping the frontend development server\n")
+			return
+		}
+	}
+
+	args := []string{"dev", "--port", port, "--host"}
+	// Let Node choose a dual-stack listener for LAN access. Binding only IPv4
+	// makes localhost clients wait for IPv6 fallback on each new connection.
+	if host != config.LANHTTPHost {
+		args = append(args, host)
+	}
+	cmd := exec.Command("pnpm", args...)
+	cmd.Dir = webDir
+	cmd.Env = viteDevEnv(os.Environ(), port, backendPort)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Vite development server exited: %v\n", err)
+	}
+}
+
+func viteDevEnv(base []string, frontendPort, backendPort string) []string {
+	env := setEnvValue(base, "TA_BACKEND_PORT", backendPort)
+	env = setEnvValue(env, "TA_FRONTEND_PORT", frontendPort)
+	return env
+}
+
+func setEnvValue(base []string, key, value string) []string {
+	prefix := key + "="
+	env := make([]string, 0, len(base)+1)
+	for _, item := range base {
+		if strings.HasPrefix(item, prefix) {
+			continue
+		}
+		env = append(env, item)
+	}
+	return append(env, prefix+value)
+}
+
+func defaultPort(cfg *config.Config) string {
+	if cfg != nil && cfg.BackendPort > 0 {
+		return strconv.Itoa(cfg.BackendPort)
+	}
+	return "8080"
+}
+
+func defaultFrontendPort(cfg *config.Config) string {
+	if cfg != nil && cfg.FrontendPort > 0 {
+		return strconv.Itoa(cfg.FrontendPort)
+	}
+	return "5173"
+}
+
+// reserveBackendListener atomically claims the selected HTTP port. The listener
+// is passed to the HTTP server later so another process cannot take the port
+// between availability detection and server startup.
+func reserveBackendListener(host, preferred string, autoPick bool) (net.Listener, string, error) {
+	listener, err := listenOnPort(host, preferred)
+	if err == nil {
+		return listener, preferred, nil
+	}
+	if !autoPick {
+		return nil, preferred, err
+	}
+
+	start, parseErr := strconv.Atoi(preferred)
+	if parseErr != nil || start < 1 || start > 65535 {
+		return nil, preferred, fmt.Errorf("invalid port %q", preferred)
+	}
+	for candidate := start + 1; candidate <= 65535 && candidate <= start+20; candidate++ {
+		port := strconv.Itoa(candidate)
+		listener, candidateErr := listenOnPort(host, port)
+		if candidateErr == nil {
+			return listener, port, nil
+		}
+	}
+	return nil, preferred, fmt.Errorf("no available port found in %d-%d: %w", start+1, min(start+20, 65535), err)
+}
+
+func listenOnPort(host, port string) (net.Listener, error) {
+	return net.Listen("tcp", net.JoinHostPort(host, port))
+}
+
+func portWasExplicitlySet(args []string) bool {
+	for _, arg := range args {
+		if arg == "--" {
+			return false
+		}
+		if arg == "-port" || arg == "--port" || strings.HasPrefix(arg, "-port=") || strings.HasPrefix(arg, "--port=") {
+			return true
+		}
+	}
+	return false
+}
+
+func reportBackendPortFallback(output io.Writer, requestedPort, selectedPort string) {
+	fmt.Fprintf(output, "Notice: port %s is in use; switched to %s.\n", requestedPort, selectedPort)
+	slog.WarnContext(context.Background(), fmt.Sprintf("[startup] HTTP port %s is unavailable; switched to %s", requestedPort, selectedPort))
+}
+
+func reportBackendPortConflict(output io.Writer, port string, err error) {
+	fmt.Fprintf(output, "Error: explicitly specified port %s is unavailable: %v\n", port, err)
+	fmt.Fprintln(output, "Release the port or choose another --port value. Press any key (or Enter) to exit.")
+	slog.WarnContext(context.Background(), fmt.Sprintf("[startup] explicitly specified HTTP port is unavailable port=%s err=%v", port, err))
+}
+
+func waitForAnyKey(input io.Reader) {
+	_, _ = bufio.NewReader(input).ReadByte()
+}
+
+// selectFrontendPort 为前端 Vite dev server 自动选择一个可用端口。
+// 与 HTTP 后端端口不同，前端端口总是尝试自动选择（因为 Vite 不负责端口协商）。
+func selectFrontendPort(preferred string, reservedPorts ...string) string {
+	if !portReserved(preferred, reservedPorts...) && portAvailable(preferred) {
+		return preferred
+	}
+
+	next, err := findAvailablePort(preferred, 20, reservedPorts...)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: frontend port %s is unavailable and automatic selection failed: %v\n", preferred, err)
+		slog.ErrorContext(context.Background(), fmt.Sprintf("[startup] frontend port %s is unavailable and automatic selection failed err=%v", preferred, err))
+		return preferred
+	}
+
+	fmt.Fprintf(os.Stderr, "Notice: frontend port %s is in use; switched to %s\n", preferred, next)
+	slog.InfoContext(context.Background(), fmt.Sprintf("[startup] frontend port %s is unavailable; switched to %s", preferred, next))
+	return next
+}
+
+func findAvailablePort(preferred string, attempts int, reservedPorts ...string) (string, error) {
+	start, err := strconv.Atoi(preferred)
+	if err != nil || start <= 0 || start > 65535 {
+		return "", fmt.Errorf("invalid port: %s", preferred)
+	}
+	for port := start + 1; port <= 65535 && port <= start+attempts; port++ {
+		candidate := strconv.Itoa(port)
+		if !portReserved(candidate, reservedPorts...) && portAvailable(candidate) {
+			return candidate, nil
+		}
+	}
+	return "", fmt.Errorf("no available port found in %d-%d", start+1, start+attempts)
+}
+
+func portReserved(port string, reservedPorts ...string) bool {
+	value, err := strconv.Atoi(port)
+	if err != nil {
+		return false
+	}
+	for _, reserved := range reservedPorts {
+		reservedValue, err := strconv.Atoi(reserved)
+		if err == nil && reservedValue == value {
+			return true
+		}
+	}
+	return false
+}
+
+func portAvailable(port string) bool {
+	ln, err := net.Listen("tcp", "0.0.0.0:"+port)
+	if err != nil {
+		return false
+	}
+	_ = ln.Close()
+	return true
+}
+
+func bundledDir(name string) string {
+	if exe, err := os.Executable(); err == nil {
+		return filepath.Join(filepath.Dir(exe), name)
+	}
+	return ""
+}
+
+func bundledParentDir(name string) string {
+	if exe, err := os.Executable(); err == nil {
+		return filepath.Join(filepath.Dir(exe), "..", "..", name)
+	}
+	return ""
+}
+
+// resolveMediaDir finds the clips that ship beside the executable. It is not
+// configurable: a clip belongs to the build, and a user-supplied directory could
+// point anywhere on disk. A build without the directory has no clips, and every
+// character window keeps its portrait.
+func resolveMediaDir() string {
+	for _, candidate := range []string{bundledDir("media"), bundledParentDir("media")} {
+		if dir := existingDir(candidate); dir != "" {
+			return dir
+		}
+	}
+	return ""
+}
+
+func resolveSkillsDir(configured string) string {
+	if dir := existingDir(configured); dir != "" {
+		return dir
+	}
+	if configured != "" && envCompat("TA_SKILLS_DIR", "DENOVA_SKILLS_DIR", "NOVA_SKILLS_DIR") != "" {
+		return configured
+	}
+	candidates := []string{
+		"./skills",
+		bundledDir("skills"),
+		bundledParentDir("skills"),
+	}
+	for _, c := range candidates {
+		if dir := existingDir(c); dir != "" {
+			return dir
+		}
+	}
+	return configured
+}
+
+// Names are tried newest first so a launcher written before the rename keeps
+// resolving to the same directory.
+func envCompat(names ...string) string {
+	for _, name := range names {
+		if v := os.Getenv(name); v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
+func existingDir(path string) string {
+	if path == "" {
+		return ""
+	}
+	clean := filepath.Clean(path)
+	if fi, err := os.Stat(clean); err == nil && fi.IsDir() {
+		if abs, err := filepath.Abs(clean); err == nil {
+			return abs
+		}
+		return clean
+	}
+	return ""
+}

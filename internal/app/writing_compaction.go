@@ -1,0 +1,130 @@
+package app
+
+import (
+	"context"
+	"ta/config"
+	"fmt"
+	"strings"
+
+	agentchat "ta/internal/agents/chat"
+	agentcompaction "ta/internal/agents/context/compaction"
+	agentstructural "ta/internal/agents/context/structural"
+	agentexecution "ta/internal/agents/execution"
+	agentrun "ta/internal/agents/run"
+	compactionapp "ta/internal/app/compaction"
+	conversationapp "ta/internal/app/conversation"
+)
+
+func (s *ChatAppService) executeWritingContextCompaction(ctx context.Context, requestedCommandID string) (agentcompaction.Result, error) {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	s.admission.Lock()
+	defer s.admission.Unlock()
+	fence, err := s.drainWritingBinding(ctx, "")
+	if err != nil {
+		return agentcompaction.Result{}, err
+	}
+	if fence.selected == nil {
+		return agentcompaction.Result{}, ErrNoWorkspace
+	}
+	commandID, err := compactionapp.ResolveCommandID(
+		requestedCommandID,
+		agentstructural.CommandID(
+			"writing-compact", fence.workspace, fence.selected.ID,
+			fmt.Sprint(fence.selected.ContextCursor().Revision),
+		),
+	)
+	if err != nil {
+		return agentcompaction.Result{}, err
+	}
+	runtime, _, err := s.prepareIDEChatRuntime(ctx, agentchat.ChatRequest{})
+	if err != nil {
+		return agentcompaction.Result{}, err
+	}
+	if runtime.cfg.ActiveAgentRuntime != nil && runtime.cfg.ActiveAgentRuntime.Kind != config.RuntimeNative {
+		s.app.mu.RLock()
+		err = fence.validateLocked(s.app, true)
+		s.app.mu.RUnlock()
+		if err != nil {
+			return agentcompaction.Result{}, err
+		}
+		host, err := s.app.AgentHostCapabilities(ctx, &runtime.cfg, agentrun.AgentKindIDE)
+		if err != nil {
+			return agentcompaction.Result{}, err
+		}
+		executor, err := conversationapp.BuildExecution(ctx, sharedConversationRuntime(runtime), host, s.app.AgentEngines(), "")
+		if err != nil {
+			return agentcompaction.Result{}, err
+		}
+		return executor.Compact(ctx, commandID, runtime.agentOptions(""))
+	}
+	cycle, err := s.prepareWritingStructuralCycle(ctx, fence)
+	if err != nil {
+		return agentcompaction.Result{}, err
+	}
+	result, err := fence.chat.ExecuteStructuralOperation(ctx, cycle, agentstructural.Spec{
+		CommandID: commandID,
+		Action:    agentstructural.Compact,
+		Ref:       agentrun.ContextCompactionRef{Force: true},
+	})
+	if err != nil {
+		return result.Compaction, err
+	}
+	if !result.Compaction.Triggered {
+		return result.Compaction, fmt.Errorf("没有可压缩的上下文 / No context is available for compaction")
+	}
+	return result.Compaction, nil
+}
+
+func (s *ChatAppService) executeWritingContextCompactionRemoval(ctx context.Context, requestedCommandID string) (bool, error) {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	s.admission.Lock()
+	defer s.admission.Unlock()
+	fence, err := s.drainWritingBinding(ctx, "")
+	if err != nil {
+		return false, err
+	}
+	if fence.selected == nil {
+		return false, ErrNoWorkspace
+	}
+	commandID, err := compactionapp.ResolveCommandID(
+		strings.TrimSpace(requestedCommandID),
+		agentstructural.CommandID(
+			"writing-remove-compaction", fence.workspace, fence.selected.ID,
+			fmt.Sprint(fence.selected.ContextCursor().Revision),
+		),
+	)
+	if err != nil {
+		return false, err
+	}
+	cycle, err := s.prepareWritingStructuralCycle(ctx, fence)
+	if err != nil {
+		return false, err
+	}
+	result, err := fence.chat.ExecuteStructuralOperation(ctx, cycle, agentstructural.Spec{
+		CommandID: commandID,
+		Action:    agentstructural.Remove,
+	})
+	return result.Removed, err
+}
+
+func (s *ChatAppService) prepareWritingStructuralCycle(ctx context.Context, fence writingStructuralFence) (agentexecution.Cycle, error) {
+	cycle, runtime, err := s.prepareWritingCycle(ctx, agentchat.ChatRequest{}, "")
+	if err != nil {
+		return agentexecution.Cycle{}, err
+	}
+	s.app.mu.RLock()
+	err = fence.validateLocked(s.app, true)
+	s.app.mu.RUnlock()
+	if err != nil {
+		return agentexecution.Cycle{}, err
+	}
+	if runtime.projectID != fence.projectID || runtime.workspace != fence.workspace ||
+		runtime.sess != fence.selected || runtime.executionRuntime != fence.chat {
+		return agentexecution.Cycle{}, ErrAgentContextChanged
+	}
+	return cycle, nil
+}

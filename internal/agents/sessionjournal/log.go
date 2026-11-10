@@ -1,0 +1,326 @@
+package sessionjournal
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"sync"
+
+	"ta/internal/agents/conversationjournal"
+
+	agent "ta/agent"
+	agentsession "ta/agent/session"
+)
+
+// Log adapts one exact embedded stream to the public Agent storage contract.
+// The caller owns the per-Session execution lease passed as release.
+type Log struct {
+	journal           *conversationjournal.Journal
+	projection        *Projection
+	key               agentsession.Key
+	canonicalMessages bool
+	release           func()
+	closeOnce         sync.Once
+	closed            bool
+	mu                sync.Mutex
+}
+
+func NewLog(
+	journal *conversationjournal.Journal,
+	projection *Projection,
+	key agentsession.Key,
+	canonicalMessages bool,
+	release func(),
+) (*Log, error) {
+	if journal == nil || projection == nil {
+		return nil, fmt.Errorf("embedded agent session journal is unavailable")
+	}
+	normalized, err := agentsession.NormalizeKey(key)
+	if err != nil {
+		return nil, err
+	}
+	return &Log{
+		journal: journal, projection: projection, key: normalized,
+		canonicalMessages: canonicalMessages, release: release,
+	}, nil
+}
+
+func (log *Log) CanonicalMessages() bool { return log != nil && log.canonicalMessages }
+
+func (log *Log) Replay(ctx context.Context, apply func(agentsession.Record) error) (agentsession.ReplayStats, error) {
+	if apply == nil {
+		return agentsession.ReplayStats{}, fmt.Errorf("replay embedded agent session: reducer is required")
+	}
+	log.mu.Lock()
+	defer log.mu.Unlock()
+	if log.closed {
+		return agentsession.ReplayStats{}, agentsession.ErrLogClosed
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	// Refresh the physical tail through the journal before reading its derived
+	// stream projection. No payload is read from a separate authority.
+	if _, err := log.journal.ReadRange(ctx, conversationjournal.Range{After: log.journal.Head().Cursor}); err != nil {
+		return agentsession.ReplayStats{}, err
+	}
+	stream, err := log.projection.stream(log.key)
+	if err != nil {
+		return agentsession.ReplayStats{}, err
+	}
+	if stream == nil {
+		return agentsession.ReplayStats{}, nil
+	}
+	stats := agentsession.ReplayStats{}
+	through := log.journal.Head().Cursor
+	after := stream.Start.Cursor - 1
+	for after < through {
+		records, err := log.journal.ReadRange(ctx, conversationjournal.Range{After: after, Through: through, Limit: 128})
+		if err != nil {
+			return stats, err
+		}
+		if len(records) == 0 {
+			return stats, fmt.Errorf("Agent journal range is missing")
+		}
+		for _, physical := range records {
+			after = physical.Location.Cursor
+			if physical.Location.Cursor == stream.Start.Cursor && physical.Location.RecordIndex < stream.Start.RecordIndex {
+				continue
+			}
+			var envelope Envelope
+			if err := json.Unmarshal(physical.Payload, &envelope); err != nil {
+				return stats, err
+			}
+			if envelope.Type != RecordType {
+				continue
+			}
+			identity, _ := agentsession.CanonicalKey(envelope.Key)
+			expected, _ := agentsession.CanonicalKey(log.key)
+			if identity != expected {
+				continue
+			}
+			if envelope.Deleted {
+				return stats, fmt.Errorf("Agent journal generation changed during replay")
+			}
+			record := agentsession.Record{Revision: envelope.Revision, Kind: envelope.Kind, Version: envelope.Version, Data: envelope.Data}
+			stats.RecordsRead++
+			stats.BytesRead += int64(len(record.Kind) + len(record.Data))
+			record, err = projectReleasedGameCompaction(record)
+			if err != nil {
+				return stats, err
+			}
+			if err := apply(record); err != nil {
+				return stats, err
+			}
+		}
+	}
+
+	return stats, nil
+}
+
+func (log *Log) Append(ctx context.Context, expected agentsession.Revision, records ...agentsession.Record) (agentsession.Revision, error) {
+	log.mu.Lock()
+	defer log.mu.Unlock()
+	return log.appendLocked(ctx, expected, records...)
+}
+
+func (log *Log) appendLocked(ctx context.Context, expected agentsession.Revision, records ...agentsession.Record) (agentsession.Revision, error) {
+	if log.closed {
+		return 0, agentsession.ErrLogClosed
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	if _, err := log.journal.ReadRange(ctx, conversationjournal.Range{After: log.journal.Head().Cursor}); err != nil {
+		return 0, err
+	}
+	for _, record := range records {
+		if err := agentsession.ValidateRecord(record); err != nil {
+			return 0, err
+		}
+		if err := validateEmbeddedRecord(record); err != nil {
+			return 0, err
+		}
+	}
+	if len(records) == 0 {
+		current, err := log.projection.Revision(log.key)
+		if err != nil {
+			return 0, err
+		}
+		if current != expected {
+			return current, &agentsession.RevisionConflictError{Expected: expected, Actual: current}
+		}
+		return current, nil
+	}
+	for {
+		current, err := log.projection.Revision(log.key)
+		if err != nil {
+			return 0, err
+		}
+		if current != expected {
+			return current, &agentsession.RevisionConflictError{Expected: expected, Actual: current}
+		}
+		payloads := make([]json.RawMessage, len(records))
+		next := current
+		for index, record := range records {
+			next++
+			payload, marshalErr := json.Marshal(Envelope{
+				Type: RecordType, Key: log.key, Revision: next,
+				Kind: record.Kind, Version: record.Version, Data: record.Data,
+			})
+			if marshalErr != nil {
+				return current, marshalErr
+			}
+			payloads[index] = payload
+		}
+		head := log.journal.Head()
+		appendRecords := log.journal.Append
+		for _, record := range records {
+			if requiresResilienceFormat(record.Kind) {
+				appendRecords = func(ctx context.Context, guard conversationjournal.Guard, payloads ...json.RawMessage) (conversationjournal.Commit, error) {
+					return log.journal.AppendWithBackup(ctx, guard, "resilience-v1", payloads...)
+				}
+				break
+			}
+		}
+		for _, record := range records {
+			if usesIncrementalCompaction(record) {
+				appendRecords = func(ctx context.Context, guard conversationjournal.Guard, payloads ...json.RawMessage) (conversationjournal.Commit, error) {
+					return log.journal.AppendWithBackup(ctx, guard, "incremental-compaction-v2", payloads...)
+				}
+				break
+			}
+		}
+		_, appendErr := appendRecords(ctx, conversationjournal.Guard{
+			Cursor: head.Cursor, RecordSHA256: head.RecordSHA256,
+		}, payloads...)
+		if appendErr == nil {
+			return next, nil
+		}
+		if !errors.Is(appendErr, conversationjournal.ErrConflict) {
+			return current, appendErr
+		}
+		// A product record won the physical cursor. Append refresh already
+		// reduced it, so retry if this exact Agent stream is still unchanged.
+		if err := ctx.Err(); err != nil {
+			return current, err
+		}
+	}
+}
+
+func requiresResilienceFormat(kind string) bool {
+	switch kind {
+	case "session.input", "session.input_update", "session.control", "turn.checkpoint", "turn.tool", "turn.interaction", "turn.interaction_response":
+		return true
+	default:
+		return false
+	}
+}
+
+func (log *Log) Close() error {
+	if log == nil {
+		return nil
+	}
+	var result error
+	log.closeOnce.Do(func() {
+		log.mu.Lock()
+		log.closed = true
+		if log.journal != nil {
+			result = log.journal.Close()
+		}
+		log.mu.Unlock()
+		if log.release != nil {
+			log.release()
+		}
+	})
+	return result
+}
+
+// Delete appends a tombstone to the owning product journal. Replaying the
+// JSONL removes all earlier records for this exact logical Agent Session.
+func (log *Log) Delete(ctx context.Context) error {
+	log.mu.Lock()
+	defer log.mu.Unlock()
+	if log.closed {
+		return agentsession.ErrLogClosed
+	}
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	for {
+		current, err := log.projection.Revision(log.key)
+		if err != nil {
+			return err
+		}
+		payload, err := json.Marshal(Envelope{
+			Type: RecordType, Key: log.key, Revision: current + 1, Deleted: true,
+		})
+		if err != nil {
+			return err
+		}
+		head := log.journal.Head()
+		_, err = log.journal.Append(ctx, conversationjournal.Guard{
+			Cursor: head.Cursor, RecordSHA256: head.RecordSHA256,
+		}, payload)
+		if err == nil {
+			return nil
+		}
+		if !errors.Is(err, conversationjournal.ErrConflict) {
+			return err
+		}
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+	}
+}
+
+var _ agentsession.CanonicalMessageLog = (*Log)(nil)
+
+// Recovery clones the derived index so runtime reduction cannot mutate the
+// product projection. Released compaction metadata is projected in memory only.
+func (log *Log) Recovery(ctx context.Context) (*agent.RecoveryIndex, error) {
+	log.mu.Lock()
+	defer log.mu.Unlock()
+	if log.closed {
+		return nil, agentsession.ErrLogClosed
+	}
+	if _, err := log.journal.ReadRange(ctx, conversationjournal.Range{After: log.journal.Head().Cursor}); err != nil {
+		return nil, err
+	}
+	stream, err := log.projection.stream(log.key)
+	if err != nil {
+		return nil, err
+	}
+	if stream == nil {
+		return &agent.RecoveryIndex{}, nil
+	}
+	encoded, err := json.Marshal(stream.Recovery)
+	if err != nil {
+		return nil, err
+	}
+	var recovery agent.RecoveryIndex
+	if err := json.Unmarshal(encoded, &recovery); err != nil {
+		return nil, err
+	}
+	for key, entry := range recovery.Records {
+		record, err := projectReleasedGameCompaction(entry.Record)
+		if err != nil {
+			return nil, err
+		}
+		entry.Record = record
+		recovery.Records[key] = entry
+	}
+	return &recovery, nil
+}
+
+func (log *Log) ReadRecord(ctx context.Context, revision agentsession.Revision) (agentsession.Record, error) {
+	log.mu.Lock()
+	defer log.mu.Unlock()
+	if log.closed {
+		return agentsession.Record{}, agentsession.ErrLogClosed
+	}
+	return log.projection.ReadRecord(ctx, log.journal, log.key, revision)
+}
+
+var _ agent.RecoveryLog = (*Log)(nil)

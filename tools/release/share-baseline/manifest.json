@@ -1,0 +1,31 @@
+{
+  "version": "0.7.0",
+  "basis": "unmodified final 0.6.18 source; common age/explicit refusal/JSON repair merged",
+  "last_delivered_0618_exe_sha256": "67e94c24ffee2a939fcdb9bb48d326c8f0aea430ae6229e0b445456bba1ca41c",
+  "overrides": [
+    {
+      "source": "internal/agents/prompts/intimacy.go",
+      "clean": "internal__agents__prompts__intimacy.go.txt",
+      "local_sha256": "0d2604e4a2a28891b0d16ca98eb0003929a8e62ea62c1e94b1ba88a38c49dc1f",
+      "clean_sha256": "8d55721ddbf2fc6e1ee260460b3a59f82e6112056f56277776de6b6fdd11244b"
+    },
+    {
+      "source": "internal/app/intimacy_app_service.go",
+      "clean": "internal__app__intimacy_app_service.go.txt",
+      "local_sha256": "52f54868648de1a5e69842e9515d4260d111d7e8f37e7344e3b501faa705d411",
+      "clean_sha256": "4ef6bdfcdb5f06bd4f3ae9fde5ae2efbc1773d08586acaea807f5abe37e32103"
+    },
+    {
+      "source": "internal/agents/modelio/model.go",
+      "clean": "internal__agents__modelio__model.go.txt",
+      "local_sha256": "677b0037fd1c68f501bbc2ed33320d09db411f3291f7276dc2bfb3d0a909f84a",
+      "clean_sha256": "2bd079db50d87979a9252cdbccc40c1687dea7310904672bbb495543d65e228a"
+    },
+    {
+      "source": "internal/agents/modelio/seed.go",
+      "clean": "modelio_no_local_seed.go.txt",
+      "local_sha256": "8dd659c0a9a4405b4b8bdd02f1efed8fb8b58a86ed3ac4caef949d75d1a5b103",
+      "clean_sha256": "12def9cfd63124797101eded881a4ed45711c8272a0f20ad3de62ce211b3b1d4"
+    }
+  ]
+}

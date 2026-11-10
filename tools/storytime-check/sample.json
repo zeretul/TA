@@ -1,0 +1,33 @@
+{
+  "current_seconds": 0,
+  "activity": {
+    "id": "synthetic-retreat-1",
+    "story_id": "synthetic-story",
+    "branch_id": "synthetic-branch",
+    "source_id": "synthetic-command-1",
+    "mode": "effective_duration",
+    "status": "running",
+    "started_at_seconds": 0,
+    "last_settled_at_seconds": 0,
+    "required_effective_seconds": 2592000,
+    "completed_effective_seconds": 0
+  },
+  "nodes": [
+    {
+      "id": "resource-check-1",
+      "at_seconds": 864000,
+      "kind": "calculation",
+      "requires_response": false,
+      "resolved": false,
+      "public_description": "A routine cultivation boundary."
+    },
+    {
+      "id": "reply-needed-1",
+      "at_seconds": 1296000,
+      "kind": "player_decision",
+      "requires_response": true,
+      "resolved": false,
+      "public_description": "A caller-approved matter needs your reply."
+    }
+  ]
+}

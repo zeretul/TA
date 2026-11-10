@@ -1,0 +1,344 @@
+package update
+
+import (
+	"archive/tar"
+	"archive/zip"
+	"bytes"
+	"compress/gzip"
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"runtime"
+	"strings"
+	"testing"
+	"time"
+
+	"ta/internal/hostruntime"
+)
+
+func TestSelectAssetForPlatform(t *testing.T) {
+	assets := []githubAsset{
+		{Name: "checksums.txt"},
+		{Name: "TA-v0.1.11-darwin-arm64.tar.gz", DownloadURL: "asset-api-url"},
+		{Name: "TA-v0.1.11-linux-x64.tar.gz"},
+	}
+	asset := selectAsset(assets, "darwin-arm64")
+	if asset == nil || asset.Name != "TA-v0.1.11-darwin-arm64.tar.gz" {
+		t.Fatalf("unexpected asset: %#v", asset)
+	}
+	if got := selectAsset(assets, "windows-x64"); got != nil {
+		t.Fatalf("windows asset should not match: %#v", got)
+	}
+}
+
+func TestPlatformKeyNormalizesAMD64(t *testing.T) {
+	if got := platformKey("darwin", "amd64"); got != "darwin-x64" {
+		t.Fatalf("platformKey darwin/amd64 = %s", got)
+	}
+	if got := platformKey("linux", "arm64"); got != "linux-arm64" {
+		t.Fatalf("platformKey linux/arm64 = %s", got)
+	}
+}
+
+func TestDefaultServiceDoesNotUseUpstreamRepository(t *testing.T) {
+	service := NewService()
+	if service.repository != "" {
+		t.Fatalf("default channel must be unconfigured: %q", service.repository)
+	}
+}
+
+func TestVerifyChecksumRequiresChecksumsAsset(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(githubRelease{
+			TagName: "v0.2.0",
+			Assets:  []githubAsset{{Name: "TA-v0.2.0-linux-x64.tar.gz"}},
+		})
+	}))
+	defer server.Close()
+
+	archivePath := filepath.Join(t.TempDir(), "TA-v0.2.0-linux-x64.tar.gz")
+	if err := os.WriteFile(archivePath, []byte("archive"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	service := &Service{
+		repository:    "owner/repo",
+		httpClient:    server.Client(),
+		githubAPIBase: server.URL,
+	}
+	err := service.verifyChecksum(context.Background(), filepath.Base(archivePath), archivePath)
+	if err == nil || !strings.Contains(err.Error(), "checksums.txt") {
+		t.Fatalf("missing checksums.txt error = %v", err)
+	}
+}
+
+func TestValidateReleasePackageRequiresUpdater(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "TA"), []byte("exe"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(filepath.Join(dir, "web"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(filepath.Join(dir, "skills"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := validateReleasePackage(dir, "TA", updaterExecutableName()); err == nil {
+		t.Fatal("validateReleasePackage should fail when updater is missing")
+	}
+}
+
+func TestValidateReleasePackageRequiresBundledRipgrep(t *testing.T) {
+	dir := t.TempDir()
+	for _, name := range []string{"TA", updaterExecutableName()} {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(name), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, name := range []string{"web", "skills"} {
+		if err := os.MkdirAll(filepath.Join(dir, name), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := validateReleasePackage(dir, "TA", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "ripgrep") {
+		t.Fatalf("release package without bundled ripgrep should fail, got %v", err)
+	}
+}
+
+func TestValidateReleasePackageRequiresRipgrepLicenses(t *testing.T) {
+	dir := t.TempDir()
+	for _, name := range []string{"TA", updaterExecutableName()} {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(name), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, name := range []string{"web", "skills", "tools"} {
+		if err := os.MkdirAll(filepath.Join(dir, name), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.WriteFile(filepath.Join(dir, "tools", hostruntime.RipgrepExecutableName()), []byte("ripgrep"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := validateReleasePackage(dir, "TA", updaterExecutableName()); err == nil || !strings.Contains(err.Error(), "license") {
+		t.Fatalf("release package without ripgrep licenses should fail, got %v", err)
+	}
+}
+
+func TestInstallStagesUpdateAndIgnoresRequestCancel(t *testing.T) {
+	platform := platformKey(runtime.GOOS, runtime.GOARCH)
+	extension := ".tar.gz"
+	if runtime.GOOS == "windows" {
+		extension = ".zip"
+	}
+	assetName := "TA-v0.2.0-" + platform + extension
+	updaterName := updaterExecutableName()
+	archiveFiles := map[string]string{
+		"TA":                   "new executable",
+		updaterName:            "new updater",
+		"web/index.html":       "<html>new</html>",
+		"skills/demo/SKILL.md": "skill",
+		filepath.ToSlash(filepath.Join("tools", hostruntime.RipgrepExecutableName())): "ripgrep",
+		"licenses/ripgrep/LICENSE-MIT": "MIT license",
+		"licenses/ripgrep/UNLICENSE":   "Unlicense",
+		"README.md":                    "readme",
+	}
+	archive := testReleaseArchive(t, "TA", archiveFiles)
+	if runtime.GOOS == "windows" {
+		var buf bytes.Buffer
+		zw := zip.NewWriter(&buf)
+		for name, content := range archiveFiles {
+			w, err := zw.Create("TA/" + name)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if _, err := w.Write([]byte(content)); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if err := zw.Close(); err != nil {
+			t.Fatal(err)
+		}
+		archive = buf.Bytes()
+	}
+	sum := sha256.Sum256(archive)
+	checksums := hex.EncodeToString(sum[:]) + "  " + assetName + "\n"
+	var assetAPIHit bool
+	var checksumAPIHit bool
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/repos/owner/repo/releases/latest":
+			_ = json.NewEncoder(w).Encode(githubRelease{
+				TagName:     "v0.2.0",
+				HTMLURL:     "https://example.com/releases/v0.2.0",
+				PublishedAt: time.Now(),
+				Assets: []githubAsset{
+					{
+						Name:               assetName,
+						Size:               int64(len(archive)),
+						DownloadURL:        serverURL(r, "/api-asset"),
+						BrowserDownloadURL: serverURL(r, "/download-asset"),
+					},
+					{
+						Name:               "checksums.txt",
+						DownloadURL:        serverURL(r, "/api-checksums"),
+						BrowserDownloadURL: serverURL(r, "/download-checksums"),
+					},
+				},
+			})
+		case "/api-asset":
+			assetAPIHit = true
+			http.Error(w, "asset api should not be used", http.StatusInternalServerError)
+		case "/api-checksums":
+			checksumAPIHit = true
+			http.Error(w, "checksum api should not be used", http.StatusInternalServerError)
+		case "/download-asset":
+			_, _ = w.Write(archive)
+		case "/download-checksums":
+			_, _ = w.Write([]byte(checksums))
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+
+	installDir := t.TempDir()
+	exePath := filepath.Join(installDir, "TA")
+	if err := os.WriteFile(exePath, []byte("old executable"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(installDir, updaterName), []byte("old updater"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(filepath.Join(installDir, "web"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(installDir, "web", "index.html"), []byte("old web"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	userFile := filepath.Join(installDir, "config.toml")
+	if err := os.WriteFile(userFile, []byte("synthetic user settings"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	service := &Service{
+		repository:     "owner/repo",
+		currentVersion: "0.1.0",
+		httpClient:     server.Client(),
+		executablePath: exePath,
+		githubAPIBase:  server.URL + "/repos",
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	var progress []InstallProgress
+	result, err := service.InstallWithProgress(ctx, func(event InstallProgress) {
+		progress = append(progress, event)
+	})
+	if err != nil {
+		t.Fatalf("Install failed: %v", err)
+	}
+	if result.Status != "staged" || !result.Staged || !result.ApplyReady || !result.RestartRequired || result.Installed || result.InstalledVersion != "0.2.0" {
+		t.Fatalf("unexpected install result: %#v", result)
+	}
+	if assetAPIHit || checksumAPIHit {
+		t.Fatalf("install should use browser_download_url, asset_api=%v checksum_api=%v", assetAPIHit, checksumAPIHit)
+	}
+	if got, err := os.ReadFile(exePath); err != nil || string(got) != "old executable" {
+		t.Fatalf("executable should not be replaced before apply: %q err=%v", got, err)
+	}
+	if got, err := os.ReadFile(filepath.Join(installDir, "web", "index.html")); err != nil || string(got) != "old web" {
+		t.Fatalf("web assets should not be replaced before apply: %q err=%v", got, err)
+	}
+	if got, err := os.ReadFile(filepath.Join(result.StagedPath, "TA")); err != nil || string(got) != "new executable" {
+		t.Fatalf("staged executable missing: %q err=%v", got, err)
+	}
+	if got, err := os.ReadFile(filepath.Join(result.StagedPath, updaterName)); err != nil || string(got) != "new updater" {
+		t.Fatalf("staged updater missing: %q err=%v", got, err)
+	}
+	if got, err := os.ReadFile(filepath.Join(result.StagedPath, "tools", hostruntime.RipgrepExecutableName())); err != nil || string(got) != "ripgrep" {
+		t.Fatalf("staged ripgrep missing: %q err=%v", got, err)
+	}
+	archivePath := filepath.Join(installDir, ".denova-updates", "downloads", assetName)
+	if _, err := os.Stat(archivePath); err != nil {
+		t.Fatalf("downloaded archive should be kept in install dir: %v", err)
+	}
+	manifestPath, err := readPendingManifestRef(filepath.Join(installDir, ".denova-updates"))
+	if err != nil {
+		t.Fatalf("pending manifest ref missing: %v", err)
+	}
+	manifest, err := readManifest(manifestPath)
+	if err != nil {
+		t.Fatalf("manifest unreadable: %v", err)
+	}
+	if manifest.SourceDir != result.StagedPath || manifest.TargetExecutable != exePath || manifest.UpdaterExecutable != filepath.Join(result.StagedPath, updaterName) {
+		t.Fatalf("unexpected manifest: %#v", manifest)
+	}
+	if len(manifest.RelaunchArgs) == 0 || manifest.RelaunchArgs[len(manifest.RelaunchArgs)-1] != "--no-open" {
+		t.Fatalf("manifest should force --no-open: %#v", manifest.RelaunchArgs)
+	}
+	if !hasProgressPhase(progress, "downloading") || !hasProgressPhase(progress, "staging") || !hasProgressPhase(progress, "staged") {
+		t.Fatalf("missing install progress phases: %#v", progress)
+	}
+	if last := progress[len(progress)-1]; last.Phase != "staged" || last.Percent != 100 {
+		t.Fatalf("unexpected final progress event: %#v", last)
+	}
+	if err := RunUpdater(context.Background(), manifestPath, UpdaterOptions{ProcessAlive: func(int) bool { return false }, StartProcess: func(string, []string, []string) error { return nil }}); err != nil {
+		t.Fatalf("apply staged package: %v", err)
+	}
+	if got, err := os.ReadFile(exePath); err != nil || string(got) != "new executable" {
+		t.Fatalf("installed exe: %q %v", got, err)
+	}
+	if got, err := os.ReadFile(userFile); err != nil || string(got) != "synthetic user settings" {
+		t.Fatalf("user file: %q %v", got, err)
+	}
+}
+
+func testReleaseArchive(t *testing.T, exeName string, files map[string]string) []byte {
+	t.Helper()
+	var buf bytes.Buffer
+	gz := gzip.NewWriter(&buf)
+	tw := tar.NewWriter(gz)
+	for name, content := range files {
+		mode := int64(0o644)
+		if name == exeName || filepath.Base(name) == hostruntime.RipgrepExecutableName() {
+			mode = 0o755
+		}
+		path := filepath.ToSlash(filepath.Join("TA", name))
+		if err := tw.WriteHeader(&tar.Header{
+			Name: path,
+			Mode: mode,
+			Size: int64(len(content)),
+		}); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := tw.Write([]byte(content)); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := tw.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err := gz.Close(); err != nil {
+		t.Fatal(err)
+	}
+	return buf.Bytes()
+}
+
+func serverURL(r *http.Request, path string) string {
+	return "http://" + r.Host + path
+}
+
+func hasProgressPhase(events []InstallProgress, phase string) bool {
+	for _, event := range events {
+		if event.Phase == phase {
+			return true
+		}
+	}
+	return false
+}

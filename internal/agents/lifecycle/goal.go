@@ -1,0 +1,74 @@
+package lifecycle
+
+import (
+	"context"
+	"fmt"
+	"strings"
+
+	agentchat "ta/internal/agents/chat"
+	"ta/internal/agents/modelio"
+	agentrun "ta/internal/agents/run"
+
+	agent "ta/agent"
+	publicgoal "ta/agent/goal"
+)
+
+// NewGoalManager returns Text Adventure's adapter for the public revisioned Goal
+// capability. Native owns evaluation and state transitions; this adapter only
+// prepares Text Adventure continuation HostData. External runtimes do not call it.
+func NewGoalManager() agent.GoalManager {
+	return taGoalManager{delegate: publicgoal.Standard()}
+}
+
+type taGoalManager struct{ delegate agent.GoalManager }
+
+func (manager taGoalManager) Identity() agent.CapabilityIdentity {
+	return agent.CapabilityIdentity{Kind: "denova.goal.standard", Version: 3}
+}
+
+func (manager taGoalManager) Apply(ctx context.Context, request agent.GoalApplyRequest) (agent.GoalState, error) {
+	return manager.delegate.Apply(ctx, request)
+}
+
+func (manager taGoalManager) Prepare(ctx context.Context, request agent.GoalPrepareRequest) (agent.GoalPreparation, error) {
+	return manager.delegate.Prepare(ctx, request)
+}
+
+func (manager taGoalManager) AfterRun(ctx context.Context, request agent.GoalAfterRunRequest) (agent.GoalAfterRunDecision, error) {
+	decision, err := manager.delegate.AfterRun(modelio.WithTraceSource(ctx, "goal_evaluation"), request)
+	if err != nil || decision.Verdict != agent.GoalVerdictContinue {
+		return decision, err
+	}
+	data, err := DecodeTurnHostData(request.Input)
+	if err != nil {
+		return decision, fmt.Errorf("prepare Text Adventure Goal continuation: %w", err)
+	}
+	message := strings.TrimSpace(decision.Input.Text)
+	if message == "" {
+		return decision, fmt.Errorf("prepare Text Adventure Goal continuation: message is empty")
+	}
+	// Preserve only locale and durable routing. References, selections, review
+	// feedback, and explicit Skills belonged to the completed caller turn and
+	// must not be replayed as a new autonomous instruction.
+	next, err := TurnInput(TurnNext, agentchat.ChatRequest{
+		Message: message, Locale: data.Caller.Locale,
+		InputVisibility: agentrun.InputModelOnly,
+	}, agentrun.Options{
+		AutomationTaskID: data.AutomationID,
+		TurnID:           data.TurnID,
+		MaintenanceTask:  data.MaintenanceTask,
+		Mode:             data.Mode,
+		WriteMode:        data.WriteMode,
+		WriteScope:       data.WriteScope,
+		RestoreData:      data.RestoreData,
+	})
+	if err != nil {
+		return decision, fmt.Errorf("prepare Text Adventure Goal continuation input: %w", err)
+	}
+	// Agent assigns the durable command identity for automatic continuations.
+	next.IdempotencyKey = ""
+	decision.Input = next
+	return decision, nil
+}
+
+var _ agent.GoalManager = taGoalManager{}

@@ -1,0 +1,30 @@
+# Windows batch files must keep CRLF: cmd.exe reads a batch file with the
+# codepage and line endings it finds on disk, and an LF-only file makes it
+# misparse goto labels and parenthesised blocks. core.autocrlf alone is not
+# enough because it is a per-clone setting, not a property of the repository.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Preserve exact release-variant hashes across worktree checkouts.
+internal/agents/modelio/model.go -text
+internal/agents/modelio/seed.go -text
+internal/agents/prompts/intimacy.go -text
+internal/app/intimacy_app_service.go -text
+tools/release/share-baseline/internal__agents__modelio__model.go.txt -text
+tools/release/share-baseline/internal__agents__prompts__intimacy.go.txt -text
+tools/release/share-baseline/internal__app__intimacy_app_service.go.txt -text
+tools/release/share-baseline/modelio_no_local_seed.go.txt -text
+
+# Preserve byte-for-byte public DTO goldens and manifested author fixtures.
+internal/app/testdata/cultivation-entry-details-zh-CN.json -text
+internal/app/testdata/cultivation-entry-details-en-US.json -text
+internal/app/testdata/adventure-window-zh-CN.json -text
+internal/app/testdata/adventure-window-en-US.json -text
+tools/exploration-check/author-routes/testdata/设计稿/synthetic-author.json -text
+
+# Built assets keep the bytes used by release and HTTP hash checks.
+web/dist/** -text
+internal/webfs/dist/** -text
+
+# Vite HTML transformation requires stable LF source input.
+web/index.html text eol=lf

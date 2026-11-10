@@ -1,0 +1,3 @@
+# Include source files in Tailwind scans inside Git-ignored development copies.
+!src/
+!src/**

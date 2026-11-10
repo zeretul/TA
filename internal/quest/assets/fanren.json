@@ -1,0 +1,38 @@
+[
+  {
+    "schema_version": 1,
+    "id": "quest.su_qian_return_source",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "kind": "personal",
+    "title": "再走一趟药材来路",
+    "brief": "苏浅复验并与你当面说明后，愿付10灵石请你再到坊市核对这批材料的来路。这一趟只约定到场复查，不把抵达当成已经识破造假，也不要求你替她担保药效。",
+    "giver": "npc_su_qian",
+    "objectives": [
+      {
+        "id": "quest.su_qian_return_source.visit",
+        "description": "在这次约定之后，实际抵达越国坊市。",
+        "evidence": [
+          {
+            "kind": "journey_arrival",
+            "ref_id": "yue.market"
+          }
+        ]
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "ref_id": "灵石",
+        "quantity": 10
+      }
+    ],
+    "requires_echo": {
+      "task_id": "quest.su_qian_materials",
+      "outcome": "success",
+      "requires_acknowledged": true
+    },
+    "fresh_facts_only": true
+  }
+]

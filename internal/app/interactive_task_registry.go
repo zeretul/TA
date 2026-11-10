@@ -1,0 +1,409 @@
+package app
+
+import (
+	"context"
+	"crypto/sha256"
+	agentchat "ta/internal/agents/chat"
+	agentexecution "ta/internal/agents/execution"
+	agentrun "ta/internal/agents/run"
+	"ta/internal/agents/session"
+	interactiveapp "ta/internal/app/interactive"
+	apptask "ta/internal/app/task"
+	"ta/internal/interactive"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	agent "ta/agent"
+	"log/slog"
+	"strings"
+	"sync"
+)
+
+const maxRememberedInteractiveStarts = 128
+
+// InteractiveAgentStartRequest is the caller-owned identity and bounded game
+// payload for one root operation. BranchID is resolved before fingerprinting.
+type InteractiveAgentStartRequest struct {
+	CommandID            string
+	StoryID              string
+	BranchID             string
+	Message              string
+	ResumeInterruptionID string
+	StyleScenes          []string
+	RegenerateFromTurnID string
+	Locale               string
+	InputVisibility      agentrun.InputVisibility
+	AttachmentIDs        []string
+	AttachedFiles        []agent.Attachment
+	PlayerLetter         *interactive.PlayerLetterIntent
+}
+
+type interactiveStartIdentity struct {
+	request     InteractiveAgentStartRequest
+	projectID   string
+	workspace   string
+	fingerprint string
+	chatRequest agentchat.ChatRequest
+}
+
+type interactiveStartRecord struct {
+	commandID   string
+	fingerprint string
+	task        *apptask.Task
+}
+
+// interactiveStartRegistry is a bounded process-local display replay index.
+// The durable game binding remains authoritative after eviction or restart.
+type interactiveStartRegistry struct {
+	mu              sync.Mutex
+	records         map[string]interactiveStartRecord
+	order           []string
+	replayByteLimit int
+}
+
+func (r *interactiveStartRegistry) replay(identity interactiveStartIdentity) (*apptask.Task, bool, error) {
+	commandID := strings.TrimSpace(identity.request.CommandID)
+	if commandID == "" {
+		return nil, false, ErrAgentCommandIDRequired
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	record, ok := r.records[commandID]
+	if !ok {
+		r.pruneLocked()
+		return nil, false, nil
+	}
+	if record.fingerprint != identity.fingerprint {
+		r.pruneLocked()
+		return nil, false, fmt.Errorf("%w: command_id=%q", ErrAgentCommandConflict, commandID)
+	}
+	r.order = apptask.TouchReplayKey(r.order, commandID)
+	r.pruneLocked()
+	record = r.records[commandID]
+	if record.task == nil {
+		return nil, false, nil
+	}
+	return record.task, true, nil
+}
+
+func (r *interactiveStartRegistry) remember(identity interactiveStartIdentity, task *apptask.Task) error {
+	commandID := strings.TrimSpace(identity.request.CommandID)
+	if commandID == "" {
+		return ErrAgentCommandIDRequired
+	}
+	if task == nil {
+		return fmt.Errorf("cannot remember a nil Game task")
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.records == nil {
+		r.records = make(map[string]interactiveStartRecord)
+	}
+	if existing, ok := r.records[commandID]; ok {
+		if existing.fingerprint != identity.fingerprint || (existing.task != nil && existing.task != task) {
+			return fmt.Errorf("%w: command_id=%q", ErrAgentCommandConflict, commandID)
+		}
+		if existing.task == nil {
+			existing.task = task
+			r.records[commandID] = existing
+		}
+		r.order = apptask.TouchReplayKey(r.order, commandID)
+		r.pruneLocked()
+		return nil
+	}
+	r.records[commandID] = interactiveStartRecord{
+		commandID: commandID, fingerprint: identity.fingerprint, task: task,
+	}
+	r.order = apptask.TouchReplayKey(r.order, commandID)
+	r.pruneLocked()
+	return nil
+}
+
+func (r *interactiveStartRegistry) pruneLocked() {
+	for len(r.records) > maxRememberedInteractiveStarts {
+		removed := false
+		for index, commandID := range r.order {
+			record, ok := r.records[commandID]
+			if !ok {
+				r.order = apptask.RemoveReplayKey(r.order, index)
+				removed = true
+				break
+			}
+			if record.task != nil && !record.task.Finished() {
+				continue
+			}
+			taskID := ""
+			released := 0
+			if record.task != nil {
+				taskID = record.task.ID()
+				released = record.task.ReleaseDisplayReplay()
+			}
+			delete(r.records, commandID)
+			r.order = apptask.RemoveReplayKey(r.order, index)
+			slog.InfoContext(context.Background(), fmt.Sprintf("[interactive-agent-task] pruned settled Game replay identity command_id=%s task_id=%s released_bytes=%d max_records=%d", commandID, taskID, released, maxRememberedInteractiveStarts))
+			removed = true
+			break
+		}
+		if !removed {
+			break
+		}
+	}
+
+	totalBytes := 0
+	for _, record := range r.records {
+		totalBytes += record.task.DisplayReplayCharge()
+	}
+	byteLimit := apptask.EffectiveRegistryReplayByteLimit(r.replayByteLimit)
+	for _, commandID := range r.order {
+		if totalBytes <= byteLimit {
+			break
+		}
+		record, ok := r.records[commandID]
+		if !ok || record.task == nil || !record.task.Finished() {
+			continue
+		}
+		taskID := record.task.ID()
+		released := record.task.ReleaseDisplayReplay()
+		totalBytes -= released
+		record.task = nil
+		r.records[commandID] = record
+		slog.InfoContext(context.Background(), fmt.Sprintf("[interactive-agent-task] evicted settled Game display replay command_id=%s task_id=%s released_bytes=%d retained_bytes=%d budget_bytes=%d", commandID, taskID, released, totalBytes, byteLimit))
+	}
+}
+
+func (s *InteractiveAppService) resolveInteractiveStart(request InteractiveAgentStartRequest) (interactiveStartIdentity, error) {
+	request.CommandID = strings.TrimSpace(request.CommandID)
+	request.StoryID = strings.TrimSpace(request.StoryID)
+	request.BranchID = strings.TrimSpace(request.BranchID)
+	request.Message = strings.TrimSpace(request.Message)
+	request.ResumeInterruptionID = strings.TrimSpace(request.ResumeInterruptionID)
+	request.RegenerateFromTurnID = strings.TrimSpace(request.RegenerateFromTurnID)
+	request.Locale = strings.TrimSpace(request.Locale)
+	if request.InputVisibility != agentrun.InputModelOnly {
+		request.InputVisibility = agentrun.InputVisible
+	}
+	request.StyleScenes = normalizeInteractiveStartStyleScenes(request.StyleScenes)
+	if request.CommandID == "" {
+		return interactiveStartIdentity{}, ErrAgentCommandIDRequired
+	}
+	if err := agentrun.ValidateCommandID(request.CommandID); err != nil {
+		return interactiveStartIdentity{}, err
+	}
+	if request.StoryID == "" || request.Message == "" && len(request.AttachedFiles) == 0 {
+		return interactiveStartIdentity{}, fmt.Errorf("interactive story and message are required")
+	}
+	if s == nil || s.app == nil {
+		return interactiveStartIdentity{}, ErrNoWorkspace
+	}
+	a := s.app
+	a.mu.RLock()
+	workspace := strings.TrimSpace(a.workspace)
+	projectID := ""
+	if a.cfg != nil {
+		projectID = strings.TrimSpace(a.cfg.ProjectID)
+	}
+	store := a.interactive
+	a.mu.RUnlock()
+	if projectID == "" || workspace == "" || store == nil {
+		return interactiveStartIdentity{}, ErrNoWorkspace
+	}
+	branchID, err := resolveInteractiveProjectionBranch(store, request.StoryID, request.BranchID)
+	if err != nil {
+		return interactiveStartIdentity{}, err
+	}
+	request.BranchID = branchID
+	if request.PlayerLetter != nil {
+		if request.InputVisibility == agentrun.InputModelOnly || request.ResumeInterruptionID != "" || request.RegenerateFromTurnID != "" {
+			return interactiveStartIdentity{}, interactive.ErrInvalidPlayerLetter
+		}
+		if err := validateInteractivePlayerLetter(store, request.StoryID, branchID, request.PlayerLetter); err != nil {
+			return interactiveStartIdentity{}, err
+		}
+	}
+	chatRequest := agentchat.CaptureChatRequestCallerInput(agentchat.ChatRequest{
+		CommandID: request.CommandID, Message: request.Message, ResumeInterruptionID: request.ResumeInterruptionID,
+		AttachmentIDs: append([]string(nil), request.AttachmentIDs...),
+		AttachedFiles: append([]agent.Attachment(nil), request.AttachedFiles...),
+		StyleScenes:   append([]string(nil), request.StyleScenes...), Locale: request.Locale,
+		InputVisibility: request.InputVisibility,
+	})
+	if request.PlayerLetter != nil {
+		intent := request.PlayerLetter.Normalize()
+		if intent.CharacterID == "" || intent.Body == "" || len([]rune(intent.Body)) > 4000 {
+			return interactiveStartIdentity{}, interactive.ErrInvalidPlayerLetter
+		}
+		request.PlayerLetter = &intent
+	}
+	if request.ResumeInterruptionID != "" {
+		var pendingInterruption *session.Interruption
+		if pending, pendingErr := interactiveapp.ExternalTurnInterruption(store, request.StoryID, branchID); pendingErr != nil {
+			return interactiveStartIdentity{}, pendingErr
+		} else if pending != nil {
+			pendingInterruption = &session.Interruption{
+				ID: pending.ID, Status: session.InterruptionPending,
+				UserMessage: pending.UserMessage, AssistantContent: pending.AssistantContent, Reason: pending.Reason,
+			}
+		}
+		if _, err := agentchat.ResolveRequestedInterruption(chatRequest, pendingInterruption); err != nil {
+			return interactiveStartIdentity{}, err
+		}
+	}
+	descriptor := struct {
+		ProjectID            string                          `json:"project_id"`
+		StoryID              string                          `json:"story_id"`
+		BranchID             string                          `json:"branch_id"`
+		RegenerateFromTurnID string                          `json:"regenerate_from_turn_id"`
+		Request              string                          `json:"request"`
+		PlayerLetter         *interactive.PlayerLetterIntent `json:"player_letter,omitempty"`
+	}{
+		ProjectID: projectID, StoryID: request.StoryID, BranchID: request.BranchID,
+		RegenerateFromTurnID: request.RegenerateFromTurnID,
+		Request:              agentexecution.RequestSemanticFingerprint(chatRequest),
+		PlayerLetter:         request.PlayerLetter,
+	}
+	encoded, _ := json.Marshal(descriptor)
+	sum := sha256.Sum256(encoded)
+	return interactiveStartIdentity{
+		request: request, projectID: projectID, workspace: workspace,
+		fingerprint: hex.EncodeToString(sum[:]), chatRequest: chatRequest,
+	}, nil
+}
+
+func validateInteractivePlayerLetter(store *interactive.Store, storyID, branchID string, raw *interactive.PlayerLetterIntent) error {
+	if store == nil || raw == nil {
+		return nil
+	}
+	intent := raw.Normalize()
+	if intent.CharacterID == "" || intent.Body == "" || len([]rune(intent.Body)) > 4000 {
+		return interactive.ErrInvalidPlayerLetter
+	}
+	story, err := store.StoryContext(storyID, branchID)
+	if err != nil {
+		return err
+	}
+	var gameplay *interactive.StoryGameplayProfile
+	if story.Meta.PackBinding != nil {
+		gameplay = story.Meta.PackBinding.Gameplay
+	}
+	if gameplay == nil || gameplay.Communication != "letter" || gameplay.LetterDeliverySeconds < 24*60*60 || gameplay.LetterDeliverySeconds > 30*24*60*60 {
+		return interactive.ErrPlayerLetterUnavailable
+	}
+	state, err := store.CharacterState(storyID, story.Snapshot.BranchID)
+	if err != nil {
+		return err
+	}
+	if _, exists := state.Profile(intent.CharacterID); !exists {
+		return interactive.ErrPlayerLetterRecipientUnavailable
+	}
+	return nil
+}
+
+func normalizeInteractiveStartStyleScenes(values []string) []string {
+	result := make([]string, 0, len(values))
+	seen := make(map[string]struct{}, len(values))
+	for _, value := range values {
+		value = strings.TrimSpace(value)
+		if value == "" {
+			continue
+		}
+		if _, ok := seen[value]; ok {
+			continue
+		}
+		seen[value] = struct{}{}
+		result = append(result, value)
+	}
+	return result
+}
+
+func (identity interactiveStartIdentity) options(taskID string) agentrun.Options {
+	return agentrun.Options{
+		AgentKind: agentrun.AgentKindInteractiveStory, ProjectID: identity.projectID, TaskID: strings.TrimSpace(taskID),
+		StoryID: identity.request.StoryID, BranchID: identity.request.BranchID,
+		TurnID:    identity.request.RegenerateFromTurnID,
+		Workspace: identity.workspace, Mode: "interactive",
+	}
+}
+
+func (identity interactiveStartIdentity) taskInfo(taskID string) InteractiveTaskInfo {
+	displayMessage := identity.request.Message
+	if identity.request.InputVisibility == agentrun.InputModelOnly {
+		displayMessage = ""
+	}
+	return InteractiveTaskInfo{
+		TaskID: strings.TrimSpace(taskID), CommandID: identity.request.CommandID,
+		ProjectID: identity.projectID, Workspace: identity.workspace, StoryID: identity.request.StoryID,
+		BranchID: identity.request.BranchID, Message: displayMessage,
+		RegenerateFromTurnID: identity.request.RegenerateFromTurnID,
+		Attachments:          attachmentDescriptors(identity.request.AttachedFiles),
+	}
+}
+
+// InteractiveTaskInfo identifies the game-mode turn owned by a background
+// task. The identity is kept separate from the Task event buffer so reconnect
+// requests cannot attach a different story or branch by accident.
+type InteractiveTaskInfo struct {
+	TaskID               string
+	CommandID            string
+	ProjectID            string
+	Workspace            string
+	StoryID              string
+	BranchID             string
+	Message              string
+	RegenerateFromTurnID string
+	Attachments          []agent.Attachment
+}
+
+type interactiveTaskRun struct {
+	task            *apptask.Task
+	info            InteractiveTaskInfo
+	recovery        *agentexecution.RecoveryObservation
+	recoveryActions map[string]agentrun.CommandReceipt
+}
+
+func (s *InteractiveAppService) bindActiveInteractiveTask(task *apptask.Task, info InteractiveTaskInfo) bool {
+	if s == nil || s.app == nil || task == nil {
+		return false
+	}
+	info.TaskID = task.ID()
+	info.Workspace = strings.TrimSpace(info.Workspace)
+	info.StoryID = strings.TrimSpace(info.StoryID)
+	info.BranchID = strings.TrimSpace(info.BranchID)
+	info.RegenerateFromTurnID = strings.TrimSpace(info.RegenerateFromTurnID)
+
+	a := s.app
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	if info.Workspace == "" || a.workspace != info.Workspace {
+		return false
+	}
+	a.activeInteractiveRun = &interactiveTaskRun{task: task, info: info}
+	return true
+}
+
+// ActiveInteractiveTaskFor returns the reconnectable task only when the
+// current workspace, story, and branch all match the request.
+func (a *App) ActiveInteractiveTaskFor(storyID, branchID string) (*apptask.Task, InteractiveTaskInfo) {
+	return a.interactiveService().ActiveInteractiveTaskFor(storyID, branchID)
+}
+
+func (s *InteractiveAppService) ActiveInteractiveTaskFor(storyID, branchID string) (*apptask.Task, InteractiveTaskInfo) {
+	if s == nil || s.app == nil {
+		return nil, InteractiveTaskInfo{}
+	}
+	storyID = strings.TrimSpace(storyID)
+	branchID = strings.TrimSpace(branchID)
+	a := s.app
+	a.mu.RLock()
+	defer a.mu.RUnlock()
+	run := a.activeInteractiveRun
+	if run == nil || run.task == nil || run.info.Workspace == "" || run.info.Workspace != a.workspace {
+		return nil, InteractiveTaskInfo{}
+	}
+	if storyID != "" && run.info.StoryID != storyID {
+		return nil, InteractiveTaskInfo{}
+	}
+	if branchID != "" && run.info.BranchID != branchID {
+		return nil, InteractiveTaskInfo{}
+	}
+	return run.task, run.info
+}

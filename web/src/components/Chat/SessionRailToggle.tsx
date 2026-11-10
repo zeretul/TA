@@ -1,0 +1,32 @@
+import { MessageCircleMore } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Button } from '@/components/ui/button'
+
+interface SessionRailToggleProps {
+  visible: boolean
+  onVisibleChange: (visible: boolean) => void
+}
+
+/** Keeps the session rail action consistent across its closed and open header positions. */
+export function SessionRailToggle({
+  visible,
+  onVisibleChange,
+}: SessionRailToggleProps) {
+  const { t } = useTranslation()
+  const label = t(visible ? 'chat.sessionRail.hide' : 'chat.sessionRail.show')
+
+  return (
+    <Button
+      type="button"
+      variant={visible ? 'secondary' : 'ghost'}
+      size="icon-sm"
+      className="max-lg:hidden"
+      onClick={() => onVisibleChange(!visible)}
+      aria-label={label}
+      aria-pressed={visible}
+      title={label}
+    >
+      <MessageCircleMore data-icon="inline-start" aria-hidden="true" />
+    </Button>
+  )
+}

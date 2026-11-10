@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "cave-of-whispers",
+  "version": "1.0.0",
+  "package_id": "sample-world",
+  "package_version": "1",
+  "ruleset_id": "sample-rules",
+  "ruleset_version": "1",
+  "theme": "A flooded cave with an investigation route and an optional combat route.",
+  "objectives": [{"id":"learn-the-signal","description":"Identify the source of the sound."}],
+  "areas": [
+    {"id":"mouth","name":"Cave mouth","description":"A narrow entry beside the stream."},
+    {"id":"pool","name":"Echo pool","description":"Water carries a repeating signal."},
+    {"id":"ledge","name":"Dry ledge","description":"A sheltered ledge above the pool."},
+    {"id":"inner-vault","name":"Inner vault","description":"The signal's chamber."}
+  ],
+  "connections": [
+    {"id":"mouth-pool","from_area_id":"mouth","to_area_id":"pool","bidirectional":true,"player_visible":true},
+    {"id":"pool-ledge","from_area_id":"pool","to_area_id":"ledge","bidirectional":true,"player_visible":true},
+    {"id":"ledge-pool-loop","from_area_id":"ledge","to_area_id":"pool","bidirectional":false,"player_visible":true},
+    {"id":"ledge-vault-secret","from_area_id":"ledge","to_area_id":"inner-vault","bidirectional":false,"player_visible":false}
+  ],
+  "entry_location_ids": [],
+  "entry_area_ids": ["mouth"],
+  "exit_area_ids": ["inner-vault"],
+  "challenges": [{"id":"echo-test","area_id":"pool","reference_id":"challenge.echo-test"}],
+  "content_refs": [],
+  "completion_paths": [
+    {"id":"listen","objective_ids":["learn-the-signal"],"challenge_ids":["echo-test"],"required_ability_ids":["ability.hearing"]},
+    {"id":"clear-threat","objective_ids":["learn-the-signal"],"challenge_ids":[],"required_ability_ids":["ability.swordplay"]}
+  ]
+}

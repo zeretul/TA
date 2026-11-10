@@ -1,0 +1,2220 @@
+{
+  "xinghai-a01": {
+    "title": "The No.47 Berth Account",
+    "brief": "Berth47 has an unpaid480-Enas port bill. Its debtor may settle it; others may offer voluntary help or decline. Accepting the assembly job agrees to a two-hour delivery window, not a personal loan. Outer-ring maintenance proceeds independently.",
+    "objectives": {
+      "xinghai-a01.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a01.c1": {
+        "title": "Assemble belts to settle berth47’s account",
+        "description": "Accept a job whose480-Enas fee goes directly to the port account. Helping does not create a personal loan.",
+        "success": "Black Star pays the agreed480-Enas work fee directly to the port. Berth47 receives its settlement receipt.",
+        "failure": "The attempt does not succeed. The berth account remains unresolved. Helping unsuccessfully does not create a480-Enas personal loan.",
+        "success_echo": "The foreman remembers your work. Routine outer-ring maintenance still proceeds independently.",
+        "failure_echo": "Further help remains your choice. Scheduled maintenance proceeds independently of payment.",
+        "success_reaction": "The settlement receipt matches that delivery. I will discuss one clearly bounded repair job with you. This grants no position and waives no other berth fee.",
+        "failure_reaction": "That attempt did not work, and the original record remains. I can explain what is missing. It creates no unagreed debt, wages or dismantling permission."
+      },
+      "xinghai-a01.c2": {
+        "title": "Salvage a copper core for berth47’s account",
+        "description": "Bring permitted salvage to Monto for valuation against the berth bill, without taking the original debtor’s place.",
+        "success": "Monto credits the recovered copper against berth47’s480-Enas account and issues a receipt.",
+        "failure": "The attempt does not succeed. The berth account remains unresolved. Helping unsuccessfully does not create a480-Enas personal loan.",
+        "success_echo": "Monto remembers the delivery. Future salvage still requires permission; settling a bill grants no new access.",
+        "failure_echo": "Further help remains your choice. Scheduled maintenance proceeds independently of payment.",
+        "success_reaction": "The copper cores were weighed, and the credit belongs only to Berth 47. Further recovery needs an owner and permission for each piece. I will explain what this inspection established.",
+        "failure_reaction": "That attempt did not work, and the original record remains. I can explain what is missing. It creates no unagreed debt, wages or dismantling permission."
+      },
+      "xinghai-a01.c3": {
+        "title": "Knowingly falsify berth47’s payment record",
+        "description": "Attempting this leaves a record of your actual participation. It neither erases the original bill nor cancels scheduled maintenance.",
+        "success": "The forgery passes the immediate check. Berth47’s real480-Enas bill remains; consequences follow the actual participants, not every passer-by.",
+        "failure": "The attempt does not succeed. The berth account remains unresolved. Helping unsuccessfully does not create a480-Enas personal loan.",
+        "success_echo": "Reconciliation finds480 Enas missing from berth47’s account. The port investigates the actual forgery, not all passing residents.",
+        "failure_echo": "Further help remains your choice. Scheduled maintenance proceeds independently of payment.",
+        "success_reaction": "This payment record was altered, but the money did not arrive. I will hear an explanation, evidence or a voluntary correction. I will not assign the shortfall to passersby or pretend it has disappeared.",
+        "failure_reaction": "That attempt did not work, and the original record remains. I can explain what is missing. It creates no unagreed debt, wages or dismantling permission."
+      }
+    }
+  },
+  "xinghai-a02": {
+    "title": "The Broken-Blade Wager at the Old Anchor Tavern",
+    "brief": "Two drunk mercenaries from Purple Gold Armed are stomping on a young Sunil warrior's head and mocking him, while Melos lies dead drunk nearby.",
+    "objectives": {
+      "xinghai-a02.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a02.c1": {
+        "title": "Pay out of pocket for the Sunil warrior to compensate for the expensive spilled liquor",
+        "description": "Pay out of pocket for the Sunil warrior to compensate for the expensive spilled liquor",
+        "success": "Old Anchor accepts one hundred Enas and lowers his weapon; the freed warrior offers injury gel.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The young Sunil warrior thanks you; Melos watches from his seat.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a02.c2": {
+        "title": "Knock out the instigating mercenaries with precise Military-Grade Killer Punches (S13)",
+        "description": "Knock out the instigating mercenaries with precise Military-Grade Killer Punches (S13)",
+        "success": "The troublemakers retreat after your strike; the Sunil warrior offers injury gel.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The defeated mercenaries keep back and Melos studies your fighting style.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a02.c3": {
+        "title": "Awaken Melos sharply by invoking the disgrace of the Sunil war banner.",
+        "description": "Awaken Melos sharply by invoking the disgrace of the Sunil war banner.",
+        "success": "Your words rouse Melos, whose intervention ends the harassment; someone hands you medicine.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Melos stays awake and watches how you handle the aftermath.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a03": {
+    "title": "Scramble for the Wreckage in the Ash Basin",
+    "brief": "A Sunil transport skiff fully loaded with genetic stabilizing serum crashed at the forefront of the defensive line, and mutated beast swarms are closing in.",
+    "objectives": {
+      "xinghai-a03.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a03.c1": {
+        "title": "Drive a tracked vehicle to force a breakthrough, deploying smoke canisters to lure away the beast swarm",
+        "description": "Drive a tracked vehicle to force a breakthrough, deploying smoke canisters to lure away the beast swarm",
+        "success": "The smoke diversion lets the defenders recover supplies; an exoskeleton is delivered as payment.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The defenders distribute the rescued supplies and recognize your support.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a03.c2": {
+        "title": "Infiltrate the wreckage through stealth to cut open the cockpit and rescue the critically wounded",
+        "description": "Infiltrate the wreckage through stealth to cut open the cockpit and rescue the critically wounded",
+        "success": "You cut open the cockpit and extract the crew; the rescuers deliver an exoskeleton.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The rescued crew receives medical care.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a03.c3": {
+        "title": "Take advantage of the chaos to embezzle a crate of serum and slip toward the black market to resell it.",
+        "description": "Take advantage of the chaos to embezzle a crate of serum and slip toward the black market to resell it.",
+        "success": "You slip away with three inhibitor doses; the public stock suffers in the chaos.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Brokers hear of the scarce medicine while the defenders investigate their missing stock.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a04": {
+    "title": "Sanitation Order in the Godora VIP Lounge",
+    "brief": "Aiselin needs a crew of untainted contract workers to purge a cargo freighter suspected of carrying a biochemical virus.",
+    "objectives": {
+      "xinghai-a04.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a04.c1": {
+        "title": "Dutifully don hazmat suits to scour the cargo hold, turning in all seized contraband in full",
+        "description": "Dutifully don hazmat suits to scour the cargo hold, turning in all seized contraband in full",
+        "success": "The cleaned compartment and surrendered contraband earn five hundred Enas and a labor access code.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The port records the labor access code and remembers the completed work.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a04.c2": {
+        "title": "Discover DarkStar secret ciphers deep inside the hold and secretly sell them to intelligence brokers",
+        "description": "Discover DarkStar secret ciphers deep inside the hold and secretly sell them to intelligence brokers",
+        "success": "The broker pays five hundred Enas for the copied markings.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The broker warns you to avoid conspicuous attention from the authorities.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a04.c3": {
+        "title": "Help the hidden refugees escape into the Rust Belt.",
+        "description": "Help the hidden refugees escape into the Rust Belt.",
+        "success": "The refugees escape into the Rust Belt and give you the portable antigravity assembly plans.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The Rust Belt refugees remember the rescue. The plans do not grant an official labor access code.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a05": {
+    "title": "Bloodstained Chip of the Floating Dragon Black Market",
+    "brief": "A critically injured assassin shoves a bloodstained chip into your chest on the stone steps, while pursuers have already sealed off the cliff.",
+    "objectives": {
+      "xinghai-a05.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a05.c1": {
+        "title": "Shout loudly to summon Floating Dragon patrol guards, utilizing Ames's absolute ban on weapons to turn the tables on the pursuers",
+        "description": "Shout loudly to summon Floating Dragon patrol guards, utilizing Ames's absolute ban on weapons to turn the tables on the pursuers",
+        "success": "The patrol drives off the pursuers and accepts the chip, issuing a Dragon Emperor guest token.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The administration records your assistance and may call witnesses to the accounts inquiry.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a05.c2": {
+        "title": "Use the terrain to slide into the power engine room and take the risk of decrypting it",
+        "description": "Use the terrain to slide into the power engine room and take the risk of decrypting it",
+        "success": "You decode the financial records and receive the payment and guest token.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Brokers ask about the copied financial records.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a05.c3": {
+        "title": "Directly resell the chip to Old Anchor in the black market to get away clean.",
+        "description": "Directly resell the chip to Old Anchor in the black market to get away clean.",
+        "success": "Old Anchor buys the chip for eight hundred Enas and points out an escape route.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The chip changes hands while official patrols become more frequent.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a06": {
+    "title": "Gravitational Calibration on the Abandoned Kaya Platform",
+    "brief": "Volga-1 (Warwick) was cursing furiously in the Maintenance Alley, claiming that a colossal mining centrifuge on the Kaya Platform had spun out of control and was flinging entire cargo racks into open space.",
+    "objectives": {
+      "xinghai-a06.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a06.c1": {
+        "title": "Don magnetic heavy boots to sneak to the console, using Circuit Shorting and Bypassing (S02) to forcibly cut the primary power supply loop",
+        "description": "Don magnetic heavy boots to sneak to the console, using Circuit Shorting and Bypassing (S02) to forcibly cut the primary power supply loop",
+        "success": "The short circuit stops the mining centrifuge and preserves the promised alloy plates.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Warwick discusses future repair work after inspecting the recovered plates.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a06.c2": {
+        "title": "Have Warwick directly blow the distribution hub to pieces with a portable electromagnetic cannon, halting it while risking damage to the steel plates",
+        "description": "Have Warwick directly blow the distribution hub to pieces with a portable electromagnetic cannon, halting it while risking damage to the steel plates",
+        "success": "The cannon destroys the power hub, leaving one usable plate.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The ruined machine remains shut down; Warwick salvages what survived.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a06.c3": {
+        "title": "Manually calibrate the anti-gravity dampers amidst zero-gravity rotation.",
+        "description": "Manually calibrate the anti-gravity dampers amidst zero-gravity rotation.",
+        "success": "Your adjustment steadies the rotor and preserves the promised alloy plates.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The mechanics discuss your successful adjustment.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a07": {
+    "title": "Antibiotic Smuggling in the Rust Belt",
+    "brief": "Vic quietly slipped you half a copper coin at the sewer entrance, whispering that dozens of hybrid infants in the slums were dying in large numbers from high fevers caused by fungal infections.",
+    "objectives": {
+      "xinghai-a07.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a07.c1": {
+        "title": "Blend in aboard a regular sewage freight transport using a Stargate Fake ID Code Forgery (S25)",
+        "description": "Blend in aboard a regular sewage freight transport using a Stargate Fake ID Code Forgery (S25)",
+        "success": "The disguised freight passes the checkpoint and antibiotics reach the mixed-blood district.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Vick discusses another medicine shipment; the earlier payment is not awarded again.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a07.c2": {
+        "title": "Stash the medicine into a smuggling compartment unlocked with the Secret Compartment Key (I53), using Keran's ship to drop it directly into the deep wells of the Rust Belt",
+        "description": "Stash the medicine into a smuggling compartment unlocked with the Secret Compartment Key (I53), using Keran's ship to drop it directly into the deep wells of the Rust Belt",
+        "success": "The concealed air drop reaches the deep-well receivers and medicine is distributed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The deep-well post signals safe receipt of the medicine.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a07.c3": {
+        "title": "Report Vic to the Godoran Internal Affairs Bureau in exchange for a hefty bounty from pureblood authorities.",
+        "description": "Report Vic to the Godoran Internal Affairs Bureau in exchange for a hefty bounty from pureblood authorities.",
+        "success": "Internal Affairs acts on your report and pays five hundred Enas; Vick is placed on a wanted list.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Officials offer further work while the betrayed neighborhood resents the informer.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a08": {
+    "title": "The Sunil Veteran's Retired Greatblade",
+    "brief": "In the Old Anchor Bar, Melos stroked the broken servo damper on his battle blade, sighing that this ancestral weapon, which had slain thirty thousand mutated beasts, was finally completely ruined.",
+    "objectives": {
+      "xinghai-a08.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a08.c1": {
+        "title": "Manually rewind the energy circuit coils using High-Conductivity Purple-Gold Wire (I34) brought back from Kaya and Black Star's Micro Exoskeleton Power Core Assembly Blueprint (I41)",
+        "description": "Manually rewind the energy circuit coils using High-Conductivity Purple-Gold Wire (I34) brought back from Kaya and Black Star's Micro Exoskeleton Power Core Assembly Blueprint (I41)",
+        "success": "The rewound coil restores the blade; Melos gives you the ancestral blade notes.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Melos wears the restored blade again.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a08.c2": {
+        "title": "Buy a used Godoran lightsaber energy condenser at an exorbitant price on the black market to cobble it together",
+        "description": "Buy a used Godoran lightsaber energy condenser at an exorbitant price on the black market to cobble it together",
+        "success": "The secondhand focusing ring restores the blade after fitting; Melos gives you the notes.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The improvised ring still needs care under heavy loads.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a08.c3": {
+        "title": "Convince Black Star to take on the repair personally while assisting him as an apprentice.",
+        "description": "Convince Black Star to take on the repair personally while assisting him as an apprentice.",
+        "success": "Working with Black Star restores the blade; Melos hands over the notes.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Melos and Black Star remember the joint repair.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a09": {
+    "title": "Silva's Old Screwdriver",
+    "brief": "In a dark back alley on Juberly's outer ring, two collared slave traffickers are pinning a weeping, blonde-haired girl into a muddy puddle.",
+    "objectives": {
+      "xinghai-a09.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a09.c1": {
+        "title": "Use kinetic firearms directly to shoot both slave traders dead and forcibly extract the girl",
+        "description": "Use kinetic firearms directly to shoot both slave traders dead and forcibly extract the girl",
+        "success": "You force the traffickers back and lead Silva toward Dock Three.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Silva settles into Dock Three and asks about more repair work.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a09.c2": {
+        "title": "Pay out of pocket to cover the chip's discounted cost and ransom Silva",
+        "description": "Pay out of pocket to cover the chip's discounted cost and ransom Silva",
+        "success": "The traffickers accept the payment and release Silva; she gives you her decryption plug.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Silva cleans her tools and helps with the dock's circuits.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a09.c3": {
+        "title": "Lure Monto's autonomous patrol floating orb over to eliminate them under the charge of unlawful street brawling.",
+        "description": "Lure Monto's autonomous patrol floating orb over to eliminate them under the charge of unlawful street brawling.",
+        "success": "The patrol spheres suppress the traffickers; Silva escapes with you and hands over her plug.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Patrols report the raid while Silva begins work at the dock.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a10": {
+    "title": "Hunting the Carbonized Traces",
+    "brief": "An urgent bulletin is posted in the Mercenary Hall: a twelve-man elite strike team from Saber stationed at the border has lost all contact, leaving behind only an empty, armored starship at the scene.",
+    "objectives": {
+      "xinghai-a10.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a10.c1": {
+        "title": "Wear a Sealed Deep-Space Bio-Suit (I12) into the cabins to collect remaining black carbon residue for laboratory testing",
+        "description": "Wear a Sealed Deep-Space Bio-Suit (I12) into the cabins to collect remaining black carbon residue for laboratory testing",
+        "success": "The sample identifies Ashes; the mercenary group pays the bounty and provides a tactical helmet.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The group warns border posts about the attacker.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a10.c2": {
+        "title": "Use a decryption plug to copy the final thirty seconds of infrared surveillance footage before the bridge main computer burns out",
+        "description": "Use a decryption plug to copy the final thirty seconds of infrared surveillance footage before the bridge main computer burns out",
+        "success": "The recovered footage identifies the attacker; the group pays one hundred thousand Enas and provides a helmet.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The footage circulates inside the mercenary command; the source may attract hostile attention.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a10.c3": {
+        "title": "Encounter Ember's adjutant returning to tie up loose ends, detonating the corridor's high-pressure Freon fire-suppression system to cover Blood Fox's escape.",
+        "description": "Encounter Ember's adjutant returning to tie up loose ends, detonating the corridor's high-pressure Freon fire-suppression system to cover Blood Fox's escape.",
+        "success": "You and Blood Fox escape in the cold mist; her testimony earns the promised bounty and helmet.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Blood Fox receives care and remembers the escape through the cold mist.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a11": {
+    "title": "Phantom Radio in the Iron Tomb",
+    "brief": "Old Urn pours a drink with trembling hands at the tavern, murmuring that he heard a rhythmic ancient Morse transmission coming from the decapitated battleship at the deepest floor of the Warship Graveyard.",
+    "objectives": {
+      "xinghai-a11.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a11.c1": {
+        "title": "Cut open the blast-resistant lead door of the bridge with a laser welding torch and connect the Ancient Decryption Key (I45)",
+        "description": "Cut open the blast-resistant lead door of the bridge with a laser welding torch and connect the Ancient Decryption Key (I45)",
+        "success": "The ancient key wakes the control array and releases a spare Risda core chip.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The core chip responds steadily while distant stations notice the disturbance.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a11.c2": {
+        "title": "Use Mechanical Logic Decoding (S10) to crack the three-layer defensive virus on the AI's exterior shell",
+        "description": "Use Mechanical Logic Decoding (S10) to crack the three-layer defensive virus on the AI's exterior shell",
+        "success": "You break the defense virus and receive the spare core chip.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Risda's basic data link is stable; Old Weng warns against attracting attention.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a11.c3": {
+        "title": "Forcibly pull and secure the Backup Chip (I59) before the radar sweep from the Three Universal Civilizations' archaeological patrol ships detects you.",
+        "description": "Forcibly pull and secure the Backup Chip (I59) before the radar sweep from the Three Universal Civilizations' archaeological patrol ships detects you.",
+        "success": "You extract the spare chip before the patrol closes in.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Archaeological patrols continue searching the graveyard.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a12": {
+    "title": "Precursor Reagents of the Mutation Source",
+    "brief": "An unknown malignant water mutation breaks out at a satellite water supply station outside Godora's capital, causing a sudden surge of high fevers and skeletal keratin deformities among a hundred thousand residents.",
+    "objectives": {
+      "xinghai-a12.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a12.c1": {
+        "title": "Use a lead-lined briefcase to forcibly sample water sediment before mutated Gluttonous Beasts breach the doors",
+        "description": "Use a lead-lined briefcase to forcibly sample water sediment before mutated Gluttonous Beasts breach the doors",
+        "success": "The sealed sample proves deliberate contamination; the authorities issue the promised reward and medal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The sample reaches the technical teams and evacuation work proceeds.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a12.c2": {
+        "title": "Track the poison-dispersing operative down into the sewers, neutralize him, and retrieve the Black Box containing catalytic code (I57)",
+        "description": "Track the poison-dispersing operative down into the sewers, neutralize him, and retrieve the Black Box containing catalytic code (I57)",
+        "success": "You seize the catalyst records before their destruction; investigators issue the agreed payment.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The decoded records help investigators trace the contamination network.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a12.c3": {
+        "title": "Deliver portions of the sample to both the Godoran Academy of Sciences and Black Star's crew.",
+        "description": "Deliver portions of the sample to both the Godoran Academy of Sciences and Black Star's crew.",
+        "success": "Both technical teams receive the sample data; your cooperation earns the promised payment and medal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Both teams continue working with the shared data.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a13": {
+    "title": "Echoes of the Morning Star",
+    "brief": "Near the ruins of an Astral altar in a deep-space asteroid belt, the radar communication systems of dozens of passing cargo haulers simultaneously receive an ethereal, tear-inducing melody of string music.",
+    "objectives": {
+      "xinghai-a13.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a13.c1": {
+        "title": "Deploy electromagnetic grenades to jam the Astral patrol skiffs' radar, maneuvering your ship to forcibly extract Feidin",
+        "description": "Deploy electromagnetic grenades to jam the Astral patrol skiffs' radar, maneuvering your ship to forcibly extract Feidin",
+        "success": "The EMP blinds the patrol long enough to extract Feidin.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Feidin wakes in the cabin. The watched altar still makes the next destination a careful decision.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a13.c2": {
+        "title": "Intercept two fanatical high-tier Astral Monks outside the altar perimeter",
+        "description": "Intercept two fanatical high-tier Astral Monks outside the altar perimeter",
+        "success": "You hold off the monks, buying Feidin time to recover and move.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The monks withdraw and Feidin acknowledges the time you bought.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a13.c3": {
+        "title": "Channel Astral Whisper Resistance (S21) to stabilize Feidin's mind when his sea of consciousness enters turmoil.",
+        "description": "Channel Astral Whisper Resistance (S21) to stabilize Feidin's mind when his sea of consciousness enters turmoil.",
+        "success": "Your resistance technique steadies Feidin's turbulent resonance.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Feidin tests his control of the resonance; Morning Star answers faintly.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a14": {
+    "title": "Guiding Shimmer of the Lightless Star",
+    "brief": "In the orbit of a dead planet marked as \"Absolute Silence\" on the fringes of the Colton star chart, wandering miners claimed to have spotted a gentle white light flying on its own.",
+    "objectives": {
+      "xinghai-a14.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a14.c1": {
+        "title": "Take two Decayed Crystal Core Shards (I36) from your backpack and hold them openly in your palm without hostility, allowing her to absorb them",
+        "description": "Take two Decayed Crystal Core Shards (I36) from your backpack and hold them openly in your palm without hostility, allowing her to absorb them",
+        "success": "The light absorbs the offered crystal fragments and leaves a faint mark on your wrist.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The light begins taking human shape and shows cautious trust.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a14.c2": {
+        "title": "Attempt to establish resonance with her pure ionized force field using Micro-Gravitational Sense (S20)",
+        "description": "Attempt to establish resonance with her pure ionized force field using Micro-Gravitational Sense (S20)",
+        "success": "The gravitational resonance wins the light's trust and leaves a protective mark.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The light quietly follows nearby.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a14.c3": {
+        "title": "Guide her along the correct route toward Black Star's workshop at Berth No. 3 in the Juberly Hub.",
+        "description": "Guide her along the correct route toward Black Star's workshop at Berth No. 3 in the Juberly Hub.",
+        "success": "The light follows the projected route and leaves a faint mark on your wrist.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The light moves toward the indicated beacon.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a15": {
+    "title": "Commercial Litigation Before the Dragon's Throne",
+    "brief": "A large squad of suited bodyguards from the Financial Syndicate sealed off seven Sunil machine repair stalls in the Floating Dragon lower black market, claiming their collateral interest was five times overdue.",
+    "objectives": {
+      "xinghai-a15.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a15.c1": {
+        "title": "Use bureaucratic verification learned from Tripartite Civilizations Bureaucratic Maneuvering (S36) to pinpoint the fatal logical flaw in Charles's forged compounding interest, slamming it onto Jenny's desk in court",
+        "description": "Use bureaucratic verification learned from Tripartite Civilizations Bureaucratic Maneuvering (S36) to pinpoint the fatal logical flaw in Charles's forged compounding interest, slamming it onto Jenny's desk in court",
+        "success": "The interest calculations expose the fraudulent terms; Jenny orders the restrictions lifted.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The merchants reopen their stalls while Jenny checks the remaining accounts.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a15.c2": {
+        "title": "Subdue the instigating syndicate bodyguards with martial force outside the hall",
+        "description": "Subdue the instigating syndicate bodyguards with martial force outside the hall",
+        "success": "The guards are subdued and Jenny rejects the consortium's demands.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The square quiets and the guards' conduct remains under investigation.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a15.c3": {
+        "title": "Convince Ames to express a hint of disgust toward the syndicate's usury practices.",
+        "description": "Convince Ames to express a hint of disgust toward the syndicate's usury practices.",
+        "success": "Ames makes her position clear; Jenny orders the consortium to lift the restrictions.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The consortium representative leaves; Jenny handles the remaining checks.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a16": {
+    "title": "The Volga Brothers' Explosive Formula",
+    "brief": "An earth-shattering blast echoes from an abandoned warehouse on Juberly's outer ring; Warwick crawls out from the dense smoke, face coated in soot, yelling that the ratio was wrong again.",
+    "objectives": {
+      "xinghai-a16.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a16.c1": {
+        "title": "Draw on Advanced Energy Mechanics (S05) to propose a stepped-delay detonation scheme incorporating Concentrated High-Energy Primer (I40) and trace amounts of Freon",
+        "description": "Draw on Advanced Energy Mechanics (S05) to propose a stepped-delay detonation scheme incorporating Concentrated High-Energy Primer (I40) and trace amounts of Freon",
+        "success": "The staged explosive mixture passes the penetration test.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Warwick studies the test record and argues about the next target.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a16.c2": {
+        "title": "Operate the lathe personally to grind a rheologically optimized conical shaped-charge metal liner",
+        "description": "Operate the lathe personally to grind a rheologically optimized conical shaped-charge metal liner",
+        "success": "The shaped metal liner focuses the explosive jet correctly.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The mechanics discuss how to reproduce the liner.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a16.c3": {
+        "title": "Assist in test detonations on an uninhabited asteroid and adjust shockwave parameters.",
+        "description": "Assist in test detonations on an uninhabited asteroid and adjust shockwave parameters.",
+        "success": "The field test yields a successful shock-wave setting.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Warwick circles the successful setting and tells the others not to alter it.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a17": {
+    "title": "Purification Collapse of the Refuge Mother City",
+    "brief": "The primary sirens of the Sunil Refuge Mother City scream frantically. The heavy-metal precipitation mesh of Underground Reservoir No. 3 has completely shattered, cutting off the drinking water supply for hundreds of thousands of people.",
+    "objectives": {
+      "xinghai-a17.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a17.c1": {
+        "title": "Don a heavy sealed biohazard suit, dive into the boiling reservoir, and weld shut the fractured main intake valve using an electric welding torch (I17)",
+        "description": "Don a heavy sealed biohazard suit, dive into the boiling reservoir, and weld shut the fractured main intake valve using an electric welding torch (I17)",
+        "success": "The welded valve stops the acidic inflow; the defenders give you a service medal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The medical system receives stable water again.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a17.c2": {
+        "title": "Field-fabricate (S11) an emergency diversion cutoff valve using low-impurity star-core steel plates (I33)",
+        "description": "Field-fabricate (S11) an emergency diversion cutoff valve using low-impurity star-core steel plates (I33)",
+        "success": "The alloy diversion gate relieves the pressure; the defenders give you a service medal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Technicians reinforce the diversion gate.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a17.c3": {
+        "title": "Engage the reserve polymer filtration mesh and manually crank the pressurization pump to purge the acidic slurry.",
+        "description": "Engage the reserve polymer filtration mesh and manually crank the pressurization pump to purge the acidic slurry.",
+        "success": "The manual pump and backup filters restore the clean-water main.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Lina asks how long the backup pump can last; another inspection is discussed.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a18": {
+    "title": "The Intergalactic Pirate's Black Ledger",
+    "brief": "A grain transport barge convoy belonging to the Colton Shipping Guild along the Silver-Green Main Route was raided; the pirate leader's escape pod crashed into an asteroid belt.",
+    "objectives": {
+      "xinghai-a18.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a18.c1": {
+        "title": "Breach the airlock (S28) before the wreckage catches fire, forcing the pirate to surrender bearer bonds and the data storage chip",
+        "description": "Use your hydraulic airlock cutter and learned breaching method to open the damaged escape pod before it burns and press the captain for the bonds and ledger. You keep the tool; breaching spends energy.",
+        "success": "The cutter opens the damaged airlock. Trapped between the burning wreck and an exposed escape route, the captain yields the bonds and ledger; fifty thousand Enas are secured. The encrypted entries remain unread.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The recovered accounts draw attention; the patrols remain a concern.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a18.c2": {
+        "title": "Cover the rescue with a deployed frigate",
+        "description": "Requires a deployed, working armed frigate with fuel. A short burst of standard ship fire spends 1 fuel to cover the rescue and recovery of the bonds. The enemy craft still circles outside the rubble field.",
+        "success": "A short burst from the frigate checks this approach. You recover the ledger and bonds while the enemy craft remains at the edge of the rubble field; any further battle is a separate encounter.",
+        "failure": "The fire does not check the approaching craft, and the fuel is already spent. You withdraw from the rescue position while the threat remains.",
+        "success_echo": "Jialan warns that the brief covering fire did not eliminate the hostile craft. Continuing the rescue, withdrawing or fighting remains a separate decision.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a18.c3": {
+        "title": "Tear out the sections implicating Monto to keep as blackmail material, turning the remainder over to the Shipping Guild.",
+        "description": "Some entries are readable, but the encrypted portions remain obscure. Use your learned underworld cant to negotiate over the records, keeping the readable entries concerning Monto and handing the rest to the shipping guild.",
+        "success": "You identify the readable Monto entries and deliver the remaining records to the guild. It pays the existing fifty-thousand-Enas bounty; no one can promise how Monto will respond.",
+        "failure": "Your explanation and underworld cant do not earn the guild’s trust. It declines the damaged ledger, and the encrypted portions remain unread.",
+        "success_echo": "The guild begins checking the readable records it received. Monto’s response to the actual evidence remains to be established in later contact.",
+        "failure_echo": "The guild asks for evidence of where the readable entries came from. You can provide more facts or leave with the rejected records."
+      }
+    }
+  },
+  "xinghai-a19": {
+    "title": "Pilgrimage Herald of the Mechanism Sect",
+    "brief": "A jet-black pilgrimage vessel from the Mechanized Empire, bearing zero signs of organic life, abruptly drops out of warp outside the Kaya Mining Station, broadcasting three mechanical logic trials across all frequencies.",
+    "objectives": {
+      "xinghai-a19.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a19.c1": {
+        "title": "Complete the antimatter-confinement topology examination, including preparation and verification, in half an hour.",
+        "description": "Complete the antimatter-confinement topology examination, including preparation and verification, in half an hour.",
+        "success": "The completed topology passes the envoy's examination and earns an ancient Titan gear.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Technicians discuss the submitted topology; the gear does not itself open a route to the divine realm.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a19.c2": {
+        "title": "Channel your own mechanical force into a scrap-iron gear gifted by the herald, inducing three seconds of over-frequency resonance (S12)",
+        "description": "Channel your own mechanical force into a scrap-iron gear gifted by the herald, inducing three seconds of over-frequency resonance (S12)",
+        "success": "The scrap gear sustains the required resonance; the envoy gives you an ancient Titan gear.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Nearby mechanics acknowledge the successful resonance test.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a19.c3": {
+        "title": "Refuse to upload your consciousness as a virtual apostle, standing firm in your convictions as a flesh-and-blood mechanic.",
+        "description": "Refuse to upload your consciousness as a virtual apostle, standing firm in your convictions as a flesh-and-blood mechanic.",
+        "success": "Your refusal of mind formatting passes the test; the envoy grants an ancient Titan gear.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The envoy records your answer without changing your chosen human identity.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a20": {
+    "title": "Recruitment Order of the Imperial Naval Base",
+    "brief": "The forward expeditionary force of the Crimson Empire stationed at the Colton Stargate Fortress issues an external mobilization decree: recruiting experienced independent mercenaries and specialized technicians to be inducted into the vanguard regiment of the Imperial Third Pioneer Fleet.",
+    "objectives": {
+      "xinghai-a20.resolve": "Choose how to handle this affair and accept the consequences."
+    },
+    "choices": {
+      "xinghai-a20.c1": {
+        "title": "Stand before the imperial military attache and endure the martial soul pressure of an adjutant serving under Beyond Grade A Dark Emperor Clottey without falling to your knees (S16)",
+        "description": "Stand before the imperial military attache and endure the martial soul pressure of an adjutant serving under Beyond Grade A Dark Emperor Clottey without falling to your knees (S16)",
+        "success": "You withstand the pressure test; the officer issues pay and a naval transit seal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The officer points out the fleet's reception desk. Continuing this career remains your choice.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a20.c2": {
+        "title": "Complete the secondary-cannon fault examination and safety checks in half an hour.",
+        "description": "Complete the secondary-cannon fault examination and safety checks in half an hour.",
+        "success": "You repair the secondary-cannon circuit and pass the examination.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Technicians record the repaired fault and provide a reporting location.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-a20.c3": {
+        "title": "Sign an ironclad life-and-death non-disclosure military covenant dedicating your life to expanding the Empire's frontiers.",
+        "description": "Sign an ironclad life-and-death non-disclosure military covenant dedicating your life to expanding the Empire's frontiers.",
+        "success": "Your signed agreement is accepted; pay and the naval transit seal are issued.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The agreement is filed; the expedition has not yet departed.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q01": {
+    "title": "Star-Forging Hammer: The Mechanic's Ultimate Blueprint Vault",
+    "brief": "From a low-level scavenger welding scrap in the slums, to step-by-step collecting intermediate, advanced, and ultimately pinnacle mechanic knowledge embargoed by the three Universal Civilizations.",
+    "objectives": {
+      "xinghai-q01.stage1": "Master and thoroughly absorb Advanced Applied Energy Dynamics (S05) and Micro Exoskeleton Power Core Assembly Blueprint (I41) to build your very first personal combat exoskeleton",
+      "xinghai-q01.stage2": "Tap into the Black Star Mercenary Group's armaments assembly line, acquiring Heavy Personal Rail Sniper Rifle Fabrication (S08) and heavy assault ship skeletal framing blueprints",
+      "xinghai-q01.stage3": "Awaken the ancient warship-graveyard AI Risda (P22) to crack the main battle-brain control array of a lost civilization",
+      "xinghai-q01.stage4": "Ultimately erect an autonomous mechanical army fully under your command within the seams of the three Universal Civilizations."
+    },
+    "choices": {
+      "xinghai-q01.c1": {
+        "title": "Master and thoroughly absorb Advanced Applied Energy Dynamics (S05) and Micro Exoskeleton Power Core Assembly Blueprint (I41) to build your very first personal combat exoskeleton",
+        "description": "Master and thoroughly absorb Advanced Applied Energy Dynamics (S05) and Micro Exoskeleton Power Core Assembly Blueprint (I41) to build your very first personal combat exoskeleton",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q01.c2": {
+        "title": "Tap into the Black Star Mercenary Group's armaments assembly line, acquiring Heavy Personal Rail Sniper Rifle Fabrication (S08) and heavy assault ship skeletal framing blueprints",
+        "description": "Tap into the Black Star Mercenary Group's armaments assembly line, acquiring Heavy Personal Rail Sniper Rifle Fabrication (S08) and heavy assault ship skeletal framing blueprints",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q01.c3": {
+        "title": "Awaken the ancient warship-graveyard AI Risda (P22) to crack the main battle-brain control array of a lost civilization",
+        "description": "Awaken the ancient warship-graveyard AI Risda (P22) to crack the main battle-brain control array of a lost civilization",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q01.c4": {
+        "title": "Ultimately erect an autonomous mechanical army fully under your command within the seams of the three Universal Civilizations.",
+        "description": "Ultimately erect an autonomous mechanical army fully under your command within the seams of the three Universal Civilizations.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q02": {
+    "title": "Path of the Chrysalis: The Eternal Dawn of Sunil",
+    "brief": "Save a tragic species marching toward extinction under the cold, indifferent gaze of the cosmos.",
+    "objectives": {
+      "xinghai-q02.stage1": "Survive on the frontline defense, earning the broken-blade trust of Clan Chief Relmont (P24)",
+      "xinghai-q02.stage2": "Help Melos (P18) untangle his inner trauma and reforge his ship-slicing blade, allowing him to take up the weapon once more to defend his homeworld",
+      "xinghai-q02.stage3": "Trace the clues to intercept the mutation source inducer code black box (I57) used by DarkStar to engineer the Mutation Disaster, forcing the Godoran Academy of Sciences to surrender the complete genetic purification formula",
+      "xinghai-q02.stage4": "Lead Sunil warriors out of the mire, carving out an independent autonomous domain in the Shattered Star Ring free from enslavement by anyone."
+    },
+    "choices": {
+      "xinghai-q02.c1": {
+        "title": "Survive on the frontline defense, earning the broken-blade trust of Clan Chief Relmont (P24)",
+        "description": "Survive on the frontline defense, earning the broken-blade trust of Clan Chief Relmont (P24)",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q02.c2": {
+        "title": "Help Melos (P18) untangle his inner trauma and reforge his ship-slicing blade, allowing him to take up the weapon once more to defend his homeworld",
+        "description": "Help Melos (P18) untangle his inner trauma and reforge his ship-slicing blade, allowing him to take up the weapon once more to defend his homeworld",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q02.c3": {
+        "title": "Trace the clues to intercept the mutation source inducer code black box (I57) used by DarkStar to engineer the Mutation Disaster, forcing the Godoran Academy of Sciences to surrender the complete genetic purification formula",
+        "description": "Trace the clues to intercept the mutation source inducer code black box (I57) used by DarkStar to engineer the Mutation Disaster, forcing the Godoran Academy of Sciences to surrender the complete genetic purification formula",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q02.c4": {
+        "title": "Lead Sunil warriors out of the mire, carving out an independent autonomous domain in the Shattered Star Ring free from enslavement by anyone.",
+        "description": "Lead Sunil warriors out of the mire, carving out an independent autonomous domain in the Shattered Star Ring free from enslavement by anyone.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q03": {
+    "title": "Shadow Weaving: Rise of the Rogue Star Mercenary Group",
+    "brief": "Forge an elite armed faction that sends shockwaves through the star cluster amid the neutral sanctuary of Floating Dragon, regional financial syndicates, and the rising tide of Black Star.",
+    "objectives": {
+      "xinghai-q03.stage1": "Use actual professional registration and your owned, deployed, working frigate to verify its condition and record the work you may offer.",
+      "xinghai-q03.stage2": "Secure a Mercenary Alliance-certified B-rank independent license, carving out exclusive escort corridors across the Silver-Green Route",
+      "xinghai-q03.stage3": "Disengage unscathed from border skirmishes between Godora and DarkStar, engraving your name upon high-bounty contract rosters throughout the cosmos",
+      "xinghai-q03.stage4": "Claim a personal seat on Floating Dragon Island, standing shoulder-to-shoulder with Beyond Grade A titans to divide interstellar interests."
+    },
+    "choices": {
+      "xinghai-q03.c1": {
+        "title": "Verify your frigate and professional registration",
+        "description": "Use actual professional registration and your owned, deployed, working frigate to verify its condition and record the work you may offer.",
+        "success": "The guild verifies the existing registration and ship, then records their condition and your proposed services. It grants no ship, new licence or unrelated debt payment.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q03.c2": {
+        "title": "Secure a Mercenary Alliance-certified B-rank independent license, carving out exclusive escort corridors across the Silver-Green Route",
+        "description": "Secure a Mercenary Alliance-certified B-rank independent license, carving out exclusive escort corridors across the Silver-Green Route",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q03.c3": {
+        "title": "Disengage unscathed from border skirmishes between Godora and DarkStar, engraving your name upon high-bounty contract rosters throughout the cosmos",
+        "description": "Disengage unscathed from border skirmishes between Godora and DarkStar, engraving your name upon high-bounty contract rosters throughout the cosmos",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-q03.c4": {
+        "title": "Claim a personal seat on Floating Dragon Island, standing shoulder-to-shoulder with Beyond Grade A titans to divide interstellar interests.",
+        "description": "Claim a personal seat on Floating Dragon Island, standing shoulder-to-shoulder with Beyond Grade A titans to divide interstellar interests.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r01-success": {
+    "title": "Garton Faction · Juberly Hub: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r01-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r01-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r01-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r01-failure": {
+    "title": "Garton Faction · Juberly Hub: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r01-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r01-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r01-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r02-success": {
+    "title": "Sunil Homeworld · Catastrophe Wasteland and Frontline Fortress: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r02-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r02-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r02-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r02-failure": {
+    "title": "Sunil Homeworld · Catastrophe Wasteland and Frontline Fortress: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r02-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r02-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r02-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r03-success": {
+    "title": "Godora Civilization · Homeworld and Ring-Orbit City: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r03-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r03-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r03-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r03-failure": {
+    "title": "Godora Civilization · Homeworld and Ring-Orbit City: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r03-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r03-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r03-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r04-success": {
+    "title": "Neutral Holy Ground · Floating Dragon Island: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r04-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r04-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r04-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r04-failure": {
+    "title": "Neutral Holy Ground · Floating Dragon Island: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r04-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r04-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r04-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r05-success": {
+    "title": "Colton Star Cluster Fringe · Shipping Chokepoints and Pirate Lanes: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r05-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r05-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r05-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r05-failure": {
+    "title": "Colton Star Cluster Fringe · Shipping Chokepoints and Pirate Lanes: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r05-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r05-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r05-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r06-success": {
+    "title": "The Three Universal Civilizations and the Central Galaxy Border: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r06-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r06-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r06-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r06-failure": {
+    "title": "The Three Universal Civilizations and the Central Galaxy Border: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r06-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r06-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r06-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r07-success": {
+    "title": "DarkStar Deep Space Shadow Fleet: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r07-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r07-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r07-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r07-failure": {
+    "title": "DarkStar Deep Space Shadow Fleet: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r07-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r07-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r07-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r08-success": {
+    "title": "Desolate Cosmos Belt and Ancient Ruins: another invitation",
+    "brief": "Local people invite you to discuss the next step after your earlier work.",
+    "objectives": {
+      "xinghai-continuation-r08-success.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r08-success.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r08-success.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-continuation-r08-failure": {
+    "title": "Desolate Cosmos Belt and Ancient Ruins: a chance to make amends",
+    "brief": "The earlier attempt failed. Local people suggest another approach; participation is still your choice.",
+    "objectives": {
+      "xinghai-continuation-r08-failure.work": "Complete a newly agreed piece of local work."
+    },
+    "choices": {
+      "xinghai-continuation-r08-failure.c1": {
+        "title": "Inspect the damaged supplies together and repair a local facility.",
+        "description": "Inspect the damaged supplies together and repair a local facility.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      },
+      "xinghai-continuation-r08-failure.c2": {
+        "title": "Spend half a day coordinating the next transport or care arrangements.",
+        "description": "Spend half a day coordinating the next transport or care arrangements.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a01-echo-1": {
+    "title": "The Dock's First Rework Inspection",
+    "brief": "Monto has checked settlement and delivery receipts. He will let you compare returned belt interfaces, which may be substituted material or simply mixed sizes.",
+    "objectives": {
+      "xinghai-a01-echo-1.followup": "Compare returns with the original work order"
+    },
+    "choices": {
+      "xinghai-a01-echo-1.c1": {
+        "title": "Compare returns with the original work order",
+        "description": "Check the work order, interface width and seals at Berth 47 before agreeing to repairs.",
+        "success": "Wear and seals match: no substitution occurred. Two slot sizes were packed together. You separate them and record the finding for the dock.",
+        "failure": "The specification page is missing. The evidence supports neither blaming a worker nor declaring the equipment safe.",
+        "success_echo": "This return dispute has a specific scope. Any repair still needs its own tools, materials, time and payment; no machine or position is granted.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "xinghai-a01-echo-2": {
+    "title": "Two Seals on One Recovery Crate",
+    "brief": "After verifying your copper delivery, Monto finds two seals with the same number. He will let you establish this crate's ownership rather than presume theft.",
+    "objectives": {
+      "xinghai-a01-echo-2.followup": "Compare the two seal handovers"
+    },
+    "choices": {
+      "xinghai-a01-echo-2.c1": {
+        "title": "Compare the two seal handovers",
+        "description": "Use weighing times and wear on the original seals, examining only this crate.",
+        "success": "The old seal stayed on during a crate change. Both share a batch number, but weight was credited once. Registered ownership remains; duplicate labels grant no salvage rights.",
+        "failure": "One handover time is missing. The doubt is retained instead of dismantling the crate as ownerless waste.",
+        "success_echo": "The resolved crate stays resolved. The next crate still needs permission and delivery. No second credit is created.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "xinghai-a01-echo-3": {
+    "title": "Correcting the Altered Berth Invoice",
+    "brief": "Monto has explained in person that the alteration remains recorded and 480 Inar never arrived. You may correct it voluntarily or decline while retaining the facts.",
+    "objectives": {
+      "xinghai-a01-echo-3.followup": "Voluntarily pay 480 Inar and correct the record"
+    },
+    "choices": {
+      "xinghai-a01-echo-3.c1": {
+        "title": "Voluntarily pay 480 Inar and correct the record",
+        "description": "Pay only on explicit agreement. Receiving a notice or speaking with Monto does not charge you.",
+        "success": "The 480 Inar arrives and is linked to the invoice. The record retains its alteration history without an unpaid balance.",
+        "failure": "The correction is unfinished. Time and any actual payment remain recorded; do not claim the invoice is cleared.",
+        "success_echo": "The balance is settled while the alteration history remains. Monto will discuss ordinary business, not grant permanent trust or port-wide access.",
+        "failure_echo": "The known gap still needs checking. Improve preparation or leave it for now; it creates no invented reward or pursuit."
+      }
+    }
+  },
+  "xinghai-training-s01": {
+    "title": "Instruction: Basic Machinery Assembly",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in apprenticeship training across the repair workshops of Juberly's lower ring, or through self-taught disassembly of scrapped household appliances.",
+    "objectives": {
+      "xinghai-training-s01.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s01.qualify": {
+        "title": "Assessment: Basic Machinery Assembly",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Basic Machinery Assembly. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s02": {
+    "title": "Instruction: Circuit Shorting and Bypassing",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the personal teachings of veteran freight ship electricians, or as an instinct for survival at the bottom of the L01 Maintenance Shaft.",
+    "objectives": {
+      "xinghai-training-s02.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s02.qualify": {
+        "title": "Assessment: Circuit Shorting and Bypassing",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Circuit Shorting and Bypassing. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s03": {
+    "title": "Instruction: Micro Exoskeleton Power Calibration",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the Sunil logistics maintenance barracks, or through private instruction from veterans at the L02 Old Anchor Bar.",
+    "objectives": {
+      "xinghai-training-s03.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s03.qualify": {
+        "title": "Assessment: Micro Exoskeleton Power Calibration",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Micro Exoskeleton Power Calibration. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s04": {
+    "title": "Instruction: High-Energy Electromagnetic Coil Winding",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found from weapon mod masters at the L03 Dockyard, or in obsolete operational manuals from Purple-Gold Armaments.",
+    "objectives": {
+      "xinghai-training-s04.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s04.qualify": {
+        "title": "Assessment: High-Energy Electromagnetic Coil Winding",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study High-Energy Electromagnetic Coil Winding. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s05": {
+    "title": "Instruction: Advanced Applied Energy Dynamics",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in discarded open lectures from the Godoran Third Academy of Sciences, or handwritten transcriptions of Black Star's early technical notes.",
+    "objectives": {
+      "xinghai-training-s05.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s05.qualify": {
+        "title": "Assessment: Advanced Applied Energy Dynamics",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Advanced Applied Energy Dynamics. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s06": {
+    "title": "Instruction: Kinetic Shield Overcharge Modification",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the trade secrets of black-market arms smugglers, or oral instructions from the three Volga brothers.",
+    "objectives": {
+      "xinghai-training-s06.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s06.qualify": {
+        "title": "Assessment: Kinetic Shield Overcharge Modification",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Kinetic Shield Overcharge Modification. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s07": {
+    "title": "Instruction: Micro Autonomous Floating Cannon Assembly",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in early core blueprints of the Black Star Mercenary Group (I41 series branches), or ancient blueprint fragments from warship ruins.",
+    "objectives": {
+      "xinghai-training-s07.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s07.qualify": {
+        "title": "Assessment: Micro Autonomous Floating Cannon Assembly",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Micro Autonomous Floating Cannon Assembly. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s08": {
+    "title": "Instruction: Heavy Personal Rail Sniper Rifle Fabrication",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in outsourced blueprints from Purple-Gold Fortress Heavy Industries, or schematics left behind by black-market master weapon-smiths.",
+    "objectives": {
+      "xinghai-training-s08.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s08.qualify": {
+        "title": "Assessment: Heavy Personal Rail Sniper Rifle Fabrication",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Heavy Personal Rail Sniper Rifle Fabrication. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s09": {
+    "title": "Instruction: Shipboard Reactor Overclocking",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the life-or-death flight experience of Captain Keran of the Grey Finch, or the accounts of interstellar smugglers.",
+    "objectives": {
+      "xinghai-training-s09.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s09.qualify": {
+        "title": "Assessment: Shipboard Reactor Overclocking",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Shipboard Reactor Overclocking. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s10": {
+    "title": "Instruction: Mechanical Life Underlying Logic Decoding",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in decrypted data fragments from Risda's main core, or ancient scriptures originating from Manison's Divine Domain.",
+    "objectives": {
+      "xinghai-training-s10.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s10.qualify": {
+        "title": "Assessment: Mechanical Life Underlying Logic Decoding",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Mechanical Life Underlying Logic Decoding. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s11": {
+    "title": "Instruction: Battlefield Scrap Rapid Fabrication",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in secret techniques preserved by vanguard mechanics in the Sunil frontline fortress repair bays.",
+    "objectives": {
+      "xinghai-training-s11.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s11.qualify": {
+        "title": "Assessment: Battlefield Scrap Rapid Fabrication",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Battlefield Scrap Rapid Fabrication. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s12": {
+    "title": "Instruction: Machinery Affinity Qi Resonance",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in superhuman awakenings that occur after breaking through mechanical crafting bottlenecks, serving as a universal foundation for high-tier Mechanics.",
+    "objectives": {
+      "xinghai-training-s12.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s12.qualify": {
+        "title": "Assessment: Machinery Affinity Qi Resonance",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Machinery Affinity Qi Resonance. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s13": {
+    "title": "Instruction: Interstellar Military Lethal Strike",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be learned from retired military sergeants on the borders of the Crimson Empire, or through combat insights gained at the L04 Mercenary Arena.",
+    "objectives": {
+      "xinghai-training-s13.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s13.qualify": {
+        "title": "Assessment: Interstellar Military Lethal Strike",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Interstellar Military Lethal Strike. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s14": {
+    "title": "Instruction: Micro-Circulation Qi Condensation",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in ancient breathing techniques of Sunil warriors, or common introductory primers distributed across free martial arts halls in the Colton Star Cluster.",
+    "objectives": {
+      "xinghai-training-s14.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s14.qualify": {
+        "title": "Assessment: Micro-Circulation Qi Condensation",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Micro-Circulation Qi Condensation. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s15": {
+    "title": "Instruction: Sunil Ship-Slicing Force Technique",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the grueling drills run by Melos once sobered up, or genuine lineages recorded in the Sunil Broken Blade Chronicles.",
+    "objectives": {
+      "xinghai-training-s15.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s15.qualify": {
+        "title": "Assessment: Sunil Ship-Slicing Force Technique",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Sunil Ship-Slicing Force Technique. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s16": {
+    "title": "Instruction: Shock Impact Resilience",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the ascetic training regimens of the vanguard battalions in the War Realm, or the calloused muscle memory of heavy mine laborers.",
+    "objectives": {
+      "xinghai-training-s16.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s16.qualify": {
+        "title": "Assessment: Shock Impact Resilience",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Shock Impact Resilience. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s17": {
+    "title": "Instruction: Limit Esper Burst Assault",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the secret assassination arts of the Saber Mercenary Group, or manuscripts left by exiled interstellar martial artists.",
+    "objectives": {
+      "xinghai-training-s17.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s17.qualify": {
+        "title": "Assessment: Limit Esper Burst Assault",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Limit Esper Burst Assault. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s18": {
+    "title": "Instruction: Extreme Vacuum Breath-Holding Survival",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in life-saving methods practiced by deep-space miners, or basic infantry assessment criteria of the Crimson Empire Navy.",
+    "objectives": {
+      "xinghai-training-s18.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s18.qualify": {
+        "title": "Assessment: Extreme Vacuum Breath-Holding Survival",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Extreme Vacuum Breath-Holding Survival. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s19": {
+    "title": "Instruction: Rudimentary Mental Ward Disruption",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in scattered mental cultivation notes in Feidin's personal sheet music, or lower-tier ascetic tenets of the Arcane Church.",
+    "objectives": {
+      "xinghai-training-s19.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s19.qualify": {
+        "title": "Assessment: Rudimentary Mental Ward Disruption",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Rudimentary Mental Ward Disruption. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s20": {
+    "title": "Instruction: Micro-Gravitational Sense",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be gained from analyzing archival footage of Anur's gravity battle, or through attunement with ancient gravity crystals.",
+    "objectives": {
+      "xinghai-training-s20.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s20.qualify": {
+        "title": "Assessment: Micro-Gravitational Sense",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Micro-Gravitational Sense. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s21": {
+    "title": "Instruction: Ethereal Whispers Resistance",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in stele inscriptions from Arcane Prophet Whisper Altars, or the field notes of interstellar combat psychiatrists.",
+    "objectives": {
+      "xinghai-training-s21.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s21.qualify": {
+        "title": "Assessment: Ethereal Whispers Resistance",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Ethereal Whispers Resistance. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s22": {
+    "title": "Instruction: High-Energy Crystal Resonance Siphoning",
+    "brief": "Each extraction consumes one decaying energy-core fragment.",
+    "objectives": {
+      "xinghai-training-s22.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s22.qualify": {
+        "title": "Assessment: High-Energy Crystal Resonance Siphoning",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study High-Energy Crystal Resonance Siphoning. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s23": {
+    "title": "Instruction: High-Voltage Plasma Arc Ignition",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in innate electrical Esper awakenings, or by undergoing high-risk bio-engineered electric eel gene transcription.",
+    "objectives": {
+      "xinghai-training-s23.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s23.qualify": {
+        "title": "Assessment: High-Voltage Plasma Arc Ignition",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study High-Voltage Plasma Arc Ignition. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s24": {
+    "title": "Instruction: Microscopic Material Deconstruction Insight",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found by reverse-engineering observations of ash-carbonization Esper abilities, or in the notebooks of top-tier alchemists and materials scientists.",
+    "objectives": {
+      "xinghai-training-s24.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s24.qualify": {
+        "title": "Assessment: Microscopic Material Deconstruction Insight",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Microscopic Material Deconstruction Insight. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s25": {
+    "title": "Instruction: Stargate Fake ID Code Forgery",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found from veteran counterfeiters in Juberly's lower ring, or master encoders in the L05 Black Market.",
+    "objectives": {
+      "xinghai-training-s25.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s25.qualify": {
+        "title": "Assessment: Stargate Fake ID Code Forgery",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Stargate Fake ID Code Forgery. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s26": {
+    "title": "Instruction: Silent Vacuum Thruster Stealth",
+    "brief": "Only after receiving instruction or studying relevant manuals, followed by dedicated practice, can it truly be mastered. Instruction clues can be found in the vanguard tactical manuals of the Saber Assault Battalion.",
+    "objectives": {
+      "xinghai-training-s26.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s26.qualify": {
+        "title": "Assessment: Silent Vacuum Thruster Stealth",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Silent Vacuum Thruster Stealth. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s27": {
+    "title": "Instruction: Directional EMP Mine Deployment",
+    "brief": "Each deployment consumes one EMP grenade.",
+    "objectives": {
+      "xinghai-training-s27.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s27.qualify": {
+        "title": "Assessment: Directional EMP Mine Deployment",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Directional EMP Mine Deployment. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s28": {
+    "title": "Instruction: Ship Airlock Hydraulic Breaching",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in standard interstellar pirate boarding combat tutorials.",
+    "objectives": {
+      "xinghai-training-s28.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s28.qualify": {
+        "title": "Assessment: Ship Airlock Hydraulic Breaching",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Ship Airlock Hydraulic Breaching. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s29": {
+    "title": "Instruction: Dead-Letter Decryption on Sealed Frequencies",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie with Colton Shipping Guild intelligence brokers and the manuscripts of down-and-out radio technicians.",
+    "objectives": {
+      "xinghai-training-s29.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s29.qualify": {
+        "title": "Assessment: Dead-Letter Decryption on Sealed Frequencies",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Dead-Letter Decryption on Sealed Frequencies. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s30": {
+    "title": "Instruction: Black Market Cant Negotiation",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in scraping by running errands in the Floating Dragon black market (L17) and accumulating three years of tea money at the Old Anchor Bar.",
+    "objectives": {
+      "xinghai-training-s30.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s30.qualify": {
+        "title": "Assessment: Black Market Cant Negotiation",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Black Market Cant Negotiation. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s31": {
+    "title": "Instruction: Interstellar Common Tongue Omnicompetence",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in the simple primer compiled by Wen Li and daily immersion in the hub's multilingual broadcasts.",
+    "objectives": {
+      "xinghai-training-s31.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s31.qualify": {
+        "title": "Assessment: Interstellar Common Tongue Omnicompetence",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Interstellar Common Tongue Omnicompetence. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s32": {
+    "title": "Instruction: Gravity Slingshot Trajectory Calculation",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in the legacy notes of the old navigator of the Grey Finch and generational lore passed among independent freighters.",
+    "objectives": {
+      "xinghai-training-s32.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s32.qualify": {
+        "title": "Assessment: Gravity Slingshot Trajectory Calculation",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Gravity Slingshot Trajectory Calculation. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s33": {
+    "title": "Instruction: Bulk Contraband Munitions Appraisal",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in guidance from the black market bookkeeper at the Old Anchor Bar (L02) and practical experience in the Juberly discarded shipbreaker bazaar.",
+    "objectives": {
+      "xinghai-training-s33.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s33.qualify": {
+        "title": "Assessment: Bulk Contraband Munitions Appraisal",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Bulk Contraband Munitions Appraisal. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s34": {
+    "title": "Instruction: Blind Jump Coordinate Verification and Obstacle Avoidance",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in bloodstained star chart manuscripts bought with the lives of deep-space smuggler captains.",
+    "objectives": {
+      "xinghai-training-s34.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s34.qualify": {
+        "title": "Assessment: Blind Jump Coordinate Verification and Obstacle Avoidance",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Blind Jump Coordinate Verification and Obstacle Avoidance. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s35": {
+    "title": "Instruction: Field Nanite Healing Injection",
+    "brief": "Treatment requires a medical pressure injector and consumes one nanomedical healing dose.",
+    "objectives": {
+      "xinghai-training-s35.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s35.qualify": {
+        "title": "Assessment: Field Nanite Healing Injection",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Field Nanite Healing Injection. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-training-s36": {
+    "title": "Instruction: Diplomatic Maneuvering with the Three Civilizations",
+    "brief": "To truly master it, one must first receive instruction or study manuscripts, then devote time to practice. Instruction clues lie in prolonged observation outside Aeslyn's VIP lounge and casual anecdotes shared by interstellar legation clerks.",
+    "objectives": {
+      "xinghai-training-s36.qualification": "Pass the instructor's assessment and obtain permission to study."
+    },
+    "choices": {
+      "xinghai-training-s36.qualify": {
+        "title": "Assessment: Diplomatic Maneuvering with the Three Civilizations",
+        "description": "Ask the established instructor for an assessment of your foundations and responsibilities. Permission to study is not mastery.",
+        "success": "The instructor grants permission to study Diplomatic Maneuvering with the Three Civilizations. You still need actual practice.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The instructor is willing to review your progress at a later meeting.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i41": {
+    "title": "Black Star's power-circuit sketch",
+    "brief": "Settle the berth dispute and complete the mining-platform repair, then demonstrate power distribution and exoskeleton tuning to Black Star.",
+    "objectives": {
+      "xinghai-source-i41.handover": "Settle the berth dispute and complete the mining-platform repair, then demonstrate power distribution and exoskeleton tuning to Black Star."
+    },
+    "choices": {
+      "xinghai-source-i41.work": {
+        "title": "Black Star's power-circuit sketch",
+        "description": "Settle the berth dispute and complete the mining-platform repair, then demonstrate power distribution and exoskeleton tuning to Black Star.",
+        "success": "The handover is complete. You receive Micro Exoskeleton Power Core Assembly Blueprint.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i45": {
+    "title": "An authorization plate at the Iron Grave",
+    "brief": "Use micro-deconstruction to read the hexagonal plate's authorization circuit. Do not connect to the main brain yet.",
+    "objectives": {
+      "xinghai-source-i45.handover": "Use micro-deconstruction to read the hexagonal plate's authorization circuit. Do not connect to the main brain yet."
+    },
+    "choices": {
+      "xinghai-source-i45.work": {
+        "title": "An authorization plate at the Iron Grave",
+        "description": "Use micro-deconstruction to read the hexagonal plate's authorization circuit. Do not connect to the main brain yet.",
+        "success": "The handover is complete. You receive Ancient Warship Low-Level Communication Decoding Key.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i53": {
+    "title": "Jialan's trust aboard the Gray Sparrow",
+    "brief": "After the jump-point rescue and graveyard expedition, discuss the risks you accept before receiving the hidden-compartment key.",
+    "objectives": {
+      "xinghai-source-i53.handover": "After the jump-point rescue and graveyard expedition, discuss the risks you accept before receiving the hidden-compartment key."
+    },
+    "choices": {
+      "xinghai-source-i53.work": {
+        "title": "Jialan's trust aboard the Gray Sparrow",
+        "description": "After the jump-point rescue and graveyard expedition, discuss the risks you accept before receiving the hidden-compartment key.",
+        "success": "The handover is complete. You receive \"Grey Finch\" Smuggling Hold Hidden Compartment Key.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i43": {
+    "title": "Jialan's cooling bypass",
+    "brief": "Inspect the secondary cannon's cooling circuit and explain three overheating risks to receive the mechanic's bypass draft.",
+    "objectives": {
+      "xinghai-source-i43.handover": "Inspect the secondary cannon's cooling circuit and explain three overheating risks to receive the mechanic's bypass draft."
+    },
+    "choices": {
+      "xinghai-source-i43.work": {
+        "title": "Jialan's cooling bypass",
+        "description": "Inspect the secondary cannon's cooling circuit and explain three overheating risks to receive the mechanic's bypass draft.",
+        "success": "The handover is complete. You receive Shipboard Secondary Battery Heat Exhaust Conduit Improvement Proposal.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i47": {
+    "title": "The field doctor's toxin notes",
+    "brief": "Bring a mutated beast's toxin sac and identify its layers with the Sunil doctor to receive permission to copy the purification notes.",
+    "objectives": {
+      "xinghai-source-i47.handover": "Bring a mutated beast's toxin sac and identify its layers with the Sunil doctor to receive permission to copy the purification notes."
+    },
+    "choices": {
+      "xinghai-source-i47.work": {
+        "title": "The field doctor's toxin notes",
+        "description": "Bring a mutated beast's toxin sac and identify its layers with the Sunil doctor to receive permission to copy the purification notes.",
+        "success": "The handover is complete. You receive Mutated Organism Venom Sac Purification Notes.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i48": {
+    "title": "The port authority's navigation lesson",
+    "brief": "Attend the navigation briefing at Sacred Gold Skyport, check the shared terminology and collect the public safety manual.",
+    "objectives": {
+      "xinghai-source-i48.handover": "Attend the navigation briefing at Sacred Gold Skyport, check the shared terminology and collect the public safety manual."
+    },
+    "choices": {
+      "xinghai-source-i48.work": {
+        "title": "The port authority's navigation lesson",
+        "description": "Attend the navigation briefing at Sacred Gold Skyport, check the shared terminology and collect the public safety manual.",
+        "success": "The handover is complete. You receive Hyperspace Jump Safety Regulations.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i54": {
+    "title": "Register with the Mercenary Alliance",
+    "brief": "Pay a one-hundred-Enas registration fee and verify your identity to receive an entry-level F-rank iron badge.",
+    "objectives": {
+      "xinghai-source-i54.handover": "Pay a one-hundred-Enas registration fee and verify your identity to receive an entry-level F-rank iron badge."
+    },
+    "choices": {
+      "xinghai-source-i54.work": {
+        "title": "Register with the Mercenary Alliance",
+        "description": "Pay a one-hundred-Enas registration fee and verify your identity to receive an entry-level F-rank iron badge.",
+        "success": "The handover is complete. You receive Interstellar Mercenary Alliance Grade-F Junior Iron Tag.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The person involved remembers the handover and is willing to discuss the item's history.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-source-i56": {
+    "title": "A short-term consortium loan",
+    "brief": "Borrow 10,000 Enas for ninety days. Interest compounds at 0.01% per complete hour, rounded upward each hour; incomplete hours earn no interest.",
+    "objectives": {
+      "xinghai-source-i56.handover": "Borrow 10,000 Enas for ninety days. Interest compounds at 0.01% per complete hour, rounded upward each hour; incomplete hours earn no interest."
+    },
+    "choices": {
+      "xinghai-source-i56.work": {
+        "title": "A short-term consortium loan",
+        "description": "Borrow 10,000 Enas for ninety days. Interest compounds at 0.01% per complete hour, rounded upward each hour; incomplete hours earn no interest.",
+        "success": "The 10,000-Enas principal and the debt note are delivered.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "Ninety days have elapsed. Any unpaid balance is now subject to collection.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-loan-repayment": {
+    "title": "Repay the consortium loan",
+    "brief": "Settle principal and interest using the complete-hour terms agreed when the loan was taken.",
+    "objectives": {
+      "xinghai-loan-repayment.pay": "Settle principal and interest using the complete-hour terms agreed when the loan was taken."
+    },
+    "choices": {
+      "xinghai-loan-repayment.pay": {
+        "title": "Repay the consortium loan",
+        "description": "Settle principal and interest using the complete-hour terms agreed when the loan was taken.",
+        "success": "The principal and interest are deducted and the account is marked paid.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The consortium confirms that this debt is settled and stops collecting on it.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-loan-collection": {
+    "title": "The consortium's collector",
+    "brief": "Review the outstanding bill with the collector. Only formal repayment to the consortium clears the debt.",
+    "objectives": {
+      "xinghai-loan-collection.work": "Review the outstanding bill with the collector. Only formal repayment to the consortium clears the debt."
+    },
+    "choices": {
+      "xinghai-loan-collection.work": {
+        "title": "The consortium's collector",
+        "description": "Review the outstanding bill with the collector. Only formal repayment to the consortium clears the debt.",
+        "success": "You check the collection bill. Formal repayment is still required.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "The bill has been checked; the debt itself is not cleared by this conversation.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a02-echo-1": {
+    "title": "Melos returns sober",
+    "brief": "Melos asks you to help with the aftermath of the bar dispute.",
+    "objectives": {
+      "xinghai-a02-echo-1.work": "Melos asks you to help with the aftermath of the bar dispute."
+    },
+    "choices": {
+      "xinghai-a02-echo-1.work": {
+        "title": "Melos returns sober",
+        "description": "Melos asks you to help with the aftermath of the bar dispute.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a02-echo-2": {
+    "title": "Repairs after the bar fight",
+    "brief": "Melos asks you to help repair what the dispute left behind.",
+    "objectives": {
+      "xinghai-a02-echo-2.work": "Melos asks you to help repair what the dispute left behind."
+    },
+    "choices": {
+      "xinghai-a02-echo-2.work": {
+        "title": "Repairs after the bar fight",
+        "description": "Melos asks you to help repair what the dispute left behind.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a02-echo-3": {
+    "title": "A night talk with the Sunil",
+    "brief": "Melos invites you to discuss what happened at the bar.",
+    "objectives": {
+      "xinghai-a02-echo-3.work": "Melos invites you to discuss what happened at the bar."
+    },
+    "choices": {
+      "xinghai-a02-echo-3.work": {
+        "title": "A night talk with the Sunil",
+        "description": "Melos invites you to discuss what happened at the bar.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-a02-failure": {
+    "title": "Evidence for the bar compensation",
+    "brief": "The mediation failed. Gather the witnesses and check the compensation claim again.",
+    "objectives": {
+      "xinghai-a02-failure.work": "The mediation failed. Gather the witnesses and check the compensation claim again."
+    },
+    "choices": {
+      "xinghai-a02-failure.work": {
+        "title": "Evidence for the bar compensation",
+        "description": "The mediation failed. Gather the witnesses and check the compensation claim again.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-arms-appraisal": {
+    "title": "Appraise the armaments inventory",
+    "brief": "After the armaments handover, Warwick asks you to use bulk-arms appraisal to value the next batch of components.",
+    "objectives": {
+      "xinghai-arms-appraisal.work": "After the armaments handover, Warwick asks you to use bulk-arms appraisal to value the next batch of components."
+    },
+    "choices": {
+      "xinghai-arms-appraisal.work": {
+        "title": "Appraise the armaments inventory",
+        "description": "After the armaments handover, Warwick asks you to use bulk-arms appraisal to value the next batch of components.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q01-after-1": {
+    "title": "After Star-Forging Hammer: The Mechanic's Ultimate Blueprint Vault",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "xinghai-q01-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "xinghai-q01-after-1.work": {
+        "title": "After Star-Forging Hammer: The Mechanic's Ultimate Blueprint Vault",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q02-after-1": {
+    "title": "After Path of the Chrysalis: The Eternal Dawn of Sunil",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "xinghai-q02-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "xinghai-q02-after-1.work": {
+        "title": "After Path of the Chrysalis: The Eternal Dawn of Sunil",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-q03-after-1": {
+    "title": "After Shadow Weaving: Rise of the Rogue Star Mercenary Group",
+    "brief": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+    "objectives": {
+      "xinghai-q03-after-1.work": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow."
+    },
+    "choices": {
+      "xinghai-q03-after-1.work": {
+        "title": "After Shadow Weaving: Rise of the Rogue Star Mercenary Group",
+        "description": "The affair has reached a conclusion. Your companions ask you to help newcomers and meet the responsibilities that follow.",
+        "success": "The agreed work is completed.",
+        "failure": "The attempt does not succeed. The time and supplies already committed are spent; further preparation is needed.",
+        "success_echo": "On your return, those involved are willing to discuss the next step.",
+        "failure_echo": "The earlier attempt remains unresolved. New evidence or better preparation may support another approach."
+      }
+    }
+  },
+  "xinghai-repeating-beacon": {
+    "title": "The Distress Call Running Backward",
+    "brief": "Westwind receives repeated distress pulses whose timestamps move backward. The rubble outpost retains the original relay record. Establish whether anyone is still calling before deciding what to preserve.",
+    "objectives": {
+      "xinghai-repeating-beacon.signal": "Establish comparable signal times at Westwind.",
+      "xinghai-repeating-beacon.source": "Compare the original relay record at the outpost.",
+      "xinghai-repeating-beacon.resolve": "Choose and complete one bounded response at the outpost."
+    },
+    "choices": {
+      "xinghai-repeating-beacon.measure": {
+        "title": "Measure with your radar compass",
+        "description": "Use your radar compass and learned orbital calculation, spending 6 energy. Measuring is not piloting a ship out of the station.",
+        "success": "Two synchronized readings show a normal carrier period with an abnormal attached timestamp. They do not locate a new caller.",
+        "failure": "Interference masks the sample. Incomplete readings are not rescue coordinates.",
+        "success_echo": "The original readings remain available for comparison.",
+        "failure_echo": "Better preparation is needed; spent time remains real."
+      },
+      "xinghai-repeating-beacon.listen": {
+        "title": "Buy the public two-station timing record",
+        "description": "Pay 120 Inar and spend two hours comparing public timing copies at the desk. No private channel or radio ownership is granted.",
+        "success": "Station clocks agree; only the pulse's attached timestamp repeats backward. The relay attachment is now the specific question.",
+        "failure": "A section is missing, leaving a possible station-clock difference unresolved.",
+        "success_echo": "The copy serves this investigation, not permanent database access.",
+        "failure_echo": "Better preparation is needed; time and fees remain spent."
+      },
+      "xinghai-repeating-beacon.trace": {
+        "title": "Compare the original receipt at the outpost",
+        "description": "Travel to the rubble outpost and compare your timing record with retained transmission pages. A remote claim is not arrival.",
+        "success": "The receipt records a rescue already concluded. After a power change the relay resent a cached segment as new packets. Its looping timestamp explains the repetition; there is no evidence the old caller is still there.",
+        "failure": "Sequence numbers do not yet align. The distress call cannot be declared obsolete.",
+        "success_echo": "The old call and current equipment fault are distinct. Any new call needs its own date and source.",
+        "failure_echo": "Better preparation is needed; spent time remains real."
+      },
+      "xinghai-repeating-beacon.repair": {
+        "title": "Repair playback and preserve the relay",
+        "description": "Use one heat-resistant insulation unit and learned emergency rewiring, spending 6 energy. Retain the original rescue record.",
+        "success": "False replay stops and a test packet carries the current time. The station pays 260 Inar for the repair; the public relay and record remain.",
+        "failure": "Control remains unstable. Used insulation cannot be recovered; the relay stays marked for repair.",
+        "success_echo": "The repair remains on record without another repair payment on return.",
+        "failure_echo": "Better preparation is needed; time and used material remain spent."
+      },
+      "xinghai-repeating-beacon.isolate": {
+        "title": "Isolate the old cache with station permission",
+        "description": "At the duty desk, isolate the verified replay branch, retain a copy and recover one authorized old capacitor. The public relay pauses until separately repaired.",
+        "success": "The old call stops repeating and the record stays with the station. You receive one authorized capacitor. The relay is paused, not restored.",
+        "failure": "The branch is unconfirmed. No capacitor can be removed and no stopped replay claimed.",
+        "success_echo": "There is only one recovered capacitor. The relay does not repair itself with time; later restoration needs real work.",
+        "failure_echo": "Better preparation is needed; spent time remains real."
+      }
+    }
+  }
+}

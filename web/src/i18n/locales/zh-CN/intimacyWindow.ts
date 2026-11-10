@@ -1,0 +1,67 @@
+const intimacyWindow = {
+  'intimacyWindow.title': '双修',
+  'intimacyWindow.open': '打开双修窗口',
+  'intimacyWindow.close': '关闭双修窗口',
+  'intimacyWindow.closeHint': '关闭只收起窗口，不会结束或中断正在进行的事。',
+  'intimacyWindow.back': '返回互动列表',
+  'intimacyWindow.loading': '载入中…',
+  'intimacyWindow.loadFailed': '载入双修窗口失败',
+  'intimacyWindow.retry': '重试',
+  'intimacyWindow.noHistory': '还没有交谈记录。',
+
+  'intimacyWindow.phase.selecting': '选择同行者',
+  'intimacyWindow.phase.inviting': '邀请中',
+  'intimacyWindow.phase.ready': '等待确认',
+  'intimacyWindow.phase.active': '进行中',
+  'intimacyWindow.phase.ended': '已结束',
+
+  'intimacyWindow.roster.count': '玩家＋{{count}}名人物，共{{total}}人',
+  'intimacyWindow.roster.title': '实际参与名单',
+  'intimacyWindow.roster.pending': '尚未回应',
+  'intimacyWindow.roster.accepted': '已同意',
+  'intimacyWindow.roster.declined': '拒绝',
+  'intimacyWindow.roster.conditional': '有条件',
+  'intimacyWindow.roster.condition': '条件：{{condition}}',
+  'intimacyWindow.roster.awaiting': "有人还在斟酌，等一等他的回话。",
+
+  'intimacyWindow.invite.title': '邀请同行',
+  'intimacyWindow.invite.oneOnOne': '邀请双修',
+  'intimacyWindow.invite.empty': '此刻没有可以邀请的人。',
+  'intimacyWindow.invite.emptyHint': '需要对方在场，且自身资料已明确为成年。',
+  'intimacyWindow.invite.asking': '{{name}}正在回应…',
+  'intimacyWindow.invite.failed': '邀请没有得到回应，可以重试。',
+
+  'intimacyWindow.start': '按已同意名单开始',
+  'intimacyWindow.starting': '正在开始…',
+  'intimacyWindow.startFailed': '没能开始，可以重试。',
+  'intimacyWindow.adjust': '调整邀请',
+  'intimacyWindow.end': '结束本次互动',
+  'intimacyWindow.ending': '正在结束…',
+  'intimacyWindow.ended': "这次相处已告一段落。",
+  'intimacyWindow.returnStory': '返回故事',
+  'intimacyWindow.returnStoryMessage': '我回到{{name}}面前，按刚才发生的事继续。',
+
+  'intimacyWindow.sending': '对方正在回应…',
+  'intimacyWindow.send': '发送',
+  'intimacyWindow.inputPlaceholder': '对{{names}}说…',
+  'intimacyWindow.replyFailed': '没有得到回应，可以重试。',
+
+  'intimacyWindow.invitations.hint': '这些人还没有同意加入，因此看不到进行中的交谈。',
+  'intimacyWindow.invitations.answer': '回应邀请',
+
+  'intimacyWindow.model.title': '本次使用的模型',
+  'intimacyWindow.model.line': '{{model}}｜{{provider}}',
+  'intimacyWindow.model.thinking': '思考：{{level}}',
+  'intimacyWindow.model.unconfigured': '还没有为双修选择专用模型。',
+  'intimacyWindow.model.unconfiguredHint': "到游戏设置的「叙事与模型」里选好，就能继续这段交谈。",
+  'intimacyWindow.model.none': '不指定',
+  'intimacyWindow.thinking.off': '关闭',
+  'intimacyWindow.thinking.minimal': '极少',
+  'intimacyWindow.thinking.low': '低',
+  'intimacyWindow.thinking.medium': '中',
+  'intimacyWindow.thinking.high': '高',
+  'intimacyWindow.thinking.other': '其他',
+
+} as const
+
+export default intimacyWindow

@@ -1,0 +1,499 @@
+package canonicalstore
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"reflect"
+	"strings"
+	"testing"
+
+	agentrun "ta/internal/agents/run"
+	productsession "ta/internal/agents/session"
+	"ta/internal/interactive"
+	"ta/internal/project"
+
+	agent "ta/agent"
+	agentsession "ta/agent/session"
+)
+
+func TestStoreEmbedsRootRecordsAndKeepsChildrenInProjectState(t *testing.T) {
+	ctx := context.Background()
+	dataDir := t.TempDir()
+	workspace := filepath.Join(t.TempDir(), "workspace")
+	if err := os.MkdirAll(workspace, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	registry := project.NewRegistry(dataDir)
+	record, err := registry.Add(workspace, project.TypeGeneral, "Journal test")
+	if err != nil {
+		t.Fatal(err)
+	}
+	layout, err := registry.EnsureStore(record)
+	if err != nil {
+		t.Fatal(err)
+	}
+	productStore, err := productsession.NewStore(layout.SessionsDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	productSession, err := productStore.GetOrCreate("session-one")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.UserMessage("canonical input")); err != nil {
+		t.Fatal(err)
+	}
+	if err := productStore.Close(); err != nil {
+		t.Fatal(err)
+	}
+	key, err := (agentrun.RuntimeBinding{
+		AgentKind: agentrun.AgentKindIDE, ProjectID: record.ID, SessionID: productSession.ID,
+	}).AgentSessionKey()
+	if err != nil {
+		t.Fatal(err)
+	}
+	store, err := New(dataDir, registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	log, err := store.Open(ctx, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if canonical, ok := log.(agentsession.CanonicalMessageLog); !ok || !canonical.CanonicalMessages() {
+		t.Fatal("root Agent Session did not use the product canonical message lane")
+	}
+	if _, err := log.Append(ctx, 0, agentsession.Record{
+		Kind: "session.transcript", Version: 1, Data: json.RawMessage(`{"engine_state":{}}`),
+	}); err == nil {
+		t.Fatal("embedded root accepted a second transcript authority")
+	}
+	state := json.RawMessage(`{"capability":"agent.todo","state":{"revision":1}}`)
+	if _, err := log.Append(ctx, 0, agentsession.Record{Kind: "session.capability_set", Version: 1, Data: state}); err != nil {
+		t.Fatal(err)
+	}
+	deleted := json.RawMessage(`{"capability":"agent.todo"}`)
+	if _, err := log.Append(ctx, 1, agentsession.Record{Kind: "session.capability_delete", Version: 1, Data: deleted}); err != nil {
+		t.Fatal(err)
+	}
+	if err := log.Close(); err != nil {
+		t.Fatal(err)
+	}
+	journalPath := filepath.Join(layout.SessionsDir(), productSession.ID+".jsonl")
+	journal, err := os.ReadFile(journalPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Count(string(journal), `"kind":"session.capability_set"`) != 1 ||
+		strings.Count(string(journal), `"kind":"session.capability_delete"`) != 1 ||
+		strings.Contains(string(journal), `"kind":"session.transcript"`) {
+		t.Fatalf("product journal did not contain only the embedded lifecycle record: %s", journal)
+	}
+	indexPath := strings.TrimSuffix(journalPath, filepath.Ext(journalPath)) + ".idx.json"
+	if err := os.Remove(indexPath); err != nil && !os.IsNotExist(err) {
+		t.Fatal(err)
+	}
+	rebuilt, err := store.Open(ctx, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var rebuiltRecords []agentsession.Record
+	if _, err := rebuilt.Replay(ctx, func(record agentsession.Record) error {
+		rebuiltRecords = append(rebuiltRecords, record)
+		return nil
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := rebuilt.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if len(rebuiltRecords) != 2 || rebuiltRecords[1].Revision != 2 || rebuiltRecords[1].Kind != "session.capability_delete" {
+		t.Fatalf("rebuilt Agent projection = %#v", rebuiltRecords)
+	}
+	if _, err := os.Stat(filepath.Join(dataDir, "agent-transcripts")); !os.IsNotExist(err) {
+		t.Fatalf("obsolete agent-transcripts directory exists: %v", err)
+	}
+
+	attributes, err := agent.ChildSessionAttributes(key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	attributes["agent"] = "researcher"
+	child := agentsession.Key{Namespace: "task.researcher", ID: "child-one", Attributes: attributes}
+	childLog, err := store.Open(ctx, child)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if canonical, ok := childLog.(agentsession.CanonicalMessageLog); ok && canonical.CanonicalMessages() {
+		t.Fatal("self-contained child unexpectedly delegated canonical messages")
+	}
+	if _, err := childLog.Append(ctx, 0, agentsession.Record{
+		Kind: "turn.started", Version: 1,
+		Data: json.RawMessage(`{"run_id":"child-run","command_id":"child-command","at":"2026-09-02T00:00:00Z"}`),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := childLog.Close(); err != nil {
+		t.Fatal(err)
+	}
+	children, err := filepath.Glob(filepath.Join(layout.SessionsDir(), "children", "*.jsonl"))
+	if err != nil || len(children) != 1 {
+		t.Fatalf("child journal paths=%v err=%v", children, err)
+	}
+	keys, err := store.List(ctx, agentsession.Selector{All: true})
+	if err != nil || len(keys) != 2 {
+		t.Fatalf("canonical Store keys=%#v err=%v", keys, err)
+	}
+}
+
+func TestStoreScopesDiscoveryToTheSelectedSessionTree(t *testing.T) {
+	ctx := context.Background()
+	dataDir := t.TempDir()
+	registry := project.NewRegistry(dataDir)
+	addProject := func(name string) (project.Record, project.Layout) {
+		t.Helper()
+		workspace := filepath.Join(t.TempDir(), name)
+		if err := os.MkdirAll(workspace, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		record, err := registry.Add(workspace, project.TypeGeneral, name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		layout, err := registry.EnsureStore(record)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.MkdirAll(layout.SessionsDir(), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		return record, layout
+	}
+	targetProject, targetLayout := addProject("target")
+	_, otherLayout := addProject("other")
+
+	productStore, err := productsession.NewStore(targetLayout.SessionsDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	productSession, err := productStore.GetOrCreate("target-session")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.UserMessage("target input")); err != nil {
+		t.Fatal(err)
+	}
+	if err := productStore.Close(); err != nil {
+		t.Fatal(err)
+	}
+	root, err := (agentrun.RuntimeBinding{
+		AgentKind: agentrun.AgentKindIDE, ProjectID: targetProject.ID, SessionID: productSession.ID,
+	}).AgentSessionKey()
+	if err != nil {
+		t.Fatal(err)
+	}
+	store, err := New(dataDir, registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rootLog, err := store.Open(ctx, root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := rootLog.Append(ctx, 0, agentsession.Record{
+		Kind: "session.capability_set", Version: 1,
+		Data: json.RawMessage(`{"capability":"agent.todo","state":{"revision":1}}`),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := rootLog.Close(); err != nil {
+		t.Fatal(err)
+	}
+	childAttributes, err := agent.ChildSessionAttributes(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	childAttributes["agent"] = "researcher"
+	child := agentsession.Key{Namespace: "task.researcher", ID: "child", Attributes: childAttributes}
+	childLog, err := store.Open(ctx, child)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := childLog.Close(); err != nil {
+		t.Fatal(err)
+	}
+	store, err = New(dataDir, registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	brokenStory := filepath.Join(targetLayout.ContentRoot, "interactive", "story", "story-broken.jsonl")
+	if err := os.MkdirAll(filepath.Dir(brokenStory), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for _, path := range []string{brokenStory, filepath.Join(otherLayout.SessionsDir(), "broken.jsonl")} {
+		if err := os.WriteFile(path, []byte("{not-json\n"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	writingSelector, err := agentrun.BindingSelector(agentrun.AgentKindIDE, targetProject.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if keys, err := store.List(ctx, writingSelector); err != nil || len(keys) != 1 || !reflect.DeepEqual(keys[0], root) {
+		t.Fatalf("writing discovery crossed journal or Project boundaries: keys=%#v err=%v", keys, err)
+	}
+	if err := os.Remove(brokenStory); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(targetLayout.SessionsDir(), "unrelated.jsonl"), []byte("{not-json\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	gameSelector, err := agentrun.BindingSelector(agentrun.AgentKindInteractiveStory, targetProject.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if keys, err := store.List(ctx, gameSelector); err != nil || len(keys) != 0 {
+		t.Fatalf("game discovery crossed product journal boundaries: keys=%#v err=%v", keys, err)
+	}
+	selector, err := agentrun.SessionBindingSelector(agentrun.AgentKindIDE, targetProject.ID, productSession.ID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	keys, err := store.List(ctx, selector)
+	if err != nil {
+		t.Fatalf("targeted discovery failed on unrelated corruption: %v", err)
+	}
+	if len(keys) != 1 || !reflect.DeepEqual(keys[0], root) {
+		t.Fatalf("targeted keys = %#v, want %#v", keys, root)
+	}
+
+	targetPath := filepath.Join(targetLayout.SessionsDir(), productSession.ID+".jsonl")
+	if err := os.WriteFile(targetPath, []byte("{not-json\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	parentAttributes, err := agent.ChildSessionAttributes(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	children, err := store.List(ctx, agentsession.Selector{Attributes: parentAttributes})
+	if err != nil {
+		t.Fatalf("child discovery read the corrupt root journal: %v", err)
+	}
+	if len(children) != 1 || !reflect.DeepEqual(children[0], child) {
+		t.Fatalf("children = %#v, want %#v", children, child)
+	}
+	if _, err := store.List(ctx, selector); err == nil {
+		t.Fatal("targeted discovery ignored corruption in the selected journal")
+	}
+}
+
+func TestStoreEmbedsGameAgentRecordsWithoutChangingStoryProjection(t *testing.T) {
+	ctx := context.Background()
+	dataDir := t.TempDir()
+	workspace := filepath.Join(t.TempDir(), "game")
+	if err := os.MkdirAll(workspace, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	registry := project.NewRegistry(dataDir)
+	record, err := registry.Add(workspace, project.TypeGeneral, "Game journal")
+	if err != nil {
+		t.Fatal(err)
+	}
+	game := interactive.NewStore(workspace)
+	story, err := game.CreateStory(interactive.CreateStoryRequest{Title: "One journal", StoryTellerID: "classic"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	key, err := (agentrun.RuntimeBinding{
+		AgentKind: agentrun.AgentKindInteractiveStory, ProjectID: record.ID,
+		StoryID: story.ID, BranchID: "main",
+	}).AgentSessionKey()
+	if err != nil {
+		t.Fatal(err)
+	}
+	store, err := New(dataDir, registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	log, err := store.Open(ctx, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := log.Append(ctx, 0, agentsession.Record{
+		Kind: "session.message_checkpoint", Version: 1,
+		Data: json.RawMessage(`{"hash":"messages","message_count":0}`),
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := log.Close(); err != nil {
+		t.Fatal(err)
+	}
+	snapshot, err := interactive.NewStore(workspace).Snapshot(story.ID, "main")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if snapshot.StoryID != story.ID || snapshot.BranchID != "main" {
+		t.Fatalf("Story projection changed after embedded Agent record: %#v", snapshot)
+	}
+}
+
+func TestStoreMigratesReleasedProductCompactionIntoEmbeddedCapability(t *testing.T) {
+	ctx := context.Background()
+	dataDir := t.TempDir()
+	workspace := filepath.Join(t.TempDir(), "workspace")
+	if err := os.MkdirAll(workspace, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	registry := project.NewRegistry(dataDir)
+	record, err := registry.Add(workspace, project.TypeGeneral, "Released compaction")
+	if err != nil {
+		t.Fatal(err)
+	}
+	layout, err := registry.EnsureStore(record)
+	if err != nil {
+		t.Fatal(err)
+	}
+	productStore, err := productsession.NewStore(layout.SessionsDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	productSession, err := productStore.GetOrCreate("released-session")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.UserMessage("discarded before clear")); err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Clear(); err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.UserMessage("first retained input")); err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.AssistantMessage("first retained answer", nil)); err != nil {
+		t.Fatal(err)
+	}
+	if err := productSession.Append(agent.UserMessage("tail")); err != nil {
+		t.Fatal(err)
+	}
+	if err := productStore.Close(); err != nil {
+		t.Fatal(err)
+	}
+
+	journalPath := filepath.Join(layout.SessionsDir(), productSession.ID+".jsonl")
+	legacy, err := json.Marshal(map[string]any{
+		"type": "context_compaction", "id": "released-checkpoint", "agent_kind": agentrun.AgentKindIDE,
+		"epoch": 4, "summary": "Released bounded summary", "source_start_index": 1,
+		"source_end_index": 3, "source_message_count": 2, "retained_turns": 1,
+		"tokens_before": 2400, "tokens_after": 600, "context_window_tokens": 128000,
+		"threshold": 0.8, "created_at": "2026-01-02T03:04:05Z",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	file, err := os.OpenFile(journalPath, os.O_WRONLY|os.O_APPEND, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := file.Write(append(legacy, '\n')); err != nil {
+		_ = file.Close()
+		t.Fatal(err)
+	}
+	if err := file.Close(); err != nil {
+		t.Fatal(err)
+	}
+	beforeMigration, err := os.ReadFile(journalPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	key, err := (agentrun.RuntimeBinding{
+		AgentKind: agentrun.AgentKindIDE, ProjectID: record.ID, SessionID: productSession.ID,
+	}).AgentSessionKey()
+	if err != nil {
+		t.Fatal(err)
+	}
+	store, err := New(dataDir, registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	log, err := store.Open(ctx, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var migrated struct {
+		ID              string `json:"id"`
+		Summary         string `json:"summary"`
+		ReplacementFrom int    `json:"replacement_from"`
+		ReplacementTo   int    `json:"replacement_to"`
+		Revision        uint64 `json:"revision"`
+	}
+	capabilityRecords := 0
+	if _, err := log.Replay(ctx, func(record agentsession.Record) error {
+		if record.Kind != "session.capability_set" {
+			return nil
+		}
+		var payload struct {
+			Capability string          `json:"capability"`
+			State      json.RawMessage `json:"state"`
+		}
+		if err := json.Unmarshal(record.Data, &payload); err != nil {
+			return err
+		}
+		if payload.Capability != agent.CompactionCapability {
+			return nil
+		}
+		capabilityRecords++
+		return json.Unmarshal(payload.State, &migrated)
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := log.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if capabilityRecords != 1 || migrated.ID != "released-checkpoint" || migrated.Revision != 4 ||
+		migrated.ReplacementFrom != 0 || migrated.ReplacementTo != 2 || migrated.Summary != "Released bounded summary" {
+		t.Fatalf("migrated Compaction = %#v records=%d", migrated, capabilityRecords)
+	}
+
+	backups, err := filepath.Glob(filepath.Join(
+		dataDir, "backups", "product-session-v0.3.3-compaction", productSession.ID+"-*.jsonl",
+	))
+	if err != nil || len(backups) != 1 {
+		t.Fatalf("released Product Session backups=%#v err=%v", backups, err)
+	}
+	backup, err := os.ReadFile(backups[0])
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(backup, beforeMigration) {
+		t.Fatal("released Product Session backup differs from the pre-migration journal")
+	}
+	afterMigration, err := os.ReadFile(journalPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Contains(afterMigration, []byte(`"type":"context_compaction"`)) ||
+		!bytes.Contains(afterMigration, []byte(`"type":"agent_session"`)) {
+		t.Fatalf("migration did not keep old evidence and append the converted capability:\n%s", afterMigration)
+	}
+
+	reopened, err := store.Open(ctx, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := reopened.Close(); err != nil {
+		t.Fatal(err)
+	}
+	afterRetry, err := os.ReadFile(journalPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(afterRetry, afterMigration) {
+		t.Fatal("opening a migrated Product Session appended a duplicate conversion")
+	}
+}

@@ -1,0 +1,574 @@
+package interactive
+
+import (
+	"encoding/json"
+	"fmt"
+	"sort"
+	"strings"
+)
+
+const (
+	actorStateSchemaBatchSourceIDPrefix  = "state_schema_batch:"
+	maxActorStateSchemaBatchDependencies = 16
+	maxActorStateSchemaBatchItemIDBytes  = 128 - len(actorStateSchemaBatchSourceIDPrefix)
+)
+
+// ActorStateSchemaBatch incrementally adds independently retryable proposal
+// items to one run-local draft. Story state is not modified by this type.
+type ActorStateSchemaBatch struct {
+	Summary  string                      `json:"summary,omitempty" jsonschema:"description=Brief summary of this review; later batches may update it"`
+	Items    []ActorStateSchemaBatchItem `json:"items" jsonschema:"description=Independent proposal items added in this batch; do not resend accepted item_id values"`
+	Finalize bool                        `json:"finalize" jsonschema:"description=Whether to finalize after accepting successful items in this batch; rejected or blocked items prevent finalization"`
+}
+
+// ActorStateSchemaBatchItem groups one sourced requirement decision with the
+// minimal schema or Actor operations needed to satisfy it.
+type ActorStateSchemaBatchItem struct {
+	ItemID       string                              `json:"item_id" jsonschema:"description=Stable unique idempotency ID using only letters, digits, dots, underscores, colons, or hyphens"`
+	DependsOn    []string                            `json:"depends_on,omitempty" jsonschema:"description=Other item_id values this item depends on; the item is blocked until every dependency is accepted"`
+	Summary      string                              `json:"summary,omitempty"`
+	Requirements []ActorStateSchemaRequirementReview `json:"requirements" jsonschema:"description=Self-contained review of sourced requirements for this item"`
+	Adaptation   ActorStateSchemaAdaptation          `json:"adaptation" jsonschema:"description=Minimal diff needed to satisfy only this item's requirements"`
+}
+
+// ActorStateSchemaBatchAudit is supplied by the backend. Model input cannot
+// claim Lore reads or choose the revision recorded in the final audit.
+type ActorStateSchemaBatchAudit struct {
+	ReviewedLoreIDs     []string
+	OpeningSourceIDs    []string
+	TurnResultSourceIDs []string
+	TRPGSourceIDs       []string
+	SourceLoreRevision  string
+	CurrentState        map[string]any
+}
+
+// ActorStateSchemaBatchAccepted describes one item accepted in this call.
+type ActorStateSchemaBatchAccepted struct {
+	ItemID          string                          `json:"item_id"`
+	AlreadyAccepted bool                            `json:"already_accepted,omitempty"`
+	Preview         ActorStateSchemaProposalPreview `json:"preview"`
+}
+
+// ActorStateSchemaBatchIssue gives the model a stable code and precise input
+// path so a retry can contain only the failed item.
+type ActorStateSchemaBatchIssue struct {
+	ItemID    string   `json:"item_id,omitempty"`
+	Code      string   `json:"code"`
+	Path      string   `json:"path"`
+	Message   string   `json:"message"`
+	Retryable bool     `json:"retryable"`
+	DependsOn []string `json:"depends_on,omitempty"`
+}
+
+// ActorStateSchemaBatchResult reports partial progress without converting
+// item-level validation failures into an opaque tool execution failure.
+type ActorStateSchemaBatchResult struct {
+	Accepted            []ActorStateSchemaBatchAccepted  `json:"accepted"`
+	Rejected            []ActorStateSchemaBatchIssue     `json:"rejected"`
+	Blocked             []ActorStateSchemaBatchIssue     `json:"blocked"`
+	DraftAcceptedItems  int                              `json:"draft_accepted_items"`
+	Finalized           bool                             `json:"finalized"`
+	Preview             *ActorStateSchemaProposalPreview `json:"preview,omitempty"`
+	InitializationGuide *OpeningStateInitializationGuide `json:"initialization_guide,omitempty"`
+}
+
+type actorStateSchemaDraftItem struct {
+	proposal    ActorStateSchemaProposal
+	fingerprint string
+}
+
+// ActorStateSchemaBatchDraft owns accepted items for one Agent run. Callers
+// should serialize access; the app already shares its Lore-read audit mutex.
+type ActorStateSchemaBatchDraft struct {
+	base            StoryDirectorActorStateSystem
+	trpg            StoryDirectorTRPGSystem
+	incrementalTRPG *StoryDirectorTRPGSystem
+	summary         string
+	order           []string
+	items           map[string]actorStateSchemaDraftItem
+	finalized       *ActorStateSchemaProposal
+}
+
+// NewOpeningActorStateSchemaBatchDraft allows a generated schema to satisfy
+// several TRPG bindings across independently retryable items. Intermediate
+// items validate their own schema shape; finalize still validates the complete
+// proposal against every frozen TRPG binding.
+func NewOpeningActorStateSchemaBatchDraft(base StoryDirectorActorStateSystem, trpg StoryDirectorTRPGSystem) *ActorStateSchemaBatchDraft {
+	draft := NewActorStateSchemaBatchDraft(base, trpg)
+	empty := StoryDirectorTRPGSystem{}
+	draft.incrementalTRPG = &empty
+	return draft
+}
+
+func NewActorStateSchemaBatchDraft(base StoryDirectorActorStateSystem, trpg StoryDirectorTRPGSystem) *ActorStateSchemaBatchDraft {
+	return &ActorStateSchemaBatchDraft{
+		base:  base,
+		trpg:  trpg,
+		items: map[string]actorStateSchemaDraftItem{},
+	}
+}
+
+// Submit accepts every valid item independently and optionally finalizes the
+// accumulated proposal. A failed later call never removes accepted items.
+func (d *ActorStateSchemaBatchDraft) Submit(batch ActorStateSchemaBatch, audit ActorStateSchemaBatchAudit) ActorStateSchemaBatchResult {
+	result := ActorStateSchemaBatchResult{
+		Accepted: []ActorStateSchemaBatchAccepted{},
+		Rejected: []ActorStateSchemaBatchIssue{},
+		Blocked:  []ActorStateSchemaBatchIssue{},
+	}
+	if d == nil {
+		result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue("", "draft_unavailable", "", "State schema batch draft is unavailable."))
+		return result
+	}
+	requestedSummary := trimBytes(batch.Summary, maxInteractiveTextBytes)
+	if d.finalized != nil {
+		for index, item := range batch.Items {
+			result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(strings.TrimSpace(item.ItemID), "draft_finalized", fmt.Sprintf("items[%d]", index), "The state schema draft is finalized; items cannot be added or replaced."))
+		}
+		result.DraftAcceptedItems = len(d.order)
+		result.Finalized = true
+		preview := actorStateSchemaProposalPreview(*d.finalized)
+		result.Preview = &preview
+		return result
+	}
+
+	type pendingItem struct {
+		index       int
+		item        ActorStateSchemaBatchItem
+		fingerprint string
+	}
+	pending := make([]pendingItem, 0, len(batch.Items))
+	itemIDCounts := make(map[string]int, len(batch.Items))
+	for _, item := range batch.Items {
+		itemIDCounts[strings.TrimSpace(item.ItemID)]++
+	}
+	for index := range batch.Items {
+		item := batch.Items[index]
+		item.ItemID = strings.TrimSpace(item.ItemID)
+		item.DependsOn = append([]string(nil), item.DependsOn...)
+		path := fmt.Sprintf("items[%d]", index)
+		if err := validateActorStateSchemaBatchItemID(item.ItemID); err != nil {
+			result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(item.ItemID, "invalid_item_id", path+".item_id", err.Error()))
+			continue
+		}
+		if itemIDCounts[item.ItemID] > 1 {
+			result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(item.ItemID, "duplicate_item_id", path+".item_id", "item_id is duplicated within this batch."))
+			continue
+		}
+		if len(item.DependsOn) > maxActorStateSchemaBatchDependencies {
+			result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(item.ItemID, "too_many_dependencies", path+".depends_on", fmt.Sprintf("too many depends_on values: %d > %d", len(item.DependsOn), maxActorStateSchemaBatchDependencies)))
+			continue
+		}
+		dependenciesValid := true
+		for depIndex := range item.DependsOn {
+			item.DependsOn[depIndex] = strings.TrimSpace(item.DependsOn[depIndex])
+			if err := validateActorStateSchemaBatchItemID(item.DependsOn[depIndex]); err != nil || item.DependsOn[depIndex] == item.ItemID {
+				result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(item.ItemID, "invalid_dependency", fmt.Sprintf("%s.depends_on[%d]", path, depIndex), "depends_on must reference another valid item_id."))
+				dependenciesValid = false
+				break
+			}
+		}
+		if !dependenciesValid {
+			continue
+		}
+		fingerprint := actorStateSchemaBatchItemFingerprint(item)
+		if stored, ok := d.items[item.ItemID]; ok {
+			if stored.fingerprint != fingerprint {
+				result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(item.ItemID, "item_id_conflict", path, "An accepted item_id cannot be reused for different content."))
+				continue
+			}
+			result.Accepted = append(result.Accepted, ActorStateSchemaBatchAccepted{ItemID: item.ItemID, AlreadyAccepted: true, Preview: actorStateSchemaProposalPreview(stored.proposal)})
+			continue
+		}
+		pending = append(pending, pendingItem{index: index, item: item, fingerprint: fingerprint})
+	}
+
+	for len(pending) > 0 {
+		madeProgress := false
+		remaining := pending[:0]
+		for _, candidate := range pending {
+			missingDependencies := d.missingDependencies(candidate.item.DependsOn)
+			if len(missingDependencies) > 0 {
+				remaining = append(remaining, candidate)
+				continue
+			}
+			path := fmt.Sprintf("items[%d]", candidate.index)
+			if issue, blocked := validateActorStateSchemaBatchItemInput(candidate.item, path, audit); issue != nil {
+				if blocked {
+					result.Blocked = append(result.Blocked, *issue)
+				} else {
+					result.Rejected = append(result.Rejected, *issue)
+				}
+				madeProgress = true
+				continue
+			}
+			if issue := d.actorStateSchemaBatchTargetConflict(candidate.item, path); issue != nil {
+				result.Rejected = append(result.Rejected, *issue)
+				madeProgress = true
+				continue
+			}
+			before := d.mergedProposal(nil, audit)
+			itemProposal := actorStateSchemaProposalFromBatchItem(candidate.item)
+			combined := mergeActorStateSchemaProposals(before, itemProposal)
+			normalized, _, err := ValidateActorStateSchemaProposal(d.base, d.incrementalValidationTRPG(), combined)
+			if err != nil {
+				issue := actorStateSchemaBatchIssue(candidate.item.ItemID, actorStateSchemaBatchValidationCode(err), actorStateSchemaBatchValidationPath(path, candidate.item, err), err.Error())
+				result.Rejected = append(result.Rejected, issue)
+				madeProgress = true
+				continue
+			}
+			normalizedItem := actorStateSchemaProposalTail(normalized, before, candidate.item.Summary)
+			targetSystem, _, targetErr := ApplyActorStateSchemaAdaptation(d.base, d.incrementalValidationTRPG(), normalized.Adaptation)
+			if targetErr != nil {
+				result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue(candidate.item.ItemID, "validation_failed", path+".adaptation", targetErr.Error()))
+				madeProgress = true
+				continue
+			}
+			if issue := validateActorStateSchemaBatchActorValues(candidate.item.ItemID, normalizedItem, targetSystem, path); issue != nil {
+				result.Rejected = append(result.Rejected, *issue)
+				madeProgress = true
+				continue
+			}
+			if issue := validateActorStateSchemaBatchActorValueSources(candidate.item.ItemID, normalizedItem, path); issue != nil {
+				result.Rejected = append(result.Rejected, *issue)
+				madeProgress = true
+				continue
+			}
+			d.items[candidate.item.ItemID] = actorStateSchemaDraftItem{proposal: normalizedItem, fingerprint: candidate.fingerprint}
+			d.order = append(d.order, candidate.item.ItemID)
+			result.Accepted = append(result.Accepted, ActorStateSchemaBatchAccepted{ItemID: candidate.item.ItemID, Preview: actorStateSchemaProposalPreview(normalizedItem)})
+			madeProgress = true
+		}
+		pending = remaining
+		if !madeProgress {
+			break
+		}
+	}
+	for _, candidate := range pending {
+		missing := d.missingDependencies(candidate.item.DependsOn)
+		result.Blocked = append(result.Blocked, ActorStateSchemaBatchIssue{
+			ItemID: candidate.item.ItemID, Code: "dependency_not_accepted", Path: fmt.Sprintf("items[%d].depends_on", candidate.index),
+			Message: "Dependencies have not been accepted yet.", Retryable: true, DependsOn: missing,
+		})
+	}
+	if strings.TrimSpace(requestedSummary) != "" && (len(result.Accepted) > 0 || len(batch.Items) == 0) {
+		d.summary = requestedSummary
+	}
+
+	result.DraftAcceptedItems = len(d.order)
+	if !batch.Finalize || len(result.Rejected) > 0 || len(result.Blocked) > 0 {
+		return result
+	}
+	if len(d.order) == 0 {
+		result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue("", "empty_draft", "items", "The state schema draft requires at least one sourced review item."))
+		return result
+	}
+	proposal := d.mergedProposal(nil, audit)
+	normalized, preview, err := ValidateActorStateSchemaProposal(d.base, d.trpg, proposal)
+	if err != nil {
+		result.Rejected = append(result.Rejected, actorStateSchemaBatchIssue("", "finalize_validation_failed", "items", err.Error()))
+		return result
+	}
+	d.finalized = &normalized
+	result.Finalized = true
+	result.Preview = &preview
+	return result
+}
+
+func (d *ActorStateSchemaBatchDraft) incrementalValidationTRPG() StoryDirectorTRPGSystem {
+	if d != nil && d.incrementalTRPG != nil {
+		return *d.incrementalTRPG
+	}
+	if d == nil {
+		return StoryDirectorTRPGSystem{}
+	}
+	return d.trpg
+}
+
+// SubmitStructureOnly stages an opening Game Agent batch while rejecting
+// Actor definitions and values item-by-item. Invalid items never enter the
+// run-local draft, and a mixed batch cannot finalize accidentally.
+func (d *ActorStateSchemaBatchDraft) SubmitStructureOnly(batch ActorStateSchemaBatch, audit ActorStateSchemaBatchAudit) ActorStateSchemaBatchResult {
+	valid := batch
+	valid.Items = make([]ActorStateSchemaBatchItem, 0, len(batch.Items))
+	issues := make([]ActorStateSchemaBatchIssue, 0)
+	base := StoryDirectorActorStateSystem{}
+	if d != nil {
+		base = d.base
+	}
+	for index, item := range batch.Items {
+		item = normalizeOpeningStructureTemplateReferences(base, item)
+		path := fmt.Sprintf("items[%d]", index)
+		switch {
+		case len(item.Adaptation.InitialActorOps) > 0:
+			issues = append(issues, actorStateSchemaBatchIssue(strings.TrimSpace(item.ItemID), "actor_values_not_allowed", path+".adaptation.initial_actor_ops", "The opening schema tool cannot modify initial_actors; submit Actor creation and values through submit_interactive_turn.state_changes."))
+			continue
+		case len(item.Adaptation.ActorOps) > 0:
+			issues = append(issues, actorStateSchemaBatchIssue(strings.TrimSpace(item.ItemID), "actor_values_not_allowed", path+".adaptation.actor_ops", "The opening schema tool cannot write Actor values; submit initial state through submit_interactive_turn.state_changes."))
+			continue
+		}
+		invalidPolicy := false
+		for requirementIndex, requirement := range item.Requirements {
+			if strings.TrimSpace(requirement.ValuePolicy) == ActorStateSchemaValuePolicySchemaOnly {
+				continue
+			}
+			issues = append(issues, actorStateSchemaBatchIssue(strings.TrimSpace(item.ItemID), "value_policy_not_allowed", fmt.Sprintf("%s.requirements[%d].value_policy", path, requirementIndex), "Opening schema-tool requirements must use value_policy=schema_only."))
+			invalidPolicy = true
+			break
+		}
+		if !invalidPolicy {
+			valid.Items = append(valid.Items, item)
+		}
+	}
+	if len(issues) > 0 {
+		valid.Finalize = false
+	}
+	result := d.Submit(valid, audit)
+	result.Rejected = append(result.Rejected, issues...)
+	if result.Finalized {
+		if proposal, ok := d.FinalProposal(); ok {
+			target, _, err := ApplyActorStateSchemaAdaptation(d.base, d.trpg, proposal.Adaptation)
+			if err == nil {
+				guide, guideErr := buildOpeningStateInitializationGuide(target)
+				if guideErr == nil {
+					result.InitializationGuide = &guide
+				}
+			}
+		}
+	}
+	return result
+}
+
+// normalizeOpeningStructureTemplateReferences accepts an initial Actor ID only
+// when it maps unambiguously to an existing template. This keeps the opening
+// tool ergonomic without adding fuzzy aliases to the general Director schema
+// API, and finalized proposals always persist the canonical template ID.
+func normalizeOpeningStructureTemplateReferences(base StoryDirectorActorStateSystem, item ActorStateSchemaBatchItem) ActorStateSchemaBatchItem {
+	system := normalizeActorStateSystem(base)
+	resolve := func(reference string) string {
+		if strings.TrimSpace(reference) == "" {
+			return ""
+		}
+		templateID := normalizeActorStateID(reference)
+		if templateID != "" && actorStateTemplateByID(system, templateID).ID != "" {
+			return templateID
+		}
+		actorID := normalizeStatePanelActorID(reference)
+		for _, actor := range system.InitialActors {
+			if actor.ID == actorID && actorStateTemplateByID(system, actor.TemplateID).ID != "" {
+				return actor.TemplateID
+			}
+		}
+		return templateID
+	}
+
+	item.Requirements = append([]ActorStateSchemaRequirementReview(nil), item.Requirements...)
+	for index := range item.Requirements {
+		item.Requirements[index].TemplateID = resolve(item.Requirements[index].TemplateID)
+	}
+	item.Adaptation.TemplateOps = append([]ActorStateTemplateSchemaOp(nil), item.Adaptation.TemplateOps...)
+	for index := range item.Adaptation.TemplateOps {
+		op := &item.Adaptation.TemplateOps[index]
+		if strings.TrimSpace(op.Op) != "add" {
+			op.TemplateID = resolve(op.TemplateID)
+		}
+	}
+	return item
+}
+
+// FinalProposal returns a deep copy only after a successful finalize.
+func (d *ActorStateSchemaBatchDraft) FinalProposal() (ActorStateSchemaProposal, bool) {
+	if d == nil || d.finalized == nil {
+		return ActorStateSchemaProposal{}, false
+	}
+	return cloneActorStateSchemaProposal(*d.finalized), true
+}
+
+func (d *ActorStateSchemaBatchDraft) missingDependencies(dependencies []string) []string {
+	missing := make([]string, 0, len(dependencies))
+	for _, id := range dependencies {
+		if _, ok := d.items[id]; !ok {
+			missing = append(missing, id)
+		}
+	}
+	return missing
+}
+
+func (d *ActorStateSchemaBatchDraft) mergedProposal(extra *ActorStateSchemaProposal, audit ActorStateSchemaBatchAudit) ActorStateSchemaProposal {
+	proposal := ActorStateSchemaProposal{Summary: d.summary}
+	for _, id := range d.order {
+		proposal = mergeActorStateSchemaProposals(proposal, d.items[id].proposal)
+	}
+	if extra != nil {
+		proposal = mergeActorStateSchemaProposals(proposal, *extra)
+	}
+	if strings.TrimSpace(d.summary) != "" {
+		proposal.Summary = d.summary
+	}
+	proposal.ReviewedLoreIDs = normalizedActorStateSchemaAuditLoreIDs(audit.ReviewedLoreIDs)
+	proposal.SourceLoreRevision = strings.TrimSpace(audit.SourceLoreRevision)
+	return proposal
+}
+
+func actorStateSchemaProposalFromBatchItem(item ActorStateSchemaBatchItem) ActorStateSchemaProposal {
+	summary := trimBytes(item.Summary, maxInteractiveTextBytes)
+	adaptation := item.Adaptation
+	adaptation.InitialActorOps = append([]ActorStateInitialActorSchemaOp(nil), item.Adaptation.InitialActorOps...)
+	adaptation.ActorOps = append([]ActorStateRuntimeSchemaOp(nil), item.Adaptation.ActorOps...)
+	if strings.TrimSpace(adaptation.Summary) == "" {
+		adaptation.Summary = summary
+	}
+	requirements := append([]ActorStateSchemaRequirementReview(nil), item.Requirements...)
+	for index := range requirements {
+		requirements[index].ItemID = item.ItemID
+	}
+	valueSource, hasValueSource := actorStateSchemaBatchItemValueSource(item)
+	for index := range adaptation.InitialActorOps {
+		adaptation.InitialActorOps[index].ValueSource = nil
+		if hasValueSource {
+			source := valueSource
+			adaptation.InitialActorOps[index].ValueSource = &source
+		}
+	}
+	for index := range adaptation.ActorOps {
+		adaptation.ActorOps[index].ValueSource = nil
+		if adaptation.ActorOps[index].Op == "set" {
+			if source, ok := actorStateSchemaBatchActorFieldValueSource(item, adaptation.ActorOps[index].ActorID, adaptation.ActorOps[index].FieldID); ok {
+				adaptation.ActorOps[index].ValueSource = &source
+			}
+		} else if hasValueSource {
+			source := valueSource
+			adaptation.ActorOps[index].ValueSource = &source
+		}
+	}
+	return ActorStateSchemaProposal{Summary: summary, Requirements: requirements, Adaptation: adaptation}
+}
+
+func mergeActorStateSchemaProposals(base, addition ActorStateSchemaProposal) ActorStateSchemaProposal {
+	merged := base
+	if strings.TrimSpace(addition.Summary) != "" {
+		merged.Summary = trimBytes(addition.Summary, maxInteractiveTextBytes)
+	}
+	if strings.TrimSpace(addition.Adaptation.Summary) != "" {
+		merged.Adaptation.Summary = trimBytes(addition.Adaptation.Summary, maxInteractiveTextBytes)
+	}
+	merged.Requirements = append(merged.Requirements, addition.Requirements...)
+	merged.Adaptation.TemplateOps = append(merged.Adaptation.TemplateOps, addition.Adaptation.TemplateOps...)
+	merged.Adaptation.InitialActorOps = append(merged.Adaptation.InitialActorOps, addition.Adaptation.InitialActorOps...)
+	merged.Adaptation.ActorOps = append(merged.Adaptation.ActorOps, addition.Adaptation.ActorOps...)
+	return merged
+}
+
+func actorStateSchemaProposalTail(normalized, before ActorStateSchemaProposal, itemSummary string) ActorStateSchemaProposal {
+	proposal := ActorStateSchemaProposal{
+		Summary:      trimBytes(itemSummary, maxInteractiveTextBytes),
+		Requirements: append([]ActorStateSchemaRequirementReview(nil), normalized.Requirements[len(before.Requirements):]...),
+		Adaptation: ActorStateSchemaAdaptation{
+			TemplateOps:     append([]ActorStateTemplateSchemaOp(nil), normalized.Adaptation.TemplateOps[len(before.Adaptation.TemplateOps):]...),
+			InitialActorOps: append([]ActorStateInitialActorSchemaOp(nil), normalized.Adaptation.InitialActorOps[len(before.Adaptation.InitialActorOps):]...),
+			ActorOps:        append([]ActorStateRuntimeSchemaOp(nil), normalized.Adaptation.ActorOps[len(before.Adaptation.ActorOps):]...),
+		},
+	}
+	if strings.TrimSpace(proposal.Summary) == "" {
+		proposal.Summary = normalized.Summary
+	}
+	proposal.Adaptation.Summary = proposal.Summary
+	return cloneActorStateSchemaProposal(proposal)
+}
+
+func actorStateSchemaProposalPreview(proposal ActorStateSchemaProposal) ActorStateSchemaProposalPreview {
+	fieldOps := 0
+	for _, op := range proposal.Adaptation.TemplateOps {
+		fieldOps += len(op.FieldOps)
+	}
+	return ActorStateSchemaProposalPreview{
+		Summary:     firstNonEmptyString(proposal.Summary, proposal.Adaptation.Summary),
+		TemplateOps: len(proposal.Adaptation.TemplateOps), FieldOps: fieldOps,
+		InitialActorOps: len(proposal.Adaptation.InitialActorOps), ActorOps: len(proposal.Adaptation.ActorOps),
+	}
+}
+
+func actorStateSchemaBatchIssue(itemID, code, path, message string) ActorStateSchemaBatchIssue {
+	return ActorStateSchemaBatchIssue{ItemID: itemID, Code: code, Path: path, Message: message, Retryable: true}
+}
+
+func validateActorStateSchemaBatchItemID(id string) error {
+	if id == "" {
+		return fmt.Errorf("item_id cannot be empty")
+	}
+	if len(id) > maxActorStateSchemaBatchItemIDBytes {
+		return fmt.Errorf("item_id is too long: %d > %d bytes", len(id), maxActorStateSchemaBatchItemIDBytes)
+	}
+	for index, r := range id {
+		if (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z') || (r >= '0' && r <= '9') || (index > 0 && (r == '.' || r == '_' || r == ':' || r == '-')) {
+			continue
+		}
+		return fmt.Errorf("item_id may contain only letters, digits, dots, underscores, colons, or hyphens and must start with a letter or digit")
+	}
+	return nil
+}
+
+func actorStateSchemaBatchItemFingerprint(item ActorStateSchemaBatchItem) string {
+	data, _ := json.Marshal(item)
+	return string(data)
+}
+
+func actorStateSchemaBatchValidationCode(err error) string {
+	message := err.Error()
+	switch {
+	case strings.Contains(message, "expected_type"):
+		return "invalid_expected_type"
+	case strings.Contains(message, "source"):
+		return "invalid_source"
+	case strings.Contains(message, "coverage field does not exist"):
+		return "target_field_not_found"
+	case strings.Contains(message, "schema operation"):
+		return "missing_schema_operation"
+	case strings.Contains(message, "too many"):
+		return "too_many_operations"
+	default:
+		return "validation_failed"
+	}
+}
+
+func actorStateSchemaBatchValidationPath(basePath string, item ActorStateSchemaBatchItem, err error) string {
+	message := err.Error()
+	for index, requirement := range item.Requirements {
+		if strings.Contains(message, "source="+strings.TrimSpace(requirement.Source.ID)) {
+			return fmt.Sprintf("%s.requirements[%d]", basePath, index)
+		}
+	}
+	if strings.Contains(message, "state requirement") || strings.Contains(message, "coverage") || strings.Contains(message, "expected_type") {
+		return basePath + ".requirements"
+	}
+	return basePath + ".adaptation"
+}
+
+func normalizedActorStateSchemaAuditLoreIDs(ids []string) []string {
+	seen := map[string]bool{}
+	for _, id := range ids {
+		if id = strings.TrimSpace(id); id != "" {
+			seen[id] = true
+		}
+	}
+	normalized := make([]string, 0, len(seen))
+	for id := range seen {
+		normalized = append(normalized, id)
+	}
+	sort.Strings(normalized)
+	return normalized
+}
+
+func cloneActorStateSchemaProposal(proposal ActorStateSchemaProposal) ActorStateSchemaProposal {
+	data, err := json.Marshal(proposal)
+	if err != nil {
+		return proposal
+	}
+	var cloned ActorStateSchemaProposal
+	if err := json.Unmarshal(data, &cloned); err != nil {
+		return proposal
+	}
+	cloned.ReviewedLoreIDs = append([]string(nil), proposal.ReviewedLoreIDs...)
+	cloned.SourceLoreRevision = proposal.SourceLoreRevision
+	return cloned
+}

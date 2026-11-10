@@ -1,0 +1,911 @@
+// MessageItem render model. Agent API/history/stream payloads use AgentUIMessage;
+// this shape remains private to the presentation adapter. Role-specific payloads
+// are kept on a discriminated union so invalid message combinations fail during
+// development instead of silently reaching a renderer.
+export type ChatMessageStatus = 'running' | 'success' | 'error' | 'cancelled'
+export type ChatPlanAction = 'approved' | 'continue' | 'exited'
+export type InteractiveImageStatus = Exclude<ChatMessageStatus, 'cancelled'>
+export type SubAgentStatus = 'running' | 'waiting_input' | 'aborting' | 'completed' | 'failed' | 'incomplete' | 'blocked' | 'aborted'
+
+export type ToolPresentationKind =
+  | 'generic'
+  | 'file'
+  | 'search'
+  | 'terminal'
+  | 'web'
+  | 'browser'
+  | 'image'
+  | 'interactive_media'
+  | 'todo'
+  | 'interaction'
+  | 'delegation'
+  | 'script'
+
+export interface ToolPresentation {
+  call: ToolPresentationKind
+  result: ToolPresentationKind
+}
+
+interface ChatMessageBase {
+  public_rule_roll?: PublicRuleRoll
+  type?: 'message' | 'clear'
+  content?: string
+  id?: string
+  render_key?: string
+  streaming_target_content?: string
+  turn_id?: string
+  navigation_turn_id?: string
+  run_id?: string
+  agent_cycle?: number
+  display_segment_id?: string
+  display_phase?: 'candidate' | 'progress' | 'final' | 'partial'
+  agent_kind?: string
+  agent_name?: string
+  root_agent_name?: string
+  run_path?: string[]
+  subagent?: boolean
+  subagent_session_id?: string
+  subagent_type?: string
+  subagent_status?: SubAgentStatus
+  parent_call_id?: string
+  streaming?: boolean
+  created_at?: string
+  tool_presentation?: ToolPresentation
+  turn_versions?: { turn_id: string; ts: string; current?: boolean }[]
+  turn_version_index?: number
+}
+
+export interface ChatAttachment {
+  id?: string
+  name: string
+  media_type?: string
+  size: number
+}
+
+export interface UserChatMessage extends ChatMessageBase {
+  role: 'user'
+  user_references?: UserMessageReference[]
+  attachments?: ChatAttachment[]
+}
+
+export interface AssistantChatMessage extends ChatMessageBase {
+  role: 'assistant'
+  interactive_image?: InteractiveImage
+  interactive_images?: InteractiveImage[]
+  interactive_image_error?: InteractiveImageError
+  interactive_image_status?: InteractiveImageStatus
+}
+
+export interface ThinkingChatMessage extends ChatMessageBase {
+  role: 'thinking'
+}
+
+interface ToolChatMessageBase extends ChatMessageBase {
+  name?: string
+  result?: string
+  status?: ChatMessageStatus
+  /** Known truncation of the recorded display output; absence does not prove completeness. */
+  result_truncated?: boolean
+  illustration?: ChapterIllustration
+  interactive_image?: InteractiveImage
+  interactive_images?: InteractiveImage[]
+  interactive_image_error?: InteractiveImageError
+  interactive_image_status?: InteractiveImageStatus
+}
+
+export interface ToolCallChatMessage extends ToolChatMessageBase {
+  role: 'tool_call'
+  args?: string
+  /** SDK partial input is a preview, not the recorded protocol text. */
+  args_preview?: boolean
+  ask?: AgentAskInteraction
+}
+
+export interface ToolResultChatMessage extends ToolChatMessageBase {
+  role: 'tool_result'
+}
+
+export interface AskChatMessage extends ChatMessageBase {
+  role: 'ask'
+  ask?: AgentAskInteraction
+  status?: ChatMessageStatus
+}
+
+export interface RuleRollChatMessage extends ChatMessageBase {
+  role: 'rule_roll'
+  rule_roll?: PublicRuleRoll
+}
+
+export interface ContextCompactionChatMessage extends ChatMessageBase {
+  runtime_managed?: boolean
+  role: 'context_compaction'
+  status?: ChatMessageStatus
+  phase?: string
+  attempt?: number
+  tokens_before?: number
+  tokens_after?: number
+  projected_tokens_before?: number
+  projected_tokens_after?: number
+  reserved_completion_tokens?: number
+  reserved_tool_result_tokens?: number
+  context_window_tokens?: number
+  threshold?: number
+  target_ratio?: number
+  revision?: number
+  source_message_count?: number
+  message_count_before?: number
+  message_count_after?: number
+  skipped_reason?: string
+}
+
+export interface TokenUsageChatMessage extends ChatMessageBase {
+  role: 'token_usage'
+  prompt_tokens?: number
+  cached_prompt_tokens?: number
+  uncached_prompt_tokens?: number
+  cache_hit_rate?: number
+  completion_tokens?: number
+  reasoning_tokens?: number
+  total_tokens?: number
+  model_calls?: number
+  generated_bytes?: number
+  usage_calls?: TokenUsageCall[]
+}
+
+export interface ProposedPlanChatMessage extends ChatMessageBase {
+  role: 'proposed_plan'
+  status?: ChatMessageStatus
+  thinking_preview?: string
+  plan_action?: ChatPlanAction
+}
+
+export interface SystemChatMessage extends ChatMessageBase {
+  role: 'system'
+}
+
+export interface TodoChatMessage extends ChatMessageBase {
+  role: 'todo_updated'
+}
+
+export interface ErrorChatMessage extends ChatMessageBase {
+  role: 'error'
+}
+
+export type ChatMessage =
+  | UserChatMessage
+  | AssistantChatMessage
+  | ThinkingChatMessage
+  | ToolCallChatMessage
+  | ToolResultChatMessage
+  | AskChatMessage
+  | RuleRollChatMessage
+  | ContextCompactionChatMessage
+  | TokenUsageChatMessage
+  | ProposedPlanChatMessage
+  | TodoChatMessage
+  | SystemChatMessage
+  | ErrorChatMessage
+
+export interface AgentAskOption {
+  id: string
+  label: string
+  description?: string
+}
+
+export interface AgentAskQuestion {
+  id: string
+  question: string
+  options?: AgentAskOption[]
+  multi_select?: boolean
+  recommended_option_id?: string
+}
+
+export interface AgentAskAnswer {
+  question_id: string
+  selected_option_ids?: string[]
+  custom_input?: string
+}
+
+export interface AgentAskSelectedOption {
+  id: string
+  label: string
+}
+
+export interface AgentAskAnswerResult {
+  question_id: string
+  question: string
+  selected_options?: AgentAskSelectedOption[]
+  custom_input?: string
+}
+
+export interface AgentToolApprovalPresentation {
+  mode: 'ask' | 'write' | 'full_access' | string
+  tool_name: string
+  command?: string
+  details?: string
+  cwd?: string
+  risk: 'low' | 'medium' | 'high' | 'critical' | string
+  rule_id: string
+  args_hash: string
+  can_remember?: boolean
+  rule_matcher_version?: number
+  rule_match_key?: string
+  rule_display_pattern?: string
+}
+
+export interface AgentAskInteraction {
+  schema: 'ask.pending.v1' | string
+  id: string
+  kind?: 'question' | 'tool_approval' | string
+  tool_call_id: string
+  provider_call_id?: string
+  task_id?: string
+  agent_kind: string
+  status: 'pending' | 'answered' | 'cancelled'
+  questions: AgentAskQuestion[]
+  allow_other?: boolean
+  approval?: AgentToolApprovalPresentation
+  verification?: { execution_id: string; tool: string; arguments: unknown }
+  answers?: AgentAskAnswerResult[]
+  cancel_reason?: string
+  created_at?: string
+  resolved_at?: string
+}
+
+export interface AgentAskResolution {
+  schema: 'ask.result.v1'
+  id: string
+  status: 'pending' | 'answered' | 'cancelled'
+  answers?: AgentAskAnswerResult[]
+  cancel_reason?: string
+}
+
+export interface UserMessageReference {
+  kind: 'file' | 'lore' | 'style' | 'selection' | 'review_comment'
+  id?: string
+  label: string
+  detail?: string
+  start_line?: number
+  end_line?: number
+}
+
+export interface PublicRuleRoll {
+  /** Client-derived exact builtin caption key; never a persisted rule value. */
+  label_key?: string
+  resolution_id?: string
+  label?: string
+  difficulty?: string
+  dice?: string
+  roll_mode?: string
+  rolls?: number[]
+  kept_roll?: number
+  base_target?: number
+  target?: number
+  bonus_total?: number
+  total?: number
+  outcome?: string
+  result?: string
+  cost?: string
+  stakes?: string
+  state_changes?: PublicRuleStateChange[]
+}
+
+export interface PublicRuleStateChange {
+  actor_id: string
+  field_id: string
+  change: number
+  reason?: string
+}
+
+export interface ChapterIllustration {
+  schema: 'chapter_illustration.v1' | string
+  chapter_path: string
+  image_path: string
+  meta_path: string
+  markdown: string
+  alt_text: string
+  profile_id: string
+  provider: string
+  model: string
+  size?: string
+  quality?: string
+  output_format?: string
+  created_at?: string
+  revised_prompt?: string
+  mime_type?: string
+  size_bytes?: number
+}
+
+export interface InteractiveImage {
+  schema: 'interactive_image.v1' | string
+  story_id: string
+  branch_id: string
+  turn_id: string
+  image_path: string
+  meta_path: string
+  alt_text?: string
+  profile_id?: string
+  provider?: string
+  model?: string
+  size?: string
+  quality?: string
+  output_format?: string
+  created_at?: string
+  revised_prompt?: string
+  mime_type?: string
+  size_bytes?: number
+}
+
+export interface InteractiveImageError {
+  schema: 'interactive_image_error.v1' | string
+  story_id?: string
+  branch_id?: string
+  turn_id?: string
+  message?: string
+  created_at?: string
+}
+
+export interface TokenUsageCall {
+  index?: number
+  created_at?: string
+  finish_reason?: string
+  requested_tools?: string[]
+  after_tools?: string[]
+  prompt_tokens?: number
+  cached_prompt_tokens?: number
+  uncached_prompt_tokens?: number
+  cache_hit_rate?: number
+  completion_tokens?: number
+  reasoning_tokens?: number
+  total_tokens?: number
+}
+
+export interface SessionSummary {
+  id: string
+  title: string
+  created_at: string
+  updated_at: string
+  active: boolean
+  message_count: number
+  /** Project-scoped runtimes expose execution state per conversation. */
+  running?: boolean
+}
+
+export interface IDEContext {
+  currentFile?: string
+  openFiles?: string[]
+}
+
+export interface AgentRunTraceSummary {
+  id: string
+  created_at: string
+  path: string
+  status: string
+  reason?: string
+  events: number
+  context_parts: number
+  tool_calls?: number
+  tool_successes?: number
+  tool_blocked?: number
+  tool_errors?: number
+  tool_truncated?: number
+  invalid_tool_args?: number
+  tool_domain_accepted?: number
+  tool_domain_rejected?: number
+  tool_domain_pending?: number
+  tool_domain_diagnostics?: number
+  llm_calls?: number
+  prompt_tokens?: number
+  cached_prompt_tokens?: number
+  uncached_prompt_tokens?: number
+  cache_hit_rate?: number
+  duration_ms?: number
+  task_id?: string
+  agent_kind?: string
+  agent_name?: string
+  parent_run_id?: string
+  child_runs?: Array<{ id: string; session_id: string; agent_name: string; parent_call_id?: string }>
+  session_id?: string
+  phase?: string
+  mutations?: number
+  verification_status?: string
+  recoverable?: boolean
+  content_captured?: boolean
+}
+
+export interface GlobalAgentRunTraceSummary extends AgentRunTraceSummary {
+  project_id: string
+  project_name: string
+  session_title?: string
+  trajectory_uri: string
+}
+
+export interface GlobalAgentRunTraceIssue {
+  project_id: string
+  project_name: string
+  message: string
+}
+
+export interface GlobalAgentRunTraceCatalog {
+  runs: GlobalAgentRunTraceSummary[]
+  issues: GlobalAgentRunTraceIssue[]
+}
+
+export interface AgentRunTraceRecord {
+  type: string
+  run_id: string
+  created_at: string
+  data?: Record<string, unknown>
+}
+
+export interface AgentRunTrace {
+  summary: AgentRunTraceSummary
+  children?: AgentRunTraceSummary[]
+  records: AgentRunTraceRecord[]
+  truncated?: boolean
+}
+
+export interface ContextAnalysisPart {
+  id?: string
+  source: string
+  title: string
+  role?: string
+  kind?: string
+  tool_name?: string
+  tool_call_id?: string
+  content: string
+  note?: string
+  bytes: number
+  chars: number
+  /** Provider-neutral fields and safe opaque-state metadata for diagnostics. */
+  parts?: ContextAnalysisPart[]
+}
+
+export interface ContextAnalysisCompaction {
+  id?: string
+  revision: number
+  summary: string
+  tokens_before?: number
+  tokens_after?: number
+  source_message_count?: number
+  removable?: boolean
+}
+
+export interface ContextAnalysis {
+  agent_kind: string
+  mode: string
+  system_prompt: string
+  system_prompt_parts: ContextAnalysisPart[]
+  context_parts: ContextAnalysisPart[]
+  context_messages: ContextAnalysisPart[]
+  message_count: number
+  token_estimate?: number
+	projected_token_estimate?: number
+	reserved_completion_tokens?: number
+	reserved_tool_result_tokens?: number
+  context_window_tokens?: number
+  context_usage_ratio?: number
+  compaction_revision?: number
+  compaction_active?: boolean
+  would_compact?: boolean
+  compaction?: ContextAnalysisCompaction
+}
+
+export interface SSEEvent {
+  /** Durable streams use the SSE id as their replay cursor. */
+  id?: string
+  event: string
+  data: string
+}
+
+export interface BookRecord {
+  project_id: string
+  name: string
+  path: string
+  author: string
+  cover_updated_at?: string
+  last_opened_at: string
+}
+
+export type BookSortMode = 'recent' | 'manual'
+
+export interface BookshelfResult {
+  books: BookRecord[]
+  sort_mode: BookSortMode
+}
+
+export interface BookCoverResult {
+  schema: 'book_cover.v1' | string
+  cover_path: string
+  source_path: string
+  meta_path: string
+  backup_path?: string
+  cover_updated_at: string
+  image_preset_id?: string
+  profile_id: string
+  provider: string
+  model: string
+  size?: string
+  quality?: string
+  output_format?: string
+  created_at?: string
+  revised_prompt?: string
+  mime_type?: string
+  size_bytes?: number
+}
+
+export interface ChapterSummary {
+  path: string
+  file_name: string
+  display_title: string
+  index: number
+  words: number
+  updated_at: string
+  volume: string
+  volume_path: string
+}
+
+export interface DocumentPreview {
+  path: string
+  title: string
+  excerpt: string
+  words: number
+  updated_at: string
+}
+
+export interface WorkspaceSummary {
+  title: string
+  author: string
+  chapter_count: number
+  total_words: number
+  chapters: ChapterSummary[]
+  ideas?: DocumentPreview
+  outline?: DocumentPreview
+  chapter_plans: DocumentPreview[]
+}
+
+export interface WorkspaceSearchResult {
+  path: string
+  line: number
+  column: number
+  preview: string
+  match_text: string
+}
+
+export interface WorkspaceReplaceFileResult {
+  path: string
+  replacements: number
+}
+
+export interface WorkspaceReplaceResult {
+  workspace: string
+  files: WorkspaceReplaceFileResult[]
+  total_replacements: number
+  skipped: string[]
+}
+
+export interface CharacterCardImportResult {
+  project_id?: string
+  name: string
+  target_path: string
+  entry_count: number
+  item_count: number
+  item_ids: string[]
+  cover_path?: string
+  user_placeholder_found: boolean
+  user_character_name?: string
+  compatibility: CharacterCardCompatibilityReport
+  workspace?: string
+  message: string
+  resident_lore_bytes: number
+  classification_mode: LoreClassificationMode
+  classification_counts: Partial<Record<LoreItem['type'], number>>
+  uncertain_type_count: number
+}
+
+export interface CharacterCardPreview {
+  name: string
+  entry_count: number
+  tags: string[]
+  user_placeholder_found: boolean
+  will_import_cover: boolean
+  compatibility: CharacterCardCompatibilityReport
+  enabled_entry_count: number
+  disabled_entry_count: number
+  resident_entry_count: number
+  resident_entry_bytes: number
+  resident_lore_bytes: number
+  auto_entry_count: number
+  removed_runtime_entry_count: number
+  sanitized_mixed_entry_count: number
+  resident_lore_warning: boolean
+  resident_lore_warning_threshold_kb: number
+  classification_mode: LoreClassificationMode
+  classification_counts: Partial<Record<LoreItem['type'], number>>
+  uncertain_type_count: number
+}
+
+interface CharacterCardCompatibilityReport {
+  capabilities: string[]
+  sanitized_runtime: string[]
+  discarded_extensions: string[]
+  warnings: string[]
+  ignored_loading_rules: boolean
+}
+
+type VersionSource = 'manual' | 'timer' | 'agent' | 'rollback_backup'
+
+export interface VersionChange {
+  path: string
+  status: 'added' | 'modified' | 'deleted' | string
+}
+
+export interface VersionEntry {
+  id: string
+  message: string
+  created_at: string
+  source: VersionSource
+  file_count: number
+  total_bytes: number
+  changed_paths: string[]
+}
+
+interface VersionAutoInfo {
+  timed_enabled: boolean
+  timed_interval_minutes: number
+  retention: number
+  last_auto_at?: string
+}
+
+export interface VersionStatus {
+  has_versions: boolean
+  clean: boolean
+  changes: VersionChange[]
+  latest?: VersionEntry
+  auto: VersionAutoInfo
+}
+
+export interface VersionCommandResult {
+  message: string
+  version?: VersionEntry
+  status?: VersionStatus
+}
+
+type VersionRestoreScope = 'workspace' | 'paths'
+
+interface VersionRestoreChange {
+  path: string
+  status: 'added' | 'modified' | 'deleted'
+  text: boolean
+  binary: boolean
+  missing_in_version?: boolean
+  missing_in_workspace?: boolean
+}
+
+export interface VersionRestorePlan {
+  target: VersionEntry
+  scope: VersionRestoreScope
+  paths: string[]
+  changes: VersionRestoreChange[]
+  will_create_backup: boolean
+  current_dirty: boolean
+  backup_message?: string
+  warnings?: string[]
+}
+
+export interface VersionRestoreResult {
+  message: string
+  target: VersionEntry
+  version?: VersionEntry
+  backup_version?: VersionEntry
+  restored_paths: string[]
+  scope: VersionRestoreScope
+  status?: VersionStatus
+}
+
+export interface VersionDiff {
+  version: VersionEntry
+  base_version?: VersionEntry
+  comparison: VersionDiffComparison
+  changes: VersionChange[]
+  files?: VersionFileDiff[]
+  path?: string
+  original?: string
+  modified?: string
+  text: boolean
+  binary: boolean
+  missing_in_original?: boolean
+  missing_in_modified?: boolean
+}
+
+export interface VersionFileDiff {
+  path: string
+  status: VersionChange['status']
+  original?: string
+  modified?: string
+  text: boolean
+  binary: boolean
+  missing_in_original?: boolean
+  missing_in_modified?: boolean
+}
+
+export type VersionDiffComparison = 'workspace' | 'parent'
+
+export interface LoreItem {
+  audience?: 'public' | 'gm' | '' 
+  id: string
+  /**
+   * The world book this entry belongs to, or empty for the shared book every
+   * story reads. A pack writes one book per content revision, so the same
+   * person can appear under several revisions; the library keeps only the
+   * revisions this project's stories use.
+   */
+  scope?: string
+  enabled: boolean
+  type: 'character' | 'world' | 'location' | 'faction' | 'rule' | 'item' | 'other'
+  type_source: 'heuristic' | 'semantic' | 'manual' | 'legacy'
+  name: string
+  importance: 'major' | 'important' | 'minor'
+  load_mode: 'resident' | 'auto' | 'manual'
+  tags: string[]
+  brief_description: string
+  keywords: string[]
+  content: string
+  created_at: string
+  updated_at: string
+  image?: LoreItemImage
+  /**
+   * The shipped default portrait of the person this entry is about, when the
+   * author has not chosen a picture of their own. It is derived on every read
+   * from the world's own catalog and is never stored, so it is not part of
+   * LoreItemInput: a save must not carry it back.
+   */
+  portrait_url?: string
+  portrait_display_url?: string
+  provenance?: {
+    kind: string
+    source_name: string
+    source_record_id: string
+    source_hash: string
+  }
+}
+
+export type LoreClassificationMode = 'heuristic' | 'semantic'
+
+interface LoreItemImage {
+  schema: 'lore_item_image.v1' | string
+  image_path: string
+  meta_path: string
+  alt_text?: string
+  image_preset_id?: string
+  profile_id?: string
+  provider?: string
+  model?: string
+  size?: string
+  quality?: string
+  output_format?: string
+  created_at?: string
+  revised_prompt?: string
+  mime_type?: string
+  size_bytes?: number
+}
+
+export interface LoreItemImageGenerateRequest {
+  mode?: 'agent' | 'custom'
+  command_id?: string
+  prompt?: string
+  instruction?: string
+  image_preset_id?: string
+  profile_id?: string
+}
+
+export type SkillScope = 'builtin' | 'user' | 'workspace' | 'shared'
+
+export interface SkillRemoteState {
+  source: { url: string; ref?: string; subdir?: string }
+  source_path: string
+  digest: string
+  auto_update: boolean
+  checked_at: string
+  update_available: boolean
+  status?: 'current' | 'available' | 'modified' | 'updated' | 'error'
+}
+
+export interface SkillPreferenceChange {
+  scope?: SkillScope
+  name?: string
+  enabled?: boolean
+  shared_enabled?: boolean
+  auto_update?: boolean
+}
+
+export interface SkillUpdateResult {
+  scope: SkillScope
+  name: string
+  remote?: SkillRemoteState
+  error_key?: string
+}
+
+export interface SkillScopeInfo {
+  scope: SkillScope
+  path: string
+  writable: boolean
+}
+
+export interface SkillSummary {
+  name: string
+  description: string
+  category?: string
+  capabilities?: string[]
+  context?: string
+  agent?: string
+  model?: string
+  scope: SkillScope
+  path: string
+  editable: boolean
+  active: boolean
+  enabled?: boolean
+  remote?: SkillRemoteState
+  updated_at?: string
+}
+
+export interface SkillCreateMetadata {
+  category?: string
+  capabilities?: string[]
+}
+
+export interface SkillFile {
+  path: string
+  size: number
+  entry: boolean
+  editable: boolean
+  updated_at?: string
+}
+
+export interface SkillSnapshot {
+  scopes: SkillScopeInfo[]
+  skills: SkillSummary[]
+  shared_enabled?: boolean
+}
+
+export interface SkillDocument extends SkillSummary {
+  content: string
+  revision: string
+  files?: SkillFile[]
+}
+
+export interface SkillFileDocument {
+  skill: SkillSummary
+  file: SkillFile
+  content: string
+  revision: string
+}
+
+export interface SkillInstallCandidate {
+  id: string
+  name?: string
+  description?: string
+  source_path: string
+  conflict: boolean
+  invalid_reason?: string
+}
+
+export interface SkillInstallPreview {
+  candidates: SkillInstallCandidate[]
+}
+
+export interface SkillInstallResult {
+  installed: SkillSummary[]
+}
+
+export type LoreItemInput = Omit<
+  LoreItem,
+  'created_at' | 'updated_at' | 'provenance' | 'portrait_url' | 'portrait_display_url'
+>
+
+export interface TextSelection {
+  fileName: string
+  startLine: number
+  endLine: number
+  content: string
+}

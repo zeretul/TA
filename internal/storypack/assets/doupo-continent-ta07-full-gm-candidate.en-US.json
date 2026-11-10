@@ -1,0 +1,55 @@
+{
+  "name": "Battle Through the Heavens · Dou Qi Continent",
+  "description": "Clans divide the markets of Wutan in the northwest of the Jia Ma Empire. Beyond them lie the apothecaries of Qingshan, the roads through the Beast Mountains, and the sands of Tager. Dou Qi keeps a traveler alive; a good herb can cost more than a blade.",
+  "title": "Battle Through the Heavens · Dou Qi Continent",
+  "creation": {
+    "origins": {
+      "dp-start-traveler": {
+        "name": "Wutan traveler",
+        "description": "You arrive in Wutan with odd-job savings and a little self-defense. The market is still open, and several shops have their lamps lit."
+      },
+      "dp-start-apothecary": {
+        "name": "Qingshan apothecary hand",
+        "description": "You sort and bundle herbs in Qingshan. Customers from the mountains often mention roads people have stopped taking."
+      },
+      "dp-start-guard": {
+        "name": "New mercenary",
+        "description": "You know enough to defend yourself and are waiting for a first escort job. The employer wants to know whether you travel after dark."
+      },
+      "dp-start-mountain-fighter": {
+        "name": "Lone mountain Dou Master",
+        "description": "After several journeys into the Magical Beast Mountain Range, you have attained the rank of Dou Master. A Qingshan apothecary has posted a bounty for a living beast with a broken horn."
+      },
+      "dp-start-trained-alchemist": {
+        "name": "Black Rock City alchemist",
+        "description": "Years at the furnace taught you to identify herbs and refine pills on your own. In Black Rock City, a caller sets down a parcel of fresh herbs and a purse, asking you to fire the furnace tonight."
+      },
+      "custom": {
+        "name": "Custom background",
+        "description": "Write where you came from, who you are, and what brought you here."
+      }
+    }
+  },
+  "templates": {
+    "dp-start-traveler": {
+      "name": "Wutan traveler",
+      "description": "You arrive in Wutan with odd-job savings and a little self-defense. The market is still open, and several shops have their lamps lit."
+    },
+    "dp-start-apothecary": {
+      "name": "Qingshan apothecary hand",
+      "description": "You sort and bundle herbs in Qingshan. Customers from the mountains often mention roads people have stopped taking."
+    },
+    "dp-start-guard": {
+      "name": "New mercenary",
+      "description": "You know enough to defend yourself and are waiting for a first escort job. The employer wants to know whether you travel after dark."
+    },
+    "dp-start-mountain-fighter": {
+      "name": "Lone mountain Dou Master",
+      "description": "After several journeys into the Magical Beast Mountain Range, you have attained the rank of Dou Master. A Qingshan apothecary has posted a bounty for a living beast with a broken horn."
+    },
+    "dp-start-trained-alchemist": {
+      "name": "Black Rock City alchemist",
+      "description": "Years at the furnace taught you to identify herbs and refine pills on your own. In Black Rock City, a caller sets down a parcel of fresh herbs and a purse, asking you to fire the furnace tonight."
+    }
+  }
+}

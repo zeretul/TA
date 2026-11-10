@@ -1,0 +1,32 @@
+{
+  "version": 6,
+  "id": "dm-mystery-clue-forward",
+  "name": "悬疑调查型 DM：线索不断线",
+  "description": "核心线索不因失败消失；检定决定信息质量、误导、时间压力和调查代价。",
+  "trpg_system": {
+    "rule_templates": [
+      {
+        "id": "dm-mystery-clue-forward",
+        "label": "悬疑调查型 DM：线索不断线",
+        "dice": "1d20",
+        "failure_policy": "fail_forward",
+        "difficulty_guidance": "线索新鲜、现场完整、推理合理时降一档；线索被伪装、时间久远、证人撒谎、现场被污染时升一档。",
+        "state_effect_guidance": "失败不删除核心线索，而是增加误导、时间压力、敌人警觉、线索噪音或调查资源消耗。",
+        "trigger": "当检定关系到线索、真相、调查方向或谜题推进时使用。核心线索不应因失败完全消失，检定决定信息质量、代价和误导程度。",
+        "must_check_examples": [
+          "玩家在混乱现场寻找凶手留下的关键痕迹。",
+          "玩家判断证词中的矛盾是否有意义。",
+          "玩家试图从残缺记录里还原事件顺序。"
+        ],
+        "skip_check_examples": [
+          "玩家查看明摆在桌上的信件。",
+          "NPC 已经明确告诉玩家的信息。",
+          "玩家提出的推理已经足以连接已知证据。"
+        ],
+        "success_hint": "成功时给出清晰、可行动、能推进判断的线索。",
+        "failure_hint": "失败时给出不完整或带偏差的信息，并制造新的调查压力。"
+      }
+    ]
+  },
+  "custom": false
+}

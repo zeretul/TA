@@ -1,0 +1,1168 @@
+{
+  "sg-q01": {
+    "title": "The First Bridge Pin",
+    "brief": "A downstream support is loose; funding and access both need attention.",
+    "objectives": {
+      "sg-q01.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q01.c1": {
+        "title": "Bring iron and help replace the pin",
+        "description": "Bring iron and help replace the pin without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "The crew measures and replaces the pin with you without closing the bridge. The crew gives you one measured spare pin.",
+        "failure": "The pin still does not fit the bridge socket. The existing load limit remains; this section cannot be recorded as repaired.",
+        "success_echo": "The crew plans shared funding for the next repair rather than relying forever on a visitor.",
+        "failure_echo": "The crew marks the unfinished section. A later attempt needs measurements or a more reliable method.",
+        "success_reaction": "The crew plans shared funding for the next repair rather than relying forever on a visitor.",
+        "failure_reaction": "The crew marks the unfinished section. A later attempt needs measurements or a more reliable method."
+      },
+      "sg-q01.c2": {
+        "title": "Negotiate a load limit and repair window",
+        "description": "Negotiate a load limit and repair window without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "Wagon owners accept staggered crossings, giving workers a safe inspection window.",
+        "failure": "The pin still does not fit the bridge socket. The existing load limit remains; this section cannot be recorded as repaired.",
+        "success_echo": "Caravans queue under the new schedule; smaller owners ask to join future discussions.",
+        "failure_echo": "The crew marks the unfinished section. A later attempt needs measurements or a more reliable method.",
+        "success_reaction": "Caravans queue under the new schedule; smaller owners ask to join future discussions.",
+        "failure_reaction": "The crew marks the unfinished section. A later attempt needs measurements or a more reliable method."
+      }
+    }
+  },
+  "sg-q02": {
+    "title": "Soup Off the Ledger",
+    "brief": "An inn debt threatens workers’ supper; neither party wants a public quarrel.",
+    "objectives": {
+      "sg-q02.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q02.c1": {
+        "title": "Compare flour deliveries with payments",
+        "description": "Compare flour deliveries with payments without additional promises on behalf of absent people.",
+        "success": "You identify a duplicated freight charge and reconcile receipts with deliveries.",
+        "failure": "The flour records still disagree. The soup stall receives no fictional debt clearance.",
+        "success_echo": "The remaining debt stands; free meals get their own record rather than becoming imaginary food.",
+        "failure_echo": "The proprietor retains the original slips and will discuss figures that can later be checked.",
+        "success_reaction": "The remaining debt stands; free meals get their own record rather than becoming imaginary food.",
+        "failure_reaction": "The proprietor retains the original slips and will discuss figures that can later be checked."
+      },
+      "sg-q02.c2": {
+        "title": "Buy emergency grain while they negotiate",
+        "description": "Buy emergency grain while they negotiate without additional promises on behalf of absent people.",
+        "success": "The kitchen stays open; one grain purchase does not erase the debt.",
+        "failure": "The flour records still disagree. The soup stall receives no fictional debt clearance.",
+        "success_echo": "Workers offer to repair the mill door off shift; the new exchange needs its own agreement.",
+        "failure_echo": "The proprietor retains the original slips and will discuss figures that can later be checked.",
+        "success_reaction": "Workers offer to repair the mill door off shift; the new exchange needs its own agreement.",
+        "failure_reaction": "The proprietor retains the original slips and will discuss figures that can later be checked."
+      }
+    }
+  },
+  "sg-q03": {
+    "title": "Duplicate Toll Receipts",
+    "brief": "Two grain wagons share a receipt number; the clerk lacks grounds to seize either.",
+    "objectives": {
+      "sg-q03.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q03.c1": {
+        "title": "Compare the chain of handlers",
+        "description": "Compare the chain of handlers without additional promises on behalf of absent people.",
+        "success": "The copy shows a shift-change numbering error; each tax amount still needs checking. The clerk gives you a canceled road seal as a reference, carrying no travel authority.",
+        "failure": "Matching marks do not establish that the tax slips describe one payment; neither is canceled.",
+        "success_echo": "Clerks begin signing handovers; a wrongly suspected owner will testify again.",
+        "failure_echo": "The clerk separates the disputed slips; their holders still need original handling evidence.",
+        "success_reaction": "Clerks begin signing handovers; a wrongly suspected owner will testify again.",
+        "failure_reaction": "The clerk separates the disputed slips; their holders still need original handling evidence."
+      },
+      "sg-q03.c2": {
+        "title": "Take agreed copies and let grain move",
+        "description": "Take agreed copies and let grain move without additional promises on behalf of absent people.",
+        "success": "Both owners leave traceable copies, avoiding detention on an unsupported accusation.",
+        "failure": "Matching marks do not establish that the tax slips describe one payment; neither is canceled.",
+        "success_echo": "Recipients can later complete the chain of custody.",
+        "failure_echo": "The clerk separates the disputed slips; their holders still need original handling evidence.",
+        "success_reaction": "Recipients can later complete the chain of custody.",
+        "failure_reaction": "The clerk separates the disputed slips; their holders still need original handling evidence."
+      }
+    }
+  },
+  "sg-q04": {
+    "title": "Timber and the Fish Run",
+    "brief": "Ferry crews seek timber work while fishers fear blocked runs; each knows only part of the river.",
+    "objectives": {
+      "sg-q04.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q04.c1": {
+        "title": "Survey the shoal and mark a clear mooring",
+        "description": "Survey the shoal and mark a clear mooring without additional promises on behalf of absent people.",
+        "success": "You mark a staggered mooring site that crews must actually use. The surveyors let you keep a shared map copy.",
+        "failure": "The current and timber positions do not establish an open fish channel, so no trial run is confirmed.",
+        "success_echo": "Fishers bring catch records so the next discussion can compare evidence.",
+        "failure_echo": "Fishers keep watching the water; timber handlers gain no unrestricted claim on the river.",
+        "success_reaction": "Fishers bring catch records so the next discussion can compare evidence.",
+        "failure_reaction": "Fishers keep watching the water; timber handlers gain no unrestricted claim on the river."
+      },
+      "sg-q04.c2": {
+        "title": "Arrange a limited trial with fishers watching",
+        "description": "Arrange a limited trial with fishers watching without additional promises on behalf of absent people.",
+        "success": "Both agree to one limited trial, not surrender the whole river.",
+        "failure": "The current and timber positions do not establish an open fish channel, so no trial run is confirmed.",
+        "success_echo": "Participants must report their observations; absent people do not automatically learn them.",
+        "failure_echo": "Fishers keep watching the water; timber handlers gain no unrestricted claim on the river.",
+        "success_reaction": "Participants must report their observations; absent people do not automatically learn them.",
+        "failure_reaction": "Fishers keep watching the water; timber handlers gain no unrestricted claim on the river."
+      }
+    }
+  },
+  "sg-q05": {
+    "title": "Ash Field Sluice",
+    "brief": "Two farms dispute priority while a cracked sluice no longer closes.",
+    "objectives": {
+      "sg-q05.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q05.c1": {
+        "title": "Repair the gate with timber and iron",
+        "description": "Repair the gate with timber and iron without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "The gate closes again, though sharing hours still need agreement.",
+        "failure": "The sluice still leaks. Rotation requires new measurements, and this attempt assigns no water priority.",
+        "success_echo": "Seedlings emerge; the veteran asks about teaching his child tool repair.",
+        "failure_echo": "Farmers use the existing arrangement; a repair claim does not conceal the dispute.",
+        "success_reaction": "Seedlings emerge; the veteran asks about teaching his child tool repair.",
+        "failure_reaction": "Farmers use the existing arrangement; a repair claim does not conceal the dispute."
+      },
+      "sg-q05.c2": {
+        "title": "Compare fields and negotiate alternating flow",
+        "description": "Compare fields and negotiate alternating flow without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "They agree a short-term rotation without deciding next season for others.",
+        "failure": "The sluice still leaks. Rotation requires new measurements, and this attempt assigns no water priority.",
+        "success_echo": "Heavy rain will require reconsideration; agreements can adapt to new facts.",
+        "failure_echo": "Farmers use the existing arrangement; a repair claim does not conceal the dispute.",
+        "success_reaction": "Heavy rain will require reconsideration; agreements can adapt to new facts.",
+        "failure_reaction": "Farmers use the existing arrangement; a repair claim does not conceal the dispute."
+      }
+    }
+  },
+  "sg-q06": {
+    "title": "The Undelivered Rain Letter",
+    "brief": "A rain-soaked letter names only a village that no longer exists.",
+    "objectives": {
+      "sg-q06.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q06.c1": {
+        "title": "Match old maps to the present name",
+        "description": "Match old maps to the present name without additional promises on behalf of absent people.",
+        "success": "The map matches a bridge mark; the letter has not yet reached its recipient.",
+        "failure": "The old village name cannot yet be matched to a verified address. The letter stays sealed and undelivered.",
+        "success_echo": "A courier can use the verified address; any answer needs its own journey.",
+        "failure_echo": "The station notes the missing location evidence and awaits a sound destination.",
+        "success_reaction": "A courier can use the verified address; any answer needs its own journey.",
+        "failure_reaction": "The station notes the missing location evidence and awaits a sound destination."
+      },
+      "sg-q06.c2": {
+        "title": "Ask displaced residents without opening it",
+        "description": "Ask displaced residents without opening it without additional promises on behalf of absent people.",
+        "success": "A resident recognizes the old name and offers a relevant contact.",
+        "failure": "The old village name cannot yet be matched to a verified address. The letter stays sealed and undelivered.",
+        "success_echo": "The resident remains concerned about the search’s purpose; future trust needs explanation.",
+        "failure_echo": "The station notes the missing location evidence and awaits a sound destination.",
+        "success_reaction": "The resident remains concerned about the search’s purpose; future trust needs explanation.",
+        "failure_reaction": "The station notes the missing location evidence and awaits a sound destination."
+      }
+    }
+  },
+  "sg-q07": {
+    "title": "Two Winters in One Keep",
+    "brief": "The order’s grain wagon arrives; military families say dependents were omitted.",
+    "objectives": {
+      "sg-q07.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q07.c1": {
+        "title": "Compare household counts and real stores",
+        "description": "Compare household counts and real stores without additional promises on behalf of absent people.",
+        "success": "You identify an omitted household and a real shortfall without promising nonexistent grain.",
+        "failure": "Winter headcounts and stores do not corroborate each other; no new grain loan is agreed.",
+        "success_echo": "The clerk invites one delegate from each side to the next count.",
+        "failure_echo": "The quartermaster retains both ledgers without converting a shortage into lifelong allegiance.",
+        "success_reaction": "The clerk invites one delegate from each side to the next count.",
+        "failure_reaction": "The quartermaster retains both ledgers without converting a shortage into lifelong allegiance."
+      },
+      "sg-q07.c2": {
+        "title": "Arrange a temporary shared loan without an oath",
+        "description": "Arrange a temporary shared loan without an oath without additional promises on behalf of absent people.",
+        "success": "Both specify the temporary amount and review date; aid is not enlistment.",
+        "failure": "Winter headcounts and stores do not corroborate each other; no new grain loan is agreed.",
+        "success_echo": "Borrowers prepare a reply; one relationship changes, not universal reputation.",
+        "failure_echo": "The quartermaster retains both ledgers without converting a shortage into lifelong allegiance.",
+        "success_reaction": "Borrowers prepare a reply; one relationship changes, not universal reputation.",
+        "failure_reaction": "The quartermaster retains both ledgers without converting a shortage into lifelong allegiance."
+      }
+    }
+  },
+  "sg-q08": {
+    "title": "Learn to Stop",
+    "brief": "An instructor teaches a stop signal that a recruit calls cowardly.",
+    "objectives": {
+      "sg-q08.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q08.c1": {
+        "title": "Join an explicitly nonlethal lesson",
+        "description": "Join an explicitly nonlethal lesson without additional promises on behalf of absent people.",
+        "success": "You stop on signal, demonstrating the control restraint requires.",
+        "failure": "The stop signal is not followed reliably. The instructor ends this round rather than counting bravado as mastery.",
+        "success_echo": "The recruit accepts more stance practice; later sparring still needs consent.",
+        "failure_echo": "A later practice needs clear rules and adequate reserves; spectators cannot supply consent.",
+        "success_reaction": "The recruit accepts more stance practice; later sparring still needs consent.",
+        "failure_reaction": "A later practice needs clear rules and adequate reserves; spectators cannot supply consent."
+      },
+      "sg-q08.c2": {
+        "title": "Hear why he needs to look brave",
+        "description": "Hear why he needs to look brave without additional promises on behalf of absent people.",
+        "success": "He fears disappointing his family; the instructor offers another responsibility.",
+        "failure": "The stop signal is not followed reliably. The instructor ends this round rather than counting bravado as mastery.",
+        "success_echo": "He begins checking practice swords; courage gains another expression.",
+        "failure_echo": "A later practice needs clear rules and adequate reserves; spectators cannot supply consent.",
+        "success_reaction": "He begins checking practice swords; courage gains another expression.",
+        "failure_reaction": "A later practice needs clear rules and adequate reserves; spectators cannot supply consent."
+      }
+    }
+  },
+  "sg-q09": {
+    "title": "The Blank Name on a Letter",
+    "brief": "An unsigned letter may identify a dead soldier; the clerk refuses a careless match.",
+    "objectives": {
+      "sg-q09.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q09.c1": {
+        "title": "Compare witness accounts and clothing",
+        "description": "Compare witness accounts and clothing without additional promises on behalf of absent people.",
+        "success": "Two accounts match a mend in the clothing, but not yet the complete name.",
+        "failure": "Accounts and clothing evidence still differ. No deceased identity or unspoken family testimony is invented.",
+        "success_echo": "Relatives hear both certainty and doubt and decide whether to continue.",
+        "failure_echo": "The officiant leaves the name blank pending evidence with a stated source.",
+        "success_reaction": "Relatives hear both certainty and doubt and decide whether to continue.",
+        "failure_reaction": "The officiant leaves the name blank pending evidence with a stated source."
+      },
+      "sg-q09.c2": {
+        "title": "Care for the waiting relatives first",
+        "description": "Care for the waiting relatives first without additional promises on behalf of absent people.",
+        "success": "You provide dressings and care without bypassing identification.",
+        "failure": "Accounts and clothing evidence still differ. No deceased identity or unspoken family testimony is invented.",
+        "success_echo": "They remember the help while retaining their grief and choices.",
+        "failure_echo": "The officiant leaves the name blank pending evidence with a stated source.",
+        "success_reaction": "They remember the help while retaining their grief and choices.",
+        "failure_reaction": "The officiant leaves the name blank pending evidence with a stated source."
+      }
+    }
+  },
+  "sg-q10": {
+    "title": "Across the Pasture Line",
+    "brief": "A boundary post has fallen; that alone proves no trespass.",
+    "objectives": {
+      "sg-q10.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q10.c1": {
+        "title": "Inspect the old socket and hoofprints",
+        "description": "Inspect the old socket and hoofprints without additional promises on behalf of absent people.",
+        "success": "Rain undermined the socket and both herds passed later; the sequence remains partly unclear.",
+        "failure": "Postholes and tracks do not establish the old boundary, and temporary grazing terms remain unsettled.",
+        "success_echo": "Both remark stable ground and exchange animal-care advice.",
+        "failure_echo": "Herders continue tending their animals; nobody acquires the whole pasture from this attempt.",
+        "success_reaction": "Both remark stable ground and exchange animal-care advice.",
+        "failure_reaction": "Herders continue tending their animals; nobody acquires the whole pasture from this attempt."
+      },
+      "sg-q10.c2": {
+        "title": "Negotiate a temporary shared patch",
+        "description": "Negotiate a temporary shared patch without additional promises on behalf of absent people.",
+        "success": "They share a limited patch while postponing the disputed boundary.",
+        "failure": "Postholes and tracks do not establish the old boundary, and temporary grazing terms remain unsettled.",
+        "success_echo": "Shared use yields new observations rather than letting old accusations rule forever.",
+        "failure_echo": "Herders continue tending their animals; nobody acquires the whole pasture from this attempt.",
+        "success_reaction": "Shared use yields new observations rather than letting old accusations rule forever.",
+        "failure_reaction": "Herders continue tending their animals; nobody acquires the whole pasture from this attempt."
+      }
+    }
+  },
+  "sg-q11": {
+    "title": "Who Heard the Bell",
+    "brief": "Herbalist and woodcutter explain a sound differently; their routes cross in low ground.",
+    "objectives": {
+      "sg-q11.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q11.c1": {
+        "title": "Follow the known routes and test water echoes",
+        "description": "Follow the known routes and test water echoes without additional promises on behalf of absent people.",
+        "success": "You find water striking hollow bronze, not proof of every reported bell.",
+        "failure": "Water sounds overlap in several places; you cannot yet identify a bronze bell as the source.",
+        "success_echo": "Both agree to record the next sound’s time and wind.",
+        "failure_echo": "People at the verge retain their accounts. A later observation must distinguish the sources.",
+        "success_reaction": "Both agree to record the next sound’s time and wind.",
+        "failure_reaction": "People at the verge retain their accounts. A later observation must distinguish the sources."
+      },
+      "sg-q11.c2": {
+        "title": "Compare forest records without accusing either",
+        "description": "Compare forest records without accusing either without additional promises on behalf of absent people.",
+        "success": "Old records describe multiple bells; the accounts need not conflict.",
+        "failure": "Water sounds overlap in several places; you cannot yet identify a bronze bell as the source.",
+        "success_echo": "Keepers share a mundane map section; deeper ruins still need preparation.",
+        "failure_echo": "People at the verge retain their accounts. A later observation must distinguish the sources.",
+        "success_reaction": "Keepers share a mundane map section; deeper ruins still need preparation.",
+        "failure_reaction": "People at the verge retain their accounts. A later observation must distinguish the sources."
+      }
+    }
+  },
+  "sg-q12": {
+    "title": "Living Root, Stone Bridge",
+    "brief": "A sick rootbridge and an outsider mason’s repair plan reopen old wounds.",
+    "objectives": {
+      "sg-q12.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q12.c1": {
+        "title": "Take a small sample while preserving the root",
+        "description": "Take a small sample while preserving the root without additional promises on behalf of absent people.",
+        "success": "A sample shows local decay; you propose lower loads and drainage first.",
+        "failure": "The load shared by roots and masonry remains unclear; neither gains reliable strength from the attempt.",
+        "success_echo": "Mason and keepers inspect recovery together without a promised cure.",
+        "failure_echo": "The bridgewright keeps weak points marked without declaring that either tree or bridge must be sacrificed.",
+        "success_reaction": "Mason and keepers inspect recovery together without a promised cure.",
+        "failure_reaction": "The bridgewright keeps weak points marked without declaring that either tree or bridge must be sacrificed."
+      },
+      "sg-q12.c2": {
+        "title": "Build removable supports without cutting the root",
+        "description": "Build removable supports without cutting the root without additional promises on behalf of absent people.",
+        "success": "Supports bear weight while the root remains for observation.",
+        "failure": "The load shared by roots and masonry remains unclear; neither gains reliable strength from the attempt.",
+        "success_echo": "Residents discuss maintenance rather than treating one repair as a permanent ending.",
+        "failure_echo": "The bridgewright keeps weak points marked without declaring that either tree or bridge must be sacrificed.",
+        "success_reaction": "Residents discuss maintenance rather than treating one repair as a permanent ending.",
+        "failure_reaction": "The bridgewright keeps weak points marked without declaring that either tree or bridge must be sacrificed."
+      }
+    }
+  },
+  "sg-q13": {
+    "title": "A Sample, Not an Accusation",
+    "brief": "Cloudy spring water has produced accusations faster than samples.",
+    "objectives": {
+      "sg-q13.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q13.c1": {
+        "title": "Seal samples with their collection sites",
+        "description": "Seal samples with their collection sites without additional promises on behalf of absent people.",
+        "success": "You label upstream and downstream samples for comparison, not conviction. You keep one fully labeled water sample.",
+        "failure": "The sample provenance or controls are insufficient to identify a polluter.",
+        "success_echo": "Miners and keepers now have material they can examine together.",
+        "failure_echo": "The keeper retains the question rather than an accusation; later tests require clear sampling records.",
+        "success_reaction": "Miners and keepers now have material they can examine together.",
+        "failure_reaction": "The keeper retains the question rather than an accusation; later tests require clear sampling records."
+      },
+      "sg-q13.c2": {
+        "title": "Survey sediment after the storm",
+        "description": "Survey sediment after the storm without additional promises on behalf of absent people.",
+        "success": "A naturally slipped tributary contributes sediment; there may be multiple sources.",
+        "failure": "The sample provenance or controls are insufficient to identify a polluter.",
+        "success_echo": "An immediate total mine closure is avoided; drainage problems remain.",
+        "failure_echo": "The keeper retains the question rather than an accusation; later tests require clear sampling records.",
+        "success_reaction": "An immediate total mine closure is avoided; drainage problems remain.",
+        "failure_reaction": "The keeper retains the question rather than an accusation; later tests require clear sampling records."
+      }
+    }
+  },
+  "sg-q14": {
+    "title": "The Secondhand Button",
+    "brief": "A button is claimed as stolen property; the seller has a purchase receipt.",
+    "objectives": {
+      "sg-q14.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q14.c1": {
+        "title": "Trace its chain through receipts",
+        "description": "Trace its chain through receipts without additional promises on behalf of absent people.",
+        "success": "The chain reaches a relative clearing a house; authority to sell still needs checking.",
+        "failure": "One link in the button’s ownership chain remains missing. Guesses change neither party’s rights.",
+        "success_echo": "Both families await a letter rather than fight in public.",
+        "failure_echo": "The trader retains the slips; anyone supplying further evidence chooses to do so.",
+        "success_reaction": "Both families await a letter rather than fight in public.",
+        "failure_reaction": "The trader retains the slips; anyone supplying further evidence chooses to do so."
+      },
+      "sg-q14.c2": {
+        "title": "Arrange temporary safekeeping with both names",
+        "description": "Arrange temporary safekeeping with both names without additional promises on behalf of absent people.",
+        "success": "An agreed holder keeps the button; no one automatically gains or loses money.",
+        "failure": "One link in the button’s ownership chain remains missing. Guesses change neither party’s rights.",
+        "success_echo": "Return or compensation will depend on later verified facts.",
+        "failure_echo": "The trader retains the slips; anyone supplying further evidence chooses to do so.",
+        "success_reaction": "Return or compensation will depend on later verified facts.",
+        "failure_reaction": "The trader retains the slips; anyone supplying further evidence chooses to do so."
+      },
+      "sg-q14.c3": {
+        "title": "Hear the handler compare the receipts",
+        "description": "With the trader present, compare the slips with two accounts of the transfer, recording only what is actually heard.",
+        "success": "The accounts use different meanings of “keep it for someone.” You identify the difference without declaring a gift or theft.",
+        "failure": "One link in the button’s ownership chain remains missing. Guesses change neither party’s rights.",
+        "success_echo": "The trader asks the holder to check the words; the button remains under its existing custody.",
+        "failure_echo": "The trader retains the slips; anyone supplying further evidence chooses to do so.",
+        "success_reaction": "The trader asks the holder to check the words; the button remains under its existing custody.",
+        "failure_reaction": "The trader retains the slips; anyone supplying further evidence chooses to do so."
+      }
+    }
+  },
+  "sg-q15": {
+    "title": "Bell Bronze and Marsh Roads",
+    "brief": "Salvagers want bronze money for a road; keepers fear the bell supports the walkway.",
+    "objectives": {
+      "sg-q15.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q15.c1": {
+        "title": "Survey supports and mark the danger",
+        "description": "Survey supports and mark the danger without additional promises on behalf of absent people.",
+        "success": "You identify load-bearing points that prevent cutting away the whole rim.",
+        "failure": "The walkway’s subsidence exceeds what this inspection and material can establish; the whole marsh route is not declared safe.",
+        "success_echo": "Salvagers discuss loose fragments instead; road funding remains incomplete.",
+        "failure_echo": "Danger marks remain; salvagers must find other footing rather than be compelled to risk their lives.",
+        "success_reaction": "Salvagers discuss loose fragments instead; road funding remains incomplete.",
+        "failure_reaction": "Danger marks remain; salvagers must find other footing rather than be compelled to risk their lives."
+      },
+      "sg-q15.c2": {
+        "title": "Bring timber to reinforce one wet crossing",
+        "description": "Bring timber to reinforce one wet crossing without additional promises on behalf of absent people.",
+        "success": "One walkway section is stable; the rest remains dangerous.",
+        "failure": "The walkway’s subsidence exceeds what this inspection and material can establish; the whole marsh route is not declared safe.",
+        "success_echo": "A keeper offers a reinspection, not universal safety.",
+        "failure_echo": "Danger marks remain; salvagers must find other footing rather than be compelled to risk their lives.",
+        "success_reaction": "A keeper offers a reinspection, not universal safety.",
+        "failure_reaction": "Danger marks remain; salvagers must find other footing rather than be compelled to risk their lives."
+      }
+    }
+  },
+  "sg-q16": {
+    "title": "Copperback’s First Clean Bucket",
+    "brief": "The clinic lacks clean water while owners and workers debate pump versus settling pool.",
+    "objectives": {
+      "sg-q16.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q16.c1": {
+        "title": "Repair the pump and clear the visible blockage",
+        "description": "Repair the pump and clear the visible blockage without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "The pump runs; flow is not proof of clean water.",
+        "failure": "Water remains cloudy after the pump. This batch is not cleared for the ward.",
+        "success_echo": "Workers begin water records to guide maintenance.",
+        "failure_echo": "The water engineer separates suspect samples; clean supplies still come from established sources.",
+        "success_reaction": "Workers begin water records to guide maintenance.",
+        "failure_reaction": "The water engineer separates suspect samples; clean supplies still come from established sources."
+      },
+      "sg-q16.c2": {
+        "title": "Prepare a limited clean supply for the clinic",
+        "description": "Prepare a limited clean supply for the clinic without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "Herbs and salt treat this batch; long-term supply remains unresolved.",
+        "failure": "Water remains cloudy after the pump. This batch is not cleared for the ward.",
+        "success_echo": "The clinic gains breathing room and joins the next water discussion.",
+        "failure_echo": "The water engineer separates suspect samples; clean supplies still come from established sources.",
+        "success_reaction": "The clinic gains breathing room and joins the next water discussion.",
+        "failure_reaction": "The water engineer separates suspect samples; clean supplies still come from established sources."
+      }
+    }
+  },
+  "sg-q17": {
+    "title": "Should the Fan Stop",
+    "brief": "Shaft Seven’s fan is broken; stopping costs wages and continuing risks workers.",
+    "objectives": {
+      "sg-q17.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q17.c1": {
+        "title": "Bring iron parts to repair the fan shaft",
+        "description": "Bring iron parts to repair the fan shaft without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "After evacuation, you help repair the shaft; reopening needs inspection.",
+        "failure": "The fan still turns unevenly. Restored underground ventilation cannot be claimed as a completion fact.",
+        "success_echo": "Workers ask for a clear agreement on pay during closures.",
+        "failure_echo": "The shift foreman records the fault; air must be checked again before later entry.",
+        "success_reaction": "Workers ask for a clear agreement on pay during closures.",
+        "failure_reaction": "The shift foreman records the fault; air must be checked again before later entry."
+      },
+      "sg-q17.c2": {
+        "title": "Support closure and arrange emergency support",
+        "description": "Support closure and arrange emergency support without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "Workers leave first; losses are recorded rather than treating one meal as full compensation.",
+        "failure": "The fan still turns unevenly. Restored underground ventilation cannot be claimed as a completion fact.",
+        "success_echo": "The houses must address pay; workers need not make their helper a permanent leader.",
+        "failure_echo": "The shift foreman records the fault; air must be checked again before later entry.",
+        "success_reaction": "The houses must address pay; workers need not make their helper a permanent leader.",
+        "failure_reaction": "The shift foreman records the fault; air must be checked again before later entry."
+      }
+    }
+  },
+  "sg-q18": {
+    "title": "Swords or Ploughshares",
+    "brief": "One furnace must meet a military order and repair ploughs; both claim urgency.",
+    "objectives": {
+      "sg-q18.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q18.c1": {
+        "title": "Reschedule around actual delivery needs",
+        "description": "Reschedule around actual delivery needs without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "Deferrable military work is separated from urgent farm repairs, subject to customer agreement.",
+        "failure": "The repaired joint remains insecure. The workshop does not hand it to a user or pay completion wages.",
+        "success_echo": "Clients see a clear order; resentments do not instantly vanish.",
+        "failure_echo": "The smith keeps the defect on the inspection record for a better-prepared later attempt.",
+        "success_reaction": "Clients see a clear order; resentments do not instantly vanish.",
+        "failure_reaction": "The smith keeps the defect on the inspection record for a better-prepared later attempt."
+      },
+      "sg-q18.c2": {
+        "title": "Bring material to repair everyday tools",
+        "description": "Bring material to repair everyday tools without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "You complete a limited repair without magically multiplying the workshop’s output.",
+        "failure": "The repaired joint remains insecure. The workshop does not hand it to a user or pay completion wages.",
+        "success_echo": "Growers offer food for future work, with quantities still to negotiate.",
+        "failure_echo": "The smith keeps the defect on the inspection record for a better-prepared later attempt.",
+        "success_reaction": "Growers offer food for future work, with quantities still to negotiate.",
+        "failure_reaction": "The smith keeps the defect on the inspection record for a better-prepared later attempt."
+      }
+    }
+  },
+  "sg-q19": {
+    "title": "Inside the Lake Closure",
+    "brief": "A vague water closure leaves apprentices and fishers following different interpretations.",
+    "objectives": {
+      "sg-q19.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q19.c1": {
+        "title": "Measure and mark the boundary clearly",
+        "description": "Measure and mark the boundary clearly without additional promises on behalf of absent people.",
+        "success": "Unsafe collection zones are separated from navigable crossings.",
+        "failure": "The lake boundary and measured waterline still differ, preventing an agreed perimeter.",
+        "success_echo": "Some market traffic returns; surveyors must explain later findings.",
+        "failure_echo": "Fishers and scholars retain their evidence; no new eviction or navigation ban is created.",
+        "success_reaction": "Some market traffic returns; surveyors must explain later findings.",
+        "failure_reaction": "Fishers and scholars retain their evidence; no new eviction or navigation ban is created."
+      },
+      "sg-q19.c2": {
+        "title": "Bring both sides together over specific needs",
+        "description": "Bring both sides together over specific needs without additional promises on behalf of absent people.",
+        "success": "Apprentices explain tests and fishers livelihoods, producing an interim agreement.",
+        "failure": "The lake boundary and measured waterline still differ, preventing an agreed perimeter.",
+        "success_echo": "Future changes use agreed channels, not instant universal knowledge.",
+        "failure_echo": "Fishers and scholars retain their evidence; no new eviction or navigation ban is created.",
+        "success_reaction": "Future changes use agreed channels, not instant universal knowledge.",
+        "failure_reaction": "Fishers and scholars retain their evidence; no new eviction or navigation ban is created."
+      }
+    }
+  },
+  "sg-q20": {
+    "title": "A Chart One Mark Off",
+    "brief": "An old chart may be one mark wrong; acknowledgment could damage a scholar’s standing.",
+    "objectives": {
+      "sg-q20.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q20.c1": {
+        "title": "Compare observations and copy versions",
+        "description": "Compare observations and copy versions without additional promises on behalf of absent people.",
+        "success": "You locate a copy error, not prove every old chart wrong.",
+        "failure": "Observation dates and copy versions do not align. This check cannot certify every chart.",
+        "success_echo": "The tower agrees to correct affected pages; sailors must receive them.",
+        "failure_echo": "The copyist flags suspect pages; vessels without corrections are not treated as informed.",
+        "success_reaction": "The tower agrees to correct affected pages; sailors must receive them.",
+        "failure_reaction": "The copyist flags suspect pages; vessels without corrections are not treated as informed."
+      },
+      "sg-q20.c2": {
+        "title": "Seek an uncertainty notice before full correction",
+        "description": "Seek an uncertainty notice before full correction without additional promises on behalf of absent people.",
+        "success": "The scholar marks the uncertain region without unsupported accusations.",
+        "failure": "Observation dates and copy versions do not align. This check cannot certify every chart.",
+        "success_echo": "Acknowledging uncertainty persuades some crews to share observations.",
+        "failure_echo": "The copyist flags suspect pages; vessels without corrections are not treated as informed.",
+        "success_reaction": "Acknowledging uncertainty persuades some crews to share observations.",
+        "failure_reaction": "The copyist flags suspect pages; vessels without corrections are not treated as informed."
+      }
+    }
+  },
+  "sg-q21": {
+    "title": "The Terms of Donated Paper",
+    "brief": "New paper arrives with a demand that some students be excluded.",
+    "objectives": {
+      "sg-q21.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q21.c1": {
+        "title": "Seek joint funding without exclusion",
+        "description": "Seek joint funding without exclusion without additional promises on behalf of absent people.",
+        "success": "Smaller sponsors share the need; the exclusionary terms were not silently accepted.",
+        "failure": "Paper and lesson arrangements do not reach mutually acceptable terms; no donation is completed.",
+        "success_echo": "Lessons resume; students of every people still have to study.",
+        "failure_echo": "The school uses its existing stock without changing admission for an unrealized donation.",
+        "success_reaction": "Lessons resume; students of every people still have to study.",
+        "failure_reaction": "The school uses its existing stock without changing admission for an unrealized donation."
+      },
+      "sg-q21.c2": {
+        "title": "Repair old boards and writing tools",
+        "description": "Repair old boards and writing tools without additional promises on behalf of absent people.",
+        "success": "Old tools become useful again, easing rather than solving the shortage.",
+        "failure": "Paper and lesson arrangements do not reach mutually acceptable terms; no donation is completed.",
+        "success_echo": "Adult learners offer a repair rotation, creating a practical habit.",
+        "failure_echo": "The school uses its existing stock without changing admission for an unrealized donation.",
+        "success_reaction": "Adult learners offer a repair rotation, creating a practical habit.",
+        "failure_reaction": "The school uses its existing stock without changing admission for an unrealized donation."
+      }
+    }
+  },
+  "sg-q22": {
+    "title": "Whose Name on the Gate",
+    "brief": "Three envoys dispute a repair inscription while residents wait for drafts to stop.",
+    "objectives": {
+      "sg-q22.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q22.c1": {
+        "title": "Repair the gaps residents use daily",
+        "description": "Repair the gaps residents use daily without additional promises on behalf of absent people. The local repair fund pays the listed amount for the completed work.",
+        "success": "Wood and stone are repaired without slipping political vows into wage receipts.",
+        "failure": "The gap repair or plaque arrangement remains inadequate; residents have not gained a finished entrance.",
+        "success_echo": "Residents turn toward maintenance rather than ceremonial credit.",
+        "failure_echo": "Neighbors record access problems separately from titles, with a real inspection still needed.",
+        "success_reaction": "Residents turn toward maintenance rather than ceremonial credit.",
+        "failure_reaction": "Neighbors record access problems separately from titles, with a real inspection still needed."
+      },
+      "sg-q22.c2": {
+        "title": "Separate commemorations from public repairs",
+        "description": "The three parties attach conflicting conditions. A newly learned method may not untangle them; unresolved positions remain on record.",
+        "success": "All accept the shared repair first; inscriptions remain unsettled.",
+        "failure": "The gap repair or plaque arrangement remains inadequate; residents have not gained a finished entrance.",
+        "success_echo": "Envoys react according to their interests, not unanimous submission.",
+        "failure_echo": "Neighbors record access problems separately from titles, with a real inspection still needed.",
+        "success_reaction": "Envoys react according to their interests, not unanimous submission.",
+        "failure_reaction": "Neighbors record access problems separately from titles, with a real inspection still needed."
+      }
+    }
+  },
+  "sg-q23": {
+    "title": "Two Inheritance Papers",
+    "brief": "Conflicting inheritance papers affect families still living on the land.",
+    "objectives": {
+      "sg-q23.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q23.c1": {
+        "title": "Examine ink, custody and testimony",
+        "description": "Examine ink, custody and testimony without additional promises on behalf of absent people.",
+        "success": "One has a later passage whose writer and authority remain uncertain. The clerk gives you an authorized checked copy.",
+        "failure": "Both inheritance documents have gaps in custody; neither crown nor land rights are established.",
+        "success_echo": "Families receive the verified findings rather than instant eviction.",
+        "failure_echo": "The archivist preserves version differences; new witnesses must state what they actually saw.",
+        "success_reaction": "Families receive the verified findings rather than instant eviction.",
+        "failure_reaction": "The archivist preserves version differences; new witnesses must state what they actually saw."
+      },
+      "sg-q23.c2": {
+        "title": "Record the facts both sides accept",
+        "description": "Record the facts both sides accept without additional promises on behalf of absent people.",
+        "success": "Agreed landmarks and occupancy history are separated from disputed claims.",
+        "failure": "Both inheritance documents have gaps in custody; neither crown nor land rights are established.",
+        "success_echo": "Mediation gains a shared starting point without a guaranteed agreement.",
+        "failure_echo": "The archivist preserves version differences; new witnesses must state what they actually saw.",
+        "success_reaction": "Mediation gains a shared starting point without a guaranteed agreement.",
+        "failure_reaction": "The archivist preserves version differences; new witnesses must state what they actually saw."
+      },
+      "sg-q23.c3": {
+        "title": "Read the archives against residents’ lives",
+        "description": "Use learned legacy interpretation to compare three generations of accounts with pages the present archivist may show. Genealogy is no property judgment.",
+        "success": "You distinguish custody from inherited ownership and prepare an authorized checked copy, without adjudicating the dispute for either party.",
+        "failure": "Both inheritance documents have gaps in custody; neither crown nor land rights are established.",
+        "success_echo": "The archivist labels both usages separately. Neighbors can discuss present maintenance without first choosing a monarch.",
+        "failure_echo": "The archivist preserves version differences; new witnesses must state what they actually saw.",
+        "success_reaction": "The archivist labels both usages separately. Neighbors can discuss present maintenance without first choosing a monarch.",
+        "failure_reaction": "The archivist preserves version differences; new witnesses must state what they actually saw."
+      }
+    }
+  },
+  "sg-q24": {
+    "title": "A New Core or Old Echoes",
+    "brief": "The ancient beacon fades; navigation and old echoes cannot both be guaranteed by words.",
+    "objectives": {
+      "sg-q24.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q24.c1": {
+        "title": "Stabilize the core with removable guides",
+        "description": "Both old conducting patterns must align. A novice attempt may remain unstable and uses this batch of glowstone and silver wire; the repair fund covers only part of the materials.",
+        "success": "The beam steadies without removing the core; another inspection remains necessary.",
+        "failure": "The core connection or echo transcript cannot be reliably checked. The beacon has not regained full function.",
+        "success_echo": "Crews offer navigation logs while keepers plan limited repairs.",
+        "failure_echo": "The keeper works within existing limits; missing records do not become invented ancient truths.",
+        "success_reaction": "Crews offer navigation logs while keepers plan limited repairs.",
+        "failure_reaction": "The keeper works within existing limits; missing records do not become invented ancient truths."
+      },
+      "sg-q24.c2": {
+        "title": "Record readable echoes and structure first",
+        "description": "Record the echoes and structure you can actually interpret, preserving readable portions. This independent observation carries no agreed payment.",
+        "success": "Readable portions are preserved, but the beacon itself is not repaired.",
+        "failure": "The core connection or echo transcript cannot be reliably checked. The beacon has not regained full function.",
+        "success_echo": "Sailors ask for alternate warnings; scholars confront the cost of delay.",
+        "failure_echo": "The keeper works within existing limits; missing records do not become invented ancient truths.",
+        "success_reaction": "Sailors ask for alternate warnings; scholars confront the cost of delay.",
+        "failure_reaction": "The keeper works within existing limits; missing records do not become invented ancient truths."
+      }
+    }
+  },
+  "sg-q25": {
+    "title": "Names on the List",
+    "brief": "A reunion list may also expose people fleeing old enemies.",
+    "objectives": {
+      "sg-q25.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q25.c1": {
+        "title": "Keep contact through a consent-based intermediary",
+        "description": "Keep contact through a consent-based intermediary without additional promises on behalf of absent people.",
+        "success": "Public and mediated contacts are separated without treating silence as consent.",
+        "failure": "Similar names and secondhand accounts remain unresolved. A resemblance is not consent to contact.",
+        "success_echo": "Searchers request contact through the intermediary; the sought person may refuse.",
+        "failure_echo": "The intermediary keeps entries unconfirmed and withholds addresses from unverified seekers.",
+        "success_reaction": "Searchers request contact through the intermediary; the sought person may refuse.",
+        "failure_reaction": "The intermediary keeps entries unconfirmed and withholds addresses from unverified seekers."
+      },
+      "sg-q25.c2": {
+        "title": "Check errors without copying the whole list",
+        "description": "Check errors without copying the whole list without additional promises on behalf of absent people.",
+        "success": "Name errors are corrected while full addresses remain with the original keeper.",
+        "failure": "Similar names and secondhand accounts remain unresolved. A resemblance is not consent to contact.",
+        "success_echo": "One searcher gains a sound lead without exposing everyone else.",
+        "failure_echo": "The intermediary keeps entries unconfirmed and withholds addresses from unverified seekers.",
+        "success_reaction": "One searcher gains a sound lead without exposing everyone else.",
+        "failure_reaction": "The intermediary keeps entries unconfirmed and withholds addresses from unverified seekers."
+      }
+    }
+  },
+  "sg-q26": {
+    "title": "Seats After the Repair",
+    "brief": "The bridge repair has consequences; workers want small wagon owners included next time.",
+    "objectives": {
+      "sg-q26.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q26.c1": {
+        "title": "Invite the people actually affected",
+        "description": "Invite the people actually affected without additional promises on behalf of absent people.",
+        "success": "Those present agree a limited work window without forced League membership.",
+        "failure": "Participants or costs for the next repair remain unclear; small wagon owners take on no new schedule.",
+        "success_echo": "Some keep their word and others must explain delays; later actions matter.",
+        "failure_echo": "The crew keeps unresolved terms open without paying again for the completed earlier work.",
+        "success_reaction": "Some keep their word and others must explain delays; later actions matter.",
+        "failure_reaction": "The crew keeps unresolved terms open without paying again for the completed earlier work."
+      },
+      "sg-q26.c2": {
+        "title": "Clarify what has and has not been paid",
+        "description": "Clarify what has and has not been paid without additional promises on behalf of absent people.",
+        "success": "Clear amounts narrow the dispute without a speech erasing debt.",
+        "failure": "Participants or costs for the next repair remain unclear; small wagon owners take on no new schedule.",
+        "success_echo": "Workers can decide whether to accept the next job.",
+        "failure_echo": "The crew keeps unresolved terms open without paying again for the completed earlier work.",
+        "success_reaction": "Workers can decide whether to accept the next job.",
+        "failure_reaction": "The crew keeps unresolved terms open without paying again for the completed earlier work."
+      }
+    }
+  },
+  "sg-q27": {
+    "title": "The Next Clean Water Step",
+    "brief": "Copperback now has water records for miners and keepers to compare.",
+    "objectives": {
+      "sg-q27.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q27.c1": {
+        "title": "Compare labeled samples with outlets",
+        "description": "Compare labeled samples with outlets without additional promises on behalf of absent people.",
+        "success": "You rule out one wrongly blamed outlet and retain unresolved sources.",
+        "failure": "Existing samples cannot rule out the disputed outlet; no new modification plan is agreed.",
+        "success_echo": "Both agree to a small modification whose effect must be observed later.",
+        "failure_echo": "Workers and keepers retain the records; a later attempt needs an independent comparison.",
+        "success_reaction": "Both agree to a small modification whose effect must be observed later.",
+        "failure_reaction": "Workers and keepers retain the records; a later attempt needs an independent comparison."
+      },
+      "sg-q27.c2": {
+        "title": "Hear urgent needs from clinic and miners",
+        "description": "Hear urgent needs from clinic and miners without additional promises on behalf of absent people.",
+        "success": "Needs are separately prioritized rather than awarded to the loudest voice.",
+        "failure": "Existing samples cannot rule out the disputed outlet; no new modification plan is agreed.",
+        "success_echo": "Trust changes with delivery, not instantly with promises.",
+        "failure_echo": "Workers and keepers retain the records; a later attempt needs an independent comparison.",
+        "success_reaction": "Trust changes with delivery, not instantly with promises.",
+        "failure_reaction": "Workers and keepers retain the records; a later attempt needs an independent comparison."
+      }
+    }
+  },
+  "sg-q28": {
+    "title": "Ships After the Correction",
+    "brief": "Charts have a correction or warning; someone must verify which version crews actually use.",
+    "objectives": {
+      "sg-q28.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q28.c1": {
+        "title": "Compare three working chart copies",
+        "description": "Compare three working chart copies without additional promises on behalf of absent people.",
+        "success": "One copy is outdated; its owner agrees to replace the affected pages.",
+        "failure": "The copies received by chart users remain unverified. The warning is not proven to have reached every vessel.",
+        "success_echo": "Crews share observations; ships not yet in port still lack the update.",
+        "failure_echo": "The dock keeps unchecked copies listed until actual replies change the record.",
+        "success_reaction": "Crews share observations; ships not yet in port still lack the update.",
+        "failure_reaction": "The dock keeps unchecked copies listed until actual replies change the record."
+      },
+      "sg-q28.c2": {
+        "title": "Hear crews’ losses from the delay",
+        "description": "Hear crews’ losses from the delay without additional promises on behalf of absent people.",
+        "success": "Losses are recorded and scholars state what they can cover, without pretending universal satisfaction.",
+        "failure": "The copies received by chart users remain unverified. The warning is not proven to have reached every vessel.",
+        "success_echo": "Future correspondence and work, not one conversation, shape the relationship.",
+        "failure_echo": "The dock keeps unchecked copies listed until actual replies change the record.",
+        "success_reaction": "Future correspondence and work, not one conversation, shape the relationship.",
+        "failure_reaction": "The dock keeps unchecked copies listed until actual replies change the record."
+      }
+    }
+  },
+  "sg-q29": {
+    "title": "Neighbors Beyond Names",
+    "brief": "Gate arrangements exist; neighbors want maintenance freed from recurring succession disputes.",
+    "objectives": {
+      "sg-q29.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q29.c1": {
+        "title": "Arrange voluntary watch and inspection turns",
+        "description": "Arrange voluntary watch and inspection turns without additional promises on behalf of absent people.",
+        "success": "Participants take only agreed turns, not bind the entire street to a faction.",
+        "failure": "Watch and maintenance commitments lack willing named participants; no blanket rota is imposed.",
+        "success_echo": "Absences need notice and replacement; real interactions continue.",
+        "failure_echo": "The repaired gate remains in use, while cooperation requires clarifying the remaining duties.",
+        "success_reaction": "Absences need notice and replacement; real interactions continue.",
+        "failure_reaction": "The repaired gate remains in use, while cooperation requires clarifying the remaining duties."
+      },
+      "sg-q29.c2": {
+        "title": "Teach residents to maintain a troublesome hinge",
+        "description": "Teach residents to maintain a troublesome hinge without additional promises on behalf of absent people.",
+        "success": "Residents practice the repair themselves instead of awaiting a hero.",
+        "failure": "Watch and maintenance commitments lack willing named participants; no blanket rota is imposed.",
+        "success_echo": "Tool ownership and resupply become ordinary future discussions.",
+        "failure_echo": "The repaired gate remains in use, while cooperation requires clarifying the remaining duties.",
+        "success_reaction": "Tool ownership and resupply become ordinary future discussions.",
+        "failure_reaction": "The repaired gate remains in use, while cooperation requires clarifying the remaining duties."
+      }
+    }
+  },
+  "sg-q30": {
+    "title": "Whose Homes the Beacon Reaches",
+    "brief": "Beacon work has progressed; small boat owners ask how it helps them.",
+    "objectives": {
+      "sg-q30.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q30.c1": {
+        "title": "Survey the beam’s visible reach from the beacon shore",
+        "description": "Survey the beam’s visible reach from the beacon shore. Leave unvisited waters unmarked rather than confirming them for absent crews.",
+        "success": "You mark an obstructing reef; the beam does not cover every stretch of sea.",
+        "failure": "This trip’s visibility records are insufficient; unobserved waters are not added to the beacon’s reach.",
+        "success_echo": "Crews propose a simple shore marker rather than another ancient miracle.",
+        "failure_echo": "Boat owners retain weather and obstruction concerns and keep backup shore markers.",
+        "success_reaction": "Crews propose a simple shore marker rather than another ancient miracle.",
+        "failure_reaction": "Boat owners retain weather and obstruction concerns and keep backup shore markers."
+      },
+      "sg-q30.c2": {
+        "title": "Ask keepers to explain maintenance and limits",
+        "description": "Ask keepers to explain maintenance and limits without additional promises on behalf of absent people.",
+        "success": "Keepers explain weather limits and discuss alternatives.",
+        "failure": "This trip’s visibility records are insufficient; unobserved waters are not added to the beacon’s reach.",
+        "success_echo": "Understanding limits grounds cooperation while the beacon’s past remains partly unknown.",
+        "failure_echo": "Boat owners retain weather and obstruction concerns and keep backup shore markers.",
+        "success_reaction": "Understanding limits grounds cooperation while the beacon’s past remains partly unknown.",
+        "failure_reaction": "Boat owners retain weather and obstruction concerns and keep backup shore markers."
+      }
+    }
+  },
+  "sg-q31": {
+    "title": "The Letter Someone Chose to Answer",
+    "brief": "A mediated search receives an answer, but the person may not want to return.",
+    "objectives": {
+      "sg-q31.resolve": "Address this matter by your chosen method and record what actually happens."
+    },
+    "choices": {
+      "sg-q31.c1": {
+        "title": "Respect an answer that offers only reassurance",
+        "description": "Respect an answer that offers only reassurance without additional promises on behalf of absent people.",
+        "success": "You relay authorized news without promising a reunion. The person freely entrusts you with a cloth family token, without permission to reveal their address.",
+        "failure": "The person has not confirmed what may be relayed. You promise neither their return nor their address.",
+        "success_echo": "The searcher may grieve or gradually accept; reconciliation is not forced.",
+        "failure_echo": "The intermediary retains an unapproved draft; the person decides whether to continue.",
+        "success_reaction": "The searcher may grieve or gradually accept; reconciliation is not forced.",
+        "failure_reaction": "The intermediary retains an unapproved draft; the person decides whether to continue."
+      },
+      "sg-q31.c2": {
+        "title": "Record present life with a willing speaker",
+        "description": "Record present life with a willing speaker without additional promises on behalf of absent people.",
+        "success": "The person describes new work and friends rather than only a former identity.",
+        "failure": "The person has not confirmed what may be relayed. You promise neither their return nor their address.",
+        "success_echo": "Sharing that account with family remains the speaker’s decision.",
+        "failure_echo": "The intermediary retains an unapproved draft; the person decides whether to continue.",
+        "success_reaction": "Sharing that account with family remains the speaker’s decision.",
+        "failure_reaction": "The intermediary retains an unapproved draft; the person decides whether to continue."
+      }
+    }
+  },
+  "sg-guild-white-thorn": {
+    "title": "Roadkeepers’ Supplies",
+    "brief": "Check supplies for the next voluntary escort without deciding who must take part.",
+    "objectives": {
+      "sg-guild-white-thorn.resolve": "Complete the specific agreed work."
+    },
+    "choices": {
+      "sg-guild-white-thorn.c1": {
+        "title": "Roadkeepers’ Supplies",
+        "description": "Check supplies for the next voluntary escort without deciding who must take part.",
+        "success": "You check the agreed escort’s supplies and return missing spare ties to the requisition. The stores remain the company’s property.",
+        "failure": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_echo": "The next escort can draw supplies from the list; each member still chooses whether to travel.",
+        "failure_echo": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_reaction": "The next escort can draw supplies from the list; each member still chooses whether to travel.",
+        "failure_reaction": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit."
+      }
+    }
+  },
+  "sg-guild-nine-towers": {
+    "title": "Open Copy Rotation",
+    "brief": "Organize approved public copies without exposing sealed private records.",
+    "objectives": {
+      "sg-guild-nine-towers.resolve": "Complete the specific agreed work."
+    },
+    "choices": {
+      "sg-guild-nine-towers.c1": {
+        "title": "Open Copy Rotation",
+        "description": "Organize approved public copies without exposing sealed private records.",
+        "success": "You sort approved public copies by edition while sealed records stay in their cabinet, making revisions distinguishable.",
+        "failure": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_echo": "Readers flag a different annotation that the school must check before copying changes.",
+        "failure_echo": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_reaction": "Readers flag a different annotation that the school must check before copying changes.",
+        "failure_reaction": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit."
+      }
+    }
+  },
+  "sg-guild-ashriver-league": {
+    "title": "The Bridge Market Scale",
+    "brief": "Calibrate the shared scale before actual stallholders and leave checkable marks.",
+    "objectives": {
+      "sg-guild-ashriver-league.resolve": "Complete the specific agreed work."
+    },
+    "choices": {
+      "sg-guild-ashriver-league.c1": {
+        "title": "The Bridge Market Scale",
+        "description": "Calibrate the shared scale before actual stallholders and leave checkable marks.",
+        "success": "The shared scale is calibrated with existing weights. Traders record this check without automatically canceling old debts.",
+        "failure": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_echo": "Traders have a checkable record for later weight disputes while prices remain negotiable.",
+        "failure_echo": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_reaction": "Traders have a checkable record for later weight disputes while prices remain negotiable.",
+        "failure_reaction": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit."
+      }
+    }
+  },
+  "sg-guild-deephearth": {
+    "title": "The Workers’ Medicine Shelf",
+    "brief": "Repair the agreed medicine shelf without turning the clinic into one house’s private store.",
+    "objectives": {
+      "sg-guild-deephearth.resolve": "Complete the specific agreed work."
+    },
+    "choices": {
+      "sg-guild-deephearth.c1": {
+        "title": "The Workers’ Medicine Shelf",
+        "description": "Repair the agreed medicine shelf without turning the clinic into one house’s private store.",
+        "success": "You secure the shared medicine shelf and mark a damp tier for drying; the existing custodian still logs distribution.",
+        "failure": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_echo": "Later shifts use the new markings; replenishment still requires an actual delivery.",
+        "failure_echo": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_reaction": "Later shifts use the new markings; replenishment still requires an actual delivery.",
+        "failure_reaction": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit."
+      }
+    }
+  },
+  "sg-guild-lostlands": {
+    "title": "An Intermediary’s Promise",
+    "brief": "Organize contact requests people have consented to relay; silence is not agreement.",
+    "objectives": {
+      "sg-guild-lostlands.resolve": "Complete the specific agreed work."
+    },
+    "choices": {
+      "sg-guild-lostlands.c1": {
+        "title": "An Intermediary’s Promise",
+        "description": "Organize contact requests people have consented to relay; silence is not agreement.",
+        "success": "Approved contact requests are separately sealed. Unapproved addresses stay out of letters to searchers.",
+        "failure": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_echo": "The intermediary follows each person’s permitted contact method; some offer reassurance but decline a meeting.",
+        "failure_echo": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit.",
+        "success_reaction": "The intermediary follows each person’s permitted contact method; some offer reassurance but decline a meeting.",
+        "failure_reaction": "Preparation remains insufficient. Colleagues explain what is missing; membership is no unconditional permit."
+      }
+    }
+  },
+  "sg-crypt-inquiry": {
+    "title": "The Warden Still Calling Names",
+    "brief": "Rain in the old sluice wakes an iron oath-warden that calls a dead company’s roll. Joven finds living families’ surnames at the end.",
+    "objectives": {
+      "sg-crypt-inquiry.stage1": "Establish what the roll-caller actually records",
+      "sg-crypt-inquiry.stage2": "Stop the current false muster",
+      "sg-crypt-inquiry.stage3": "Decide who keeps the removed key"
+    },
+    "choices": {
+      "sg-crypt-inquiry.stage1.c1": {
+        "title": "Read two layers of different-aged inscriptions",
+        "description": "Read from the threshold using learned script knowledge, without crossing the roll-call line.",
+        "success": "A later hand recut an old levy roll. The device repeats its last order; no dead person answers.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Joven compares the graves and finds shared surnames cannot prove descent from deserters.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Joven compares the graves and finds shared surnames cannot prove descent from deserters.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage1.c2": {
+        "title": "Ask Joven to explain the objects he found",
+        "description": "Separate the keeper’s direct observations from his guesses.",
+        "success": "Joven shows a copper letter that fell after rain, linking the noise to sluice water. Who changed the order remains unknown.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "He offers another inspection but asks that personal grave goods remain untouched.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "He offers another inspection but asks that personal grave goods remain untouched.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage2.c1": {
+        "title": "Reconnect the sluice spring and halt the warden",
+        "description": "Spend two iron and one glowstone to replace corroded contacts while preserving the roll.",
+        "success": "The muster stops. Joven entrusts the removed sluice key as evidence; the roll remains inside the shell.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "The keeper can repair graves in quiet, but the surviving warden needs a declared purpose before anyone powers it again.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "The keeper can repair graves in quiet, but the surviving warden needs a declared purpose before anyone powers it again.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage2.c2": {
+        "title": "Gather remains after actually defeating the warden",
+        "description": "First defeat the iron warden in this location’s actual combat, then inventory remains with the keeper. This choice wins no battle for you.",
+        "success": "The silent shell holds half a roll. You and Joven recover the key; combat destroyed the other inscriptions.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Night musters no longer trouble the village, but several families can never recover their missing line.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Night musters no longer trouble the village, but several families can never recover their missing line.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage3.c1": {
+        "title": "Return the key and record the events",
+        "description": "Hand the acquired key to Joven and record only witnessed events.",
+        "success": "The keeper receives the key, with a record of what survived and what was lost.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Joven lets the families read the account without certifying a claimant’s ancestry.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Joven lets the families read the account without certifying a claimant’s ancestry.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage3.c2": {
+        "title": "Explain why you will keep the key for now",
+        "description": "State that you intend to keep the object, without treating silence as the keeper’s approval.",
+        "success": "You keep the key. Joven does not seize it, but neither calls this an act of trust.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "The keeper tells visitors you hold the key, leaving later appeals or questions a trail to follow.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "The keeper tells visitors you hold the key, leaving later appeals or questions a trail to follow.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-crypt-inquiry.stage2.c3": {
+        "title": "Take a wax impression and release the outer latch",
+        "description": "Under Joven’s supervision, use owned lock tools and one wax portion on the outer latch to disengage the muster, without entering inner graves or claiming combat victory.",
+        "success": "The outer latch disconnects and the warden stops behind its line. Joven hands you the removed key for checking; shell and roll stay intact.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Joven marks the disengaged latch. Anyone reconnecting it later still needs to explain why.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Joven marks the disengaged latch. Anyone reconnecting it later still needs to explain why.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      }
+    }
+  },
+  "sg-watergate-inquiry": {
+    "title": "The Ledger Beneath the Drowned Court",
+    "brief": "At low water Asha spots a sealed box tied to an old tax pillar. Its seal is imperial; its knot is recent.",
+    "objectives": {
+      "sg-watergate-inquiry.stage1": "Establish an actual route to the box",
+      "sg-watergate-inquiry.stage2": "Recover the particular box from the water",
+      "sg-watergate-inquiry.stage3": "Deal with the ledger only after actually reaching the recipient"
+    },
+    "choices": {
+      "sg-watergate-inquiry.stage1.c1": {
+        "title": "Measure the backflow and broken steps",
+        "description": "Use your survey kit to mark footing and backflow within the low-water window.",
+        "success": "You mark a shallow channel and identify an old vault construct on the other side.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Asha uses the measured marks to bring tools and will check them again after the next tide.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Asha uses the measured marks to bring tools and will check them again after the next tide.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-watergate-inquiry.stage1.c2": {
+        "title": "Check Asha’s own route with her",
+        "description": "Approach along shallows the actual diver has already checked.",
+        "success": "Asha brings you to a dry ledge and explains that the construct mistakes anyone crossing the line for an old tax officer.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "She no longer enters alone, while each of you still chooses whether to continue.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "She no longer enters alone, while each of you still chooses whether to continue.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-watergate-inquiry.stage2.c1": {
+        "title": "Run a rope through the shallows and release the clamp",
+        "description": "Sacrifice one rope to drag the box and use forge tools on its clamp; this does not defeat the construct.",
+        "success": "The box reaches shore; the rope breaks underwater. It holds a recent grain ledger with several scraped entries.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Asha realizes the old vault remained in use. The ledger neither identifies every recipient nor proves the Court ordered the trade.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Asha realizes the old vault remained in use. The ledger neither identifies every recipient nor proves the Court ordered the trade.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-watergate-inquiry.stage2.c2": {
+        "title": "Inspect the seal after defeating the vault construct",
+        "description": "First defeat the vault construct in actual combat, then open the box with learned knowledge. The choice cannot skip combat.",
+        "success": "The shell sinks into the shallows. A second heat seal covers the old wax; inside lies the altered grain ledger.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "The construct stops barring this ledge, without making every deeper passage safe.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "The construct stops barring this ledge, without making every deeper passage safe.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-watergate-inquiry.stage3.c1": {
+        "title": "Give the ledger to the Outer Ward for checking",
+        "description": "Bring it to Fio in the Outer Ward for checking with affected grain households, without filling scraped words into accusations.",
+        "success": "The ward takes custody, sharing checked portions with affected households while leaving unknown destinations unresolved.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Some recover old receipts; others fear exposure will cut off the next shipment. Debate continues.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Some recover old receipts; others fear exposure will cut off the next shipment. Debate continues.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      },
+      "sg-watergate-inquiry.stage3.c2": {
+        "title": "Sell the original ledger to Mute",
+        "description": "Carry it to Blackwax Understreet. Mute offers twenty-five silver marks for the original, with no promise to clear its provenance.",
+        "success": "Mute pays and keeps both ledger and bargaining power. You receive the agreed money and no longer hold the original.",
+        "failure": "You stop where the evidence fails, without turning a missing fact into an accomplished result.",
+        "success_echo": "Some Blackwax members quietly approach grain merchants. Asha knows you took the ledger, not the details of this sale.",
+        "failure_echo": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again.",
+        "success_reaction": "Some Blackwax members quietly approach grain merchants. Asha knows you took the ledger, not the details of this sale.",
+        "failure_reaction": "This step remains unresolved. The people involved continue their own plans; later actions determine whether they will talk again."
+      }
+    }
+  }
+}

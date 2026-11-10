@@ -1,0 +1,72 @@
+.history-game {
+  --history-map-calm: #425b52;
+  --history-map-warning: #7c6747;
+  --history-map-danger: #8b493d;
+  --history-map-army: #485f80;
+}
+[data-theme="light"] .history-game {
+  --history-map-calm: #bacbb9;
+  --history-map-warning: #dbc99c;
+  --history-map-danger: #cf9686;
+  --history-map-army: #a6bbd0;
+}
+.history-illustrated-heading { min-height: 220px; padding: 34px 28px; border: 1px solid var(--history-line); border-radius: 12px; background-size: cover; background-position: center; align-items: flex-start; margin-top: 16px; }
+.history-illustrated-heading h1 { text-wrap: balance; }
+.history-illustrated-heading .history-calendar { background: color-mix(in srgb, var(--history-paper), transparent 10%); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--history-line); }
+.history-portrait { display: inline-flex; position: relative; width: 56px; height: 56px; flex: 0 0 56px; overflow: hidden; border-radius: 8px; border: 1px solid var(--history-brass); background: var(--history-raised); vertical-align: middle; align-items: center; justify-content: center; }
+.history-portrait > img { position: absolute; display: block; pointer-events: none; }
+.history-territory > summary > .history-portrait { margin-right: 12px; }
+.history-minister-message > .history-portrait { float: left; margin: 0 12px 8px 0; }
+.history-minister-message:after { content: ''; display: block; clear: both; }
+.history-ministers { max-height: 390px; overflow: auto; padding: 5px; scrollbar-gutter: stable; }
+.history-strategy-map { margin: 22px 0 32px; }
+.history-map-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+.history-map-toolbar > span { margin-left: auto; font-size: 11px; }
+.history-map-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, 0.38fr); border: 1px solid var(--history-line); border-radius: 10px; overflow: hidden; background: var(--history-raised); }
+.history-map-canvas { overflow: auto; min-width: 0; align-self: start; scrollbar-gutter: stable; }
+.history-geography { width: 100%; height: auto; max-height: 600px; align-self: center; }
+.history-map-route { stroke: var(--history-brass); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.4; }
+.history-map-region { cursor: pointer; }
+.history-map-region > path, .history-map-region > circle { stroke: var(--history-paper); stroke-width: 0.8; transition: filter 120ms; }
+.history-map-region:hover > *, .history-map-region:focus-visible > * { filter: brightness(1.2); stroke: var(--history-brass); stroke-width: 1.5; outline: none; }
+.history-map-region.is-selected > * { stroke: var(--history-brass); stroke-width: 2; }
+.history-map-label { fill: var(--history-ink); paint-order: stroke; stroke: var(--history-paper); stroke-width: 1.2; stroke-linejoin: round; font-weight: 600; }
+.history-map-army-count { fill: var(--history-brass); font-weight: 700; paint-order: stroke; stroke: var(--history-paper); stroke-width: 1; }
+.history-map-detail { padding: 20px; border-left: 1px solid var(--history-line); background: var(--history-paper); min-width: 0; }
+.history-map-detail h3 { font-size: 23px; font-family: Georgia, 'STSong', serif; margin-bottom: 18px; }
+.history-map-detail .history-world-metrics { margin-bottom: 14px; }
+.history-map-armies-title { display: flex; align-items: center; gap: 7px; margin: 22px 0 10px; }
+.history-map-armies-title svg { width: 15px; }
+.history-map-army { border-top: 1px solid var(--history-line); padding: 10px 0; }
+.history-map-army strong, .history-map-army small { display: block; }
+.history-map-army small { color: var(--history-muted); margin-top: 5px; }
+.history-map-destination { display: grid; gap: 8px; margin-top: 12px; }
+.history-edict-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 0.4fr); gap: 25px; align-items: start; }
+.history-edict-layout > * { min-width: 0; }
+.history-edict-reference { padding: 20px; border: 1px solid var(--history-line); border-radius: 8px; background: var(--history-raised); }
+.history-edict-reference h3 { font-size: 18px; margin-bottom: 10px; }
+.history-edict-reference .history-event, .history-edict-reference .history-prose { font-size: 12px; }
+.history-edict-reference details[open] { max-height: 60vh; overflow: auto; }
+.history-achievements { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 18px 0; }
+.history-achievements > svg { width: 20px; color: var(--history-brass); }
+.history-chronicle-season { border-left: 2px solid var(--history-brass); padding-left: 20px; margin-top: 20px; }
+.history-chronicle-season summary > span { margin-left: 14px; color: var(--history-muted); font-size: 12px; }
+.history-chronicle blockquote { border-left: 2px solid var(--history-line); margin: 16px 0; padding: 10px 15px; background: var(--history-raised); }
+.history-account-table { overflow-x: auto; margin: 12px 0; }
+.history-account-table table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.history-account-table th, .history-account-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--history-line); white-space: nowrap; }
+.history-account-table th:first-child { text-align: left; white-space: normal; min-width: 100px; }
+.history-account-table th small { display: block; font-weight: normal; color: var(--history-muted); }
+@media (max-width: 1000px) {
+  .history-map-layout, .history-edict-layout { grid-template-columns: minmax(0, 1fr); }
+  .history-map-detail { border-left: 0; border-top: 1px solid var(--history-line); }
+  .history-map-detail .history-world-metrics { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); }
+  .history-illustrated-heading { padding: 24px 18px; min-height: 200px; }
+}
+@media (max-width: 600px) {
+  .history-illustrated-heading { background-position: 65% center; }
+  .history-portrait { width: 46px; height: 46px; flex-basis: 46px; }
+  .history-map-toolbar > span { width: 100%; margin-left: 0; }
+  .history-ministers { max-height: 300px; }
+}
+@media (prefers-reduced-motion: reduce) { .history-map-region > * { transition: none; } }

@@ -1,0 +1,104 @@
+package handlers
+
+import (
+	"context"
+	"errors"
+	"io"
+
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
+
+	imageapp "ta/internal/app/image"
+	loreapp "ta/internal/app/lore"
+	imageasset "ta/internal/image/asset"
+)
+
+func (h *Handlers) HandleLoreItemImageGenerate(ctx context.Context, c *app.RequestContext) {
+	scope, ok := requireProjectScope(c)
+	if !ok {
+		return
+	}
+	var body loreapp.ItemImageGenerateRequest
+	if err := c.BindJSON(&body); err != nil && len(c.Request.Body()) > 0 {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.invalidRequestWithDetail", "detail", err.Error())
+		return
+	}
+	item, err := h.app.Lore().GenerateItemImage(ctx, scope.ProjectID, c.Param("id"), body)
+	if err != nil {
+		var toolErr *imageapp.ImageToolError
+		switch {
+		case errors.Is(err, imageapp.ErrImageToolNotCalled):
+			writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageAgentNotCalled")
+		case errors.Is(err, imageapp.ErrImageOutputMissing):
+			writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageAgentOutputMissing")
+		case errors.As(err, &toolErr):
+			if toolErr.Detail == "" {
+				writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageAgentToolFailed")
+			} else {
+				writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageAgentToolFailedWithDetail", "detail", toolErr.Detail)
+			}
+		default:
+			writeProjectBookError(c, err, "api.projectBook.loreFailed")
+		}
+		return
+	}
+	writeJSON(c, consts.StatusOK, h.withLorePortrait(scope.ProjectID, item))
+}
+
+func (h *Handlers) HandleLoreItemImageUpload(ctx context.Context, c *app.RequestContext) {
+	scope, ok := requireProjectScope(c)
+	if !ok {
+		return
+	}
+	fileHeader, err := c.FormFile("file")
+	if err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageUploadRequired")
+		return
+	}
+	if fileHeader.Size > imageasset.MaxLoreImageUploadBytes {
+		writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageTooLarge")
+		return
+	}
+	file, err := fileHeader.Open()
+	if err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageReadFailed", "detail", err.Error())
+		return
+	}
+	defer file.Close()
+	data, err := io.ReadAll(io.LimitReader(file, imageasset.MaxLoreImageUploadBytes+1))
+	if err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageReadFailed", "detail", err.Error())
+		return
+	}
+	if len(data) > imageasset.MaxLoreImageUploadBytes {
+		writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageTooLarge")
+		return
+	}
+	item, err := h.app.Lore().UploadItemImage(ctx, scope.ProjectID, c.Param("id"), fileHeader.Filename, data)
+	if err != nil {
+		switch {
+		case errors.Is(err, imageasset.ErrLoreImageUploadEmpty), errors.Is(err, imageasset.ErrLoreImageUploadInvalid):
+			writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageInvalid")
+			return
+		case errors.Is(err, imageasset.ErrLoreImageUploadTooLarge):
+			writeErrorKey(c, consts.StatusBadRequest, "api.lore.imageTooLarge")
+			return
+		}
+		writeProjectBookError(c, err, "api.projectBook.loreFailed")
+		return
+	}
+	writeJSON(c, consts.StatusOK, h.withLorePortrait(scope.ProjectID, item))
+}
+
+func (h *Handlers) HandleLoreItemImageDelete(ctx context.Context, c *app.RequestContext) {
+	scope, ok := requireProjectScope(c)
+	if !ok {
+		return
+	}
+	item, err := h.app.Lore().ClearItemImage(ctx, scope.ProjectID, c.Param("id"))
+	if err != nil {
+		writeProjectBookError(c, err, "api.projectBook.loreFailed")
+		return
+	}
+	writeJSON(c, consts.StatusOK, h.withLorePortrait(scope.ProjectID, item))
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "schema_version": 1,
+    "id": "quest.huangfeng_member_market_visit",
+    "version": "1.0",
+    "package_id": "fanren-jie",
+    "package_version": "30",
+    "kind": "errand",
+    "title": "到坊市走一趟",
+    "brief": "钟灵道向已正式入谷的弟子交代：方便时到越国公共坊市走一趟，熟悉日后往来的落脚处。这次只约定本人抵达，不要求买卖、递交物品或担保坊市平安。",
+    "giver": "leader_zhong_lingdao",
+    "requires_faction_membership": "yue.huangfeng",
+    "fresh_facts_only": true,
+    "objectives": [
+      {
+        "id": "quest.huangfeng_member_market_visit.visit",
+        "description": "接受约定后，本人实际抵达越国公共坊市。",
+        "evidence": [
+          {
+            "kind": "journey_arrival",
+            "ref_id": "yue.market"
+          }
+        ]
+      }
+    ],
+    "rewards": []
+  },
+  {
+    "schema_version": 1,
+    "id": "quest.canglang_member_ferry_visit",
+    "version": "1.0",
+    "package_id": "lanchuan-qunxia",
+    "package_version": "4",
+    "kind": "errand",
+    "title": "去鹤渡镇认一认路",
+    "brief": "葛长篙请正式入帮的成员从浮萍坞走一趟鹤渡镇，认清帮中往来的这一段路。这次只约定实际到镇上，不把到场算成巡查无事，也不要求替任何人作保。",
+    "giver": "lanchuan-p11",
+    "requires_faction_membership": "lanchuan-o17",
+    "fresh_facts_only": true,
+    "objectives": [
+      {
+        "id": "quest.canglang_member_ferry_visit.visit",
+        "description": "接受约定后，本人实际抵达鹤渡镇。",
+        "evidence": [
+          {
+            "kind": "journey_arrival",
+            "ref_id": "lanchuan-l06"
+          }
+        ]
+      }
+    ],
+    "rewards": []
+  },
+  {
+    "schema_version": 1,
+    "id": "quest.blackstar_member_office_visit",
+    "version": "1.0",
+    "package_id": "xinghai-689",
+    "package_version": "4",
+    "kind": "errand",
+    "title": "去佣兵办事处认个门",
+    "brief": "韩萧让已正式入团的成员从三号船坞去一趟朱伯利佣兵办事处，熟悉今后办事的地点。这次只约定本人抵达，不代表已提交文件、取得通行许可或接下新合同。",
+    "giver": "xinghai-p01",
+    "requires_faction_membership": "xinghai-o11",
+    "fresh_facts_only": true,
+    "objectives": [
+      {
+        "id": "quest.blackstar_member_office_visit.visit",
+        "description": "接受约定后，本人实际抵达星际佣兵联盟朱伯利办事处。",
+        "evidence": [
+          {
+            "kind": "journey_arrival",
+            "ref_id": "xinghai-l04"
+          }
+        ]
+      }
+    ],
+    "rewards": []
+  }
+]

@@ -1,0 +1,209 @@
+package handlers
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"log/slog"
+	"strings"
+
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
+
+	agentchat "ta/internal/agents/chat"
+	agentrun "ta/internal/agents/run"
+	"ta/internal/api/sse"
+	novaApp "ta/internal/app"
+	"ta/internal/interactive"
+)
+
+func (h *Handlers) HandleInteractiveChat(ctx context.Context, c *app.RequestContext) {
+	var body struct {
+		CommandID            string                          `json:"command_id"`
+		Mode                 string                          `json:"mode"`
+		StoryID              string                          `json:"story_id"`
+		Branch               string                          `json:"branch"`
+		Message              string                          `json:"message"`
+		StartOpening         bool                            `json:"start_opening,omitempty"`
+		ResumeInterruptionID string                          `json:"resume_interruption_id,omitempty"`
+		StyleScenes          []string                        `json:"style_scenes"`
+		RegenerateFromTurn   string                          `json:"regenerate_from_turn_id"`
+		Attachments          []novaApp.AgentAttachmentUpload `json:"attachments,omitempty"`
+		PlayerLetter         *interactive.PlayerLetterIntent `json:"player_letter,omitempty"`
+	}
+	if err := c.BindJSON(&body); err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.invalidRequestWithDetail", "detail", err.Error())
+		return
+	}
+	if !body.StartOpening && strings.TrimSpace(body.Message) == "" && len(body.Attachments) == 0 {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.messageRequired")
+		return
+	}
+	if strings.TrimSpace(body.StoryID) == "" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyIDRequired")
+		return
+	}
+	if body.Mode != "" && body.Mode != "story" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyModeOnly")
+		return
+	}
+	if strings.TrimSpace(body.CommandID) == "" {
+		writeAgentRuntimeError(c, consts.StatusBadRequest, "agent_runtime.invalid_command", "缺少 command_id，无法安全重试请求 / command_id is required for safe request retries", nil)
+		return
+	}
+	inputVisibility := agentrun.InputVisible
+	if body.StartOpening {
+		if strings.TrimSpace(body.Message) != "" || len(body.Attachments) > 0 || strings.TrimSpace(body.ResumeInterruptionID) != "" || strings.TrimSpace(body.RegenerateFromTurn) != "" {
+			writeError(c, consts.StatusBadRequest, "开局请求不能包含玩家输入或附件 / Story opening cannot include player input or attachments")
+			return
+		}
+		openingInstruction, err := h.app.InteractiveStoryOpeningInstruction(body.StoryID, body.Branch)
+		if err != nil {
+			writeError(c, consts.StatusConflict, err.Error())
+			return
+		}
+		body.Message = openingInstruction
+		inputVisibility = agentrun.InputModelOnly
+	}
+	if body.PlayerLetter != nil {
+		if body.StartOpening || body.ResumeInterruptionID != "" || body.RegenerateFromTurn != "" {
+			writeErrorKey(c, consts.StatusBadRequest, "api.interactive.invalidLetter")
+			return
+		}
+		if err := h.app.ValidateInteractivePlayerLetter(body.StoryID, body.Branch, body.PlayerLetter); err != nil {
+			switch {
+			case errors.Is(err, interactive.ErrPlayerLetterUnavailable):
+				writeErrorKey(c, consts.StatusBadRequest, "api.interactive.letterNotSupported")
+			case errors.Is(err, interactive.ErrPlayerLetterRecipientUnavailable):
+				writeErrorKey(c, consts.StatusBadRequest, "api.interactive.letterRecipientUnavailable")
+			default:
+				writeErrorKey(c, consts.StatusBadRequest, "api.interactive.invalidLetter")
+			}
+			return
+		}
+	}
+	chatRequest := novaApp.AgentChatRequest{CommandID: body.CommandID, Message: body.Message, AttachmentUploads: body.Attachments}
+	if err := h.app.MaterializeInteractiveAttachments(body.StoryID, body.CommandID, &chatRequest); err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.invalidRequestWithDetail", "detail", err.Error())
+		return
+	}
+
+	task, err := h.app.StartInteractiveTaskWithError(ctx, novaApp.InteractiveAgentStartRequest{
+		CommandID: body.CommandID, StoryID: body.StoryID, BranchID: body.Branch,
+		Message: body.Message, StyleScenes: body.StyleScenes,
+		PlayerLetter:         body.PlayerLetter,
+		ResumeInterruptionID: body.ResumeInterruptionID,
+		RegenerateFromTurnID: body.RegenerateFromTurn, Locale: requestLocale(c),
+		InputVisibility: inputVisibility,
+		AttachmentIDs:   chatRequest.AttachmentIDs, AttachedFiles: chatRequest.AttachedFiles,
+	})
+	if err != nil {
+		h.writeChatPreparationError(c, err)
+		return
+	}
+	sse.StreamTask(ctx, c, task)
+}
+
+func (h *Handlers) HandleInteractiveChatContextAnalysis(ctx context.Context, c *app.RequestContext) {
+	var body struct {
+		Mode        string   `json:"mode"`
+		StoryID     string   `json:"story_id"`
+		Branch      string   `json:"branch"`
+		Message     string   `json:"message"`
+		StyleScenes []string `json:"style_scenes"`
+	}
+	if err := c.BindJSON(&body); err != nil {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.invalidRequestWithDetail", "detail", err.Error())
+		return
+	}
+	if strings.TrimSpace(body.Message) == "" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.common.messageRequired")
+		return
+	}
+	if strings.TrimSpace(body.StoryID) == "" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyIDRequired")
+		return
+	}
+	if body.Mode != "" && body.Mode != "story" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyModeOnly")
+		return
+	}
+	analysis, err := h.app.AnalyzeInteractiveContext(body.StoryID, body.Branch, body.Message, body.StyleScenes, requestLocale(c))
+	if err != nil {
+		if !writeAgentHistoryError(c, err) {
+			writeError(c, consts.StatusConflict, err.Error())
+		}
+		return
+	}
+	writeJSON(c, consts.StatusOK, analysis)
+}
+
+// HandleInteractiveChatStream reconnects to the active game-mode turn and
+// replays its buffered SSE events before following live output.
+func (h *Handlers) HandleInteractiveChatStream(ctx context.Context, c *app.RequestContext) {
+	storyID := strings.TrimSpace(c.Query("story_id"))
+	branchID := strings.TrimSpace(c.Query("branch"))
+	taskID := strings.TrimSpace(c.Query("task_id"))
+	if storyID == "" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyIDRequired")
+		return
+	}
+	if taskID == "" {
+		writeError(c, consts.StatusBadRequest, "缺少 task_id，无法精确恢复 Agent 流 / task_id is required for exact Agent stream recovery")
+		return
+	}
+	task, info := h.app.ActiveInteractiveTaskFor(storyID, branchID)
+	if task == nil || info.TaskID != taskID {
+		writeAgentRuntimeError(c, consts.StatusConflict, "agent_runtime.rehydrate_required", "旧的任务流已失效，请从 active projection 重新挂接 / The old task stream is stale; rehydrate from the active projection", map[string]any{"task_id": taskID})
+		return
+	}
+	slog.InfoContext(ctx, fmt.Sprintf("[interactive-agent-sse] attach active task_id=%s command_id=%s story_id=%s branch_id=%s status=%s", task.ID(), info.CommandID, info.StoryID, info.BranchID, task.Status()))
+	sse.StreamTask(ctx, c, task)
+}
+
+// HandleInteractiveChatActive reports the active turn identity and original
+// player message so a refreshed stage can reconstruct its optimistic turn.
+func (h *Handlers) HandleInteractiveChatActive(ctx context.Context, c *app.RequestContext) {
+	storyID := strings.TrimSpace(c.Query("story_id"))
+	branchID := strings.TrimSpace(c.Query("branch"))
+	if storyID == "" {
+		writeErrorKey(c, consts.StatusBadRequest, "api.interactive.storyIDRequired")
+		return
+	}
+	view := h.app.InteractiveAgentActiveView(ctx, storyID, branchID)
+	var pendingAsk any
+	if len(view.Runtime.PendingInteractions) > 0 {
+		pendingAsk = agentchat.ProjectPendingInteraction(view.Runtime.PendingInteractions[0], view.Runtime)
+	}
+	if view.Task == nil {
+		response := map[string]any{"active": false, "pending_ask": pendingAsk}
+		if view.PendingInterruptionID != "" {
+			response["pending_interruption_id"] = view.PendingInterruptionID
+		}
+		addAgentRuntimeProjection(response, view.Runtime, agentRuntimeProjectionOptions{Available: view.RuntimeProjectionOK})
+		writeJSON(c, consts.StatusOK, response)
+		return
+	}
+	response := map[string]any{
+		"pending_ask":             pendingAsk,
+		"active":                  !view.Task.Finished,
+		"status":                  view.Task.Status,
+		"task_id":                 view.Info.TaskID,
+		"command_id":              view.Info.CommandID,
+		"stream_cursor":           view.Task.Cursor,
+		"story_id":                view.Info.StoryID,
+		"branch_id":               view.Info.BranchID,
+		"message":                 view.Info.Message,
+		"regenerate_from_turn_id": view.Info.RegenerateFromTurnID,
+	}
+	if view.PendingInterruptionID != "" {
+		response["pending_interruption_id"] = view.PendingInterruptionID
+	}
+	if len(view.Info.Attachments) > 0 {
+		response["attachments"] = view.Info.Attachments
+	}
+	addAgentRuntimeProjection(response, view.Runtime, agentRuntimeProjectionOptions{
+		Available: view.RuntimeProjectionOK, StreamAttached: true,
+	})
+	writeJSON(c, consts.StatusOK, response)
+}
